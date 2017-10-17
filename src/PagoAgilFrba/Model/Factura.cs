@@ -16,6 +16,7 @@ namespace PagoAgilFrba.Model
         public Cliente cliente { get; set; }
         public Rendicion rendicion { get; set; }
         public List<Item_Factura> items;
+        public string fechaCanonica { get; set; } //Tuve que hacer esto por un tema de formatos de las fechas
 
         public Factura(int _id, DateTime _fecha, double _total, DateTime _fecha_venc, Empresa _empresa, Cliente _cliente, Rendicion _rendicion)
         {
@@ -28,5 +29,6 @@ namespace PagoAgilFrba.Model
             this.rendicion = _rendicion;
             this.items = new List<Item_Factura>();
         }
+
     }
 }

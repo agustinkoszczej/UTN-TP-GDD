@@ -158,6 +158,7 @@
             this.cmdABMFactura.TabIndex = 13;
             this.cmdABMFactura.Text = "ABM Factura";
             this.cmdABMFactura.UseVisualStyleBackColor = true;
+            this.cmdABMFactura.Click += new System.EventHandler(this.cmdABMFactura_Click);
             // 
             // groupBoxABMs
             // 
