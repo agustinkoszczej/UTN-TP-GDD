@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Globalization;
 
 using PagoAgilFrba.Model;
 using PagoAgilFrba.DAOs;
@@ -19,7 +20,8 @@ namespace PagoAgilFrba.AbmFactura
         private double totalSS;
         private List<Empresa> empresas;
         private List<Item_Factura> items;
-        private List<Control> campos_obligatorios;
+        private List<Control> campos_obligatorios_ALTA;
+        private List<Control> campos_obligatorios_ITEM;
 
         public ABMFacturaForm()
         {
@@ -28,6 +30,9 @@ namespace PagoAgilFrba.AbmFactura
 
         private void ABMFacturaForm_Load(object sender, EventArgs e)
         {
+            this.campos_obligatorios_ALTA = new List<Control>() { txtCliente, txtFactura, txtCliente, cmbDia, cmbMes, cmbAnno };
+            this.campos_obligatorios_ITEM = new List<Control>() {txtCantidad, txtMonto};
+
             for (int i = 1; i <= 31; i++)
             {
                 string num = i.ToString();
@@ -48,7 +53,7 @@ namespace PagoAgilFrba.AbmFactura
                 cmbMes.Items.Add(num);
             }
 
-            for (int i = 2017; i >= 1900; i--)
+            for (int i = 2030; i >= 2000; i--)  //Uso estos años porque es fecha de vencimiento, no deberia ni siquiera ser menor a 2017
             {
                 cmbAnno.Items.Add(i.ToString());
             }
@@ -94,7 +99,7 @@ namespace PagoAgilFrba.AbmFactura
             double monto = 0;
             int cantidad = 0;
             bool error = false;
-            if (txtMonto.Text != "" && txtCantidad.Text != "")
+            if (Utilidades.Utils.cumple_campos_obligatorios(campos_obligatorios_ITEM, errorProvider))
             {
                 try
                 {
@@ -165,38 +170,51 @@ namespace PagoAgilFrba.AbmFactura
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            this.campos_obligatorios = new List<Control>() { txtCliente, txtFactura, txtCliente, cmbDia, cmbMes, cmbAnno};
-
-            if (Utilidades.Utils.cumple_campos_obligatorios(campos_obligatorios, errorProvider) && listEmpresas.SelectedItems.Count > 0)
+            if (Utilidades.Utils.cumple_campos_obligatorios(campos_obligatorios_ALTA, errorProvider) && listEmpresas.SelectedItems.Count > 0)
             {
                 lblMensaje.ForeColor = Color.Black;
                 lblMensaje.Visible = true;
                 lblMensaje.Text = "Espere por favor...";
 
-                Empresa empresaSelec = getEmpresaSeleccionada();
+                //Parseando la fecha: Formato MM/DD/YYYY
+                string fechaAParsear = cmbMes.SelectedItem.ToString() + "/" + cmbDia.SelectedItem.ToString() + "/" + cmbAnno.SelectedItem.ToString();
+                string format = "d";
+                CultureInfo provider = CultureInfo.InvariantCulture;
+                DateTime fecha = DateTime.ParseExact(fechaAParsear, format, provider);
 
-                if (empresaSelec == null)
+                if (fecha < DateTime.Now)
                 {
-                    MessageBox.Show("Error al seleccionar empresa");
+                    lblMensaje.ForeColor = Color.DarkRed;
+                    lblMensaje.Visible = true;
+                    lblMensaje.Text = "La fecha ingresada es anterior a la actual";
                 }
                 else
                 {
-                    int idCliente = int.Parse(txtCliente.Text);
-                    
-                    Factura nueva = new Factura(0,DateTime.Now,totalSS, DateTime.Now,empresaSelec, FacturaDAO.obtener_cliente_con_ID(idCliente),null);
-                    nueva.fechaCanonica = cmbAnno.SelectedItem.ToString() + cmbMes.SelectedItem.ToString() + cmbDia.SelectedItem.ToString();
-                    generarListaItems();
-                    
-                    
-                    if (FacturaDAO.ingresar_factura_e_items(nueva, this.items) == 0)
+                    Empresa empresaSelec = getEmpresaSeleccionada();
+
+                    if (empresaSelec == null)
                     {
-                                exito();
+                        MessageBox.Show("Error al seleccionar empresa");
                     }
                     else
                     {
-                        lblMensaje.ForeColor = Color.DarkRed;
-                        lblMensaje.Visible = true;
-                        lblMensaje.Text = "Error al cargar los datos";
+                        int idCliente = int.Parse(txtCliente.Text);
+
+                        Factura nueva = new Factura(0, DateTime.Now, totalSS, DateTime.Now, empresaSelec, FacturaDAO.obtener_cliente_con_ID(idCliente), null);
+                        nueva.fechaCanonica = cmbAnno.SelectedItem.ToString() + cmbMes.SelectedItem.ToString() + cmbDia.SelectedItem.ToString();
+                        generarListaItems();
+
+                        int value = FacturaDAO.ingresar_factura_e_items(nueva, this.items);
+                        if (value != 0)
+                        {
+                            exito(value);
+                        }
+                        else
+                        {
+                            lblMensaje.ForeColor = Color.DarkRed;
+                            lblMensaje.Visible = true;
+                            lblMensaje.Text = "Error al cargar los datos";
+                        }
                     }
                 }
             }
@@ -206,10 +224,9 @@ namespace PagoAgilFrba.AbmFactura
                 lblMensaje.Visible = true;
                 lblMensaje.Text = "Complete los Campos obligatorios";
             }
-
         }
 
-        private void exito()
+        private void exito(int idFactura)
         {
             txtCliente.Text = "";
             txtFactura.Text = "";
@@ -220,7 +237,7 @@ namespace PagoAgilFrba.AbmFactura
 
             lblMensaje.ForeColor = Color.Black;
             lblMensaje.Visible = true;
-            lblMensaje.Text = "Factura Ingresada";
+            lblMensaje.Text = "Factura Nº " + idFactura + " Ingresada";
 
             listDetalle.Clear();
             totalSS = 0;
@@ -251,6 +268,11 @@ namespace PagoAgilFrba.AbmFactura
                 }
             }
             return null;
+        }
+
+        private void panel4_Paint(object sender, PaintEventArgs e)
+        {
+
         }
 
     }

@@ -34,8 +34,8 @@ namespace PagoAgilFrba.DAOs
 
         public static int ingresar_factura_e_items(Factura factura, List<Item_Factura> items)
         {//TODO: HACER ESTO EN UN TRANSACCION
-            //0 = OK
-            //1 = ERROR
+            //0 = ERROR  
+            //ID = OK
             try
             {
                 var conn = DBConnection.getConnection();
@@ -61,12 +61,12 @@ namespace PagoAgilFrba.DAOs
                 }
 
                 conn.Close();
-                return 0;
+                return idFactura;
             }
             catch (Exception ex)
             {
                 //rollback
-                return 1;
+                return 0;
             }
         }
 
