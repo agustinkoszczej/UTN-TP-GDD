@@ -19,7 +19,6 @@ namespace PagoAgilFrba.AbmRol
         private List<Control> campos_obligatorios;
         private ABMRolForm rol_form;
         private string tipo_ingreso;
-        private List<Rol> roles;
         private Rol rol_modificar;
 
         public IngresoRolForm(ABMRolForm _rol_form, string _tipo_ingreso, Rol _rol_modificar)
@@ -29,7 +28,6 @@ namespace PagoAgilFrba.AbmRol
             this.rol_form = _rol_form;
             this.tipo_ingreso = _tipo_ingreso;
             this.rol_modificar = _rol_modificar;
-            this.roles = RolDAO.obtener_todos_roles();
             this.campos_obligatorios = new List<Control>() { txtNombreRol, chkLstFuncionalidades };
 
             groupBoxIngresoRoles.Text = tipo_ingreso;
@@ -133,6 +131,7 @@ namespace PagoAgilFrba.AbmRol
         }
         private bool validar_nombre()
         {
+            List <Rol> roles = RolDAO.obtener_todos_roles();
             if (roles.Any(rol => rol.nombre.ToUpper() == txtNombreRol.Text.ToUpper()))
             {
                 if ((rol_modificar == null)||(rol_modificar.nombre != txtNombreRol.Text))

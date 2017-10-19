@@ -30,10 +30,8 @@ namespace PagoAgilFrba.DAOs
             SqlDataAdapter dataAdapter;
 
             SqlConnection conn = DBConnection.getConnection();
-
             try
             {
-
                 dataAdapter = new SqlDataAdapter(consulta, conn);
                 dataTable = new DataTable();
 

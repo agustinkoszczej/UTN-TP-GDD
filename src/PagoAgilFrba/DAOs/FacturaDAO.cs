@@ -28,6 +28,8 @@ namespace PagoAgilFrba.DAOs
                 Empresa emp = new Empresa(int.Parse(reader.GetValue(0).ToString()), reader.GetValue(1).ToString(), reader.GetValue(2).ToString(), reader.GetValue(3).ToString(), true);
                 empresas.Add(emp);
             }
+            reader.Close();
+            reader.Dispose();
             conn.Close();
             return empresas;
         }
@@ -40,30 +42,41 @@ namespace PagoAgilFrba.DAOs
             {
                 var conn = DBConnection.getConnection();
                 SqlCommand comando = new SqlCommand("INSERT INTO LORDS_OF_THE_STRINGS_V2.Factura(Factura_fecha, Factura_total, Factura_fecha_venc, Factura_empresa, Factura_cliente, Factura_rendicion) values(" +
-                            "CAST(GETDATE() AS DATE)," + factura.total.ToString() + ",'" + factura.fechaCanonica + "'," + factura.empresa.id + "," + factura.cliente.id + ",NULL);", conn);
+                            "CAST(GETDATE() AS DATE),@factura_total,'@factura_fechac_canonica',@factura_empresa,@factura_cliente,NULL);", conn);
+        
+                comando.Parameters.AddWithValue("@factura_total", factura.total.ToString());
+                comando.Parameters.AddWithValue("@factura_fechac_canonica", factura.fechaCanonica);
+                comando.Parameters.AddWithValue("@factura_empresa", factura.empresa.id);
+                comando.Parameters.AddWithValue("@factura_cliente", factura.cliente.id);
+
                 comando.ExecuteNonQuery();
 
                 string query = string.Format(@"SELECT SCOPE_IDENTITY()");
 
-                //conn = DBConnection.getConnection();
                 comando = new SqlCommand(query, conn);
+
                 comando.CommandType = System.Data.CommandType.Text;
                 SqlDataReader reader = comando.ExecuteReader();
                 reader.Read();
                 int idFactura = int.Parse(reader.GetValue(0).ToString());
                 reader.Close();
+                reader.Dispose();
 
                 foreach (Item_Factura fi in items)
                 {
-                    comando = new SqlCommand("INSERT INTO LORDS_OF_THE_STRINGS_V2.Item_Factura(ItemFactura_factura, ItemFactura_cantidad, ItemFactura_monto) values(" +
-                             idFactura.ToString() + "," + fi.cantidad + "," + fi.monto + ");", conn);
+                    comando = new SqlCommand("INSERT INTO LORDS_OF_THE_STRINGS_V2.Item_Factura(ItemFactura_factura, ItemFactura_cantidad, ItemFactura_monto) values(@factura_id,@factura_cantidad,@factura_monto);", conn);
+
+                    comando.Parameters.AddWithValue("@factura_id", idFactura.ToString());
+                    comando.Parameters.AddWithValue("@factura_cantidad", fi.cantidad);
+                    comando.Parameters.AddWithValue("@factura_monto", fi.monto);
+
                     comando.ExecuteNonQuery();
                 }
 
                 conn.Close();
                 return idFactura;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //rollback
                 return 0;
@@ -73,14 +86,17 @@ namespace PagoAgilFrba.DAOs
         public static Cliente obtener_cliente_con_ID(int id_cliente)
         {
             List<Empresa> empresas = new List<Empresa>();
-            string query = string.Format(@"SELECT Cliente_codigo, Cliente_nombre, Cliente_apellido, Cliente_dni, Cliente_fecha_nac, Cliente_mail, Cliente_direccion, Cliente_codigo_postal, Cliente_telefono FROM LORDS_OF_THE_STRINGS_V2.Cliente WHERE Cliente_habilitado = 1 AND Cliente_codigo = " + id_cliente);
+            string query = string.Format(@"SELECT Cliente_codigo, Cliente_nombre, Cliente_apellido, Cliente_dni, Cliente_fecha_nac, Cliente_mail, Cliente_direccion, Cliente_codigo_postal, Cliente_telefono FROM LORDS_OF_THE_STRINGS_V2.Cliente WHERE Cliente_habilitado = 1 AND Cliente_codigo =@id_cliente");
             SqlConnection conn = DBConnection.getConnection();
             SqlCommand command = new SqlCommand(query, conn);
+            command.Parameters.AddWithValue("@id_cliente", id_cliente);
             command.CommandType = System.Data.CommandType.Text;
             SqlDataReader reader = command.ExecuteReader();
             Cliente cli;
             reader.Read();
             cli = new Cliente(int.Parse(reader.GetValue(0).ToString()), reader.GetValue(1).ToString(), reader.GetValue(2).ToString(), uint.Parse(reader.GetValue(3).ToString()), DateTime.Parse(reader.GetValue(4).ToString()),reader.GetValue(5).ToString(),reader.GetValue(6).ToString(), true);
+            reader.Close();
+            reader.Dispose();
             conn.Close();
             return cli;
         }

@@ -117,10 +117,5 @@ namespace PagoAgilFrba.AbmRol
         {
             iniciar_formulario();
         }
-
-        private void txtFiltrarNombre_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

@@ -105,7 +105,7 @@ namespace PagoAgilFrba.AbmFactura
                 {
                     monto = Convert.ToDouble(txtMonto.Text);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     MessageBox.Show("Error al convertir '" + txtMonto.Text + "'");
                     error = true;
@@ -116,7 +116,7 @@ namespace PagoAgilFrba.AbmFactura
                 {
                     cantidad = Convert.ToInt32(txtCantidad.Text);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     if (!error)
                     {
@@ -163,7 +163,7 @@ namespace PagoAgilFrba.AbmFactura
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error");
+                    MessageBox.Show(ex.Message, "Error");
                 }
             }
         }

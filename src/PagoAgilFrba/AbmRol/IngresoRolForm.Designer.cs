@@ -51,7 +51,7 @@
             this.groupBoxIngresoRoles.Controls.Add(this.lblNombreRol);
             this.groupBoxIngresoRoles.Location = new System.Drawing.Point(12, 9);
             this.groupBoxIngresoRoles.Name = "groupBoxIngresoRoles";
-            this.groupBoxIngresoRoles.Size = new System.Drawing.Size(382, 240);
+            this.groupBoxIngresoRoles.Size = new System.Drawing.Size(382, 286);
             this.groupBoxIngresoRoles.TabIndex = 5;
             this.groupBoxIngresoRoles.TabStop = false;
             // 
@@ -91,7 +91,7 @@
             this.chkLstFuncionalidades.FormattingEnabled = true;
             this.chkLstFuncionalidades.Location = new System.Drawing.Point(6, 79);
             this.chkLstFuncionalidades.Name = "chkLstFuncionalidades";
-            this.chkLstFuncionalidades.Size = new System.Drawing.Size(222, 154);
+            this.chkLstFuncionalidades.Size = new System.Drawing.Size(222, 199);
             this.chkLstFuncionalidades.TabIndex = 10;
             // 
             // txtNombreRol
@@ -119,7 +119,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(410, 262);
+            this.ClientSize = new System.Drawing.Size(410, 307);
             this.Controls.Add(this.groupBoxIngresoRoles);
             this.MaximizeBox = false;
             this.Name = "IngresoRolForm";

@@ -12,11 +12,12 @@ namespace PagoAgilFrba.Model
         public string nombre { get; set; }
         public bool habilitado { get; set; }
         public List<Funcionalidad> funcionalidades;
-        
-        public Rol(int _id, string _nombre)
+
+        public Rol(int _id, string _nombre, bool _habilitado)
         {
             this.id = _id;
             this.nombre = _nombre;
+            this.habilitado = _habilitado;
             this.funcionalidades = new List<Funcionalidad>();
         }
 
@@ -25,13 +26,6 @@ namespace PagoAgilFrba.Model
         {
             this.nombre = _nombre;
             this.funcionalidades = _funcionalidades;
-        }
-
-        public Rol(int _id, string _nombre, bool _habilitado)
-        {
-            this.id = _id;
-            this.nombre = _nombre;
-            this.habilitado = _habilitado;
         }
     }
 }

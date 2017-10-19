@@ -17,16 +17,21 @@ namespace PagoAgilFrba.DAOs
     {
         public static List<Funcionalidad> obtener_todas_funcionalidades()
         {
-            List<Funcionalidad> funcionalidades = new List<Funcionalidad>();
+                List<Funcionalidad> funcionalidades = new List<Funcionalidad>();
                 string query = string.Format(@"SELECT * FROM LORDS_OF_THE_STRINGS_V2.Funcionalidad");
                 SqlConnection conn = DBConnection.getConnection();
                 SqlCommand cmd = new SqlCommand(query, conn);
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    Funcionalidad func = new Funcionalidad(int.Parse(reader.GetValue(0).ToString()), reader.GetValue(1).ToString());
+                    int id = int.Parse(reader["Func_codigo"].ToString());
+                    string nombre = reader["Func_nombre"].ToString();
+
+                    Funcionalidad func = new Funcionalidad(id, nombre);
                     funcionalidades.Add(func);
                 }
+                reader.Close();
+                reader.Dispose();
                 conn.Close();
             return funcionalidades;         
         }
@@ -38,18 +43,24 @@ namespace PagoAgilFrba.DAOs
                 string query = string.Format(@"SELECT Func_codigo, Func_nombre FROM LORDS_OF_THE_STRINGS_V2.Funcionalidad
                                          JOIN LORDS_OF_THE_STRINGS_V2.Funcionalidad_Rol ON (Func_codigo = FuncRol_func) 
                                          JOIN LORDS_OF_THE_STRINGS_V2.Rol ON (Rol_codigo = FuncRol_rol)
-                                         WHERE Rol_codigo = '" + rol.id + "'");
+                                         WHERE Rol_codigo = @rol_id");
 
                 SqlConnection conn = DBConnection.getConnection();
                 SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@rol_id", rol.id);
+
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    Funcionalidad func = new Funcionalidad(int.Parse(reader.GetValue(0).ToString()), reader.GetValue(1).ToString());
+                    int id = int.Parse(reader["Func_codigo"].ToString());
+                    string nombre = reader["Func_nombre"].ToString();
+
+                    Funcionalidad func = new Funcionalidad(id, nombre);
                     rol.funcionalidades.Add(func);
                 }
+                reader.Close();
+                reader.Dispose();
                 conn.Close();
-
             }
             catch (Exception ex)
             {

@@ -8,7 +8,7 @@ namespace PagoAgilFrba.Model
 {
     public class Empresa
     {
-        public int id { get; private set; }
+        public int id { get; set; }
         public string cuit { get; set; }
         public string nombre { get; set; }
         public string direccion { get; set; }
@@ -23,6 +23,15 @@ namespace PagoAgilFrba.Model
             this.direccion = _direccion;
             this.habilitada = _habilitada;
             this.rubros = new List<Rubro>();
+        }
+
+        //Alta Empresa (altok perroh)
+        public Empresa(string _cuit, string _nombre, string _direccion, List <Rubro> _rubros)
+        {
+            this.cuit = _cuit;
+            this.nombre = _nombre;
+            this.direccion = _direccion;
+            this.rubros = _rubros;
         }
     }
 }

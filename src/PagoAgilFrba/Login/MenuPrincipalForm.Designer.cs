@@ -185,6 +185,7 @@
             this.cmdABMEmpresa.TabIndex = 11;
             this.cmdABMEmpresa.Text = "ABM Empresa";
             this.cmdABMEmpresa.UseVisualStyleBackColor = true;
+            this.cmdABMEmpresa.Click += new System.EventHandler(this.cmdABMEmpresa_Click);
             // 
             // cmdCerrar
             // 
