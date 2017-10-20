@@ -21,6 +21,7 @@ namespace PagoAgilFrba.AbmFactura
         private List<Empresa> empresas;
         private List<Item_Factura> items;
         private List<Factura> facturasBM;
+        private Factura selectedBM;
 
         private List<Control> campos_obligatorios_ALTA;
         private List<Control> campos_obligatorios_ITEM;
@@ -295,6 +296,7 @@ namespace PagoAgilFrba.AbmFactura
             //--------ACTUALIZO LA LISTA EN TAB BM
             inicializarListItems();
             cargarListFacturasBM();
+            cargarItemsConFSeleccionada();
         }
 
         private void generarListaItems()
@@ -335,14 +337,19 @@ namespace PagoAgilFrba.AbmFactura
                 inicializarListItems();
 
                 int fId = int.Parse(listFacturasBM.SelectedItems[0].SubItems[0].Text.ToString());
-                Factura f = obtenerFacturaDeListaSegunID(fId);
+                selectedBM = obtenerFacturaDeListaSegunID(fId);
 
-                if (f != null)
+                cargarItemsConFSeleccionada();
+            }
+        }
+
+        private void cargarItemsConFSeleccionada()
+        {
+            if (selectedBM != null)
+            {
+                foreach (Item_Factura it in selectedBM.items)
                 {
-                    foreach (Item_Factura it in f.items)
-                    {
-                        populateListItems(it.id.ToString(), it.monto.ToString(), it.cantidad.ToString());
-                    }
+                    populateListItems(it.id.ToString(), it.monto.ToString(), it.cantidad.ToString());
                 }
             }
         }
@@ -389,6 +396,20 @@ namespace PagoAgilFrba.AbmFactura
 
             ModificarFacturas form = new ModificarFacturas(f, this);
             form.Show();
+        }
+
+        private void btnBorrarItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnModificarItem_Click(object sender, EventArgs e)
+        {
+            if (selectedBM != null)
+            {
+                ModificarItems form = new ModificarItems(selectedBM);
+                form.Show();
+            }
         }
 
     }

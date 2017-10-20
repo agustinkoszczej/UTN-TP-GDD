@@ -69,6 +69,12 @@
     <Compile Include="AbmFactura\ABMFacturaForm.designer.cs">
       <DependentUpon>ABMFacturaForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmFactura\ModificarItems.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmFactura\ModificarItems.Designer.cs">
+      <DependentUpon>ModificarItems.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmFactura\ModificarFacturas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -154,6 +160,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmFactura\ABMFacturaForm.resx">
       <DependentUpon>ABMFacturaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmFactura\ModificarItems.resx">
+      <DependentUpon>ModificarItems.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmFactura\ModificarFacturas.resx">
       <DependentUpon>ModificarFacturas.cs</DependentUpon>

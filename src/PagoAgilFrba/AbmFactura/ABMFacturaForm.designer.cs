@@ -51,6 +51,7 @@
             this.listEmpresas = new System.Windows.Forms.ListView();
             this.lblEmpresa = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.vencimientoDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.lblFechaVencimiento = new System.Windows.Forms.Label();
             this.txtFactura = new System.Windows.Forms.TextBox();
             this.lblFactura = new System.Windows.Forms.Label();
@@ -58,17 +59,6 @@
             this.lblCliente = new System.Windows.Forms.Label();
             this.tabBM = new System.Windows.Forms.TabPage();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.panelModificarItem = new System.Windows.Forms.Panel();
-            this.btnSalirPanelItem = new System.Windows.Forms.Button();
-            this.btnGuardarItem = new System.Windows.Forms.Button();
-            this.txtItemCantidad = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.txtItemMonto = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtItemNro = new System.Windows.Forms.TextBox();
-            this.lblItemNro = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.btnBorrarItem = new System.Windows.Forms.Button();
             this.btnModificarItem = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.listItems = new System.Windows.Forms.ListView();
@@ -84,7 +74,6 @@
             this.listFacturasBM = new System.Windows.Forms.ListView();
             this.label1 = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.vencimientoDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.tabControl1.SuspendLayout();
             this.tabAlta.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -92,7 +81,6 @@
             this.panel1.SuspendLayout();
             this.tabBM.SuspendLayout();
             this.panel5.SuspendLayout();
-            this.panelModificarItem.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
@@ -316,6 +304,13 @@
             this.panel1.Size = new System.Drawing.Size(303, 184);
             this.panel1.TabIndex = 1;
             // 
+            // vencimientoDateTimePicker
+            // 
+            this.vencimientoDateTimePicker.Location = new System.Drawing.Point(6, 131);
+            this.vencimientoDateTimePicker.Name = "vencimientoDateTimePicker";
+            this.vencimientoDateTimePicker.Size = new System.Drawing.Size(276, 20);
+            this.vencimientoDateTimePicker.TabIndex = 9;
+            // 
             // lblFechaVencimiento
             // 
             this.lblFechaVencimiento.AutoSize = true;
@@ -371,8 +366,6 @@
             // 
             // panel5
             // 
-            this.panel5.Controls.Add(this.panelModificarItem);
-            this.panel5.Controls.Add(this.btnBorrarItem);
             this.panel5.Controls.Add(this.btnModificarItem);
             this.panel5.Controls.Add(this.label5);
             this.panel5.Controls.Add(this.listItems);
@@ -381,117 +374,15 @@
             this.panel5.Size = new System.Drawing.Size(267, 410);
             this.panel5.TabIndex = 1;
             // 
-            // panelModificarItem
-            // 
-            this.panelModificarItem.Controls.Add(this.btnSalirPanelItem);
-            this.panelModificarItem.Controls.Add(this.btnGuardarItem);
-            this.panelModificarItem.Controls.Add(this.txtItemCantidad);
-            this.panelModificarItem.Controls.Add(this.label8);
-            this.panelModificarItem.Controls.Add(this.txtItemMonto);
-            this.panelModificarItem.Controls.Add(this.label7);
-            this.panelModificarItem.Controls.Add(this.txtItemNro);
-            this.panelModificarItem.Controls.Add(this.lblItemNro);
-            this.panelModificarItem.Controls.Add(this.label6);
-            this.panelModificarItem.Location = new System.Drawing.Point(6, 11);
-            this.panelModificarItem.Name = "panelModificarItem";
-            this.panelModificarItem.Size = new System.Drawing.Size(258, 204);
-            this.panelModificarItem.TabIndex = 12;
-            this.panelModificarItem.Visible = false;
-            // 
-            // btnSalirPanelItem
-            // 
-            this.btnSalirPanelItem.Font = new System.Drawing.Font("Modern No. 20", 3.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSalirPanelItem.Location = new System.Drawing.Point(241, 4);
-            this.btnSalirPanelItem.Name = "btnSalirPanelItem";
-            this.btnSalirPanelItem.Size = new System.Drawing.Size(14, 22);
-            this.btnSalirPanelItem.TabIndex = 10;
-            this.btnSalirPanelItem.Text = "_";
-            this.btnSalirPanelItem.UseVisualStyleBackColor = true;
-            // 
-            // btnGuardarItem
-            // 
-            this.btnGuardarItem.Location = new System.Drawing.Point(170, 173);
-            this.btnGuardarItem.Name = "btnGuardarItem";
-            this.btnGuardarItem.Size = new System.Drawing.Size(75, 23);
-            this.btnGuardarItem.TabIndex = 9;
-            this.btnGuardarItem.Text = "Guardar";
-            this.btnGuardarItem.UseVisualStyleBackColor = true;
-            // 
-            // txtItemCantidad
-            // 
-            this.txtItemCantidad.Location = new System.Drawing.Point(13, 147);
-            this.txtItemCantidad.Name = "txtItemCantidad";
-            this.txtItemCantidad.Size = new System.Drawing.Size(232, 20);
-            this.txtItemCantidad.TabIndex = 6;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(10, 131);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(52, 13);
-            this.label8.TabIndex = 5;
-            this.label8.Text = "Cantidad:";
-            // 
-            // txtItemMonto
-            // 
-            this.txtItemMonto.Location = new System.Drawing.Point(13, 104);
-            this.txtItemMonto.Name = "txtItemMonto";
-            this.txtItemMonto.Size = new System.Drawing.Size(232, 20);
-            this.txtItemMonto.TabIndex = 4;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(10, 88);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(40, 13);
-            this.label7.TabIndex = 3;
-            this.label7.Text = "Monto:";
-            // 
-            // txtItemNro
-            // 
-            this.txtItemNro.Enabled = false;
-            this.txtItemNro.Location = new System.Drawing.Point(13, 62);
-            this.txtItemNro.Name = "txtItemNro";
-            this.txtItemNro.Size = new System.Drawing.Size(232, 20);
-            this.txtItemNro.TabIndex = 2;
-            // 
-            // lblItemNro
-            // 
-            this.lblItemNro.AutoSize = true;
-            this.lblItemNro.Location = new System.Drawing.Point(10, 46);
-            this.lblItemNro.Name = "lblItemNro";
-            this.lblItemNro.Size = new System.Drawing.Size(70, 13);
-            this.lblItemNro.TabIndex = 1;
-            this.lblItemNro.Text = "Item Numero:";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 13);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(76, 13);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "Modificar Item ";
-            // 
-            // btnBorrarItem
-            // 
-            this.btnBorrarItem.Location = new System.Drawing.Point(6, 380);
-            this.btnBorrarItem.Name = "btnBorrarItem";
-            this.btnBorrarItem.Size = new System.Drawing.Size(75, 23);
-            this.btnBorrarItem.TabIndex = 11;
-            this.btnBorrarItem.Text = "Borrar";
-            this.btnBorrarItem.UseVisualStyleBackColor = true;
-            // 
             // btnModificarItem
             // 
-            this.btnModificarItem.Location = new System.Drawing.Point(189, 380);
+            this.btnModificarItem.Location = new System.Drawing.Point(169, 380);
             this.btnModificarItem.Name = "btnModificarItem";
-            this.btnModificarItem.Size = new System.Drawing.Size(75, 23);
+            this.btnModificarItem.Size = new System.Drawing.Size(95, 23);
             this.btnModificarItem.TabIndex = 10;
-            this.btnModificarItem.Text = "Modificar";
+            this.btnModificarItem.Text = "Modificar Items";
             this.btnModificarItem.UseVisualStyleBackColor = true;
+            this.btnModificarItem.Click += new System.EventHandler(this.btnModificarItem_Click);
             // 
             // label5
             // 
@@ -620,13 +511,6 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
-            // vencimientoDateTimePicker
-            // 
-            this.vencimientoDateTimePicker.Location = new System.Drawing.Point(6, 131);
-            this.vencimientoDateTimePicker.Name = "vencimientoDateTimePicker";
-            this.vencimientoDateTimePicker.Size = new System.Drawing.Size(276, 20);
-            this.vencimientoDateTimePicker.TabIndex = 9;
-            // 
             // ABMFacturaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -647,8 +531,6 @@
             this.tabBM.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
-            this.panelModificarItem.ResumeLayout(false);
-            this.panelModificarItem.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
@@ -698,21 +580,10 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ListView listFacturasBM;
-        private System.Windows.Forms.Button btnBorrarItem;
         private System.Windows.Forms.Button btnModificarItem;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnBorrarFactura;
         private System.Windows.Forms.Button btnModificarFactura;
-        private System.Windows.Forms.Panel panelModificarItem;
-        private System.Windows.Forms.Button btnSalirPanelItem;
-        private System.Windows.Forms.Button btnGuardarItem;
-        private System.Windows.Forms.TextBox txtItemCantidad;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox txtItemMonto;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtItemNro;
-        private System.Windows.Forms.Label lblItemNro;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.DateTimePicker vencimientoDateTimePicker;
     }
 }
