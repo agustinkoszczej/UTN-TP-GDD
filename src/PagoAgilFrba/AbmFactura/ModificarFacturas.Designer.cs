@@ -1,6 +1,6 @@
 ﻿namespace PagoAgilFrba.AbmFactura
 {
-    partial class Form1
+    partial class ModificarFacturas
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panelModificarFactura = new System.Windows.Forms.Panel();
+            this.listEmpresas = new System.Windows.Forms.ListView();
+            this.btnSeleccionarEmpresa = new System.Windows.Forms.Button();
             this.txtFacturaCliente = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.txtFacturaEmpresa = new System.Windows.Forms.TextBox();
@@ -36,21 +39,25 @@
             this.txtFacturaTotal = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
-            this.txtFacturaVencimiento = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.txtFacturaAlta = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtFacturaNro = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.btnSeleccionarEmpresa = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.altaDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.vencimientoDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.btnCancelar = new System.Windows.Forms.Button();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.panelModificarFactura.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // panelModificarFactura
             // 
-            this.panelModificarFactura.Controls.Add(this.listView1);
+            this.panelModificarFactura.Controls.Add(this.btnCancelar);
+            this.panelModificarFactura.Controls.Add(this.vencimientoDateTimePicker);
+            this.panelModificarFactura.Controls.Add(this.altaDateTimePicker);
+            this.panelModificarFactura.Controls.Add(this.listEmpresas);
             this.panelModificarFactura.Controls.Add(this.btnSeleccionarEmpresa);
             this.panelModificarFactura.Controls.Add(this.txtFacturaCliente);
             this.panelModificarFactura.Controls.Add(this.label15);
@@ -59,9 +66,7 @@
             this.panelModificarFactura.Controls.Add(this.txtFacturaTotal);
             this.panelModificarFactura.Controls.Add(this.label13);
             this.panelModificarFactura.Controls.Add(this.button2);
-            this.panelModificarFactura.Controls.Add(this.txtFacturaVencimiento);
             this.panelModificarFactura.Controls.Add(this.label9);
-            this.panelModificarFactura.Controls.Add(this.txtFacturaAlta);
             this.panelModificarFactura.Controls.Add(this.label10);
             this.panelModificarFactura.Controls.Add(this.txtFacturaNro);
             this.panelModificarFactura.Controls.Add(this.label11);
@@ -70,7 +75,24 @@
             this.panelModificarFactura.Name = "panelModificarFactura";
             this.panelModificarFactura.Size = new System.Drawing.Size(621, 309);
             this.panelModificarFactura.TabIndex = 14;
-            this.panelModificarFactura.Visible = false;
+            // 
+            // listEmpresas
+            // 
+            this.listEmpresas.Location = new System.Drawing.Point(311, 62);
+            this.listEmpresas.Name = "listEmpresas";
+            this.listEmpresas.Size = new System.Drawing.Size(307, 207);
+            this.listEmpresas.TabIndex = 18;
+            this.listEmpresas.UseCompatibleStateImageBehavior = false;
+            // 
+            // btnSeleccionarEmpresa
+            // 
+            this.btnSeleccionarEmpresa.Location = new System.Drawing.Point(219, 232);
+            this.btnSeleccionarEmpresa.Name = "btnSeleccionarEmpresa";
+            this.btnSeleccionarEmpresa.Size = new System.Drawing.Size(75, 23);
+            this.btnSeleccionarEmpresa.TabIndex = 17;
+            this.btnSeleccionarEmpresa.Text = "Seleccionar";
+            this.btnSeleccionarEmpresa.UseVisualStyleBackColor = true;
+            this.btnSeleccionarEmpresa.Click += new System.EventHandler(this.btnSeleccionarEmpresa_Click);
             // 
             // txtFacturaCliente
             // 
@@ -90,6 +112,7 @@
             // 
             // txtFacturaEmpresa
             // 
+            this.txtFacturaEmpresa.Enabled = false;
             this.txtFacturaEmpresa.Location = new System.Drawing.Point(13, 235);
             this.txtFacturaEmpresa.Name = "txtFacturaEmpresa";
             this.txtFacturaEmpresa.Size = new System.Drawing.Size(200, 20);
@@ -129,13 +152,7 @@
             this.button2.TabIndex = 9;
             this.button2.Text = "Guardar";
             this.button2.UseVisualStyleBackColor = true;
-            // 
-            // txtFacturaVencimiento
-            // 
-            this.txtFacturaVencimiento.Location = new System.Drawing.Point(13, 147);
-            this.txtFacturaVencimiento.Name = "txtFacturaVencimiento";
-            this.txtFacturaVencimiento.Size = new System.Drawing.Size(281, 20);
-            this.txtFacturaVencimiento.TabIndex = 6;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label9
             // 
@@ -145,13 +162,6 @@
             this.label9.Size = new System.Drawing.Size(113, 13);
             this.label9.TabIndex = 5;
             this.label9.Text = "Fecha de Vencimiento";
-            // 
-            // txtFacturaAlta
-            // 
-            this.txtFacturaAlta.Location = new System.Drawing.Point(13, 104);
-            this.txtFacturaAlta.Name = "txtFacturaAlta";
-            this.txtFacturaAlta.Size = new System.Drawing.Size(281, 20);
-            this.txtFacturaAlta.TabIndex = 4;
             // 
             // label10
             // 
@@ -188,33 +198,46 @@
             this.label12.TabIndex = 0;
             this.label12.Text = "Modificar Factura";
             // 
-            // btnSeleccionarEmpresa
+            // altaDateTimePicker
             // 
-            this.btnSeleccionarEmpresa.Location = new System.Drawing.Point(219, 232);
-            this.btnSeleccionarEmpresa.Name = "btnSeleccionarEmpresa";
-            this.btnSeleccionarEmpresa.Size = new System.Drawing.Size(75, 23);
-            this.btnSeleccionarEmpresa.TabIndex = 17;
-            this.btnSeleccionarEmpresa.Text = "Seleccionar";
-            this.btnSeleccionarEmpresa.UseVisualStyleBackColor = true;
+            this.altaDateTimePicker.Location = new System.Drawing.Point(12, 104);
+            this.altaDateTimePicker.Name = "altaDateTimePicker";
+            this.altaDateTimePicker.Size = new System.Drawing.Size(281, 20);
+            this.altaDateTimePicker.TabIndex = 19;
             // 
-            // listView1
+            // vencimientoDateTimePicker
             // 
-            this.listView1.Location = new System.Drawing.Point(311, 62);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(307, 207);
-            this.listView1.TabIndex = 18;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.vencimientoDateTimePicker.Location = new System.Drawing.Point(12, 147);
+            this.vencimientoDateTimePicker.Name = "vencimientoDateTimePicker";
+            this.vencimientoDateTimePicker.Size = new System.Drawing.Size(281, 20);
+            this.vencimientoDateTimePicker.TabIndex = 19;
             // 
-            // Form1
+            // btnCancelar
+            // 
+            this.btnCancelar.Location = new System.Drawing.Point(462, 275);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelar.TabIndex = 20;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
+            // 
+            // ModificarFacturas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(645, 329);
             this.Controls.Add(this.panelModificarFactura);
-            this.Name = "Form1";
+            this.Name = "ModificarFacturas";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.ModificarFacturas_Load);
             this.panelModificarFactura.ResumeLayout(false);
             this.panelModificarFactura.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -222,7 +245,7 @@
         #endregion
 
         private System.Windows.Forms.Panel panelModificarFactura;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listEmpresas;
         private System.Windows.Forms.Button btnSeleccionarEmpresa;
         private System.Windows.Forms.TextBox txtFacturaCliente;
         private System.Windows.Forms.Label label15;
@@ -231,12 +254,14 @@
         private System.Windows.Forms.TextBox txtFacturaTotal;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox txtFacturaVencimiento;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox txtFacturaAlta;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtFacturaNro;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.DateTimePicker vencimientoDateTimePicker;
+        private System.Windows.Forms.DateTimePicker altaDateTimePicker;
+        private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }

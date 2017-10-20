@@ -51,12 +51,6 @@
             this.listEmpresas = new System.Windows.Forms.ListView();
             this.lblEmpresa = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.lblAnno = new System.Windows.Forms.Label();
-            this.lblMes = new System.Windows.Forms.Label();
-            this.lblDia = new System.Windows.Forms.Label();
-            this.cmbDia = new System.Windows.Forms.ComboBox();
-            this.cmbMes = new System.Windows.Forms.ComboBox();
-            this.cmbAnno = new System.Windows.Forms.ComboBox();
             this.lblFechaVencimiento = new System.Windows.Forms.Label();
             this.txtFactura = new System.Windows.Forms.TextBox();
             this.lblFactura = new System.Windows.Forms.Label();
@@ -90,6 +84,7 @@
             this.listFacturasBM = new System.Windows.Forms.ListView();
             this.label1 = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.vencimientoDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.tabControl1.SuspendLayout();
             this.tabAlta.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -310,12 +305,7 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.lblAnno);
-            this.panel1.Controls.Add(this.lblMes);
-            this.panel1.Controls.Add(this.lblDia);
-            this.panel1.Controls.Add(this.cmbDia);
-            this.panel1.Controls.Add(this.cmbMes);
-            this.panel1.Controls.Add(this.cmbAnno);
+            this.panel1.Controls.Add(this.vencimientoDateTimePicker);
             this.panel1.Controls.Add(this.lblFechaVencimiento);
             this.panel1.Controls.Add(this.txtFactura);
             this.panel1.Controls.Add(this.lblFactura);
@@ -325,61 +315,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(303, 184);
             this.panel1.TabIndex = 1;
-            // 
-            // lblAnno
-            // 
-            this.lblAnno.AutoSize = true;
-            this.lblAnno.Location = new System.Drawing.Point(203, 132);
-            this.lblAnno.Name = "lblAnno";
-            this.lblAnno.Size = new System.Drawing.Size(39, 13);
-            this.lblAnno.TabIndex = 8;
-            this.lblAnno.Text = "(*) Año";
-            // 
-            // lblMes
-            // 
-            this.lblMes.AutoSize = true;
-            this.lblMes.Location = new System.Drawing.Point(93, 132);
-            this.lblMes.Name = "lblMes";
-            this.lblMes.Size = new System.Drawing.Size(40, 13);
-            this.lblMes.TabIndex = 8;
-            this.lblMes.Text = "(*) Mes";
-            // 
-            // lblDia
-            // 
-            this.lblDia.AutoSize = true;
-            this.lblDia.Location = new System.Drawing.Point(9, 132);
-            this.lblDia.Name = "lblDia";
-            this.lblDia.Size = new System.Drawing.Size(36, 13);
-            this.lblDia.TabIndex = 7;
-            this.lblDia.Text = "(*) Dia";
-            // 
-            // cmbDia
-            // 
-            this.cmbDia.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbDia.FormattingEnabled = true;
-            this.cmbDia.Location = new System.Drawing.Point(12, 148);
-            this.cmbDia.Name = "cmbDia";
-            this.cmbDia.Size = new System.Drawing.Size(78, 21);
-            this.cmbDia.TabIndex = 6;
-            // 
-            // cmbMes
-            // 
-            this.cmbMes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbMes.FormattingEnabled = true;
-            this.cmbMes.Location = new System.Drawing.Point(96, 148);
-            this.cmbMes.Name = "cmbMes";
-            this.cmbMes.Size = new System.Drawing.Size(104, 21);
-            this.cmbMes.TabIndex = 6;
-            // 
-            // cmbAnno
-            // 
-            this.cmbAnno.BackColor = System.Drawing.Color.White;
-            this.cmbAnno.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAnno.FormattingEnabled = true;
-            this.cmbAnno.Location = new System.Drawing.Point(206, 148);
-            this.cmbAnno.Name = "cmbAnno";
-            this.cmbAnno.Size = new System.Drawing.Size(76, 21);
-            this.cmbAnno.TabIndex = 6;
             // 
             // lblFechaVencimiento
             // 
@@ -611,6 +546,7 @@
             this.btnModificarFactura.TabIndex = 8;
             this.btnModificarFactura.Text = "Modificar";
             this.btnModificarFactura.UseVisualStyleBackColor = true;
+            this.btnModificarFactura.Click += new System.EventHandler(this.btnModificarFactura_Click);
             // 
             // btnFiltrar
             // 
@@ -684,6 +620,13 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // vencimientoDateTimePicker
+            // 
+            this.vencimientoDateTimePicker.Location = new System.Drawing.Point(6, 131);
+            this.vencimientoDateTimePicker.Name = "vencimientoDateTimePicker";
+            this.vencimientoDateTimePicker.Size = new System.Drawing.Size(276, 20);
+            this.vencimientoDateTimePicker.TabIndex = 9;
+            // 
             // ABMFacturaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -737,12 +680,6 @@
         private System.Windows.Forms.ListView listEmpresas;
         private System.Windows.Forms.Label lblEmpresa;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label lblAnno;
-        private System.Windows.Forms.Label lblMes;
-        private System.Windows.Forms.Label lblDia;
-        private System.Windows.Forms.ComboBox cmbDia;
-        private System.Windows.Forms.ComboBox cmbMes;
-        private System.Windows.Forms.ComboBox cmbAnno;
         private System.Windows.Forms.Label lblFechaVencimiento;
         private System.Windows.Forms.TextBox txtFactura;
         private System.Windows.Forms.Label lblFactura;
@@ -761,6 +698,11 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ListView listFacturasBM;
+        private System.Windows.Forms.Button btnBorrarItem;
+        private System.Windows.Forms.Button btnModificarItem;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btnBorrarFactura;
+        private System.Windows.Forms.Button btnModificarFactura;
         private System.Windows.Forms.Panel panelModificarItem;
         private System.Windows.Forms.Button btnSalirPanelItem;
         private System.Windows.Forms.Button btnGuardarItem;
@@ -771,10 +713,6 @@
         private System.Windows.Forms.TextBox txtItemNro;
         private System.Windows.Forms.Label lblItemNro;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button btnBorrarItem;
-        private System.Windows.Forms.Button btnModificarItem;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button btnBorrarFactura;
-        private System.Windows.Forms.Button btnModificarFactura;
+        private System.Windows.Forms.DateTimePicker vencimientoDateTimePicker;
     }
 }

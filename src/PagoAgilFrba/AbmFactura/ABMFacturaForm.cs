@@ -32,33 +32,8 @@ namespace PagoAgilFrba.AbmFactura
 
         private void ABMFacturaForm_Load(object sender, EventArgs e)
         {
-            this.campos_obligatorios_ALTA = new List<Control>() { txtCliente, txtFactura, txtCliente, cmbDia, cmbMes, cmbAnno };
+            this.campos_obligatorios_ALTA = new List<Control>() { txtCliente, txtFactura, txtCliente, vencimientoDateTimePicker };
             this.campos_obligatorios_ITEM = new List<Control>() {txtCantidad, txtMonto};
-
-            for (int i = 1; i <= 31; i++)
-            {
-                string num = i.ToString();
-                if (i < 10)
-                {
-                    num = "0" + num;
-                }
-                cmbDia.Items.Add(num);
-            }
-
-            for (int i = 1; i <= 12; i++)
-            {
-                string num = i.ToString();
-                if (i < 10)
-                {
-                    num = "0" + num;
-                }
-                cmbMes.Items.Add(num);
-            }
-
-            for (int i = 2030; i >= 2000; i--)  //Uso estos años porque es fecha de vencimiento, no deberia ni siquiera ser menor a 2017
-            {
-                cmbAnno.Items.Add(i.ToString());
-            }
 
             listEmpresas.Items.Clear();
 
@@ -246,11 +221,12 @@ namespace PagoAgilFrba.AbmFactura
                 lblMensaje.Visible = true;
                 lblMensaje.Text = "Espere por favor...";
 
-                //Parseando la fecha: Formato MM/DD/YYYY
-                string fechaAParsear = cmbMes.SelectedItem.ToString() + "/" + cmbDia.SelectedItem.ToString() + "/" + cmbAnno.SelectedItem.ToString();
-                string format = "d";
-                CultureInfo provider = CultureInfo.InvariantCulture;
-                DateTime fecha = DateTime.ParseExact(fechaAParsear, format, provider);
+                ////Parseando la fecha: Formato MM/DD/YYYY
+                //string fechaAParsear = cmbMes.SelectedItem.ToString() + "/" + cmbDia.SelectedItem.ToString() + "/" + cmbAnno.SelectedItem.ToString();
+                //string format = "d";
+                //CultureInfo provider = CultureInfo.InvariantCulture;
+                //DateTime fecha = DateTime.ParseExact(fechaAParsear, format, provider);
+                DateTime fecha = vencimientoDateTimePicker.Value;
 
                 if (fecha < DateTime.Now)
                 {
@@ -270,13 +246,14 @@ namespace PagoAgilFrba.AbmFactura
                     {
                         int idCliente = int.Parse(txtCliente.Text);
 
-                        Factura nueva = new Factura(0, DateTime.Now, totalSS, DateTime.Now, empresaSelec, FacturaDAO.obtener_cliente_con_ID(idCliente), null);
+                        Factura nueva = new Factura(0, DateTime.Now, totalSS, fecha, empresaSelec, FacturaDAO.obtener_cliente_con_ID(idCliente), null);
                         generarListaItems();
 
                         int value = FacturaDAO.ingresar_factura_e_items(nueva, this.items);
                         if (value != 0)
                         {
                             exito(value);
+                            
                         }
                         else
                         {
@@ -299,9 +276,7 @@ namespace PagoAgilFrba.AbmFactura
         {
             txtCliente.Text = "";
             txtFactura.Text = "";
-            cmbAnno.SelectedItem = null;
-            cmbDia.SelectedItem = null;
-            cmbMes.SelectedItem = null;
+            vencimientoDateTimePicker.Value = DateTime.Now;
             listEmpresas.SelectedItems.Clear();
 
             lblMensaje.ForeColor = Color.Black;
@@ -311,6 +286,15 @@ namespace PagoAgilFrba.AbmFactura
             listDetalle.Clear();
             totalSS = 0;
             lblTotal.Text = "$0";
+
+            actualizarTabBM();
+        }
+
+        public void actualizarTabBM()
+        {
+            //--------ACTUALIZO LA LISTA EN TAB BM
+            inicializarListItems();
+            cargarListFacturasBM();
         }
 
         private void generarListaItems()
@@ -396,6 +380,15 @@ namespace PagoAgilFrba.AbmFactura
         private void btnVerItems_Click(object sender, EventArgs e)
         {
            
+        }
+
+        private void btnModificarFactura_Click(object sender, EventArgs e)
+        {
+            int fId = int.Parse(listFacturasBM.SelectedItems[0].SubItems[0].Text.ToString());
+            Factura f = obtenerFacturaDeListaSegunID(fId);
+
+            ModificarFacturas form = new ModificarFacturas(f, this);
+            form.Show();
         }
 
     }

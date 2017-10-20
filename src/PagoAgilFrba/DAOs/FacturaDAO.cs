@@ -87,14 +87,32 @@ namespace PagoAgilFrba.DAOs
         public static Cliente obtener_cliente_con_ID(int id_cliente)
         {
             List<Empresa> empresas = new List<Empresa>();
-            string query = string.Format(@"SELECT Cliente_codigo, Cliente_nombre, Cliente_apellido, Cliente_dni, Cliente_fecha_nac, Cliente_mail, Cliente_direccion, Cliente_codigo_postal, Cliente_telefono FROM LORDS_OF_THE_STRINGS_V2.Cliente WHERE Cliente_habilitado = 1 AND Cliente_codigo = " + id_cliente);
+            string query = string.Format(@"SELECT Cliente_codigo, Cliente_nombre, Cliente_apellido, Cliente_dni, Cliente_fecha_nac, Cliente_mail, Cliente_direccion, Cliente_codigo_postal, Cliente_telefono FROM LORDS_OF_THE_STRINGS_V2.Cliente WHERE Cliente_habilitado = 1 AND Cliente_codigo = @idCliente");
             SqlConnection conn = DBConnection.getConnection();
             SqlCommand command = new SqlCommand(query, conn);
+
+            command.Parameters.Add("@idCliente", SqlDbType.Int);
+            command.Parameters["@idCliente"].Value = id_cliente;
+
             command.CommandType = System.Data.CommandType.Text;
             SqlDataReader reader = command.ExecuteReader();
             Cliente cli;
-            reader.Read();
-            cli = new Cliente(int.Parse(reader.GetValue(0).ToString()), reader.GetValue(1).ToString(), reader.GetValue(2).ToString(), uint.Parse(reader.GetValue(3).ToString()), DateTime.Parse(reader.GetValue(4).ToString()), reader.GetValue(5).ToString(), reader.GetValue(6).ToString(), true);
+            try
+            {
+                reader.Read();
+                cli = new Cliente(
+                    int.Parse(reader.GetValue(0).ToString()),
+                    reader.GetValue(1).ToString(),
+                    reader.GetValue(2).ToString(),
+                    uint.Parse(reader.GetValue(3).ToString()),
+                    DateTime.Parse(reader.GetValue(4).ToString()),
+                    reader.GetValue(5).ToString(),
+                    reader.GetValue(6).ToString(), true);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
             conn.Close();
             return cli;
         }
@@ -110,9 +128,9 @@ namespace PagoAgilFrba.DAOs
 
             List<Factura> facturas = new List<Factura>();
             string query;
-            query = string.Format(@"select Factura_codigo, Factura_fecha, Factura_total, Factura_fecha_venc, Factura_empresa, Factura_cliente  
-            from LORDS_OF_THE_STRINGS_V2.Factura F 
-            where F.Factura_codigo NOT IN (select Pago_factura from LORDS_OF_THE_STRINGS_V2.Pago)");
+            query = string.Format(@"SELECT Factura_codigo, YEAR(Factura_fecha),MONTH(Factura_fecha),DAY(Factura_fecha), Factura_total, YEAR(Factura_fecha_venc),MONTH(Factura_fecha_venc),DAY(Factura_fecha_venc), Factura_empresa, Factura_cliente  
+            FROM LORDS_OF_THE_STRINGS_V2.Factura F 
+            WHERE F.Factura_codigo NOT IN (select Pago_factura from LORDS_OF_THE_STRINGS_V2.Pago)");
           
             SqlConnection conn = DBConnection.getConnection();
             SqlCommand command = new SqlCommand(query, conn);
@@ -120,7 +138,14 @@ namespace PagoAgilFrba.DAOs
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                Factura f = new Factura(int.Parse(reader.GetValue(0).ToString()), parseDate("dd-MM-yyyy s:HH:mm", reader.GetValue(1).ToString()), double.Parse(reader.GetValue(2).ToString()), parseDate("dd-MM-yyyy H:mm:ss", reader.GetValue(3).ToString()), filtrarEmpresaConID(empresas, int.Parse(reader.GetValue(4).ToString())), obtener_cliente_con_ID(int.Parse(reader.GetValue(5).ToString())), null);
+                Factura f = new Factura(
+                                            int.Parse(reader.GetValue(0).ToString()),
+                                            crearDateTime(int.Parse(reader.GetValue(1).ToString()), int.Parse(reader.GetValue(2).ToString()), int.Parse(reader.GetValue(3).ToString())), 
+                                            double.Parse(reader.GetValue(4).ToString()),
+                                            crearDateTime(int.Parse(reader.GetValue(5).ToString()), int.Parse(reader.GetValue(6).ToString()), int.Parse(reader.GetValue(7).ToString())), 
+                                            filtrarEmpresaConID(empresas, int.Parse(reader.GetValue(8).ToString())), 
+                                            obtener_cliente_con_ID(int.Parse(reader.GetValue(9).ToString())), 
+                                            null);
                 facturas.Add(f);
             }
             conn.Close();
@@ -168,6 +193,12 @@ namespace PagoAgilFrba.DAOs
                 return DateTime.Now; //Tratando de parsear las fechas
             }
         }
+
+        private static DateTime crearDateTime(int anno, int mes, int dia)
+        {
+            return new DateTime(anno, mes, dia);
+        }
+
         private static Empresa filtrarEmpresaConID(List<Empresa> lista, int idEmp)
         {
             foreach (Empresa emp in lista)
@@ -203,6 +234,48 @@ namespace PagoAgilFrba.DAOs
                 comando.Parameters["@IDF"].Value = factura.id;
                 comando.ExecuteNonQuery();
 
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
+        public static int modificarFactura(Factura modificada)
+        {
+            try
+            {
+                SqlConnection conn = DBConnection.getConnection();
+                SqlCommand comando = new SqlCommand("UPDATE LORDS_OF_THE_STRINGS_V2.Factura SET Factura_fecha = @nvaFecha, Factura_total = @nvoTotal, Factura_fecha_venc = @nvoVenc, Factura_empresa = @nvaEmpresa, Factura_cliente = @nvoCliente, Factura_rendicion = @nvaRendicion WHERE Factura_codigo = @IDF", conn);
+
+                comando.Parameters.AddWithValue("@nvaFecha", Utilidades.Utils.fechaACanonica(modificada.fecha));
+
+                comando.Parameters.Add("@nvoTotal", SqlDbType.Float);
+                comando.Parameters["@nvoTotal"].Value = modificada.total;
+
+                comando.Parameters.AddWithValue("@nvoVenc", Utilidades.Utils.fechaACanonica(modificada.fecha_venc));
+
+                comando.Parameters.Add("@nvaEmpresa", SqlDbType.Int);
+                comando.Parameters["@nvaEmpresa"].Value = modificada.empresa.id;
+
+                comando.Parameters.Add("@nvoCliente", SqlDbType.Int);
+                comando.Parameters["@nvoCliente"].Value = modificada.cliente.id;
+
+                if (modificada.rendicion != null)
+                {
+                    comando.Parameters.Add("@nvaRendicion", SqlDbType.Int);
+                    comando.Parameters["@nvaRendicion"].Value = modificada.rendicion.id;
+                }
+                else
+                {
+                    comando.Parameters.Add("@nvaRendicion", SqlDbType.Int);
+                    comando.Parameters["@nvaRendicion"].Value = DBNull.Value;
+                }
+
+                comando.Parameters.Add("@IDF", SqlDbType.Int);
+                comando.Parameters["@IDF"].Value = modificada.id;
+                comando.ExecuteNonQuery();
                 return 1;
             }
             catch (Exception ex)
