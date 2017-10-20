@@ -20,6 +20,8 @@ namespace PagoAgilFrba.AbmFactura
         private double totalSS;
         private List<Empresa> empresas;
         private List<Item_Factura> items;
+        private List<Factura> facturasBM;
+
         private List<Control> campos_obligatorios_ALTA;
         private List<Control> campos_obligatorios_ITEM;
 
@@ -71,7 +73,7 @@ namespace PagoAgilFrba.AbmFactura
             listEmpresas.AllowColumnReorder = false;
             listEmpresas.GridLines = true;
 
-            empresas = FacturaDAO.obtener_empresas_habilitadas();
+            empresas = FacturaDAO.obtener_empresas(1);
 
             for (int i = 1; i <= empresas.Count; i++)
             {
@@ -91,6 +93,62 @@ namespace PagoAgilFrba.AbmFactura
             listDetalle.LabelEdit = true;
             listDetalle.AllowColumnReorder = false;
             listDetalle.GridLines = true;
+
+            //--------TAB BM
+
+            inicializarListItems();
+            
+            cargarListFacturasBM();
+           
+        }
+
+        private void inicializarListFacturasBM()
+        {
+            listFacturasBM.Items.Clear();
+            listFacturasBM.Columns.Clear();
+
+
+            listFacturasBM.Columns.Add("Nº", 40);
+            listFacturasBM.Columns.Add("Fecha Alta", 100);
+            listFacturasBM.Columns.Add("Total", 100);
+            listFacturasBM.Columns.Add("Fecha Vencimiento", 100);
+            listFacturasBM.Columns.Add("Empresa", 100);
+            listFacturasBM.Columns.Add("Nº Cliente", 50);
+
+            listFacturasBM.View = View.Details;
+            listFacturasBM.FullRowSelect = true;
+            listFacturasBM.LabelEdit = false;
+            listFacturasBM.AllowColumnReorder = false;
+            listFacturasBM.GridLines = true;
+        }
+
+        private void cargarListFacturasBM()
+        {
+
+            inicializarListFacturasBM();
+            
+            facturasBM = FacturaDAO.obtener_facturas_no_pagas();
+
+            foreach (Factura f in facturasBM)
+            {
+                populateListFacturasBM(f.id.ToString(), f.fecha.ToShortDateString(), f.total.ToString(), f.fecha_venc.ToShortDateString(), f.empresa.nombre.ToString(), f.cliente.id.ToString());
+            }
+        }
+
+        private void inicializarListItems(){
+            listItems.Items.Clear();
+            listItems.Columns.Clear();
+
+            listItems.Columns.Add("Item Nº", 60);
+            listItems.Columns.Add("Factura Nº", 100);
+            listItems.Columns.Add("Cantidad", 100);
+            listItems.Columns.Add("Monto", 100);
+
+            listItems.View = View.Details;
+            listItems.FullRowSelect = true;
+            listItems.LabelEdit = false;
+            listItems.AllowColumnReorder = false;
+            listItems.GridLines = true;
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -137,6 +195,12 @@ namespace PagoAgilFrba.AbmFactura
             }       
         }
 
+        private void populateListFacturasBM(string idFactura, string fechaAlta, string total, string fechaVenc, string nombreEmpresa, string idCliente)
+        {
+            String[] row = { idFactura, fechaAlta, total, fechaVenc, nombreEmpresa, idCliente };
+            listFacturasBM.Items.Add(new ListViewItem(row));
+        }
+
         private void populateListEmpresas(string pos, string nombre, string direcc, string cuit)
         {
             String[] row = { pos, nombre, direcc, cuit };
@@ -147,6 +211,12 @@ namespace PagoAgilFrba.AbmFactura
         {
             String[] row = { item, monto, cantidad };
             listDetalle.Items.Add(new ListViewItem(row));
+        }
+
+        private void populateListItems(string id, string monto, string cantidad)
+        {
+            String[] row = { id, monto, cantidad };
+            listItems.Items.Add(new ListViewItem(row));
         }
 
         private void btnBorrar_Click(object sender, EventArgs e)
@@ -201,7 +271,6 @@ namespace PagoAgilFrba.AbmFactura
                         int idCliente = int.Parse(txtCliente.Text);
 
                         Factura nueva = new Factura(0, DateTime.Now, totalSS, DateTime.Now, empresaSelec, FacturaDAO.obtener_cliente_con_ID(idCliente), null);
-                        nueva.fechaCanonica = cmbAnno.SelectedItem.ToString() + cmbMes.SelectedItem.ToString() + cmbDia.SelectedItem.ToString();
                         generarListaItems();
 
                         int value = FacturaDAO.ingresar_factura_e_items(nueva, this.items);
@@ -273,6 +342,60 @@ namespace PagoAgilFrba.AbmFactura
         private void panel4_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void listFacturasBM_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listFacturasBM.SelectedItems.Count > 0)
+            {
+                inicializarListItems();
+
+                int fId = int.Parse(listFacturasBM.SelectedItems[0].SubItems[0].Text.ToString());
+                Factura f = obtenerFacturaDeListaSegunID(fId);
+
+                if (f != null)
+                {
+                    foreach (Item_Factura it in f.items)
+                    {
+                        populateListItems(it.id.ToString(), it.monto.ToString(), it.cantidad.ToString());
+                    }
+                }
+            }
+        }
+
+        private Factura obtenerFacturaDeListaSegunID(int idF)
+        {
+            foreach (Factura fact in facturasBM)
+            {
+                if (fact.id == idF)
+                {
+                    return fact;
+                }
+            }
+            return null;
+        }
+
+        private void btnBorrarFactura_Click(object sender, EventArgs e)
+        {
+            int fId = int.Parse(listFacturasBM.SelectedItems[0].SubItems[0].Text.ToString());
+            Factura f = obtenerFacturaDeListaSegunID(fId);
+
+
+
+            if (FacturaDAO.borrar_factura_e_items(f) != 0)
+            {
+                cargarListFacturasBM();
+                inicializarListItems();
+            }
+            else
+            {
+                MessageBox.Show("Error al borrar " + fId);
+            }
+        }
+
+        private void btnVerItems_Click(object sender, EventArgs e)
+        {
+           
         }
 
     }

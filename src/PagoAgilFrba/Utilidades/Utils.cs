@@ -174,5 +174,23 @@ namespace PagoAgilFrba.Utilidades
        {
            grilla.Rows.OfType<DataGridViewRow>().Where(x => Convert.ToInt32(x.Cells["Código"].Value) == id).ToArray<DataGridViewRow>()[0].Selected = true;
        }
+
+       public static string fechaACanonica(DateTime fecha)
+       {
+           int day = fecha.Day;
+           int month = fecha.Month;
+           int year = fecha.Year;
+
+           string sDay;
+           string sMonth;
+
+           if (day < 10) sDay = "0" + day.ToString();
+           else sDay = day.ToString();
+
+           if (month < 10) sMonth = "0" + month.ToString();
+           else sMonth = month.ToString();
+
+           return year.ToString() + sMonth + sDay;
+       }
     }
 }
