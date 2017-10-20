@@ -17,19 +17,22 @@ namespace PagoAgilFrba.AbmFactura
     {
         private Factura factura;
         private double total;
+        private List<Item_Factura> borrados;
+        ABMFacturaForm backForm;
         
-        public ModificarItems(Factura f)
+        public ModificarItems(Factura f, ABMFacturaForm back)
         {
             InitializeComponent();
             factura = f;
             txtFacturaNumero.Text = f.id.ToString();
             this.Text = "Items de Factura Nº " + f.id.ToString();
             actualizarListItems();
+            backForm = back;
         }
 
         private void ModificarItems_Load(object sender, EventArgs e)
         {
-
+            borrados = new List<Item_Factura>();
         }
 
         private void listItems_SelectedIndexChanged(object sender, EventArgs e)
@@ -62,7 +65,12 @@ namespace PagoAgilFrba.AbmFactura
                 foreach (Item_Factura it in factura.items)
                 {
                     total = total + (it.monto * it.cantidad);
-                    populateListItems(it.id.ToString(), it.monto.ToString(), it.cantidad.ToString(), factura.id.ToString());
+
+                    string identif;
+                    if (it.nuevo) identif = "Nuevo";
+                    else identif = it.id.ToString();
+
+                    populateListItems(identif, it.monto.ToString(), it.cantidad.ToString(), factura.id.ToString());
                 }
             }
             lblTotal.Text = "$" + total.ToString();
@@ -101,13 +109,16 @@ namespace PagoAgilFrba.AbmFactura
 
         private void btnGuardarItem_Click(object sender, EventArgs e)
         {
-            Item_Factura modificado = new Item_Factura(
-                int.Parse(txtItemNro.Text.ToString()), 
-                double.Parse(txtItemMonto.Text.ToString()),
-                int.Parse(txtItemCantidad.Text.ToString()),
-                factura);
-            modificarItemLocal(modificado);
-            actualizarListItems();
+            if (txtFacturaNumero.Text != "" && txtItemNro.Text != "" && txtItemCantidad.Text != "" && txtItemMonto.Text != "")
+            {
+                Item_Factura modificado = new Item_Factura(
+                    int.Parse(txtItemNro.Text.ToString()),
+                    double.Parse(txtItemMonto.Text.ToString()),
+                    int.Parse(txtItemCantidad.Text.ToString()),
+                    factura);
+                modificarItemLocal(modificado);
+                actualizarListItems();
+            }
         }
 
         private void modificarItemLocal(Item_Factura modificado)
@@ -124,15 +135,19 @@ namespace PagoAgilFrba.AbmFactura
 
         private void btnGenerarItem_Click(object sender, EventArgs e)
         {
+            if (txtNuevoCantidad.Text != "" && txtNuevoMonto.Text != "")
+            {
                 Item_Factura nuevo = new Item_Factura(
                     obtenerIDNuevo(),
                     double.Parse(txtNuevoMonto.Text.ToString()),
-                    int.Parse(txtNuevoCantidad.Text.ToString()), 
+                    int.Parse(txtNuevoCantidad.Text.ToString()),
                     factura);
+                nuevo.nuevo = true;
                 factura.items.Add(nuevo);
                 actualizarListItems();
                 txtNuevoMonto.Text = "";
                 txtNuevoCantidad.Text = "";
+            }
         }
 
         private int obtenerIDNuevo() {
@@ -145,12 +160,11 @@ namespace PagoAgilFrba.AbmFactura
 
         private bool idYaExiste(int idNvo)
         {
-            bool ret = false;
             foreach (Item_Factura it in factura.items)
             {
-                if (it.id == idNvo) ret = true;
+                if (it.id == idNvo) return true;
             }
-            return ret;
+            return false;
         }
 
         private void btnBorrar_Click(object sender, EventArgs e)
@@ -165,6 +179,7 @@ namespace PagoAgilFrba.AbmFactura
             foreach (Item_Factura it in factura.items) {
                 if (it.id == idItem)
                 {
+                    borrados.Add(it);
                     factura.items.Remove(it);
                     break;
                 }
@@ -175,6 +190,20 @@ namespace PagoAgilFrba.AbmFactura
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnActualizar_Click(object sender, EventArgs e)
+        {
+            if (FacturaDAO.modificarItems(factura.id, factura.items, borrados, total) != 0)
+            {
+                backForm.actualizarTabBM();
+                this.Close();
+                MessageBox.Show("Factura Nº " + factura.id + " actualizada");
+            }
+            else
+            {
+                MessageBox.Show("Error al actualizar Factura Nº " + factura.id);
+            }
         }
     }
 }

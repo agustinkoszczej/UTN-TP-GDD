@@ -276,6 +276,69 @@ namespace PagoAgilFrba.DAOs
                 comando.Parameters.Add("@IDF", SqlDbType.Int);
                 comando.Parameters["@IDF"].Value = modificada.id;
                 comando.ExecuteNonQuery();
+                conn.Close();
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
+        public static int modificarItems(int idFactura, List<Item_Factura> modificadosYNuevos, List<Item_Factura> borrados, double total){
+            try
+            {
+                SqlConnection conn = DBConnection.getConnection();
+                SqlCommand comando;
+
+                
+                foreach (Item_Factura it in modificadosYNuevos)
+                {
+
+                    //TODO: HACER ESTO EN TRANSACCION
+                    if (it.nuevo) //INSERT A LOS NUEVOS
+                    {
+                        comando = new SqlCommand("INSERT INTO LORDS_OF_THE_STRINGS_V2.Item_Factura(ItemFactura_factura, ItemFactura_cantidad, ItemFactura_monto) VALUES(@nvaFactura, @nvaCantidad, @nvoMonto)", conn);
+
+                    }
+                    else  //UPDATE A LOS MODIFICADOS
+                    {
+                        comando = new SqlCommand("UPDATE LORDS_OF_THE_STRINGS_V2.Item_Factura SET ItemFactura_factura = @nvaFactura, ItemFactura_cantidad = @nvaCantidad, ItemFactura_monto = @nvoMonto WHERE ItemFactura_codigo = @IDIF", conn);
+
+                        comando.Parameters.Add("@IDIF", SqlDbType.Int);
+                        comando.Parameters["@IDIF"].Value = it.id;         
+                    }
+                    comando.Parameters.Add("@nvaFactura", SqlDbType.Int);
+                    comando.Parameters["@nvaFactura"].Value = it.factura.id;
+
+                    comando.Parameters.Add("@nvaCantidad", SqlDbType.Int);
+                    comando.Parameters["@nvaCantidad"].Value = it.cantidad;
+
+                    comando.Parameters.Add("@nvoMonto", SqlDbType.Float);
+                    comando.Parameters["@nvoMonto"].Value = it.monto;
+
+                    comando.ExecuteNonQuery();
+                }
+
+                //DELETE A LOS BORRADOS
+                foreach (Item_Factura it in borrados)
+                {
+                    comando = new SqlCommand("DELETE FROM LORDS_OF_THE_STRINGS_V2.Item_Factura WHERE ItemFactura_codigo = @IDIF", conn);
+                    comando.Parameters.Add("@IDIF", SqlDbType.Int);
+                    comando.Parameters["@IDIF"].Value = it.id;
+                    comando.ExecuteNonQuery();
+                }
+
+                //UPDATE AL TOTAL
+                comando = new SqlCommand("UPDATE LORDS_OF_THE_STRINGS_V2.Factura SET Factura_total = @nvoTotal WHERE Factura_codigo = @IDF", conn);
+
+                comando.Parameters.Add("@nvoTotal", SqlDbType.Float);
+                comando.Parameters["@nvoTotal"].Value = total;
+
+                comando.Parameters.Add("@IDF", SqlDbType.Int);
+                comando.Parameters["@IDF"].Value = idFactura;
+                comando.ExecuteNonQuery();
+                conn.Close();
                 return 1;
             }
             catch (Exception ex)

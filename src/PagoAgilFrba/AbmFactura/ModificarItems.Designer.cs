@@ -98,7 +98,7 @@
             this.btnGuardarItem.Name = "btnGuardarItem";
             this.btnGuardarItem.Size = new System.Drawing.Size(75, 23);
             this.btnGuardarItem.TabIndex = 9;
-            this.btnGuardarItem.Text = "Guardar";
+            this.btnGuardarItem.Text = "Modificar";
             this.btnGuardarItem.UseVisualStyleBackColor = true;
             this.btnGuardarItem.Click += new System.EventHandler(this.btnGuardarItem_Click);
             // 
@@ -241,6 +241,7 @@
             this.btnActualizar.TabIndex = 12;
             this.btnActualizar.Text = "Actualizar";
             this.btnActualizar.UseVisualStyleBackColor = true;
+            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             // 
             // btnGenerarItem
             // 

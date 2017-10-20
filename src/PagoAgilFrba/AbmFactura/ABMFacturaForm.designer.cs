@@ -518,7 +518,7 @@
             this.ClientSize = new System.Drawing.Size(716, 463);
             this.Controls.Add(this.tabControl1);
             this.Name = "ABMFacturaForm";
-            this.Text = "Form1";
+            this.Text = "Facturas";
             this.Load += new System.EventHandler(this.ABMFacturaForm_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabAlta.ResumeLayout(false);

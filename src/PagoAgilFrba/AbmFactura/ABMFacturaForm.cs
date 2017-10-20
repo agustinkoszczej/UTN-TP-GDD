@@ -407,7 +407,7 @@ namespace PagoAgilFrba.AbmFactura
         {
             if (selectedBM != null)
             {
-                ModificarItems form = new ModificarItems(selectedBM);
+                ModificarItems form = new ModificarItems(selectedBM, this);
                 form.Show();
             }
         }

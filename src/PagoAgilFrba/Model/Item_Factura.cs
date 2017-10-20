@@ -12,6 +12,7 @@ namespace PagoAgilFrba.Model
         public double monto { get; set; }
         public int cantidad { get; set; }
         public Factura factura { get; set; }
+        public bool nuevo { get; set; }
 
         public Item_Factura(int _id, double _monto, int  _cantidad, Factura _factura)
         {
@@ -19,6 +20,8 @@ namespace PagoAgilFrba.Model
             this.monto = _monto;
             this.cantidad = _cantidad;
             this.factura = _factura;
+            this.nuevo = false;
+
         }
     }
 }
