@@ -179,7 +179,7 @@ namespace PagoAgilFrba.AbmFactura
             foreach (Item_Factura it in factura.items) {
                 if (it.id == idItem)
                 {
-                    borrados.Add(it);
+                    if (!it.nuevo) borrados.Add(it);
                     factura.items.Remove(it);
                     break;
                 }
