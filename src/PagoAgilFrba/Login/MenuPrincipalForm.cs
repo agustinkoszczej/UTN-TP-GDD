@@ -115,5 +115,11 @@ namespace PagoAgilFrba
             ABMEmpresaForm frm = new ABMEmpresaForm();
             frm.Show();
         }
+
+        private void cmdABMCliente_Click(object sender, EventArgs e)
+        {
+            ABMClientes frm = new ABMClientes();
+            frm.Show();
+        }
     }
 }

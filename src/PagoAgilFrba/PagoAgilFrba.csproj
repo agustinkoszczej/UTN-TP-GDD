@@ -48,7 +48,7 @@
     <Compile Include="AbmCliente\ABMClientes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmCliente\ABMClientes.Designer.cs">
+    <Compile Include="AbmCliente\ABMClientes.designer.cs">
       <DependentUpon>ABMClientes.cs</DependentUpon>
     </Compile>
     <Compile Include="AbmEmpresa\ABMEmpresaForm.cs">
@@ -99,6 +99,7 @@
     <Compile Include="AbmSucursal\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="DAOs\ClienteDAO.cs" />
     <Compile Include="DAOs\SucursalDAO.cs" />
     <Compile Include="DAOs\RubroDAO.cs" />
     <Compile Include="DAOs\EmpresaDAO.cs" />

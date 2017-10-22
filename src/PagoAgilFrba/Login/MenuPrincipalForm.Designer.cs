@@ -136,6 +136,7 @@
             this.cmdABMCliente.TabIndex = 15;
             this.cmdABMCliente.Text = "ABM Cliente";
             this.cmdABMCliente.UseVisualStyleBackColor = true;
+            this.cmdABMCliente.Click += new System.EventHandler(this.cmdABMCliente_Click);
             // 
             // cmdABMSucursal
             // 

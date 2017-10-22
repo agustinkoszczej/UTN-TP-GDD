@@ -67,6 +67,7 @@
             this.txtFiltroNombre = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnSinFiltros = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridClientes)).BeginInit();
             this.panel4.SuspendLayout();
@@ -95,6 +96,7 @@
             this.btnModificar.TabIndex = 16;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // btnHabilitar
             // 
@@ -118,9 +120,15 @@
             // 
             this.dataGridClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridClientes.Location = new System.Drawing.Point(16, 16);
+            this.dataGridClientes.MultiSelect = false;
             this.dataGridClientes.Name = "dataGridClientes";
+            this.dataGridClientes.ReadOnly = true;
+            this.dataGridClientes.RowTemplate.ReadOnly = true;
+            this.dataGridClientes.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridClientes.Size = new System.Drawing.Size(650, 280);
             this.dataGridClientes.TabIndex = 0;
+            this.dataGridClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridClientes_CellClick);
             // 
             // panel4
             // 
@@ -340,6 +348,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnSinFiltros);
             this.panel1.Controls.Add(this.btnFiltrar);
             this.panel1.Controls.Add(this.chkHabilitado);
             this.panel1.Controls.Add(this.txtFiltroDNI);
@@ -353,19 +362,23 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(788, 146);
             this.panel1.TabIndex = 13;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // btnFiltrar
             // 
-            this.btnFiltrar.Location = new System.Drawing.Point(672, 112);
+            this.btnFiltrar.Location = new System.Drawing.Point(672, 91);
             this.btnFiltrar.Name = "btnFiltrar";
             this.btnFiltrar.Size = new System.Drawing.Size(104, 23);
             this.btnFiltrar.TabIndex = 17;
-            this.btnFiltrar.Text = "Buscar";
+            this.btnFiltrar.Text = "Filtrar";
             this.btnFiltrar.UseVisualStyleBackColor = true;
+            this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
             // 
             // chkHabilitado
             // 
             this.chkHabilitado.AutoSize = true;
+            this.chkHabilitado.Checked = true;
+            this.chkHabilitado.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkHabilitado.Location = new System.Drawing.Point(637, 10);
             this.chkHabilitado.Name = "chkHabilitado";
             this.chkHabilitado.Size = new System.Drawing.Size(139, 17);
@@ -432,6 +445,16 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Filtros de Busqueda";
             // 
+            // btnSinFiltros
+            // 
+            this.btnSinFiltros.Location = new System.Drawing.Point(672, 53);
+            this.btnSinFiltros.Name = "btnSinFiltros";
+            this.btnSinFiltros.Size = new System.Drawing.Size(104, 23);
+            this.btnSinFiltros.TabIndex = 18;
+            this.btnSinFiltros.Text = "Borrar Filtros";
+            this.btnSinFiltros.UseVisualStyleBackColor = true;
+            this.btnSinFiltros.Click += new System.EventHandler(this.btnSinFiltros_Click);
+            // 
             // ABMClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -445,6 +468,7 @@
             this.Controls.Add(this.panel2);
             this.Name = "ABMClientes";
             this.Text = "ABM Clientes";
+            this.Load += new System.EventHandler(this.ABMClientes_Load);
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridClientes)).EndInit();
             this.panel4.ResumeLayout(false);
@@ -502,5 +526,6 @@
         private System.Windows.Forms.TextBox txtFiltroNombre;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnSinFiltros;
     }
 }
