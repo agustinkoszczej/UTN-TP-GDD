@@ -75,7 +75,7 @@ namespace PagoAgilFrba.Login
                 cboRoles.Visible = true;
                 cmdSeleccionarRol.Visible = true;
                 lblUsername.Text = "Seleccione un Rol";
-                RolDAO.cargar_roles_asignados_usuario(usuario);
+                UsuarioDAO.cargar_roles_asignados_usuario(usuario);
                 foreach (Rol rol in usuario.roles)
                 {
                     //cboRoles.Items.Add(new ComboBoxItem(rol.nombre, rol));

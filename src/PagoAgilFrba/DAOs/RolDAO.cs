@@ -22,39 +22,7 @@ namespace PagoAgilFrba.DAOs
             SqlConnection conn = DBConnection.getConnection();
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@nombre", _nombre);
-            return cmd.ExecuteScalar() == null;
-        }
-
-        public static void cargar_roles_asignados_usuario(Usuario usuario)
-        {
-            try
-            {
-                string query = string.Format(@"SELECT Rol_codigo, Rol_nombre FROM LORDS_OF_THE_STRINGS_V2.Rol
-                                         JOIN LORDS_OF_THE_STRINGS_V2.Rol_Usuario ON (Rol_codigo = RolUsua_rol) 
-                                         JOIN LORDS_OF_THE_STRINGS_V2.Usuario ON (Usuario_codigo = RolUsua_usuario)
-                                         WHERE Usuario_username = @username AND Rol_habilitado = 1");
-
-                SqlConnection conn = DBConnection.getConnection();
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@username", usuario.username);
-
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    int id = int.Parse(reader["Rol_codigo"].ToString());
-                    string nombre = reader["Rol_nombre"].ToString();
-
-                    Rol rol = new Rol(id, nombre, true);
-                    usuario.roles.Add(rol);
-                }
-                reader.Close();
-                reader.Dispose();
-                conn.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error al cargar Roles asignados", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            return (cmd.ExecuteScalar() == null);
         }
 
         public static void cargar_grilla_roles(DataGridView grillaRoles, bool habilitado)

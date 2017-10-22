@@ -30,5 +30,28 @@ namespace PagoAgilFrba.DAOs
             conn.Close();
             return (int) ret.Value;
         }
+
+        public static void cargar_roles_asignados_usuario(Usuario usuario)
+        {
+            string query = string.Format(@"SELECT * FROM LORDS_OF_THE_STRINGS_V2.fn_get_roles_usuario(@username)");
+
+            SqlConnection conn = DBConnection.getConnection();
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@username", usuario.username);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                int id = int.Parse(reader["Rol_codigo"].ToString());
+                string nombre = reader["Rol_nombre"].ToString();
+                bool habilitado = Convert.ToBoolean(reader["Rol_habilitado"]);
+
+                Rol rol = new Rol(id, nombre, habilitado);
+                usuario.roles.Add(rol);
+            }
+            reader.Close();
+            reader.Dispose();
+            conn.Close();
+        }
     }
 }
