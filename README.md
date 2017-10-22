@@ -29,8 +29,6 @@ de dicha situación.
 | -------- | -------- | -------- | -------- | -------- |
 | 156.102-9 | Koszczej | Agustín | K3521 | [agustinkoszczej](https://github.com/agustinkoszczej) |
 | 156.101-7 | Manchione | Bruno | K3573 | [BrunoManchione](https://github.com/BrunoManchione) |
-| -- | -- | -- | -- | [--](https://github.com/) |
-| -- | -- | -- | -- | [--](https://github.com/) |
 
 ## **Componentes del Sistema:**
 * [Aplicación Desktop](https://github.com/agustinkoszczej/UTN-TP-GDD/tree/master/Aplicacion%20Desktop/PagoAgilFrba)
