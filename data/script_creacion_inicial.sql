@@ -550,16 +550,17 @@ GO
 -----------------------------------CREACIÓN DE FUNCTIONS--------------------------------------------
 
 ----------------------------------------------------------------------------------------------------
-
-IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].Login_Function_Is_Blocked_User ') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[Login_Function_Is_Blocked_User];
+-- LOGIN
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_is_blocked_user ') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_is_blocked_user];
 GO
-
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_get_roles_usuario') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_get_roles_usuario]; 
+GO
 -------------------------------------------------------------------------------------------------
-
+-- LOGIN
 -------------------------------------------------------------------------------------------------
--- FUNCTION LOGIN_FUNCTION_IS_BLOCKED_USER
+-- FUNCTION FN_IS_BLOCKED_USER
 -------------------------------------------------------------------------------------------------
-CREATE FUNCTION [LORDS_OF_THE_STRINGS_V2].Login_Function_Is_Blocked_User(@username nvarchar(50))
+CREATE FUNCTION [LORDS_OF_THE_STRINGS_V2].fn_is_blocked_user(@username nvarchar(50))
 RETURNS bit
 AS
  BEGIN
@@ -568,18 +569,36 @@ AS
 	RETURN 0
  END	
 GO
+-------------------------------------------------------------------------------------------------
+-- LOGIN
+-------------------------------------------------------------------------------------------------
+-- FUNCTION FN_GET_ROLES_USUARIO
+-------------------------------------------------------------------------------------------------
+CREATE FUNCTION [LORDS_OF_THE_STRINGS_V2].fn_get_roles_usuario(@username nvarchar(50))
+RETURNS table
+AS
+	 RETURN (SELECT Rol_codigo, Rol_nombre, Rol_habilitado FROM [LORDS_OF_THE_STRINGS_V2].Rol
+             JOIN [LORDS_OF_THE_STRINGS_V2].Rol_Usuario ON (Rol_codigo = RolUsua_rol) 
+             JOIN [LORDS_OF_THE_STRINGS_V2].Usuario ON (Usuario_codigo = RolUsua_usuario)
+             WHERE Usuario_username = @username AND Rol_habilitado = 1)
+GO
 
 ------------------------------------------------------------------------------------------------------------
 -----------------------------------CREACIÓN DE STORED PROCEDURES--------------------------------------------
 
 ------------------------------------------------------------------------------------------------------------
+-- LOGIN
 IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].sp_login_validate') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[sp_login_validate]; 
 GO
+-- ROL
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].sp_baja_rol') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[sp_baja_rol]; 
+GO
+-- EMPRESA
 IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].sp_baja_empresa') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[sp_baja_empresa]; 
 GO
 
 -------------------------------------------------------------------------------------------------
-
+-- LOGIN
 -------------------------------------------------------------------------------------------------
 -- PROCEDURE SP_LOGIN_VALIDATE
 -------------------------------------------------------------------------------------------------
@@ -587,7 +606,7 @@ GO
 CREATE PROCEDURE [LORDS_OF_THE_STRINGS_V2].sp_login_validate(@username nvarchar(50) , @password nvarchar(255))
 AS
  BEGIN
-	IF ((SELECT LORDS_OF_THE_STRINGS_V2.Login_Function_Is_Blocked_User(@username)) = 1)
+	IF ((SELECT LORDS_OF_THE_STRINGS_V2.fn_is_blocked_user(@username)) = 1)
 			RETURN -2 /*Usuario bloqueado*/
  	DECLARE @hash nvarchar(255)
 	DECLARE @user_id numeric(18,0)
@@ -607,9 +626,22 @@ AS
 		END
 END
 GO
-
+-------------------------------------------------------------------------------------------------
+-- ROL
+-------------------------------------------------------------------------------------------------
+-- PROCEDURE SP_BAJA_ROL
 -------------------------------------------------------------------------------------------------
 
+CREATE PROCEDURE [LORDS_OF_THE_STRINGS_V2].sp_baja_rol(@id_rol numeric(18, 0))
+AS
+ BEGIN
+	UPDATE [LORDS_OF_THE_STRINGS_V2].Rol SET Rol_habilitado = ~Rol_habilitado WHERE Rol_codigo=@id_rol /*Invierto estado*/
+	DELETE FROM [LORDS_OF_THE_STRINGS_V2].Rol_Usuario WHERE RolUsua_rol=@id_rol
+	DELETE FROM LORDS_OF_THE_STRINGS_V2.Funcionalidad_Rol WHERE FuncRol_rol=@id_rol
+END
+GO
+-------------------------------------------------------------------------------------------------
+-- EMPRESA
 -------------------------------------------------------------------------------------------------
 -- PROCEDURE SP_BAJA_EMPRESA
 -------------------------------------------------------------------------------------------------
@@ -621,7 +653,7 @@ AS
 		RETURN 0 /*Hay facturas pendientes de rendicion*/
 	ELSE 	
 		BEGIN
-		UPDATE [LORDS_OF_THE_STRINGS_V2].Empresa SET Empresa.Empresa_habilitada = ~Empresa.Empresa_habilitada WHERE Empresa.Empresa_codigo = @id_empresa /*Invierto estado*/
+		UPDATE [LORDS_OF_THE_STRINGS_V2].Empresa SET Empresa_habilitada = ~Empresa_habilitada WHERE Empresa_codigo = @id_empresa /*Invierto estado*/
 		RETURN 1
 		END
 END
@@ -629,10 +661,11 @@ GO
 
 
 
-
-
-/*PRUEBAS VARIAS*/
-
+-------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------
+-- PRUEBAS VARIAS
+-------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------
 /*
 SELECT * FROM LORDS_OF_THE_STRINGS_V2.Usuario
 
@@ -653,7 +686,7 @@ SELECT LORDS_OF_THE_STRINGS_V2.ROL_FUNCTION_EXISTS_ROL('Cobrador')
 
 /*
 SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Funcionalidad_Rol /*12*/
-SELECT * FROM LORDS_OF_THE_STRINGS_V2.Funcionalidad_Rol WHERE FuncRol_rol = 6
+/*SELECT * FROM LORDS_OF_THE_STRINGS_V2.Funcionalidad_Rol WHERE FuncRol_rol = 6
 SELECT * FROM LORDS_OF_THE_STRINGS_V2.Rol
 SELECT * FROM LORDS_OF_THE_STRINGS_V2.Funcionalidad
 
@@ -678,7 +711,7 @@ EXEC LORDS_OF_THE_STRINGS_V2.sp_baja_empresa 1
 SELECT * FROM [LORDS_OF_THE_STRINGS_V2].Factura WHERE Factura_rendicion IS NULL
 Select * from LORDS_OF_THE_STRINGS_V2.Factura Where Factura_codigo = 10004 /*Esta factura no existe en nuestra BD :c*/
 
-SELECT Nro_Factura, Rendicion_Nro, ItemRendicion_nro FROM gd_esquema.Maestra  WHERE Rendicion_Nro <> ItemRendicion_nro - 1  ORDER BY Nro_Factura*/
+/*SELECT Nro_Factura, Rendicion_Nro, ItemRendicion_nro FROM gd_esquema.Maestra  WHERE Rendicion_Nro <> ItemRendicion_nro - 1  ORDER BY Nro_Factura*/
 
 /*REVISAR RENDICIONES*/
 
@@ -686,4 +719,16 @@ SELECT Nro_Factura, Rendicion_Nro, ItemRendicion_nro FROM gd_esquema.Maestra  WH
 SELECT * FROM LORDS_OF_THE_STRINGS_V2.Usuario_Sucursal
 
 SELECT * FROM LORDS_OF_THE_STRINGS_V2.Empresa*/
+/*
+SELECT * FROM LORDS_OF_THE_STRINGS_V2.Sucursal
+SELECT * FROM LORDS_OF_THE_STRINGS_V2.Usuario
 
+SELECT * FROM LORDS_OF_THE_STRINGS_V2.Usuario_Sucursal
+
+*/
+/*SELECT LORDS_OF_THE_STRINGS_V2.Rol_Function_Exists_Rol
+
+SELECT LORDS_OF_THE_STRINGS_V2.fn_get_roles_usuario('admin')
+
+SELECT LORDS_OF_THE_STRINGS_V2.fn_get_roles_usuario('admin');
+SELECT * FROM LORDS_OF_THE_STRINGS_V2.fn_get_roles_usuario('admin')*/
