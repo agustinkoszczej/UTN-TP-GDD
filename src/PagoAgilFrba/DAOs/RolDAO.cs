@@ -16,27 +16,13 @@ namespace PagoAgilFrba.DAOs
     public static class RolDAO
     {
 
-        public static List<Rol> obtener_todos_roles()
+        public static bool validar_nombre(string _nombre)
         {
-            List<Rol> roles = new List<Rol>();
-            string query = string.Format(@"SELECT * FROM LORDS_OF_THE_STRINGS_V2.Rol");
+            string query = string.Format(@"SELECT * FROM LORDS_OF_THE_STRINGS_V2.Rol WHERE Rol_nombre=@nombre");
             SqlConnection conn = DBConnection.getConnection();
             SqlCommand cmd = new SqlCommand(query, conn);
-            SqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                int id = int.Parse(reader["Rol_codigo"].ToString());
-                string nombre = reader["Rol_nombre"].ToString();
-                bool habilitada =  bool.Parse(reader["Rol_habilitado"].ToString());
-
-                Rol rol = new Rol(id, nombre, habilitada);
-                //Rol rol = new Rol(int.Parse(reader.GetValue(0).ToString()), reader.GetValue(1).ToString(), bool.Parse(reader.GetValue(2).ToString()));
-                roles.Add(rol);
-            }
-            reader.Close();
-            reader.Dispose();
-            conn.Close();
-            return roles;
+            cmd.Parameters.AddWithValue("@nombre", _nombre);
+            return cmd.ExecuteScalar() == null;
         }
 
         public static void cargar_roles_asignados_usuario(Usuario usuario)
@@ -76,7 +62,7 @@ namespace PagoAgilFrba.DAOs
             string query = string.Format(@"SELECT Rol_codigo Código, Rol_nombre Nombre, Rol_habilitado Habilitado FROM LORDS_OF_THE_STRINGS_V2.Rol");
             if (habilitado)
             {
-                query += " WHERE Rol_habilitada = 1";
+                query += " WHERE Rol_habilitado = 1";
             }
                 DBConnection.llenar_grilla(grillaRoles, query);
         }
@@ -172,9 +158,10 @@ namespace PagoAgilFrba.DAOs
                 //Borro funcionalidades quitadas
                 foreach (Funcionalidad func in funcionalidades_quitadas)
                 {
-                    cmd = new SqlCommand("DELETE FROM LORDS_OF_THE_STRINGS_V2.Funcionalidad_Rol WHERE FuncRol_func=@func_id", conn);
+                    cmd = new SqlCommand("DELETE FROM LORDS_OF_THE_STRINGS_V2.Funcionalidad_Rol WHERE FuncRol_func=@func_id AND FuncRol_rol=@rol_id", conn);
                     cmd.Parameters.AddWithValue("@func_id", func.id);
-                    
+                    cmd.Parameters.AddWithValue("@rol_id", rol.id);
+
                     cmd.ExecuteNonQuery();
                 }
 

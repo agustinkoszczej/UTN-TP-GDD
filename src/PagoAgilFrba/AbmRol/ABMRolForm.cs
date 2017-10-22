@@ -105,7 +105,6 @@ namespace PagoAgilFrba.AbmRol
                 RolDAO.borrar_rol(rol);
                 iniciar_formulario();
             }
-            //Utils.posicionar_cursor_grilla_por_id(dgdRoles, rol.id);
         }
 
         private void lnlCerrarSesion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

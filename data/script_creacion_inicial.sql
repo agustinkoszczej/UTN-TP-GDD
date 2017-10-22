@@ -407,7 +407,7 @@ GO
 -------------------------------------------------------------------------------------------------
 -- INSERTA EN LA TABLA RENDICION
 -------------------------------------------------------------------------------------------------
-
+--Todas impares son
 SET IDENTITY_INSERT [LORDS_OF_THE_STRINGS_V2].Rendicion ON
 GO
 
@@ -573,18 +573,18 @@ GO
 -----------------------------------CREACIÓN DE STORED PROCEDURES--------------------------------------------
 
 ------------------------------------------------------------------------------------------------------------
-IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].Login_Procedure_Validate ') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[Login_Procedure_Validate]; 
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].sp_login_validate') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[sp_login_validate]; 
 GO
-IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].Rol_Procedure_Alta ') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[Rol_Procedure_Alta]; 
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].sp_baja_empresa') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[sp_baja_empresa]; 
 GO
 
 -------------------------------------------------------------------------------------------------
 
 -------------------------------------------------------------------------------------------------
--- PROCEDURE LOGIN_PROCEDURE_VALIDATE
+-- PROCEDURE SP_LOGIN_VALIDATE
 -------------------------------------------------------------------------------------------------
 
-CREATE PROCEDURE [LORDS_OF_THE_STRINGS_V2].Login_Procedure_Validate(@username nvarchar(50) , @password nvarchar(255))
+CREATE PROCEDURE [LORDS_OF_THE_STRINGS_V2].sp_login_validate(@username nvarchar(50) , @password nvarchar(255))
 AS
  BEGIN
 	IF ((SELECT LORDS_OF_THE_STRINGS_V2.Login_Function_Is_Blocked_User(@username)) = 1)
@@ -611,18 +611,18 @@ GO
 -------------------------------------------------------------------------------------------------
 
 -------------------------------------------------------------------------------------------------
--- PROCEDURE ROL_PROCEDURE_ALTA
+-- PROCEDURE SP_BAJA_EMPRESA
 -------------------------------------------------------------------------------------------------
 
-CREATE PROCEDURE [LORDS_OF_THE_STRINGS_V2].Rol_Procedure_Alta(@name nvarchar(50))
+CREATE PROCEDURE [LORDS_OF_THE_STRINGS_V2].sp_baja_empresa(@id_empresa numeric(18, 0))
 AS
  BEGIN
-	IF EXISTS (SELECT * FROM LORDS_OF_THE_STRINGS_V2.Rol WHERE Rol_codigo = @name)
-		RETURN -1 /*Rol existe*/
+	IF EXISTS (SELECT * FROM [LORDS_OF_THE_STRINGS_V2].Factura WHERE Factura_empresa = @id_empresa AND Factura_rendicion IS NULL)
+		RETURN 0 /*Hay facturas pendientes de rendicion*/
 	ELSE 	
-		BEGIN 
-		INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rol(Rol_nombre) VALUES (@name); 
-		RETURN (SELECT TOP 1 Rol_codigo FROM LORDS_OF_THE_STRINGS_V2.Rol WHERE Rol_nombre = @name) /*Retorno codigo generado*/
+		BEGIN
+		UPDATE [LORDS_OF_THE_STRINGS_V2].Empresa SET Empresa.Empresa_habilitada = ~Empresa.Empresa_habilitada WHERE Empresa.Empresa_codigo = @id_empresa /*Invierto estado*/
+		RETURN 1
 		END
 END
 GO
@@ -653,8 +653,7 @@ SELECT LORDS_OF_THE_STRINGS_V2.ROL_FUNCTION_EXISTS_ROL('Cobrador')
 
 /*
 SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Funcionalidad_Rol /*12*/
-
-/*SELECT * FROM LORDS_OF_THE_STRINGS_V2.Funcionalidad_Rol WHERE FuncRol_rol = 6
+SELECT * FROM LORDS_OF_THE_STRINGS_V2.Funcionalidad_Rol WHERE FuncRol_rol = 6
 SELECT * FROM LORDS_OF_THE_STRINGS_V2.Rol
 SELECT * FROM LORDS_OF_THE_STRINGS_V2.Funcionalidad
 
@@ -664,3 +663,27 @@ DELETE FROM LORDS_OF_THE_STRINGS_V2.Rol_Usuario WHERE RolUsua_rol=6
 DELETE FROM LORDS_OF_THE_STRINGS_V2.Funcionalidad_Rol WHERE FuncRol_rol=6
 
 UPDATE LORDS_OF_THE_STRINGS_V2.Rol SET Rol_nombre = 'averga' WHERE Rol_codigo = 8*/
+/*
+SELECT * FROM LORDS_OF_THE_STRINGS_V2.Empresa WHERE Empresa_nombre LIKE '%'+ 'Empr' +'%'
+
+SELECT * FROM LORDS_OF_THE_STRINGS_V2.Rubro
+
+SELECT * FROM LORDS_OF_THE_STRINGS_V2.Rubro_Empresa
+
+Insert into LORDS_OF_THE_STRINGS_V2.Rubro (Rubro_descripcion) values ('Autos'), ('Motos'), ('Juegos Steam'), ('Juegos Origin'), ('Juegos Uplay'), ('Drogas'), ('Alcohol'), ('Armas'), ('Barcos'), ('Putas');
+
+
+EXEC LORDS_OF_THE_STRINGS_V2.sp_baja_empresa 1
+
+SELECT * FROM [LORDS_OF_THE_STRINGS_V2].Factura WHERE Factura_rendicion IS NULL
+Select * from LORDS_OF_THE_STRINGS_V2.Factura Where Factura_codigo = 10004 /*Esta factura no existe en nuestra BD :c*/
+
+SELECT Nro_Factura, Rendicion_Nro, ItemRendicion_nro FROM gd_esquema.Maestra  WHERE Rendicion_Nro <> ItemRendicion_nro - 1  ORDER BY Nro_Factura*/
+
+/*REVISAR RENDICIONES*/
+
+/*SELECT * FROM LORDS_OF_THE_STRINGS_V2.Sucursal
+SELECT * FROM LORDS_OF_THE_STRINGS_V2.Usuario_Sucursal
+
+SELECT * FROM LORDS_OF_THE_STRINGS_V2.Empresa*/
+

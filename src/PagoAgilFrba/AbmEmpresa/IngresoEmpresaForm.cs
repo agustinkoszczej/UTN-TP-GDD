@@ -128,24 +128,16 @@ namespace PagoAgilFrba.AbmEmpresa
             empresa_form.iniciar_formulario();
         }
 
-        private void txtCuitEmpresa_TextChanged(object sender, EventArgs e)
-        {
-            validar_cuit();
-        }
         private bool validar_cuit()
         {
-            List <Empresa> empresas = EmpresaDAO.obtener_todas_empresas();
-            if (empresas.Any(empresa => empresa.cuit.ToUpper() == txtCuitEmpresa.Text.ToUpper()))
+            if ((EmpresaDAO.validar_cuit(txtCuitEmpresa.Text)) || ((empresa_modificar != null) && (empresa_modificar.cuit.ToUpper() == txtCuitEmpresa.Text.ToUpper())))
             {
-                if ((empresa_modificar == null) || (empresa_modificar.cuit != txtCuitEmpresa.Text))
-                {
-                    errorProvider.SetError(txtCuitEmpresa, "Cuit ya existente");
-                    return false;
-                }
+                errorProvider.SetError(txtCuitEmpresa, null);
             }
             else
             {
-                errorProvider.SetError(txtCuitEmpresa, null);
+                    errorProvider.SetError(txtCuitEmpresa, "Cuit ya existente");
+                    return false;
             }
             return true;
         }

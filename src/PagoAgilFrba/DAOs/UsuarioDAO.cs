@@ -18,8 +18,8 @@ namespace PagoAgilFrba.DAOs
 
         public static int loguear_usuario(Usuario usuario)
         {
-            var conn = DBConnection.getConnection();
-            SqlCommand cmd = new SqlCommand("LORDS_OF_THE_STRINGS_V2.Login_Procedure_Validate", conn);
+            SqlConnection conn = DBConnection.getConnection();
+            SqlCommand cmd = new SqlCommand("LORDS_OF_THE_STRINGS_V2.sp_login_validate", conn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@username", usuario.username);
             cmd.Parameters.AddWithValue("@password", usuario.password);

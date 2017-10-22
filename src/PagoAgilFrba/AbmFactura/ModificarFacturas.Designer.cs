@@ -30,6 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panelModificarFactura = new System.Windows.Forms.Panel();
+            this.btnCancelar = new System.Windows.Forms.Button();
+            this.vencimientoDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.altaDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.listEmpresas = new System.Windows.Forms.ListView();
             this.btnSeleccionarEmpresa = new System.Windows.Forms.Button();
             this.txtFacturaCliente = new System.Windows.Forms.TextBox();
@@ -44,9 +47,6 @@
             this.txtFacturaNro = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.altaDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.vencimientoDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.btnCancelar = new System.Windows.Forms.Button();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.panelModificarFactura.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
@@ -75,6 +75,30 @@
             this.panelModificarFactura.Name = "panelModificarFactura";
             this.panelModificarFactura.Size = new System.Drawing.Size(621, 309);
             this.panelModificarFactura.TabIndex = 14;
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.Location = new System.Drawing.Point(462, 275);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelar.TabIndex = 20;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
+            // vencimientoDateTimePicker
+            // 
+            this.vencimientoDateTimePicker.Location = new System.Drawing.Point(12, 147);
+            this.vencimientoDateTimePicker.Name = "vencimientoDateTimePicker";
+            this.vencimientoDateTimePicker.Size = new System.Drawing.Size(281, 20);
+            this.vencimientoDateTimePicker.TabIndex = 19;
+            // 
+            // altaDateTimePicker
+            // 
+            this.altaDateTimePicker.Location = new System.Drawing.Point(12, 104);
+            this.altaDateTimePicker.Name = "altaDateTimePicker";
+            this.altaDateTimePicker.Size = new System.Drawing.Size(281, 20);
+            this.altaDateTimePicker.TabIndex = 19;
             // 
             // listEmpresas
             // 
@@ -198,30 +222,6 @@
             this.label12.TabIndex = 0;
             this.label12.Text = "Modificar Factura";
             // 
-            // altaDateTimePicker
-            // 
-            this.altaDateTimePicker.Location = new System.Drawing.Point(12, 104);
-            this.altaDateTimePicker.Name = "altaDateTimePicker";
-            this.altaDateTimePicker.Size = new System.Drawing.Size(281, 20);
-            this.altaDateTimePicker.TabIndex = 19;
-            // 
-            // vencimientoDateTimePicker
-            // 
-            this.vencimientoDateTimePicker.Location = new System.Drawing.Point(12, 147);
-            this.vencimientoDateTimePicker.Name = "vencimientoDateTimePicker";
-            this.vencimientoDateTimePicker.Size = new System.Drawing.Size(281, 20);
-            this.vencimientoDateTimePicker.TabIndex = 19;
-            // 
-            // btnCancelar
-            // 
-            this.btnCancelar.Location = new System.Drawing.Point(462, 275);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(75, 23);
-            this.btnCancelar.TabIndex = 20;
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
-            // 
             // errorProvider
             // 
             this.errorProvider.ContainerControl = this;
@@ -232,7 +232,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(645, 329);
             this.Controls.Add(this.panelModificarFactura);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "ModificarFacturas";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.ModificarFacturas_Load);
             this.panelModificarFactura.ResumeLayout(false);

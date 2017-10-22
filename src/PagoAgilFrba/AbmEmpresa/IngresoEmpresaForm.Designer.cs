@@ -65,15 +65,15 @@
             // 
             // txtDireccionEmpresa
             // 
-            this.txtDireccionEmpresa.Location = new System.Drawing.Point(6, 99);
+            this.txtDireccionEmpresa.Location = new System.Drawing.Point(6, 101);
             this.txtDireccionEmpresa.Name = "txtDireccionEmpresa";
             this.txtDireccionEmpresa.Size = new System.Drawing.Size(155, 20);
-            this.txtDireccionEmpresa.TabIndex = 25;
+            this.txtDireccionEmpresa.TabIndex = 3;
             // 
             // lblDireccionEmpresa
             // 
             this.lblDireccionEmpresa.AutoSize = true;
-            this.lblDireccionEmpresa.Location = new System.Drawing.Point(6, 84);
+            this.lblDireccionEmpresa.Location = new System.Drawing.Point(6, 86);
             this.lblDireccionEmpresa.Name = "lblDireccionEmpresa";
             this.lblDireccionEmpresa.Size = new System.Drawing.Size(122, 13);
             this.lblDireccionEmpresa.TabIndex = 24;
@@ -90,11 +90,10 @@
             // 
             // txtCuitEmpresa
             // 
-            this.txtCuitEmpresa.Location = new System.Drawing.Point(6, 61);
+            this.txtCuitEmpresa.Location = new System.Drawing.Point(6, 63);
             this.txtCuitEmpresa.Name = "txtCuitEmpresa";
             this.txtCuitEmpresa.Size = new System.Drawing.Size(155, 20);
-            this.txtCuitEmpresa.TabIndex = 22;
-            this.txtCuitEmpresa.TextChanged += new System.EventHandler(this.txtCuitEmpresa_TextChanged);
+            this.txtCuitEmpresa.TabIndex = 2;
             // 
             // lblRubros
             // 
@@ -111,7 +110,7 @@
             this.cmdCancelar.Location = new System.Drawing.Point(249, 190);
             this.cmdCancelar.Name = "cmdCancelar";
             this.cmdCancelar.Size = new System.Drawing.Size(121, 34);
-            this.cmdCancelar.TabIndex = 20;
+            this.cmdCancelar.TabIndex = 6;
             this.cmdCancelar.Text = "Cancelar";
             this.cmdCancelar.UseVisualStyleBackColor = false;
             this.cmdCancelar.Click += new System.EventHandler(this.cmdCancelar_Click);
@@ -122,25 +121,27 @@
             this.cmdAceptar.Location = new System.Drawing.Point(249, 134);
             this.cmdAceptar.Name = "cmdAceptar";
             this.cmdAceptar.Size = new System.Drawing.Size(121, 35);
-            this.cmdAceptar.TabIndex = 12;
+            this.cmdAceptar.TabIndex = 5;
             this.cmdAceptar.Text = "Aceptar";
             this.cmdAceptar.UseVisualStyleBackColor = false;
             this.cmdAceptar.Click += new System.EventHandler(this.cmdAceptar_Click);
             // 
             // chkLstRubros
             // 
+            this.chkLstRubros.CheckOnClick = true;
             this.chkLstRubros.FormattingEnabled = true;
             this.chkLstRubros.Location = new System.Drawing.Point(6, 143);
+            this.chkLstRubros.MultiColumn = true;
             this.chkLstRubros.Name = "chkLstRubros";
             this.chkLstRubros.Size = new System.Drawing.Size(222, 169);
-            this.chkLstRubros.TabIndex = 10;
+            this.chkLstRubros.TabIndex = 4;
             // 
             // txtNombreEmpresa
             // 
-            this.txtNombreEmpresa.Location = new System.Drawing.Point(6, 25);
+            this.txtNombreEmpresa.Location = new System.Drawing.Point(6, 26);
             this.txtNombreEmpresa.Name = "txtNombreEmpresa";
             this.txtNombreEmpresa.Size = new System.Drawing.Size(155, 20);
-            this.txtNombreEmpresa.TabIndex = 3;
+            this.txtNombreEmpresa.TabIndex = 1;
             // 
             // lblNombreEmpresa
             // 
@@ -161,6 +162,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(410, 333);
             this.Controls.Add(this.groupBoxIngresoEmpresas);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "IngresoEmpresaForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

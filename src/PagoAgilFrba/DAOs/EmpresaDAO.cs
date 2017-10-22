@@ -16,37 +16,44 @@ namespace PagoAgilFrba.DAOs
     public static class EmpresaDAO
     {
 
-        public static List<Empresa> obtener_todas_empresas()
+        public static void buscar_empresa(DataGridView _grillaEmpresas, string _query, string _nombre, string _cuit)
         {
-            List<Empresa> empresas = new List<Empresa>();
-            string query = string.Format(@"SELECT * FROM LORDS_OF_THE_STRINGS_V2.Empresa");
             SqlConnection conn = DBConnection.getConnection();
-            SqlCommand cmd = new SqlCommand(query, conn);
-            SqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                int id = int.Parse(reader["Empresa_codigo"].ToString());
-                string cuit = reader["Empresa_cuit"].ToString();
-                string nombre = reader["Empresa_nombre"].ToString();
-                string direccion =  reader["Empresa_direccion"].ToString();
-                bool habilitada = bool.Parse(reader["Empresa_habilitada"].ToString());
+            SqlCommand cmd = new SqlCommand(_query, conn);
 
-                Empresa empresa = new Empresa(id, cuit, nombre, direccion, habilitada);
-                empresas.Add(empresa);
+            cmd.Parameters.AddWithValue("@nombre", _nombre);
+            cmd.Parameters.AddWithValue("@cuit", _cuit);
+
+            DataTable dataTable;
+            SqlDataAdapter dataAdapter;
+            
+            try
+            {
+                dataAdapter = new SqlDataAdapter(cmd);
+                dataTable = new DataTable();
+
+                _grillaEmpresas.DataSource = dataTable;
+                dataAdapter.Fill(dataTable);
             }
-            reader.Close();
-            reader.Dispose();
-            conn.Close();
-            return empresas;
+            catch (Exception e)
+            {
+                MessageBox.Show("No se pudo realizar la consulta:\n" + e.Message);
+
+            }
         }
 
-        public static void cargar_grilla_empresas(DataGridView grillaEmpresas, bool habilitado)
+        public static bool validar_cuit(string _cuit)
         {
-            string query = string.Format(@"SELECT Empresa_codigo Código, Empresa_cuit CUIT, Empresa_nombre Nombre, Empresa_direccion Dirección, Empresa_habilitada Habilitada FROM LORDS_OF_THE_STRINGS_V2.Empresa");
-            if (habilitado)
-            {
-                query += " WHERE Empresa_habilitada = 1";
-            }
+            string query = string.Format(@"SELECT * FROM LORDS_OF_THE_STRINGS_V2.Empresa WHERE Empresa_cuit=@cuit");
+            SqlConnection conn = DBConnection.getConnection();
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@cuit", _cuit);
+            return cmd.ExecuteScalar() == null;
+        }
+
+        public static void cargar_grilla_empresas(DataGridView grillaEmpresas)
+        {
+            string query = string.Format(@"SELECT Empresa_codigo Código, Empresa_nombre Nombre, Empresa_cuit CUIT, Empresa_direccion Dirección, Empresa_habilitada Habilitada FROM LORDS_OF_THE_STRINGS_V2.Empresa");
             DBConnection.llenar_grilla(grillaEmpresas, query);
         }
 
@@ -54,17 +61,24 @@ namespace PagoAgilFrba.DAOs
         #region ABM Empresa
 
         public static bool agregar_empresa(Empresa empresa)
-        {/*
+        {
             try
             {
-                string query = string.Format(@"INSERT INTO LORDS_OF_THE_STRINGS_V2.Rol(Rol_nombre) VALUES ('" + rol.nombre + "'); SELECT SCOPE_IDENTITY()");
+                string query = string.Format(@"INSERT INTO LORDS_OF_THE_STRINGS_V2.Empresa(Empresa_cuit, Empresa_nombre, Empresa_direccion) VALUES (@cuit, @nombre, @direccion); SELECT SCOPE_IDENTITY()");
                 SqlConnection conn = DBConnection.getConnection();
                 SqlCommand cmd = new SqlCommand(query, conn);
-                //cmd.ExecuteNonQuery();
-                int rol_cod_generado = Convert.ToInt32(cmd.ExecuteScalar());
-                foreach (Funcionalidad func in rol.funcionalidades)
+                cmd.Parameters.AddWithValue("@cuit", empresa.cuit);
+                cmd.Parameters.AddWithValue("@nombre", empresa.nombre);
+                cmd.Parameters.AddWithValue("@direccion", empresa.direccion);
+
+                int empresa_cod_generado = Convert.ToInt32(cmd.ExecuteScalar());
+                foreach (Rubro rubro in empresa.rubros)
                 {
-                    cmd = new SqlCommand("INSERT INTO LORDS_OF_THE_STRINGS_V2.Funcionalidad_Rol (FuncRol_rol, FuncRol_func) VALUES (" + rol_cod_generado + ", " + func.id + ")", conn);
+                    cmd = new SqlCommand("INSERT INTO LORDS_OF_THE_STRINGS_V2.Rubro_Empresa (RubroEmpr_empresa, RubroEmpr_rubro) VALUES (@empresa_id, @rubro_id)", conn);
+
+                    cmd.Parameters.AddWithValue("@empresa_id", empresa_cod_generado);
+                    cmd.Parameters.AddWithValue("@rubro_id", rubro.id);
+
                     cmd.ExecuteNonQuery();
                 }
                 conn.Close();
@@ -72,35 +86,30 @@ namespace PagoAgilFrba.DAOs
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error al agregar rol", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }*/
+                MessageBox.Show(ex.Message, "Error al agregar empresa", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             return false;
         }
 
         public static bool borrar_empresa(Empresa empresa)
-        {/*
+        {
             try
             {
-                string query = string.Format(@"UPDATE LORDS_OF_THE_STRINGS_V2.Rol SET Rol_habilitado = " + Convert.ToInt32(!rol.habilitado)+" WHERE Rol_codigo ='" + rol.id + "'");
                 SqlConnection conn = DBConnection.getConnection();
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.ExecuteNonQuery();
-                //TODO ver
-                if (rol.habilitado)
-                {
-                    cmd = new SqlCommand("DELETE FROM LORDS_OF_THE_STRINGS_V2.Rol_Usuario WHERE RolUsua_rol=" + rol.id, conn);
-                    cmd.ExecuteNonQuery();
-                    cmd = new SqlCommand("DELETE FROM LORDS_OF_THE_STRINGS_V2.Funcionalidad_Rol WHERE FuncRol_rol=" + rol.id, conn);
-                    cmd.ExecuteNonQuery();
-                }
-                //TODO ver
+                SqlCommand cmd = new SqlCommand("LORDS_OF_THE_STRINGS_V2.sp_baja_empresa", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@id_empresa", empresa.id);
+                SqlParameter ret = new SqlParameter();
+                ret.Direction = ParameterDirection.ReturnValue;
+                cmd.Parameters.Add(ret);
+                cmd.ExecuteReader();
                 conn.Close();
-                return true;
+                return Convert.ToBoolean(ret.Value);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error al borrar rol", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }*/
+                MessageBox.Show(ex.Message, "Error al borrar empresa", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             return false;
         }
         public static bool modificar_empresa(Empresa empresa, List<Rubro> rubros_anteriores)
@@ -120,7 +129,7 @@ namespace PagoAgilFrba.DAOs
                 cmd.Parameters.AddWithValue("@empresa_id", empresa.id);
 
                 cmd.ExecuteNonQuery();
-                //Inserto funcionalidades nuevas
+                //Inserto rubros nuevos
                 foreach (Rubro rubro in rubros_nuevos)
                 {
                     cmd = new SqlCommand("INSERT INTO LORDS_OF_THE_STRINGS_V2.Rubro_Empresa (RubroEmpr_empresa, RubroEmpr_rubro) VALUES (@empresa, @rubro)", conn);
@@ -128,11 +137,13 @@ namespace PagoAgilFrba.DAOs
                     cmd.Parameters.AddWithValue("@rubro", rubro.id);
                     cmd.ExecuteNonQuery();
                 }
-                //Borro funcionalidades quitadas
+                //Borro rubros quitados
                 foreach (Rubro rubro in rubros_quitados)
                 {
-                    cmd = new SqlCommand("DELETE FROM LORDS_OF_THE_STRINGS_V2.Rubro_Empresa WHERE RubroEmpr_rubro=@rubro", conn);
+                    cmd = new SqlCommand("DELETE FROM LORDS_OF_THE_STRINGS_V2.Rubro_Empresa WHERE RubroEmpr_rubro=@rubro AND RubroEmpr_empresa=@empresa", conn);
                     cmd.Parameters.AddWithValue("@rubro", rubro.id);
+                    cmd.Parameters.AddWithValue("@empresa", empresa.id);
+
                     cmd.ExecuteNonQuery();
                 }
 
@@ -141,7 +152,7 @@ namespace PagoAgilFrba.DAOs
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error al modificar Empresa", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error al modificar empresa", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return false;
         }

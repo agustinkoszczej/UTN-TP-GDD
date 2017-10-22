@@ -125,26 +125,18 @@ namespace PagoAgilFrba.AbmRol
             rol_form.iniciar_formulario();
         }
 
-        private void txtNombreRol_TextChanged(object sender, EventArgs e)
-        {
-            validar_nombre();
-        }
         private bool validar_nombre()
         {
-            List <Rol> roles = RolDAO.obtener_todos_roles();
-            if (roles.Any(rol => rol.nombre.ToUpper() == txtNombreRol.Text.ToUpper()))
-            {
-                if ((rol_modificar == null)||(rol_modificar.nombre != txtNombreRol.Text))
-                {
-                    errorProvider.SetError(txtNombreRol, "Nombre ya existente");
-                    return false;
-                }
-            }
-            else
+            if ((RolDAO.validar_nombre(txtNombreRol.Text)) || ((rol_modificar != null) && (rol_modificar.nombre.ToUpper() == txtNombreRol.Text.ToUpper())))
             {
                 errorProvider.SetError(txtNombreRol, null);
             }
-        return true;
+            else
+            {
+                    errorProvider.SetError(txtNombreRol, "Nombre ya existente");
+                    return false;
+            }
+            return true;
         }
     }
 }

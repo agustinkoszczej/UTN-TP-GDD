@@ -99,6 +99,7 @@
     <Compile Include="AbmSucursal\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="DAOs\SucursalDAO.cs" />
     <Compile Include="DAOs\RubroDAO.cs" />
     <Compile Include="DAOs\EmpresaDAO.cs" />
     <Compile Include="DAOs\DBConnection.cs" />

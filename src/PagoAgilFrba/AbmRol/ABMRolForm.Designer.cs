@@ -53,17 +53,17 @@
             this.dgdFuncionalidades.AllowUserToDeleteRows = false;
             this.dgdFuncionalidades.AllowUserToResizeColumns = false;
             this.dgdFuncionalidades.AllowUserToResizeRows = false;
-            this.dgdFuncionalidades.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgdFuncionalidades.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgdFuncionalidades.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dgdFuncionalidades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgdFuncionalidades.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.dgdFuncionalidades.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dgdFuncionalidades.Location = new System.Drawing.Point(308, 39);
+            this.dgdFuncionalidades.Location = new System.Drawing.Point(360, 39);
             this.dgdFuncionalidades.MultiSelect = false;
             this.dgdFuncionalidades.Name = "dgdFuncionalidades";
             this.dgdFuncionalidades.ReadOnly = true;
             this.dgdFuncionalidades.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgdFuncionalidades.Size = new System.Drawing.Size(272, 320);
+            this.dgdFuncionalidades.Size = new System.Drawing.Size(220, 320);
             this.dgdFuncionalidades.TabIndex = 3;
             // 
             // errorProvider
@@ -133,7 +133,7 @@
             this.dgdRoles.Name = "dgdRoles";
             this.dgdRoles.ReadOnly = true;
             this.dgdRoles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgdRoles.Size = new System.Drawing.Size(272, 320);
+            this.dgdRoles.Size = new System.Drawing.Size(327, 320);
             this.dgdRoles.TabIndex = 13;
             this.dgdRoles.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgdRoles_CellContentClick);
             // 

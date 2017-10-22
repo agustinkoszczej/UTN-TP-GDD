@@ -70,7 +70,7 @@
             this.cmdCancelar.Location = new System.Drawing.Point(249, 190);
             this.cmdCancelar.Name = "cmdCancelar";
             this.cmdCancelar.Size = new System.Drawing.Size(121, 34);
-            this.cmdCancelar.TabIndex = 20;
+            this.cmdCancelar.TabIndex = 4;
             this.cmdCancelar.Text = "Cancelar";
             this.cmdCancelar.UseVisualStyleBackColor = false;
             this.cmdCancelar.Click += new System.EventHandler(this.cmdCancelar_Click);
@@ -81,26 +81,27 @@
             this.cmdAceptar.Location = new System.Drawing.Point(249, 134);
             this.cmdAceptar.Name = "cmdAceptar";
             this.cmdAceptar.Size = new System.Drawing.Size(121, 35);
-            this.cmdAceptar.TabIndex = 12;
+            this.cmdAceptar.TabIndex = 3;
             this.cmdAceptar.Text = "Aceptar";
             this.cmdAceptar.UseVisualStyleBackColor = false;
             this.cmdAceptar.Click += new System.EventHandler(this.cmdAceptar_Click);
             // 
             // chkLstFuncionalidades
             // 
+            this.chkLstFuncionalidades.CheckOnClick = true;
             this.chkLstFuncionalidades.FormattingEnabled = true;
             this.chkLstFuncionalidades.Location = new System.Drawing.Point(6, 79);
+            this.chkLstFuncionalidades.MultiColumn = true;
             this.chkLstFuncionalidades.Name = "chkLstFuncionalidades";
             this.chkLstFuncionalidades.Size = new System.Drawing.Size(222, 199);
-            this.chkLstFuncionalidades.TabIndex = 10;
+            this.chkLstFuncionalidades.TabIndex = 2;
             // 
             // txtNombreRol
             // 
             this.txtNombreRol.Location = new System.Drawing.Point(6, 38);
             this.txtNombreRol.Name = "txtNombreRol";
             this.txtNombreRol.Size = new System.Drawing.Size(155, 20);
-            this.txtNombreRol.TabIndex = 3;
-            this.txtNombreRol.TextChanged += new System.EventHandler(this.txtNombreRol_TextChanged);
+            this.txtNombreRol.TabIndex = 1;
             // 
             // lblNombreRol
             // 
@@ -121,6 +122,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(410, 307);
             this.Controls.Add(this.groupBoxIngresoRoles);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "IngresoRolForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

@@ -6,6 +6,7 @@ using System.Windows.Forms;
 
 using PagoAgilFrba.Login;
 using PagoAgilFrba.AbmEmpresa;
+using PagoAgilFrba.AbmRol;
 
 namespace PagoAgilFrba
 {
