@@ -31,8 +31,8 @@ de dicha situación.
 | 156.101-7 | Manchione | Bruno | K3573 | [BrunoManchione](https://github.com/BrunoManchione) |
 
 ## **Componentes del Sistema:**
-* [Aplicación Desktop](https://github.com/agustinkoszczej/UTN-TP-GDD/tree/master/Aplicacion%20Desktop/PagoAgilFrba)
-* [Base de Datos](https://github.com/agustinkoszczej/UTN-TP-GDD/tree/master/Base%20de%20Datos)
+* [Aplicación Desktop](https://github.com/agustinkoszczej/UTN-TP-GDD/tree/master/src/PagoAgilFrba)
+* [Base de Datos](https://github.com/agustinkoszczej/UTN-TP-GDD/tree/master/data)
 
 ## **Entregas:**
 
