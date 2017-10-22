@@ -101,13 +101,16 @@ namespace PagoAgilFrba.DAOs
             {
                 reader.Read();
                 cli = new Cliente(
-                    int.Parse(reader.GetValue(0).ToString()),
-                    reader.GetValue(1).ToString(),
-                    reader.GetValue(2).ToString(),
-                    uint.Parse(reader.GetValue(3).ToString()),
-                    DateTime.Parse(reader.GetValue(4).ToString()),
-                    reader.GetValue(5).ToString(),
-                    reader.GetValue(6).ToString(), true);
+                    int.Parse(reader.GetValue(0).ToString()),                   //id
+                    reader.GetValue(1).ToString(),                              //nombre
+                    reader.GetValue(2).ToString(),                              //apellido
+                    uint.Parse(reader.GetValue(3).ToString()),                  //dni
+                    DateTime.Parse(reader.GetValue(4).ToString()),              //fnac
+                    reader.GetValue(6).ToString(),                              //direccion
+                    reader.GetValue(7).ToString(),                              //cp
+                    reader.GetValue(5).ToString(),                              //mail
+                    reader.GetValue(8).ToString(),                              //tel
+                    true);
             }
             catch (Exception ex)
             {
@@ -180,18 +183,6 @@ namespace PagoAgilFrba.DAOs
             }
             conn.Close();
             return items;
-        }
-
-        private static DateTime parseDate(string format, string date)
-        {
-            try
-            {
-                return DateTime.ParseExact(date, format, CultureInfo.InvariantCulture);
-            }
-            catch (Exception ex)
-            {
-                return DateTime.Now; //Tratando de parsear las fechas
-            }
         }
 
         private static DateTime crearDateTime(int anno, int mes, int dia)

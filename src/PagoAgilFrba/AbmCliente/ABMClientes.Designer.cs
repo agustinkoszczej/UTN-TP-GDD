@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnHabilitar = new System.Windows.Forms.Button();
@@ -58,6 +59,7 @@
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.lblNombre = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnSinFiltros = new System.Windows.Forms.Button();
             this.btnFiltrar = new System.Windows.Forms.Button();
             this.chkHabilitado = new System.Windows.Forms.CheckBox();
             this.txtFiltroDNI = new System.Windows.Forms.TextBox();
@@ -67,7 +69,7 @@
             this.txtFiltroNombre = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnSinFiltros = new System.Windows.Forms.Button();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridClientes)).BeginInit();
             this.panel4.SuspendLayout();
@@ -75,6 +77,7 @@
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
@@ -106,6 +109,7 @@
             this.btnHabilitar.TabIndex = 15;
             this.btnHabilitar.Text = "Habilitar";
             this.btnHabilitar.UseVisualStyleBackColor = true;
+            this.btnHabilitar.Click += new System.EventHandler(this.btnHabilitar_Click);
             // 
             // btnInhabilitar
             // 
@@ -115,6 +119,7 @@
             this.btnInhabilitar.TabIndex = 14;
             this.btnInhabilitar.Text = "Inhabilitar";
             this.btnInhabilitar.UseVisualStyleBackColor = true;
+            this.btnInhabilitar.Click += new System.EventHandler(this.btnInhabilitar_Click);
             // 
             // dataGridClientes
             // 
@@ -364,6 +369,16 @@
             this.panel1.TabIndex = 13;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
+            // btnSinFiltros
+            // 
+            this.btnSinFiltros.Location = new System.Drawing.Point(672, 53);
+            this.btnSinFiltros.Name = "btnSinFiltros";
+            this.btnSinFiltros.Size = new System.Drawing.Size(104, 23);
+            this.btnSinFiltros.TabIndex = 18;
+            this.btnSinFiltros.Text = "Borrar Filtros";
+            this.btnSinFiltros.UseVisualStyleBackColor = true;
+            this.btnSinFiltros.Click += new System.EventHandler(this.btnSinFiltros_Click);
+            // 
             // btnFiltrar
             // 
             this.btnFiltrar.Location = new System.Drawing.Point(672, 91);
@@ -445,15 +460,9 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Filtros de Busqueda";
             // 
-            // btnSinFiltros
+            // errorProvider
             // 
-            this.btnSinFiltros.Location = new System.Drawing.Point(672, 53);
-            this.btnSinFiltros.Name = "btnSinFiltros";
-            this.btnSinFiltros.Size = new System.Drawing.Size(104, 23);
-            this.btnSinFiltros.TabIndex = 18;
-            this.btnSinFiltros.Text = "Borrar Filtros";
-            this.btnSinFiltros.UseVisualStyleBackColor = true;
-            this.btnSinFiltros.Click += new System.EventHandler(this.btnSinFiltros_Click);
+            this.errorProvider.ContainerControl = this;
             // 
             // ABMClientes
             // 
@@ -481,6 +490,7 @@
             this.panel7.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -527,5 +537,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnSinFiltros;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }
