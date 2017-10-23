@@ -29,29 +29,29 @@
         private void InitializeComponent()
         {
             this.panelEmpresas = new System.Windows.Forms.Panel();
-            this.panelFacturas = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.dataGridFacturas = new System.Windows.Forms.DataGridView();
-            this.lblEmpresaSelec = new System.Windows.Forms.Label();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btnSeleccionar = new System.Windows.Forms.Button();
             this.dataGridEmpresas = new System.Windows.Forms.DataGridView();
-            this.label3 = new System.Windows.Forms.Label();
-            this.lblFacturasARendir = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.lblSumaCobrada = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.panelFacturas = new System.Windows.Forms.Panel();
+            this.btnRendir = new System.Windows.Forms.Button();
+            this.lblTotalRendido = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.lblPorcentajeComision = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.lblValorComision = new System.Windows.Forms.Label();
-            this.lblPorcentajeComision = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.lblTotalRendido = new System.Windows.Forms.Label();
-            this.btnRendir = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lblSumaCobrada = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblFacturasARendir = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.dataGridFacturas = new System.Windows.Forms.DataGridView();
+            this.lblEmpresaSelec = new System.Windows.Forms.Label();
             this.panelEmpresas.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).BeginInit();
             this.panelFacturas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridFacturas)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).BeginInit();
             this.SuspendLayout();
             // 
             // panelEmpresas
@@ -64,55 +64,6 @@
             this.panelEmpresas.Name = "panelEmpresas";
             this.panelEmpresas.Size = new System.Drawing.Size(593, 411);
             this.panelEmpresas.TabIndex = 0;
-            // 
-            // panelFacturas
-            // 
-            this.panelFacturas.Controls.Add(this.btnRendir);
-            this.panelFacturas.Controls.Add(this.lblTotalRendido);
-            this.panelFacturas.Controls.Add(this.label7);
-            this.panelFacturas.Controls.Add(this.lblPorcentajeComision);
-            this.panelFacturas.Controls.Add(this.label6);
-            this.panelFacturas.Controls.Add(this.lblValorComision);
-            this.panelFacturas.Controls.Add(this.label5);
-            this.panelFacturas.Controls.Add(this.lblSumaCobrada);
-            this.panelFacturas.Controls.Add(this.label4);
-            this.panelFacturas.Controls.Add(this.lblFacturasARendir);
-            this.panelFacturas.Controls.Add(this.label3);
-            this.panelFacturas.Controls.Add(this.label2);
-            this.panelFacturas.Controls.Add(this.dataGridFacturas);
-            this.panelFacturas.Controls.Add(this.lblEmpresaSelec);
-            this.panelFacturas.Location = new System.Drawing.Point(12, 13);
-            this.panelFacturas.Name = "panelFacturas";
-            this.panelFacturas.Size = new System.Drawing.Size(594, 409);
-            this.panelFacturas.TabIndex = 1;
-            this.panelFacturas.Visible = false;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 97);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(127, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Facturas que se rendirán:";
-            // 
-            // dataGridFacturas
-            // 
-            this.dataGridFacturas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridFacturas.Location = new System.Drawing.Point(2, 113);
-            this.dataGridFacturas.Name = "dataGridFacturas";
-            this.dataGridFacturas.Size = new System.Drawing.Size(589, 228);
-            this.dataGridFacturas.TabIndex = 1;
-            this.dataGridFacturas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
-            // 
-            // lblEmpresaSelec
-            // 
-            this.lblEmpresaSelec.AutoSize = true;
-            this.lblEmpresaSelec.Location = new System.Drawing.Point(0, 0);
-            this.lblEmpresaSelec.Name = "lblEmpresaSelec";
-            this.lblEmpresaSelec.Size = new System.Drawing.Size(194, 13);
-            this.lblEmpresaSelec.TabIndex = 0;
-            this.lblEmpresaSelec.Text = "Empresa Seleccionada: ____________";
             // 
             // btnCancelar
             // 
@@ -155,51 +106,64 @@
             this.dataGridEmpresas.TabIndex = 1;
             this.dataGridEmpresas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridEmpresas_CellContentClick);
             // 
-            // label3
+            // panelFacturas
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1, 25);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(89, 13);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Facturas a rendir:";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
+            this.panelFacturas.Controls.Add(this.btnRendir);
+            this.panelFacturas.Controls.Add(this.lblTotalRendido);
+            this.panelFacturas.Controls.Add(this.label7);
+            this.panelFacturas.Controls.Add(this.lblPorcentajeComision);
+            this.panelFacturas.Controls.Add(this.label6);
+            this.panelFacturas.Controls.Add(this.lblValorComision);
+            this.panelFacturas.Controls.Add(this.label5);
+            this.panelFacturas.Controls.Add(this.lblSumaCobrada);
+            this.panelFacturas.Controls.Add(this.label4);
+            this.panelFacturas.Controls.Add(this.lblFacturasARendir);
+            this.panelFacturas.Controls.Add(this.label3);
+            this.panelFacturas.Controls.Add(this.label2);
+            this.panelFacturas.Controls.Add(this.dataGridFacturas);
+            this.panelFacturas.Controls.Add(this.lblEmpresaSelec);
+            this.panelFacturas.Location = new System.Drawing.Point(12, 13);
+            this.panelFacturas.Name = "panelFacturas";
+            this.panelFacturas.Size = new System.Drawing.Size(594, 409);
+            this.panelFacturas.TabIndex = 1;
+            this.panelFacturas.Visible = false;
             // 
-            // lblFacturasARendir
+            // btnRendir
             // 
-            this.lblFacturasARendir.AutoSize = true;
-            this.lblFacturasARendir.Location = new System.Drawing.Point(96, 25);
-            this.lblFacturasARendir.Name = "lblFacturasARendir";
-            this.lblFacturasARendir.Size = new System.Drawing.Size(44, 13);
-            this.lblFacturasARendir.TabIndex = 4;
-            this.lblFacturasARendir.Text = "Numero";
+            this.btnRendir.Location = new System.Drawing.Point(8, 380);
+            this.btnRendir.Name = "btnRendir";
+            this.btnRendir.Size = new System.Drawing.Size(107, 23);
+            this.btnRendir.TabIndex = 13;
+            this.btnRendir.Text = "Rendir Facturas";
+            this.btnRendir.UseVisualStyleBackColor = true;
+            this.btnRendir.Click += new System.EventHandler(this.btnRendir_Click);
             // 
-            // label4
+            // lblTotalRendido
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(1, 51);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(82, 13);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "Suma cobrada: ";
+            this.lblTotalRendido.AutoSize = true;
+            this.lblTotalRendido.Location = new System.Drawing.Point(98, 359);
+            this.lblTotalRendido.Name = "lblTotalRendido";
+            this.lblTotalRendido.Size = new System.Drawing.Size(19, 13);
+            this.lblTotalRendido.TabIndex = 12;
+            this.lblTotalRendido.Text = "$$";
             // 
-            // lblSumaCobrada
+            // label7
             // 
-            this.lblSumaCobrada.AutoSize = true;
-            this.lblSumaCobrada.Location = new System.Drawing.Point(96, 51);
-            this.lblSumaCobrada.Name = "lblSumaCobrada";
-            this.lblSumaCobrada.Size = new System.Drawing.Size(19, 13);
-            this.lblSumaCobrada.TabIndex = 6;
-            this.lblSumaCobrada.Text = "$$";
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(3, 359);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(80, 13);
+            this.label7.TabIndex = 11;
+            this.label7.Text = "Total Rendido: ";
             // 
-            // label5
+            // lblPorcentajeComision
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(1, 74);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(55, 13);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Comisión: ";
+            this.lblPorcentajeComision.AutoSize = true;
+            this.lblPorcentajeComision.Location = new System.Drawing.Point(309, 74);
+            this.lblPorcentajeComision.Name = "lblPorcentajeComision";
+            this.lblPorcentajeComision.Size = new System.Drawing.Size(15, 13);
+            this.lblPorcentajeComision.TabIndex = 10;
+            this.lblPorcentajeComision.Text = "%";
             // 
             // label6
             // 
@@ -219,41 +183,80 @@
             this.lblValorComision.TabIndex = 8;
             this.lblValorComision.Text = "$$";
             // 
-            // lblPorcentajeComision
+            // label5
             // 
-            this.lblPorcentajeComision.AutoSize = true;
-            this.lblPorcentajeComision.Location = new System.Drawing.Point(309, 74);
-            this.lblPorcentajeComision.Name = "lblPorcentajeComision";
-            this.lblPorcentajeComision.Size = new System.Drawing.Size(15, 13);
-            this.lblPorcentajeComision.TabIndex = 10;
-            this.lblPorcentajeComision.Text = "%";
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(1, 74);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(55, 13);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Comisión: ";
             // 
-            // label7
+            // lblSumaCobrada
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(3, 359);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(80, 13);
-            this.label7.TabIndex = 11;
-            this.label7.Text = "Total Rendido: ";
+            this.lblSumaCobrada.AutoSize = true;
+            this.lblSumaCobrada.Location = new System.Drawing.Point(96, 51);
+            this.lblSumaCobrada.Name = "lblSumaCobrada";
+            this.lblSumaCobrada.Size = new System.Drawing.Size(19, 13);
+            this.lblSumaCobrada.TabIndex = 6;
+            this.lblSumaCobrada.Text = "$$";
             // 
-            // lblTotalRendido
+            // label4
             // 
-            this.lblTotalRendido.AutoSize = true;
-            this.lblTotalRendido.Location = new System.Drawing.Point(98, 359);
-            this.lblTotalRendido.Name = "lblTotalRendido";
-            this.lblTotalRendido.Size = new System.Drawing.Size(19, 13);
-            this.lblTotalRendido.TabIndex = 12;
-            this.lblTotalRendido.Text = "$$";
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(1, 51);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(82, 13);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "Suma cobrada: ";
             // 
-            // btnRendir
+            // lblFacturasARendir
             // 
-            this.btnRendir.Location = new System.Drawing.Point(8, 380);
-            this.btnRendir.Name = "btnRendir";
-            this.btnRendir.Size = new System.Drawing.Size(107, 23);
-            this.btnRendir.TabIndex = 13;
-            this.btnRendir.Text = "Rendir Facturas";
-            this.btnRendir.UseVisualStyleBackColor = true;
+            this.lblFacturasARendir.AutoSize = true;
+            this.lblFacturasARendir.Location = new System.Drawing.Point(96, 25);
+            this.lblFacturasARendir.Name = "lblFacturasARendir";
+            this.lblFacturasARendir.Size = new System.Drawing.Size(44, 13);
+            this.lblFacturasARendir.TabIndex = 4;
+            this.lblFacturasARendir.Text = "Numero";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(1, 25);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(89, 13);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Facturas a rendir:";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 97);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(127, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Facturas que se rendirán:";
+            // 
+            // dataGridFacturas
+            // 
+            this.dataGridFacturas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridFacturas.Location = new System.Drawing.Point(2, 113);
+            this.dataGridFacturas.MultiSelect = false;
+            this.dataGridFacturas.Name = "dataGridFacturas";
+            this.dataGridFacturas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridFacturas.Size = new System.Drawing.Size(589, 228);
+            this.dataGridFacturas.TabIndex = 1;
+            this.dataGridFacturas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            // 
+            // lblEmpresaSelec
+            // 
+            this.lblEmpresaSelec.AutoSize = true;
+            this.lblEmpresaSelec.Location = new System.Drawing.Point(0, 0);
+            this.lblEmpresaSelec.Name = "lblEmpresaSelec";
+            this.lblEmpresaSelec.Size = new System.Drawing.Size(194, 13);
+            this.lblEmpresaSelec.TabIndex = 0;
+            this.lblEmpresaSelec.Text = "Empresa Seleccionada: ____________";
             // 
             // RendicionForm
             // 
@@ -267,10 +270,10 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panelEmpresas.ResumeLayout(false);
             this.panelEmpresas.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).EndInit();
             this.panelFacturas.ResumeLayout(false);
             this.panelFacturas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridFacturas)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).EndInit();
             this.ResumeLayout(false);
 
         }

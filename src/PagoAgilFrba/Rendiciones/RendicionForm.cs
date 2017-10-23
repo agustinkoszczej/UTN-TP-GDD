@@ -49,12 +49,12 @@ namespace PagoAgilFrba.Rendicion
                 facturas = RendicionDAO.obtenerNoRendidasYCargarGrid(dataGridFacturas, seleccionada);
                 lblFacturasARendir.Text = facturas.Count.ToString();
                 sumaCobrada = obtenerSumaFacturas();
-                lblSumaCobrada.Text = sumaCobrada.ToString();
-                lblPorcentajeComision.Text = porcentajeComision.ToString();
+                lblSumaCobrada.Text = "$" + sumaCobrada.ToString();
+                lblPorcentajeComision.Text = (100*porcentajeComision).ToString() + "%";
                 valorComision = porcentajeComision * sumaCobrada;
-                lblValorComision.Text = valorComision.ToString();
+                lblValorComision.Text = "$" + valorComision.ToString();
                 totalRendido = sumaCobrada - valorComision;
-                lblTotalRendido.Text = totalRendido.ToString();
+                lblTotalRendido.Text = "$" + totalRendido.ToString();
             }
         }
 
@@ -106,6 +106,33 @@ namespace PagoAgilFrba.Rendicion
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnRendir_Click(object sender, EventArgs e)
+        {
+            Model.Rendicion rend = new Model.Rendicion(0, DateTime.Now, totalRendido);
+            int idR = RendicionDAO.nuevaRendicion(rend);
+
+            if (idR == 0)
+            {
+                MessageBox.Show("Error al generar la rendicion");
+            }
+            else
+            {
+                foreach (Factura f in facturas)
+                {
+                    try
+                    {
+                        rend.id = idR;
+                        f.rendicion = rend;
+                        FacturaDAO.modificarFactura(f);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al actualizar la factura Nº " + f.id); 
+                    }
+                }
+            }
         }
     }
 }

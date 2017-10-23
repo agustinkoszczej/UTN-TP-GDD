@@ -33,7 +33,10 @@ namespace PagoAgilFrba.DAOs
 
         public static List<Factura> obtenerNoRendidasYCargarGrid(DataGridView grid, Empresa selec)
         {
-            string query = string.Format(@"SELECT Factura_codigo, Factura_fecha, Factura_total, Factura_fecha_venc, Factura_cliente FROM LORDS_OF_THE_STRINGS_V2.Factura WHERE Factura_empresa = @idEmpresa AND Factura_rendicion IS NULL;");
+            string query = string.Format(@"SELECT Factura_codigo, Factura_fecha, Factura_total, Factura_fecha_venc, Factura_cliente 
+                                            FROM LORDS_OF_THE_STRINGS_V2.Factura F
+                                            join LORDS_OF_THE_STRINGS_V2.Pago P on F.Factura_codigo = P.Pago_factura
+                                            WHERE Factura_empresa = @idEmpresa AND MONTH(P.Pago_fecha) = MONTH(GETDATE()) AND F.Factura_rendicion IS NULL");
             SqlConnection conn = DBConnection.getConnection();
             SqlCommand command = new SqlCommand(query, conn);
 
@@ -53,20 +56,71 @@ namespace PagoAgilFrba.DAOs
             List<Factura> facts = new List<Factura>();
 
             foreach(DataGridViewRow row in grid.Rows){
-                Factura f = new Factura(
-                    int.Parse(row.Cells[0].Value.ToString()),
-                    DateTime.ParseExact(row.Cells[1].Value.ToString(), "dd/MM/yyyy 0:00:00", CultureInfo.InvariantCulture),
-                    double.Parse(row.Cells[2].Value.ToString()),
-                    DateTime.ParseExact(row.Cells[3].Value.ToString(), "dd/MM/yyyy 0:00:00", CultureInfo.InvariantCulture),
-                    selec,
-                    new Cliente(int.Parse(row.Cells[4].Value.ToString()), "", "", 0, DateTime.Now, "", "", "", "", true),  //genero cualquier empresa y cliente, total no me importan aca
-                    null);
+                if (row.Cells[0].Value != null)
+                {
+                    Factura f = new Factura(
+                        int.Parse(row.Cells[0].Value.ToString()),
+                        DateTime.Parse(row.Cells[1].Value.ToString()),
+                        double.Parse(row.Cells[2].Value.ToString()),
+                        DateTime.Parse(row.Cells[3].Value.ToString()),
+                        selec,
+                        new Cliente(int.Parse(row.Cells[4].Value.ToString()), "", "", 0, DateTime.Now, "", "", "", "", true),  //genero cualquier cliente, total no me importan aca
+                        null);
 
-                facts.Add(f);
+                    facts.Add(f);
+                }
             }
 
             return facts;
 
+        }
+
+
+
+        public static int nuevaRendicion(Model.Rendicion rend)
+        {
+            //0 error bd
+            //ID OK                 HACER ESTO EN UN TRANSACCION
+
+            try
+            {
+                var conn = DBConnection.getConnection();
+                //string query = string.Format(@"INSERT INTO LORDS_OF_THE_STRINGS_V2.Rendicion(Rendicion_fecha, Rendicion_importe) VALUES (@fecha, @importe)");
+                //SqlCommand comando = new SqlCommand(query, conn);
+                //// SqlCommand comando = new SqlCommand("INSERT INTO LORDS_OF_THE_STRINGS_V2.Rendicion(Rendicion_fecha, Rendicion_importe) VALUES ('" + Utilidades.Utils.fechaACanonica(rend.fecha) + "', " + rend.importe + ")", conn);
+
+                //comando.Parameters.Add("@fecha", SqlDbType.Date);
+                //comando.Parameters["@fecha"].Value = rend.fecha;
+
+                //comando.Parameters.Add("@importe", SqlDbType.Float);
+                //comando.Parameters["@importe"].Value = rend.importe;
+
+                //comando.ExecuteNonQuery();
+
+                string query = string.Format(@"INSERT INTO LORDS_OF_THE_STRINGS_V2.Rendicion(Rendicion_fecha, Rendicion_importe) VALUES (@fecha, @importe); SELECT SCOPE_IDENTITY();");
+
+                SqlCommand comando = new SqlCommand(query, conn);
+
+                comando.Parameters.Add("@fecha", SqlDbType.Date);
+                comando.Parameters["@fecha"].Value = rend.fecha;
+
+                comando.Parameters.Add("@importe", SqlDbType.Float);
+                comando.Parameters["@importe"].Value = rend.importe;
+
+                comando.CommandType = System.Data.CommandType.Text;
+                SqlDataReader reader = comando.ExecuteReader();
+                reader.Read();
+                string asd = reader.GetValue(0).ToString();
+                int idRendicion = int.Parse(asd);
+                reader.Close();
+
+                conn.Close();
+                return idRendicion;
+            }
+            catch (SqlException ex)
+            {
+                return 0;
+            }
         }
 
     }

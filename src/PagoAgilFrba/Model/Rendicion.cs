@@ -8,7 +8,7 @@ namespace PagoAgilFrba.Model
 {
     public class Rendicion
     {
-        public int id { get; private set; }
+        public int id { get; set; }
         public DateTime fecha { get; set; }
         public double importe { get; set; }
 
