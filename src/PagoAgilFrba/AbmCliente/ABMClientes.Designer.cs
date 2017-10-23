@@ -134,6 +134,7 @@
             this.dataGridClientes.Size = new System.Drawing.Size(650, 280);
             this.dataGridClientes.TabIndex = 0;
             this.dataGridClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridClientes_CellClick);
+            this.dataGridClientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridClientes_CellContentClick);
             // 
             // panel4
             // 

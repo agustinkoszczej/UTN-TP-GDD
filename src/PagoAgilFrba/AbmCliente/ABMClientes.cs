@@ -184,33 +184,45 @@ namespace PagoAgilFrba.AbmCliente
 
         private void filtrar()
         {
-            string busqueda = "SELECT Cliente_codigo, Cliente_dni, Cliente_nombre, Cliente_apellido, Cliente_fecha_nac, Cliente_mail, Cliente_direccion, Cliente_codigo_postal, Cliente_telefono, Cliente_habilitado FROM LORDS_OF_THE_STRINGS_V2.Cliente";
-            string filtroNomb = "";
-            string filtroApell = "";
-            string filtroDNI = "";
-            string filtroHabil = "";
+
+            string miFiltroNomb = "";
+            string miFiltroApell = "";
+            string miFiltroDNI = "";
+            string miFiltroHabil = "";
 
 
-            filtroNomb = " WHERE Cliente_nombre LIKE '%" + filtroNombre + "%'";
+            //miFiltroNomb = " WHERE Cliente_nombre LIKE '%" + this.filtroNombre + "%'";
+            miFiltroNomb = " WHERE UPPER(Cliente_nombre) LIKE UPPER('%' + @nombre + '%')";
 
-            filtroApell = " AND Cliente_apellido LIKE '%" + filtroApellido + "%'";
+            //miFiltroApell = " AND Cliente_apellido LIKE '%" + this.filtroApellido + "%'";
+            miFiltroApell = " AND UPPER(Cliente_apellido) LIKE UPPER('%' + @apell + '%')";
             //SI EL CAMPO ESTA VACIO, QUEDA LIKE '%%', Y ES LO MISMO QUE NO PODER EL WHERE
+
+            int dni = -1;
 
             if (txtFiltroDNI.Text != "")
             {
-                filtroDNI = " AND Cliente_dni = " + filtroDNI;
+                try{
+                    dni = int.Parse(txtFiltroDNI.Text.ToString());
+                }
+                catch(Exception ex){
+                    MessageBox.Show("Dni ingresado inválido");
+                    return;
+                }
+                miFiltroDNI = " AND Cliente_dni = @dni";
             }
 
             if (chkHabilitado.Checked)
             {
-                filtroHabil = " AND Cliente_habilitado = 1";
+                miFiltroHabil = " AND Cliente_habilitado = 1";
             }
 
-            busqueda = busqueda + filtroNomb + filtroApell + filtroDNI + filtroHabil;
+            string busqueda = string.Format(@"SELECT Cliente_codigo, Cliente_dni, Cliente_nombre, Cliente_apellido, Cliente_fecha_nac, Cliente_mail, Cliente_direccion, Cliente_codigo_postal, Cliente_telefono, Cliente_habilitado FROM LORDS_OF_THE_STRINGS_V2.Cliente" + miFiltroNomb + miFiltroApell + miFiltroDNI + miFiltroHabil);
 
-            ClienteDAO.llenarDataGrid(dataGridClientes, busqueda);
+            ClienteDAO.llenarDataGrid(dataGridClientes, busqueda, this.filtroNombre, this.filtroApellido, dni);
 
             filtrando = true;
+            if (this.selectedRow != null) this.selectedRow = dataGridClientes.Rows[0];
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -220,7 +232,8 @@ namespace PagoAgilFrba.AbmCliente
 
         private void cargarGridSinFiltros()
         {
-            ClienteDAO.llenarDataGrid(dataGridClientes, "SELECT Cliente_codigo, Cliente_dni, Cliente_nombre, Cliente_apellido, Cliente_fecha_nac, Cliente_mail, Cliente_direccion, Cliente_codigo_postal, Cliente_telefono, Cliente_habilitado FROM LORDS_OF_THE_STRINGS_V2.Cliente WHERE Cliente_habilitado = 1"); 
+            ClienteDAO.llenarDataGrid(dataGridClientes, "SELECT Cliente_codigo, Cliente_dni, Cliente_nombre, Cliente_apellido, Cliente_fecha_nac, Cliente_mail, Cliente_direccion, Cliente_codigo_postal, Cliente_telefono, Cliente_habilitado FROM LORDS_OF_THE_STRINGS_V2.Cliente WHERE Cliente_habilitado = 1");
+            if (this.selectedRow != null) this.selectedRow = dataGridClientes.Rows[0];
         }
 
         private void btnSinFiltros_Click(object sender, EventArgs e)
@@ -280,6 +293,11 @@ namespace PagoAgilFrba.AbmCliente
                     MessageBox.Show("Error al inhabilitar Cliente Nº " + selectedRow.Cells[0].Value.ToString());
                 }
             }
+        }
+
+        private void dataGridClientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

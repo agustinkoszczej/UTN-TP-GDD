@@ -71,6 +71,30 @@ namespace PagoAgilFrba.DAOs
 
         }
 
+        public static void llenarDataGrid(DataGridView grid, string queryParam, string filtroNombre, string filtroApellido, int filtroDNI)
+        {
+
+
+            SqlConnection conn = DBConnection.getConnection();
+            SqlCommand command = new SqlCommand(queryParam, conn);
+
+            command.Parameters.AddWithValue("@nombre", filtroNombre);
+            command.Parameters.AddWithValue("@apell", filtroApellido);
+
+            command.Parameters.Add("@dni", SqlDbType.Int);
+            command.Parameters["@dni"].Value = filtroDNI;
+
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = command;
+            DataTable table = new DataTable();
+            adapter.Fill(table);
+            BindingSource source = new BindingSource();
+
+            source.DataSource = table;
+            grid.DataSource = source;
+            adapter.Update(table);
+        }
+
         public static int nuevoCliente(Cliente cli)
         {
             //0 error bd
