@@ -42,6 +42,16 @@ namespace PagoAgilFrba.Model
             this.rendicion = _rendicion;
             this.items = new List<Item_Factura>();
         }
-
+        //Pago
+        public Factura(int _id, DateTime _fecha, double _total, DateTime _fecha_venc, Empresa _empresa, Cliente _cliente)
+        {
+            this.id = _id;
+            this.fecha = _fecha;
+            this.total = _total;
+            this.fecha_venc = _fecha_venc;
+            this.empresa = _empresa;
+            this.cliente = _cliente;
+            this.items = new List<Item_Factura>();
+        }
     }
 }

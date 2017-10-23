@@ -1,6 +1,9 @@
 USE [GD2C2017]
 GO
---CREATE SCHEMA [LORDS_OF_THE_STRINGS_V2] AUTHORIZATION [gd]
+/*IF EXISTS (SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'LORDS_OF_THE_STRINGS_V2')
+    DROP SCHEMA LORDS_OF_THE_STRINGS_V2
+GO
+CREATE SCHEMA [LORDS_OF_THE_STRINGS_V2] AUTHORIZATION [gd]*/
 GO
 
 -------------------------------------------------------------------------------------------------
@@ -34,7 +37,7 @@ IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].Usuario', 'U') IS NOT NULL DROP TABLE [L
 CREATE TABLE [LORDS_OF_THE_STRINGS_V2].[Rol](
 	[Rol_codigo] [numeric](18, 0) IDENTITY PRIMARY KEY,
 	[Rol_nombre] [nvarchar](50) NOT NULL UNIQUE,
-	[Rol_habilitado] [bit] NULL DEFAULT 1)
+	[Rol_habilitado] [bit] NOT NULL DEFAULT 1)
 GO
 
 -------------------------------------------------------------------------------------------------
@@ -75,7 +78,7 @@ GO
 CREATE TABLE [LORDS_OF_THE_STRINGS_V2].[Rol_Usuario](
 	[RolUsua_usuario] [numeric](18, 0) NOT NULL FOREIGN KEY REFERENCES [LORDS_OF_THE_STRINGS_V2].Usuario(Usuario_codigo),
 	[RolUsua_rol] [numeric](18, 0) NOT NULL FOREIGN KEY REFERENCES [LORDS_OF_THE_STRINGS_V2].Rol(Rol_codigo),
-	PRIMARY KEY  CLUSTERED (RolUsua_usuario,RolUsua_rol))
+	PRIMARY KEY (RolUsua_usuario, RolUsua_rol))
 GO
 
 
@@ -93,7 +96,7 @@ CREATE TABLE [LORDS_OF_THE_STRINGS_V2].[Cliente](
 	[Cliente_direccion] [nvarchar](255) NOT NULL,
 	[Cliente_codigo_postal] [nvarchar](255) NULL,
 	[Cliente_telefono] [nvarchar](50) NULL,
-	[Cliente_habilitado] [bit] NULL DEFAULT 1)
+	[Cliente_habilitado] [bit] NOT NULL DEFAULT 1)
 	--FALTARIA TELEFONO? Y USUARIO_CODIGO? CODIGO POSTAL COMO CHAR ACA Y COMO NUMERO EN SUCURSAL?
 GO
 
@@ -115,7 +118,7 @@ CREATE TABLE [LORDS_OF_THE_STRINGS_V2].[Empresa](
 	[Empresa_cuit] [nvarchar](50) NOT NULL,
 	[Empresa_nombre] [nvarchar](255) NOT NULL,
 	[Empresa_direccion] [nvarchar](255) NOT NULL,
-	[Empresa_habilitada] [bit] NULL DEFAULT 1)
+	[Empresa_habilitada] [bit] NOT NULL DEFAULT 1)
 GO
 
 -------------------------------------------------------------------------------------------------
@@ -125,7 +128,7 @@ GO
 CREATE TABLE [LORDS_OF_THE_STRINGS_V2].[Rubro_Empresa](
 	[RubroEmpr_empresa] [numeric](18, 0) NOT NULL FOREIGN KEY REFERENCES [LORDS_OF_THE_STRINGS_V2].Empresa(Empresa_codigo),
 	[RubroEmpr_rubro] [numeric](18, 0) NOT NULL FOREIGN KEY REFERENCES [LORDS_OF_THE_STRINGS_V2].Rubro(Rubro_codigo),
-	PRIMARY KEY (RubroEmpr_empresa,RubroEmpr_rubro))
+	PRIMARY KEY (RubroEmpr_empresa, RubroEmpr_rubro))
 GO
 
 -------------------------------------------------------------------------------------------------
@@ -137,7 +140,7 @@ CREATE TABLE [LORDS_OF_THE_STRINGS_V2].[Sucursal](
 	[Sucursal_nombre] [nvarchar](50) NOT NULL,
 	[Sucursal_direccion] [nvarchar](50) NOT NULL, --DIRECCION ACA COMO CHAR DE 50 Y 255 EN EMPRESA
 	[Sucursal_codigo_postal] [numeric](18, 0) NOT NULL UNIQUE,
-	[Sucursal_habilitada] [bit] NULL DEFAULT 1)
+	[Sucursal_habilitada] [bit] NOT NULL DEFAULT 1)
 GO
 
 -------------------------------------------------------------------------------------------------
@@ -171,7 +174,8 @@ CREATE TABLE [LORDS_OF_THE_STRINGS_V2].[Factura](
 	[Factura_fecha_venc] [datetime] NOT NULL,
 	[Factura_empresa] [numeric](18, 0) NOT NULL FOREIGN KEY REFERENCES [LORDS_OF_THE_STRINGS_V2].Empresa(Empresa_codigo),
 	[Factura_cliente] [numeric](18, 0) NOT NULL FOREIGN KEY REFERENCES [LORDS_OF_THE_STRINGS_V2].Cliente(Cliente_codigo),
-	[Factura_rendicion] [numeric](18, 0) NULL FOREIGN KEY REFERENCES [LORDS_OF_THE_STRINGS_V2].Rendicion(Rendicion_codigo))
+	[Factura_rendicion] [numeric](18, 0) NULL FOREIGN KEY REFERENCES [LORDS_OF_THE_STRINGS_V2].Rendicion(Rendicion_codigo),
+	[Factura_habilitada] [bit] NOT NULL DEFAULT 1)
 GO
 
 -------------------------------------------------------------------------------------------------
@@ -472,6 +476,8 @@ GO
 SET IDENTITY_INSERT [LORDS_OF_THE_STRINGS_V2].Factura ON
 GO
 
+-- Inserto las Facturas con Rendición primero
+
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Factura(
 				Factura_codigo,
 				Factura_fecha,
@@ -496,7 +502,33 @@ JOIN GD2C2017.LORDS_OF_THE_STRINGS_V2.Empresa e
 JOIN GD2C2017.LORDS_OF_THE_STRINGS_V2.Cliente c
 		ON c.Cliente_dni = m.[Cliente-Dni]
 JOIN GD2C2017.LORDS_OF_THE_STRINGS_V2.Rendicion r
-		ON r.Rendicion_codigo = m.Rendicion_Nro
+		ON r.Rendicion_codigo = m.Rendicion_Nro -- Aca no puede ser NULL la Rendicion
+GO
+
+-- Luego las Facturas restantes
+
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Factura(
+				Factura_codigo,
+				Factura_fecha,
+				Factura_fecha_venc, 
+				Factura_total, 
+				Factura_empresa, 
+				Factura_cliente, 
+				Factura_rendicion
+)
+SELECT DISTINCT m.Nro_Factura,
+				m.Factura_Fecha, 
+				m.Factura_Fecha_Vencimiento, 
+				m.Factura_Total, 
+				e.Empresa_codigo, 
+				c.Cliente_codigo, 
+				m.Rendicion_Nro
+FROM GD2C2017.gd_esquema.Maestra m
+JOIN GD2C2017.LORDS_OF_THE_STRINGS_V2.Empresa e
+		ON e.Empresa_cuit = m.Empresa_cuit
+JOIN GD2C2017.LORDS_OF_THE_STRINGS_V2.Cliente c
+		ON c.Cliente_dni = m.[Cliente-Dni]
+WHERE NOT EXISTS (SELECT * FROM LORDS_OF_THE_STRINGS_V2.Factura f WHERE (f.Factura_codigo = m.Nro_Factura))
 GO
 
 SET IDENTITY_INSERT [LORDS_OF_THE_STRINGS_V2].Factura OFF
@@ -587,6 +619,11 @@ GO
 -- SUCURSAL
 IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_get_sucursales_usuario') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_get_sucursales_usuario]; 
 GO
+-- REGISTRO_PAGOS
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_es_factura_paga') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_es_factura_paga]; 
+GO
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_buscar_factura') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_buscar_factura]; 
+GO
 -------------------------------------------------------------------------------------------------
 -- LOGIN
 -------------------------------------------------------------------------------------------------
@@ -640,6 +677,54 @@ AS
              JOIN [LORDS_OF_THE_STRINGS_V2].Usuario ON (Usuario_codigo = UsuarioSucur_usuario)
              WHERE Usuario_codigo = @user_id AND Sucursal_habilitada = 1)
 GO
+-------------------------------------------------------------------------------------------------
+-- REGISTRO_PAGOS
+-------------------------------------------------------------------------------------------------
+-- FUNCTION FN_ES_FACTURA_PAGA
+-------------------------------------------------------------------------------------------------
+CREATE FUNCTION [LORDS_OF_THE_STRINGS_V2].fn_es_factura_paga(@id_factura numeric(18, 0))
+RETURNS bit
+AS
+BEGIN
+	IF EXISTS (SELECT * FROM [LORDS_OF_THE_STRINGS_V2].Factura 
+    JOIN [LORDS_OF_THE_STRINGS_V2].Pago ON (Factura_codigo = Pago_factura) -- Existe Pago de Factura
+	WHERE Factura_habilitada = 1 AND Factura_codigo = @id_factura)
+		BEGIN
+			IF NOT EXISTS ( SELECT * FROM [LORDS_OF_THE_STRINGS_V2].Devolucion 
+			JOIN [LORDS_OF_THE_STRINGS_V2].Factura ON (Factura_codigo = Devolucion_factura) -- Y NO existe Devolución
+			WHERE Factura_habilitada = 1 AND Factura_codigo = @id_factura)
+				RETURN 1
+		END
+	RETURN 0
+END
+GO
+-------------------------------------------------------------------------------------------------
+-- REGISTRO_PAGOS
+-------------------------------------------------------------------------------------------------
+-- FUNCTION FN_BUSCAR_FACTURA
+-------------------------------------------------------------------------------------------------
+/*CREATE FUNCTION [LORDS_OF_THE_STRINGS_V2].fn_buscar_factura(@id_factura numeric(18, 0), @dni_cliente numeric(18, 0))
+RETURNS table
+AS
+	IF (@id_factura = NULL AND @dni_cliente = NULL)
+	BEGIN
+		RETURN (SELECT Factura_codigo, Factura_fecha, Factura_total, Factura_fecha_venc, Factura_cliente, Cliente_dni, Factura_empresa 
+		FROM LORDS_OF_THE_STRINGS_V2.Factura 
+		JOIN LORDS_OF_THE_STRINGS_V2.Cliente ON (Factura_cliente = Cliente_codigo)
+		WHERE Factura_habilitada = 1 AND Cliente_habilitado = 1 AND Factura_codigo LIKE @id_factura AND Cliente_dni LIKE @dni_cliente)
+	END
+GO*/
+/*
+SELECT * FROM [LORDS_OF_THE_STRINGS_V2].fn_buscar_factura(10002, NULL)
+SELECT [LORDS_OF_THE_STRINGS_V2].fn_is_blocked_user('admin') GO
+10002
+38270412*/
+/*
+SELECT Factura_codigo, Factura_fecha, Factura_total, Factura_fecha_venc, Factura_cliente, Cliente_dni, Factura_empresa 
+	FROM LORDS_OF_THE_STRINGS_V2.Factura 
+    JOIN LORDS_OF_THE_STRINGS_V2.Cliente ON (Factura_cliente = Cliente_codigo)
+    WHERE Factura_habilitada = 1 AND Cliente_habilitado = 1 AND Factura_codigo LIKE 10002 AND Cliente_dni LIKE IF NOT NULL 388
+	*/
 ------------------------------------------------------------------------------------------------------------
 -----------------------------------CREACIÓN DE STORED PROCEDURES--------------------------------------------
 
@@ -730,7 +815,6 @@ END
 GO
 
 
-
 -------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------
 -- PRUEBAS VARIAS
@@ -806,4 +890,10 @@ SELECT * FROM LORDS_OF_THE_STRINGS_V2.Usuario_Sucursal
 
 
 SELECT * FROM LORDS_OF_THE_STRINGS_V2.Rol_Usuario
-DELETE FROM LORDS_OF_THE_STRINGS_V2.Rol_Usuario WHERE RolUsua_usuario=2*/
+DELETE FROM LORDS_OF_THE_STRINGS_V2.Rol_Usuario WHERE RolUsua_usuario=2
+
+SELECT * FROM LORDS_OF_THE_STRINGS_V2.Factura JOIN LORDS_OF_THE_STRINGS_V2.Cliente ON (Factura_cliente = Cliente_codigo)
+WHERE Cliente_dni = 38270412
+SELECT * FROM LORDS_OF_THE_STRINGS_V2.Item_Factura
+
+SELECT LORDS_OF_THE_STRINGS_V2.fn_es_factura_paga(10002)*/

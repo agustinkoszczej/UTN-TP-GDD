@@ -105,12 +105,12 @@ namespace PagoAgilFrba.AbmSucursal
 
             if (!string.IsNullOrEmpty(_nombre))
             {
-                query_nombre += "UPPER(Sucursal_nombre) LIKE UPPER('%' + @nombre + '%') ";
+                query_nombre = "UPPER(Sucursal_nombre) LIKE UPPER('%' + @nombre + '%') ";
                 query_where = " WHERE ";
             }
             if (!string.IsNullOrEmpty(_direccion))
             {
-                query_direccion += "UPPER(Sucursal_direccion) LIKE UPPER('%' + @direccion + '%')";
+                query_direccion = "UPPER(Sucursal_direccion) LIKE UPPER('%' + @direccion + '%')";
                 if (!string.IsNullOrEmpty(_nombre))
                 {
                     query_direccion = "AND " + query_direccion;
@@ -119,7 +119,7 @@ namespace PagoAgilFrba.AbmSucursal
             }
             if (!string.IsNullOrEmpty(_cod_postal))
             {
-                query_cod_postal += "Sucursal_codigo_postal LIKE @cod_postal"; //'%' + @cod_postal + '%' -> si quiero exacto
+                query_cod_postal = "Sucursal_codigo_postal LIKE @cod_postal"; //'%' + @cod_postal + '%' -> si quiero exacto
                 if (!string.IsNullOrEmpty(_nombre) || (!string.IsNullOrEmpty(_direccion)))
                 {
                     query_cod_postal = "AND " + query_cod_postal;

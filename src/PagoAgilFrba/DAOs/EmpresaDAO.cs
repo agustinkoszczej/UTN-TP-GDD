@@ -16,6 +16,27 @@ namespace PagoAgilFrba.DAOs
     public static class EmpresaDAO
     {
 
+        public static Empresa obtener_empresa_con_ID(int id)
+        {
+            string query = string.Format(@"SELECT * FROM LORDS_OF_THE_STRINGS_V2.Empresa WHERE Empresa_codigo=@id");
+            SqlConnection conn = DBConnection.getConnection();
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@id", id);
+            SqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            string nombre = reader["Empresa_nombre"].ToString();
+            string cuit = reader["Empresa_cuit"].ToString();
+            string direccion = reader["Empresa_direccion"].ToString();
+            bool habilitada = Convert.ToBoolean(reader["Empresa_habilitada"].ToString());
+
+            Empresa empresa = new Empresa(id, cuit, nombre, direccion, habilitada);
+
+            reader.Close();
+            reader.Dispose();
+            conn.Close();
+            return empresa;
+        }
+
         public static void buscar_empresa(DataGridView _grillaEmpresas, string _query, string _nombre, string _cuit)
         {
             SqlConnection conn = DBConnection.getConnection();

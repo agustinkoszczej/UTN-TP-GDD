@@ -106,6 +106,7 @@
       <DependentUpon>IngresoSucursalForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DAOs\ClienteDAO.cs" />
+    <Compile Include="DAOs\PagoDAO.cs" />
     <Compile Include="DAOs\SucursalDAO.cs" />
     <Compile Include="DAOs\RubroDAO.cs" />
     <Compile Include="DAOs\EmpresaDAO.cs" />

@@ -162,7 +162,7 @@ namespace PagoAgilFrba.AbmEmpresa
 
             if (!string.IsNullOrEmpty(_nombre))
             {
-                query_nombre += "UPPER(Empresa_nombre) LIKE UPPER('%' + @nombre + '%') ";
+                query_nombre = "UPPER(Empresa_nombre) LIKE UPPER('%' + @nombre + '%') ";
                 if (_rubros.Count != 0)
                 {
                     query_nombre = "AND " + query_nombre;
@@ -170,7 +170,7 @@ namespace PagoAgilFrba.AbmEmpresa
             }
             if (!string.IsNullOrEmpty(_cuit))
             {
-                query_cuit += "UPPER(Empresa_cuit) LIKE UPPER('%' + @cuit + '%')";
+                query_cuit = "UPPER(Empresa_cuit) LIKE UPPER('%' + @cuit + '%')";
                 if (!string.IsNullOrEmpty(_nombre) || (_rubros.Count != 0))
                 {
                     query_cuit = "AND " + query_cuit;
