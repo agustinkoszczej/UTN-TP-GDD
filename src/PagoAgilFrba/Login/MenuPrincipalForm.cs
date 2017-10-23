@@ -171,5 +171,11 @@ namespace PagoAgilFrba
             MenuPrincipalForm frm = new MenuPrincipalForm(usuario_logueado, rol_seleccionado);
             frm.Show();
         }
+
+        private void cmdRendirFacturas_Click(object sender, EventArgs e)
+        {
+            RendicionForm frm = new RendicionForm();
+            frm.Show();
+        }
     }
 }
