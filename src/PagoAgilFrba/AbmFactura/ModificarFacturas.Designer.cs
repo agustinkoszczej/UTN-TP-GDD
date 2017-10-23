@@ -236,7 +236,7 @@
             this.MaximizeBox = false;
             this.Name = "ModificarFacturas";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "PagoAgilFrba | Modificar Factura";
             this.Load += new System.EventHandler(this.ModificarFacturas_Load);
             this.panelModificarFactura.ResumeLayout(false);
             this.panelModificarFactura.PerformLayout();

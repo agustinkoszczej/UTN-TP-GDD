@@ -309,7 +309,7 @@
             this.MaximizeBox = false;
             this.Name = "MenuPrincipalForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PagoAgilFrba | Menu";
+            this.Text = "PagoAgilFrba | Menú Principal";
             this.Load += new System.EventHandler(this.MenuPrincipalForm_Load);
             this.groupBoxAcciones.ResumeLayout(false);
             this.groupBoxABMs.ResumeLayout(false);

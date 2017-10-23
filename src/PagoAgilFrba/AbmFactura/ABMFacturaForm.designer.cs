@@ -521,7 +521,7 @@
             this.MaximizeBox = false;
             this.Name = "ABMFacturaForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Facturas";
+            this.Text = "PagoAgilFrba | ABM Factura";
             this.Load += new System.EventHandler(this.ABMFacturaForm_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabAlta.ResumeLayout(false);

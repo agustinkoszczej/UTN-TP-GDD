@@ -306,7 +306,7 @@
             this.MaximizeBox = false;
             this.Name = "ModificarItems";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "PagoAgilFrba | Modificar Items";
             this.Load += new System.EventHandler(this.ModificarItems_Load);
             this.panelModificarItem.ResumeLayout(false);
             this.panelModificarItem.PerformLayout();

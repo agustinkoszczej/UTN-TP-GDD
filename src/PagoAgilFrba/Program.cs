@@ -8,6 +8,7 @@ using PagoAgilFrba.Login;
 using PagoAgilFrba.AbmEmpresa;
 using PagoAgilFrba.AbmRol;
 using PagoAgilFrba.AbmSucursal;
+using PagoAgilFrba.RegistroPago;
 
 namespace PagoAgilFrba
 {

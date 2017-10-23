@@ -475,8 +475,10 @@
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.panel7);
             this.Controls.Add(this.panel2);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "ABMClientes";
-            this.Text = "ABM Clientes";
+            this.Text = "PagoAgilFrba | ABM Cliente";
             this.Load += new System.EventHandler(this.ABMClientes_Load);
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridClientes)).EndInit();
