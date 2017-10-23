@@ -84,6 +84,7 @@
             this.cmdRendirFacturas.TabIndex = 4;
             this.cmdRendirFacturas.Text = "Rendir Facturas";
             this.cmdRendirFacturas.UseVisualStyleBackColor = true;
+            this.cmdRendirFacturas.Click += new System.EventHandler(this.cmdRendirFacturas_Click);
             // 
             // groupBoxAcciones
             // 
