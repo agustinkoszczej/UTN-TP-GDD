@@ -77,7 +77,7 @@ namespace PagoAgilFrba.DAOs
                 conn.Close();
                 return idFactura;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //rollback
                 return 0;
@@ -112,7 +112,7 @@ namespace PagoAgilFrba.DAOs
                     reader.GetValue(8).ToString(),                              //tel
                     true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }
@@ -227,7 +227,7 @@ namespace PagoAgilFrba.DAOs
 
                 return 1;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return 0;
             }
@@ -270,7 +270,7 @@ namespace PagoAgilFrba.DAOs
                 conn.Close();
                 return 1;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return 0;
             }
@@ -332,7 +332,7 @@ namespace PagoAgilFrba.DAOs
                 conn.Close();
                 return 1;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return 0;
             }

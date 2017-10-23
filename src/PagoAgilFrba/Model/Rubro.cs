@@ -6,21 +6,16 @@ using System.Threading.Tasks;
 
 namespace PagoAgilFrba.Model
 {
-    public class Sucursal
+    public class Rubro
     {
         public int id { get; private set; }
-        public string nombre { get; set; }
-        public string direccion { get; set; }
-        public int cod_postal { get; set; }
-        public bool habilitada { get; set; }
+        public string descripcion { get; set; }
 
-        public Sucursal(int _id, string _nombre, string _direccion, int _cod_postal, bool _habilitada)
+        public Rubro(int _id, string _descripcion)
         {
             this.id = _id;
-            this.nombre = _nombre;
-            this.direccion = _direccion;
-            this.cod_postal = _cod_postal;
-            this.habilitada = _habilitada;
+            this.descripcion = _descripcion;
         }
+
     }
 }

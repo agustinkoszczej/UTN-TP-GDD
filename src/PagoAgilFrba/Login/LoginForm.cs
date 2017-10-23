@@ -70,6 +70,9 @@ namespace PagoAgilFrba.Login
                 txtUsername.Visible = false;
                 lblPassword.Visible = false;
                 cmdIngresarButton.Visible = false;
+                groupBoxLogin.Height = 108;
+                this.Height = 255;
+                cmdCancelarButton.Location = new System.Drawing.Point(159, 170);
 
                 lnlCerrarSesion.Visible = true;
                 cboRoles.Visible = true;
@@ -85,13 +88,18 @@ namespace PagoAgilFrba.Login
                     cboRoles.ValueMember = "id";
 
                 }
+                if (usuario.roles.Count == 0)
+                {
+                    MessageBox.Show("Al parecer no tiene Roles asignados, porfavor contáctese con el Administrador", "Error Roles", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Restart();
+                }
         }
 
         private void cmdSeleccionarRol_Click(object sender, EventArgs e)
         {
             if (Utils.campo_cumple(cboRoles, errorProvider))
             {
-                Form form = new MenuPrincipalForm(usuario, (Rol)cboRoles.SelectedItem);
+                Form form = new MenuPrincipalForm(usuario, (Rol) cboRoles.SelectedItem);
                 form.Show();
                 this.Hide();
             }

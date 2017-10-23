@@ -37,6 +37,14 @@ namespace PagoAgilFrba.AbmEmpresa
             Utils.limpiar_controles(new List<Control> {txtCuitEmpresa, txtNombreEmpresa, chkLstRubros, chkQuitarDeshabilitados});
         }
 
+        private void txtCuitEmpresa_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '-'))
+            {
+                e.Handled = true;
+            }
+        }
+
         private void set_rubros_chkLst()
         {
             chkLstRubros.Items.Clear();

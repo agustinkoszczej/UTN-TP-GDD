@@ -175,6 +175,13 @@ namespace PagoAgilFrba.Utilidades
            grilla.Rows.OfType<DataGridViewRow>().Where(x => Convert.ToInt32(x.Cells["Código"].Value) == id).ToArray<DataGridViewRow>()[0].Selected = true;
        }
 
+       public static void solo_numeros(KeyPressEventArgs e)
+       {
+           if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+           {
+               e.Handled = true;
+           }
+       }
        public static string fechaACanonica(DateTime fecha)
        {
            int day = fecha.Day;

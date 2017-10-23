@@ -94,6 +94,7 @@
             this.txtCuitEmpresa.Name = "txtCuitEmpresa";
             this.txtCuitEmpresa.Size = new System.Drawing.Size(155, 20);
             this.txtCuitEmpresa.TabIndex = 2;
+            this.txtCuitEmpresa.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCuitEmpresa_KeyPress);
             // 
             // lblRubros
             // 

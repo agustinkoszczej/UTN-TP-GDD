@@ -186,7 +186,7 @@ namespace PagoAgilFrba.DAOs
                 conn.Close();
                 return 1;
             }
-            catch (SqlException ex)
+            catch (SqlException)
             {
                 return 0;
             }

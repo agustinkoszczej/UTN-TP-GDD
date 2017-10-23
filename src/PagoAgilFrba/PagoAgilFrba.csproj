@@ -93,11 +93,17 @@
     <Compile Include="AbmRol\IngresoRolForm.Designer.cs">
       <DependentUpon>IngresoRolForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmSucursal\Form1.cs">
+    <Compile Include="AbmSucursal\ABMSucursalForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmSucursal\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmSucursal\ABMSucursalForm.Designer.cs">
+      <DependentUpon>ABMSucursalForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmSucursal\IngresoSucursalForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmSucursal\IngresoSucursalForm.Designer.cs">
+      <DependentUpon>IngresoSucursalForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DAOs\ClienteDAO.cs" />
     <Compile Include="DAOs\SucursalDAO.cs" />
@@ -177,6 +183,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\IngresoRolForm.resx">
       <DependentUpon>IngresoRolForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmSucursal\ABMSucursalForm.resx">
+      <DependentUpon>ABMSucursalForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmSucursal\IngresoSucursalForm.resx">
+      <DependentUpon>IngresoSucursalForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\MenuPrincipalForm.resx">
       <DependentUpon>MenuPrincipalForm.cs</DependentUpon>

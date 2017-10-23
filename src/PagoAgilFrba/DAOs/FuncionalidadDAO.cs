@@ -37,35 +37,24 @@ namespace PagoAgilFrba.DAOs
         }
         public static void cargar_funcionalidades_asignadas(Rol rol)
         {
-            try
+            string query = string.Format(@"SELECT * FROM LORDS_OF_THE_STRINGS_V2.fn_get_funcionalidades_rol(@rol_id)");
+
+            SqlConnection conn = DBConnection.getConnection();
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@rol_id", rol.id);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
             {
+                int id = int.Parse(reader["Func_codigo"].ToString());
+                string nombre = reader["Func_nombre"].ToString();
 
-                string query = string.Format(@"SELECT Func_codigo, Func_nombre FROM LORDS_OF_THE_STRINGS_V2.Funcionalidad
-                                         JOIN LORDS_OF_THE_STRINGS_V2.Funcionalidad_Rol ON (Func_codigo = FuncRol_func) 
-                                         JOIN LORDS_OF_THE_STRINGS_V2.Rol ON (Rol_codigo = FuncRol_rol)
-                                         WHERE Rol_codigo = @rol_id");
-
-                SqlConnection conn = DBConnection.getConnection();
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@rol_id", rol.id);
-
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    int id = int.Parse(reader["Func_codigo"].ToString());
-                    string nombre = reader["Func_nombre"].ToString();
-
-                    Funcionalidad func = new Funcionalidad(id, nombre);
-                    rol.funcionalidades.Add(func);
-                }
-                reader.Close();
-                reader.Dispose();
-                conn.Close();
+                Funcionalidad func = new Funcionalidad(id, nombre);
+                rol.funcionalidades.Add(func);
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error al cargar las funcionalidades asignadas", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            reader.Close();
+            reader.Dispose();
+            conn.Close();
         }
 
         public static void cargar_grilla_funcionalidades(DataGridView grillaFuncionalidades, Rol rol)

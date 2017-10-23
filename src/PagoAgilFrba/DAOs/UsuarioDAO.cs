@@ -53,5 +53,30 @@ namespace PagoAgilFrba.DAOs
             reader.Dispose();
             conn.Close();
         }
+
+        public static void cargar_sucursales_asignadas(Usuario usuario)
+        {
+            string query = string.Format(@"SELECT * FROM LORDS_OF_THE_STRINGS_V2.fn_get_sucursales_usuario(@user_id)");
+
+            SqlConnection conn = DBConnection.getConnection();
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@user_id", usuario.id);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                int id = int.Parse(reader["Sucursal_codigo"].ToString());
+                string nombre = reader["Sucursal_nombre"].ToString();
+                string direccion = reader["Sucursal_direccion"].ToString();
+                int cod_postal = int.Parse(reader["Sucursal_codigo_postal"].ToString());
+                bool habilitada = bool.Parse(reader["Sucursal_habilitada"].ToString());
+
+                Sucursal suc = new Sucursal(id, nombre, direccion, cod_postal, habilitada);
+                usuario.sucursales.Add(suc);
+            }
+            reader.Close();
+            reader.Dispose();
+            conn.Close();
+        }
     }
 }

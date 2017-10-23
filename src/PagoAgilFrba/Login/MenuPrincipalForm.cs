@@ -28,26 +28,47 @@ namespace PagoAgilFrba
 {
     public partial class MenuPrincipalForm : Form
     {
-        public Usuario usuario;
-        public Rol rol_seleccionado; 
+        public Usuario usuario_logueado;
+        public Rol rol_seleccionado;
+        public Sucursal sucursal_seleccionada;
 
         public MenuPrincipalForm(Usuario _usuario, Rol _rol_seleccionado)
         {
             InitializeComponent();
-            this.usuario = _usuario;
+            this.usuario_logueado = _usuario;
             this.rol_seleccionado = _rol_seleccionado;
         }
 
         private void MenuPrincipalForm_Load(object sender, EventArgs e)
         {
+            this.Height = 120;
+            cargar_sucursales();
             FuncionalidadDAO.cargar_funcionalidades_asignadas(rol_seleccionado);
             validar_permisos();
+        }
+
+        private void cargar_sucursales()
+        {
+            usuario_logueado.sucursales = new List<Sucursal>();
+            UsuarioDAO.cargar_sucursales_asignadas(usuario_logueado);
+            if (usuario_logueado.sucursales.Count == 0)
+            {
+                MessageBox.Show("Al parecer no tiene Sucursales asignadas, porfavor contáctese con el Administrador", "Error Sucursales", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Restart();
+            }
+            foreach (Sucursal suc in usuario_logueado.sucursales)
+            {
+                cboSucursales.Items.Add(suc);
+                cboSucursales.DisplayMember = "nombre";
+                cboSucursales.ValueMember = "id";
+
+            }
         }
 
         //Función del sistema que chequea el Rol y permisos del usuario
         private void validar_permisos()
         {
-            lblUser.Text = usuario.username;
+            lblUsuarioLogueado.Text = usuario_logueado.username;
               foreach (Funcionalidad func in rol_seleccionado.funcionalidades)
                     {
                         switch (func.nombre)
@@ -119,6 +140,35 @@ namespace PagoAgilFrba
         private void cmdABMCliente_Click(object sender, EventArgs e)
         {
             ABMClientes frm = new ABMClientes();
+            frm.Show();
+        }
+
+        private void cmdABMSucursal_Click(object sender, EventArgs e)
+        {
+            ABMSucursalForm frm = new ABMSucursalForm();
+            frm.Show();
+        }
+
+        private void cmdSeleccionarSucursal_Click(object sender, EventArgs e)
+        {
+            this.sucursal_seleccionada = (Sucursal) cboSucursales.SelectedItem;
+            lblSucursalSeleccionada.Text = sucursal_seleccionada.nombre;
+            groupBoxABMs.Visible = true;
+            groupBoxAcciones.Visible = true;
+            lblSucursalSeleccionada.Visible = true;
+            lblSucursal.Visible = true;
+            lnlCambiarSucursal.Visible = true;
+            this.Height = 356;
+
+            cmdSeleccionarSucursal.Visible = false;
+            cboSucursales.Visible = false;
+            lblSeleccioneSucursal.Visible = false;
+        }
+
+        private void lnlCambiarSucursal_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Close();
+            MenuPrincipalForm frm = new MenuPrincipalForm(usuario_logueado, rol_seleccionado);
             frm.Show();
         }
     }

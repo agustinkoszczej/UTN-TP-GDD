@@ -98,7 +98,7 @@
             this.cmdCancelarButton.Name = "cmdCancelarButton";
             this.cmdCancelarButton.Size = new System.Drawing.Size(75, 23);
             this.cmdCancelarButton.TabIndex = 5;
-            this.cmdCancelarButton.Text = "Cerrar";
+            this.cmdCancelarButton.Text = "Salir";
             this.cmdCancelarButton.UseVisualStyleBackColor = true;
             this.cmdCancelarButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
@@ -110,7 +110,7 @@
             this.groupBoxLogin.Controls.Add(this.cboRoles);
             this.groupBoxLogin.Location = new System.Drawing.Point(12, 99);
             this.groupBoxLogin.Name = "groupBoxLogin";
-            this.groupBoxLogin.Size = new System.Drawing.Size(260, 194);
+            this.groupBoxLogin.Size = new System.Drawing.Size(260, 185);
             this.groupBoxLogin.TabIndex = 6;
             this.groupBoxLogin.TabStop = false;
             this.groupBoxLogin.Text = "Login PagoAgilFrba";
@@ -130,7 +130,7 @@
             // cmdSeleccionarRol
             // 
             this.cmdSeleccionarRol.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.cmdSeleccionarRol.Location = new System.Drawing.Point(94, 71);
+            this.cmdSeleccionarRol.Location = new System.Drawing.Point(38, 71);
             this.cmdSeleccionarRol.Name = "cmdSeleccionarRol";
             this.cmdSeleccionarRol.Size = new System.Drawing.Size(75, 23);
             this.cmdSeleccionarRol.TabIndex = 8;

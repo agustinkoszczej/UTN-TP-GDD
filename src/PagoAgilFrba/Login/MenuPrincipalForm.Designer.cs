@@ -32,8 +32,10 @@
             this.cmdRegistrarPago = new System.Windows.Forms.Button();
             this.cmdRendirFacturas = new System.Windows.Forms.Button();
             this.groupBoxAcciones = new System.Windows.Forms.GroupBox();
-            this.lblBienvenido = new System.Windows.Forms.Label();
-            this.lblUser = new System.Windows.Forms.Label();
+            this.cmdSeleccionarSucursal = new System.Windows.Forms.Button();
+            this.cboSucursales = new System.Windows.Forms.ComboBox();
+            this.lblUsuario = new System.Windows.Forms.Label();
+            this.lblUsuarioLogueado = new System.Windows.Forms.Label();
             this.cmdABMRol = new System.Windows.Forms.Button();
             this.cmdABMCliente = new System.Windows.Forms.Button();
             this.cmdABMSucursal = new System.Windows.Forms.Button();
@@ -42,6 +44,10 @@
             this.cmdABMEmpresa = new System.Windows.Forms.Button();
             this.cmdCerrar = new System.Windows.Forms.Button();
             this.lnlCerrarSesion = new System.Windows.Forms.LinkLabel();
+            this.lblSucursalSeleccionada = new System.Windows.Forms.Label();
+            this.lblSeleccioneSucursal = new System.Windows.Forms.Label();
+            this.lnlCambiarSucursal = new System.Windows.Forms.LinkLabel();
+            this.lblSucursal = new System.Windows.Forms.Label();
             this.groupBoxAcciones.SuspendLayout();
             this.groupBoxABMs.SuspendLayout();
             this.SuspendLayout();
@@ -84,7 +90,7 @@
             this.groupBoxAcciones.Controls.Add(this.cmdRendirFacturas);
             this.groupBoxAcciones.Controls.Add(this.cmdListadoEstadistico);
             this.groupBoxAcciones.Controls.Add(this.cmdRegistrarPago);
-            this.groupBoxAcciones.Location = new System.Drawing.Point(1, 36);
+            this.groupBoxAcciones.Location = new System.Drawing.Point(1, 63);
             this.groupBoxAcciones.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxAcciones.Name = "groupBoxAcciones";
             this.groupBoxAcciones.Padding = new System.Windows.Forms.Padding(2);
@@ -92,27 +98,49 @@
             this.groupBoxAcciones.TabIndex = 9;
             this.groupBoxAcciones.TabStop = false;
             this.groupBoxAcciones.Text = "Acciones";
+            this.groupBoxAcciones.Visible = false;
             // 
-            // lblBienvenido
+            // cmdSeleccionarSucursal
             // 
-            this.lblBienvenido.AutoSize = true;
-            this.lblBienvenido.Location = new System.Drawing.Point(83, 19);
-            this.lblBienvenido.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblBienvenido.Name = "lblBienvenido";
-            this.lblBienvenido.Size = new System.Drawing.Size(63, 13);
-            this.lblBienvenido.TabIndex = 11;
-            this.lblBienvenido.Text = "Bienvenido,";
+            this.cmdSeleccionarSucursal.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.cmdSeleccionarSucursal.Location = new System.Drawing.Point(143, 43);
+            this.cmdSeleccionarSucursal.Name = "cmdSeleccionarSucursal";
+            this.cmdSeleccionarSucursal.Size = new System.Drawing.Size(75, 23);
+            this.cmdSeleccionarSucursal.TabIndex = 23;
+            this.cmdSeleccionarSucursal.Text = "Seleccionar";
+            this.cmdSeleccionarSucursal.UseVisualStyleBackColor = false;
+            this.cmdSeleccionarSucursal.Click += new System.EventHandler(this.cmdSeleccionarSucursal_Click);
             // 
-            // lblUser
+            // cboSucursales
             // 
-            this.lblUser.AutoSize = true;
-            this.lblUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUser.Location = new System.Drawing.Point(142, 19);
-            this.lblUser.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblUser.Name = "lblUser";
-            this.lblUser.Size = new System.Drawing.Size(61, 13);
-            this.lblUser.TabIndex = 12;
-            this.lblUser.Text = "username";
+            this.cboSucursales.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboSucursales.FormattingEnabled = true;
+            this.cboSucursales.Location = new System.Drawing.Point(6, 45);
+            this.cboSucursales.Name = "cboSucursales";
+            this.cboSucursales.Size = new System.Drawing.Size(121, 21);
+            this.cboSucursales.TabIndex = 17;
+            // 
+            // lblUsuario
+            // 
+            this.lblUsuario.AutoSize = true;
+            this.lblUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsuario.Location = new System.Drawing.Point(0, 1);
+            this.lblUsuario.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblUsuario.Name = "lblUsuario";
+            this.lblUsuario.Size = new System.Drawing.Size(91, 20);
+            this.lblUsuario.TabIndex = 11;
+            this.lblUsuario.Text = "Bienvenido:";
+            // 
+            // lblUsuarioLogueado
+            // 
+            this.lblUsuarioLogueado.AutoSize = true;
+            this.lblUsuarioLogueado.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsuarioLogueado.Location = new System.Drawing.Point(94, 1);
+            this.lblUsuarioLogueado.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblUsuarioLogueado.Name = "lblUsuarioLogueado";
+            this.lblUsuarioLogueado.Size = new System.Drawing.Size(88, 20);
+            this.lblUsuarioLogueado.TabIndex = 12;
+            this.lblUsuarioLogueado.Text = "username";
             // 
             // cmdABMRol
             // 
@@ -129,7 +157,7 @@
             // cmdABMCliente
             // 
             this.cmdABMCliente.Enabled = false;
-            this.cmdABMCliente.Location = new System.Drawing.Point(190, 162);
+            this.cmdABMCliente.Location = new System.Drawing.Point(189, 18);
             this.cmdABMCliente.Margin = new System.Windows.Forms.Padding(2);
             this.cmdABMCliente.Name = "cmdABMCliente";
             this.cmdABMCliente.Size = new System.Drawing.Size(112, 27);
@@ -148,6 +176,7 @@
             this.cmdABMSucursal.TabIndex = 14;
             this.cmdABMSucursal.Text = "ABM Sucursal";
             this.cmdABMSucursal.UseVisualStyleBackColor = true;
+            this.cmdABMSucursal.Click += new System.EventHandler(this.cmdABMSucursal_Click);
             // 
             // cmdABMFactura
             // 
@@ -167,14 +196,16 @@
             this.groupBoxABMs.Controls.Add(this.cmdABMRol);
             this.groupBoxABMs.Controls.Add(this.cmdABMSucursal);
             this.groupBoxABMs.Controls.Add(this.cmdABMFactura);
-            this.groupBoxABMs.Location = new System.Drawing.Point(1, 144);
+            this.groupBoxABMs.Controls.Add(this.cmdABMCliente);
+            this.groupBoxABMs.Location = new System.Drawing.Point(1, 171);
             this.groupBoxABMs.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxABMs.Name = "groupBoxABMs";
             this.groupBoxABMs.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBoxABMs.Size = new System.Drawing.Size(333, 146);
+            this.groupBoxABMs.Size = new System.Drawing.Size(333, 144);
             this.groupBoxABMs.TabIndex = 17;
             this.groupBoxABMs.TabStop = false;
             this.groupBoxABMs.Text = "ABMs";
+            this.groupBoxABMs.Visible = false;
             // 
             // cmdABMEmpresa
             // 
@@ -191,18 +222,18 @@
             // cmdCerrar
             // 
             this.cmdCerrar.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.cmdCerrar.Location = new System.Drawing.Point(253, 296);
+            this.cmdCerrar.Location = new System.Drawing.Point(250, 43);
             this.cmdCerrar.Name = "cmdCerrar";
             this.cmdCerrar.Size = new System.Drawing.Size(75, 23);
             this.cmdCerrar.TabIndex = 19;
-            this.cmdCerrar.Text = "Cerrar";
+            this.cmdCerrar.Text = "Salir";
             this.cmdCerrar.UseVisualStyleBackColor = false;
             this.cmdCerrar.Click += new System.EventHandler(this.cmdCerrar_Click);
             // 
             // lnlCerrarSesion
             // 
             this.lnlCerrarSesion.AutoSize = true;
-            this.lnlCerrarSesion.Location = new System.Drawing.Point(261, 19);
+            this.lnlCerrarSesion.Location = new System.Drawing.Point(258, 6);
             this.lnlCerrarSesion.Name = "lnlCerrarSesion";
             this.lnlCerrarSesion.Size = new System.Drawing.Size(67, 13);
             this.lnlCerrarSesion.TabIndex = 20;
@@ -210,20 +241,72 @@
             this.lnlCerrarSesion.Text = "cerrar sesión";
             this.lnlCerrarSesion.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnlCerrarSesion_LinkClicked);
             // 
+            // lblSucursalSeleccionada
+            // 
+            this.lblSucursalSeleccionada.AutoSize = true;
+            this.lblSucursalSeleccionada.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSucursalSeleccionada.Location = new System.Drawing.Point(1, 44);
+            this.lblSucursalSeleccionada.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblSucursalSeleccionada.Name = "lblSucursalSeleccionada";
+            this.lblSucursalSeleccionada.Size = new System.Drawing.Size(66, 16);
+            this.lblSucursalSeleccionada.TabIndex = 22;
+            this.lblSucursalSeleccionada.Text = "sucursal";
+            this.lblSucursalSeleccionada.Visible = false;
+            // 
+            // lblSeleccioneSucursal
+            // 
+            this.lblSeleccioneSucursal.AutoSize = true;
+            this.lblSeleccioneSucursal.Location = new System.Drawing.Point(2, 24);
+            this.lblSeleccioneSucursal.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblSeleccioneSucursal.Name = "lblSeleccioneSucursal";
+            this.lblSeleccioneSucursal.Size = new System.Drawing.Size(128, 13);
+            this.lblSeleccioneSucursal.TabIndex = 24;
+            this.lblSeleccioneSucursal.Text = "Seleccione una Sucursal:";
+            // 
+            // lnlCambiarSucursal
+            // 
+            this.lnlCambiarSucursal.AutoSize = true;
+            this.lnlCambiarSucursal.Location = new System.Drawing.Point(239, 24);
+            this.lnlCambiarSucursal.Name = "lnlCambiarSucursal";
+            this.lnlCambiarSucursal.Size = new System.Drawing.Size(86, 13);
+            this.lnlCambiarSucursal.TabIndex = 25;
+            this.lnlCambiarSucursal.TabStop = true;
+            this.lnlCambiarSucursal.Text = "cambiar sucursal";
+            this.lnlCambiarSucursal.Visible = false;
+            this.lnlCambiarSucursal.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnlCambiarSucursal_LinkClicked);
+            // 
+            // lblSucursal
+            // 
+            this.lblSucursal.AutoSize = true;
+            this.lblSucursal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSucursal.Location = new System.Drawing.Point(0, 24);
+            this.lblSucursal.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblSucursal.Name = "lblSucursal";
+            this.lblSucursal.Size = new System.Drawing.Size(177, 16);
+            this.lblSucursal.TabIndex = 21;
+            this.lblSucursal.Text = "Se encuentra en la Sucursal:";
+            this.lblSucursal.Visible = false;
+            // 
             // MenuPrincipalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(337, 324);
-            this.Controls.Add(this.lnlCerrarSesion);
+            this.ClientSize = new System.Drawing.Size(337, 318);
+            this.Controls.Add(this.lblSucursalSeleccionada);
+            this.Controls.Add(this.lblSucursal);
             this.Controls.Add(this.cmdCerrar);
-            this.Controls.Add(this.cmdABMCliente);
+            this.Controls.Add(this.lnlCambiarSucursal);
+            this.Controls.Add(this.cboSucursales);
+            this.Controls.Add(this.lblSeleccioneSucursal);
+            this.Controls.Add(this.cmdSeleccionarSucursal);
+            this.Controls.Add(this.lnlCerrarSesion);
             this.Controls.Add(this.groupBoxABMs);
-            this.Controls.Add(this.lblUser);
-            this.Controls.Add(this.lblBienvenido);
+            this.Controls.Add(this.lblUsuarioLogueado);
+            this.Controls.Add(this.lblUsuario);
             this.Controls.Add(this.groupBoxAcciones);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(2);
+            this.MaximizeBox = false;
             this.Name = "MenuPrincipalForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PagoAgilFrba | Menu";
@@ -241,8 +324,8 @@
         private System.Windows.Forms.Button cmdRegistrarPago;
         private System.Windows.Forms.Button cmdRendirFacturas;
         private System.Windows.Forms.GroupBox groupBoxAcciones;
-        private System.Windows.Forms.Label lblBienvenido;
-        private System.Windows.Forms.Label lblUser;
+        private System.Windows.Forms.Label lblUsuario;
+        private System.Windows.Forms.Label lblUsuarioLogueado;
         private System.Windows.Forms.Button cmdABMRol;
         private System.Windows.Forms.Button cmdABMCliente;
         private System.Windows.Forms.Button cmdABMSucursal;
@@ -251,6 +334,12 @@
         private System.Windows.Forms.Button cmdABMEmpresa;
         private System.Windows.Forms.Button cmdCerrar;
         private System.Windows.Forms.LinkLabel lnlCerrarSesion;
+        private System.Windows.Forms.ComboBox cboSucursales;
+        private System.Windows.Forms.Label lblSucursalSeleccionada;
+        private System.Windows.Forms.Button cmdSeleccionarSucursal;
+        private System.Windows.Forms.Label lblSeleccioneSucursal;
+        private System.Windows.Forms.LinkLabel lnlCambiarSucursal;
+        private System.Windows.Forms.Label lblSucursal;
     }
 }
 

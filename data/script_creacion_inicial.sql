@@ -135,8 +135,8 @@ GO
 CREATE TABLE [LORDS_OF_THE_STRINGS_V2].[Sucursal](
 	[Sucursal_codigo] [numeric](18, 0) IDENTITY PRIMARY KEY,
 	[Sucursal_nombre] [nvarchar](50) NOT NULL,
-	[Sucursal_direccion] [nvarchar](50) NOT NULL UNIQUE, --DIRECCION ACA COMO CHAR DE 50 Y 255 EN EMPRESA
-	[Sucursal_codigo_postal] [numeric](18, 0) NOT NULL,
+	[Sucursal_direccion] [nvarchar](50) NOT NULL, --DIRECCION ACA COMO CHAR DE 50 Y 255 EN EMPRESA
+	[Sucursal_codigo_postal] [numeric](18, 0) NOT NULL UNIQUE,
 	[Sucursal_habilitada] [bit] NULL DEFAULT 1)
 GO
 
@@ -185,8 +185,6 @@ CREATE TABLE [LORDS_OF_THE_STRINGS_V2].[Item_Factura](
 	[ItemFactura_monto] [numeric](18, 2) NOT NULL)
 GO
 
-
-
 -------------------------------------------------------------------------------------------------
 -- TABLE DEVOLUCION
 -------------------------------------------------------------------------------------------------
@@ -214,7 +212,7 @@ CREATE TABLE [LORDS_OF_THE_STRINGS_V2].[Pago](
 	[Pago_codigo] [numeric](18, 0) IDENTITY PRIMARY KEY,
 	[Pago_fecha] [datetime] NOT NULL,
 	[Pago_importe] [numeric](18, 2) NOT NULL,
-	[Pago_sucursal] [datetime] NOT NULL,
+	[Pago_sucursal] [numeric](18, 0) NOT NULL FOREIGN KEY REFERENCES [LORDS_OF_THE_STRINGS_V2].Sucursal(Sucursal_codigo),
 	[Pago_forma_pago] [numeric](18, 0) NOT NULL FOREIGN KEY REFERENCES [LORDS_OF_THE_STRINGS_V2].Forma_Pago(FormaPago_codigo),
 	[Pago_factura] [numeric](18, 0) NOT NULL FOREIGN KEY REFERENCES [LORDS_OF_THE_STRINGS_V2].Factura(Factura_codigo))
 GO
@@ -237,62 +235,74 @@ GO
 -------------------------------------------------------------------------------------------------
 --INSERTA EN LA TABLA ROL LOS VALORES DE LOS DISTINTOS TIPOS DE ROL.
 -- Administradores - Cobradores 
--- Estado: 1 (True)
--- Estado: 0 (False)
+-- Habilitado: 1 (True)
+-- Habilitado: 0 (False)
 -------------------------------------------------------------------------------------------------
 
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rol(Rol_nombre)
 VALUES ('Administrador'),('Cobrador'); 
-
+GO
 -------------------------------------------------------------------------------------------------
 -- INSERTA EN LA TABLA FUNCIONALIDAD  LOS DISTINTOS TIPOS DE FUNCIONALIDAD.
 -------------------------------------------------------------------------------------------------
 
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Funcionalidad(Func_nombre)
 VALUES ('ABM_ROL'), ('REGISTRO_USUARIO'),('ABM_CLIENTE'),('ABM_EMPRESA'),('ABM_SUCURSAL'),('ABM_FACTURAS'),('REGISTRO_PAGOS'),('RENDICION_FACTURAS'),('LISTADO_ESTADISTICO');
+GO
+-------------------------------------------------------------------------------------------------
+-- INSERTA EN LA TABLA FUNCIONALIDAD_ROL LOS DISTINTOS TIPOS DE FUNCIONALIDAD DE CADA ROL.
+-------------------------------------------------------------------------------------------------
+------------- EL ROL ADMINISTRADOR (1) TIENE TODAS LAS FUNCIONALIDADES
+-------------------------------------------------------------------------------------------------
 
--------------------------------------------------------------------------------------------------
--- INSERTA EN LA TABLA FUNC_POR_ROL LOS DISTINTOS TIPOS DE FUNCIONALIDAD DE CADA ROL.
--------------------------------------------------------------------------------------------------
-------------- EL ROL ADMINISTRADOR TIENE TODAS LAS FUNCIONALIDADES
--------------------------------------------------------------------------------------------------
-INSERT INTO [LORDS_OF_THE_STRINGS_V2].Funcionalidad_Rol (FuncRol_rol, FuncRol_func)
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Funcionalidad_Rol(FuncRol_rol, FuncRol_func)
 SELECT DISTINCT 1,
 				Func_codigo
 				FROM [LORDS_OF_THE_STRINGS_V2].Funcionalidad
-
-
+GO
 ------------------------------------------------------------------------------------------------
------------ EL ROL COBRADOR TIENE LAS SIGUIENTES FUNCIONALIDADES:
------------  REGISTRO_PAGOS, RENDICION_FACTURAS
+----------- EL ROL COBRADOR (2) TIENE LAS SIGUIENTES FUNCIONALIDADES:
+-----------  REGISTRO_PAGOS, RENDICION_FACTURAS, LISTADO_ESTADISTICO
 ------------------------------------------------------------------------------------------------
 
-INSERT INTO [LORDS_OF_THE_STRINGS_V2].Funcionalidad_Rol VALUES (2,7)
-INSERT INTO [LORDS_OF_THE_STRINGS_V2].Funcionalidad_Rol VALUES (2,8)
-INSERT INTO [LORDS_OF_THE_STRINGS_V2].Funcionalidad_Rol VALUES (2,9)
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Funcionalidad_Rol(FuncRol_rol, FuncRol_func) 
+VALUES (2,7)
+GO
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Funcionalidad_Rol(FuncRol_rol, FuncRol_func) 
+VALUES (2,8)
+GO
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Funcionalidad_Rol(FuncRol_rol, FuncRol_func) 
+VALUES (2,9)
+GO
 
 -----------------------------------------------------------------------------------
 --INSERTA EN LA TABLA USUARIO MANUALMENTE LOS CAMPOS DEL USUARIO DE ROL ADMIN
--- ------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------
+
 DECLARE @pass [nvarchar](255)
 SET @pass = 'w23e'
 
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Usuario(Usuario_username, Usuario_password)
 VALUES ('admin', HASHBYTES('SHA2_256', @pass))
-
+GO
+--Rol Administrador (1)
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rol_Usuario(RolUsua_usuario, RolUsua_rol)
 VALUES (1,1)
-
+GO
 -----------------------------------------------------------------------------------
 --INSERTA EN LA TABLA USUARIO MANUALMENTE LOS CAMPOS DEL USUARIO DE ROL COBRADOR
 -- ------------------------------------------------------------------------------
+
+DECLARE @pass [nvarchar](255)
 SET @pass = '12345'
 
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Usuario(Usuario_username, Usuario_password)
 VALUES ('cobrador', HASHBYTES('SHA2_256', @pass))
-
+GO
+-- Rol Cobrador (2)
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rol_Usuario(RolUsua_usuario, RolUsua_rol)
 VALUES (2,2)
+GO
 
 -------------------------------------------------------------------------------------------------
 -- INSERTA EN LA TABLA CLIENTE
@@ -385,6 +395,23 @@ SELECT DISTINCT
 FROM GD2C2017.gd_esquema.Maestra m
 WHERE m.Sucursal_Nombre IS NOT NULL
 GO
+
+-------------------------------------------------------------------------------------------------
+-- INSERTA EN LA TABLA USUARIO_SUCURSAL LAS DISTINTAS SUCURSALES DE CADA USUARIO.
+-------------------------------------------------------------------------------------------------
+------------- EL USUARIO ADMIN (1) TIENE TODAS LAS SUCURSALES
+-------------------------------------------------------------------------------------------------
+
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Usuario_Sucursal(UsuarioSucur_usuario, UsuarioSucur_sucursal)
+SELECT DISTINCT 1,
+				Sucursal_codigo
+				FROM [LORDS_OF_THE_STRINGS_V2].Sucursal
+GO
+
+------------------------------------------------------------------------------------------------
+----------- EL USUARIO COBRADOR (2) NO TIENE SUCURSALES
+-----------  
+------------------------------------------------------------------------------------------------
 
 -------------------------------------------------------------------------------------------------
 -- INSERTA EN LA TABLA RUBRO_EMPRESA
@@ -525,26 +552,24 @@ INSERT INTO [LORDS_OF_THE_STRINGS_V2].Pago(
 					Pago_factura
 ) 
 SELECT DISTINCT  
-					Pago_nro, 
-					Pago_Fecha, 
-					f.Factura_codigo,
+					m.Pago_nro, 
+					m.Pago_Fecha, 
+					m.Total,
 					s.Sucursal_codigo, 
 					fp.FormaPago_codigo, 
-					Nro_Factura
+					m.Nro_Factura
 FROM GD2C2017.gd_esquema.Maestra m 
-JOIN GD2C2017.LORDS_OF_THE_STRINGS_V2.Sucursal s 
-		ON s.Sucursal_nombre = m.Sucursal_Nombre
-JOIN GD2C2017.LORDS_OF_THE_STRINGS_V2.Forma_Pago fp 
-		ON m.FormaPagoDescripcion = fp.FormaPago_descripcion
 JOIN GD2C2017.LORDS_OF_THE_STRINGS_V2.Factura f 
 		ON m.Nro_Factura = f.Factura_codigo
+JOIN GD2C2017.LORDS_OF_THE_STRINGS_V2.Sucursal s 
+		ON s.Sucursal_codigo_postal = m.Sucursal_Codigo_Postal
+JOIN GD2C2017.LORDS_OF_THE_STRINGS_V2.Forma_Pago fp 
+		ON m.FormaPagoDescripcion = fp.FormaPago_descripcion
 WHERE Pago_nro IS NOT NULL
 GO
 
 SET IDENTITY_INSERT [LORDS_OF_THE_STRINGS_V2].Pago OFF
 GO
-
-
 
 ----------------------------------------------------------------------------------------------------
 -----------------------------------CREACIÓN DE FUNCTIONS--------------------------------------------
@@ -553,7 +578,14 @@ GO
 -- LOGIN
 IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_is_blocked_user ') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_is_blocked_user];
 GO
+-- ROL
 IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_get_roles_usuario') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_get_roles_usuario]; 
+GO
+-- FUNCIONALIDAD
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_get_funcionalidades_rol') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_get_funcionalidades_rol]; 
+GO
+-- SUCURSAL
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_get_sucursales_usuario') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_get_sucursales_usuario]; 
 GO
 -------------------------------------------------------------------------------------------------
 -- LOGIN
@@ -570,7 +602,7 @@ AS
  END	
 GO
 -------------------------------------------------------------------------------------------------
--- LOGIN
+-- ROL
 -------------------------------------------------------------------------------------------------
 -- FUNCTION FN_GET_ROLES_USUARIO
 -------------------------------------------------------------------------------------------------
@@ -582,7 +614,32 @@ AS
              JOIN [LORDS_OF_THE_STRINGS_V2].Usuario ON (Usuario_codigo = RolUsua_usuario)
              WHERE Usuario_username = @username AND Rol_habilitado = 1)
 GO
-
+-------------------------------------------------------------------------------------------------
+-- FUNCIONALIDAD
+-------------------------------------------------------------------------------------------------
+-- FUNCTION FN_GET_FUNCIONALIDADES_ROL
+-------------------------------------------------------------------------------------------------
+CREATE FUNCTION [LORDS_OF_THE_STRINGS_V2].fn_get_funcionalidades_rol(@rol_id numeric(18, 0))
+RETURNS table
+AS
+	 RETURN (SELECT Func_codigo, Func_nombre FROM LORDS_OF_THE_STRINGS_V2.Funcionalidad
+             JOIN [LORDS_OF_THE_STRINGS_V2].Funcionalidad_Rol ON (Func_codigo = FuncRol_func) 
+             JOIN [LORDS_OF_THE_STRINGS_V2].Rol ON (Rol_codigo = FuncRol_rol)
+             WHERE Rol_codigo = @rol_id)
+GO
+-------------------------------------------------------------------------------------------------
+-- SUCURSAL
+-------------------------------------------------------------------------------------------------
+-- FUNCTION FN_GET_SUCURSALES_USUARIO
+-------------------------------------------------------------------------------------------------
+CREATE FUNCTION [LORDS_OF_THE_STRINGS_V2].fn_get_sucursales_usuario(@user_id numeric(18, 0))
+RETURNS table
+AS
+	 RETURN (SELECT Sucursal_codigo, Sucursal_nombre, Sucursal_direccion, Sucursal_codigo_postal, Sucursal_habilitada FROM LORDS_OF_THE_STRINGS_V2.Sucursal
+             JOIN [LORDS_OF_THE_STRINGS_V2].Usuario_Sucursal ON (Sucursal_codigo = UsuarioSucur_sucursal)
+             JOIN [LORDS_OF_THE_STRINGS_V2].Usuario ON (Usuario_codigo = UsuarioSucur_usuario)
+             WHERE Usuario_codigo = @user_id AND Sucursal_habilitada = 1)
+GO
 ------------------------------------------------------------------------------------------------------------
 -----------------------------------CREACIÓN DE STORED PROCEDURES--------------------------------------------
 
@@ -596,13 +653,15 @@ GO
 -- EMPRESA
 IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].sp_baja_empresa') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[sp_baja_empresa]; 
 GO
+-- SUCURSAL
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].sp_baja_sucursal') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[sp_baja_sucursal]; 
+GO
 
 -------------------------------------------------------------------------------------------------
 -- LOGIN
 -------------------------------------------------------------------------------------------------
 -- PROCEDURE SP_LOGIN_VALIDATE
 -------------------------------------------------------------------------------------------------
-
 CREATE PROCEDURE [LORDS_OF_THE_STRINGS_V2].sp_login_validate(@username nvarchar(50) , @password nvarchar(255))
 AS
  BEGIN
@@ -631,13 +690,12 @@ GO
 -------------------------------------------------------------------------------------------------
 -- PROCEDURE SP_BAJA_ROL
 -------------------------------------------------------------------------------------------------
-
 CREATE PROCEDURE [LORDS_OF_THE_STRINGS_V2].sp_baja_rol(@id_rol numeric(18, 0))
 AS
  BEGIN
 	UPDATE [LORDS_OF_THE_STRINGS_V2].Rol SET Rol_habilitado = ~Rol_habilitado WHERE Rol_codigo=@id_rol /*Invierto estado*/
 	DELETE FROM [LORDS_OF_THE_STRINGS_V2].Rol_Usuario WHERE RolUsua_rol=@id_rol
-	DELETE FROM LORDS_OF_THE_STRINGS_V2.Funcionalidad_Rol WHERE FuncRol_rol=@id_rol
+	DELETE FROM [LORDS_OF_THE_STRINGS_V2].Funcionalidad_Rol WHERE FuncRol_rol=@id_rol
 END
 GO
 -------------------------------------------------------------------------------------------------
@@ -645,7 +703,6 @@ GO
 -------------------------------------------------------------------------------------------------
 -- PROCEDURE SP_BAJA_EMPRESA
 -------------------------------------------------------------------------------------------------
-
 CREATE PROCEDURE [LORDS_OF_THE_STRINGS_V2].sp_baja_empresa(@id_empresa numeric(18, 0))
 AS
  BEGIN
@@ -656,6 +713,19 @@ AS
 		UPDATE [LORDS_OF_THE_STRINGS_V2].Empresa SET Empresa_habilitada = ~Empresa_habilitada WHERE Empresa_codigo = @id_empresa /*Invierto estado*/
 		RETURN 1
 		END
+END
+GO
+-------------------------------------------------------------------------------------------------
+-- SUCURSAL
+-------------------------------------------------------------------------------------------------
+-- PROCEDURE SP_BAJA_SUCURSAL
+-------------------------------------------------------------------------------------------------
+CREATE PROCEDURE [LORDS_OF_THE_STRINGS_V2].sp_baja_sucursal(@id_sucursal numeric(18, 0))
+AS
+ BEGIN
+	UPDATE [LORDS_OF_THE_STRINGS_V2].Sucursal SET Sucursal_habilitada = ~Sucursal_habilitada WHERE Sucursal_codigo = @id_sucursal /*Invierto estado*/
+	DELETE FROM [LORDS_OF_THE_STRINGS_V2].Usuario_Sucursal WHERE UsuarioSucur_sucursal=@id_sucursal
+	RETURN 1
 END
 GO
 
@@ -671,21 +741,19 @@ SELECT * FROM LORDS_OF_THE_STRINGS_V2.Usuario
 
 EXEC LORDS_OF_THE_STRINGS_V2.Login_Procedure_Validate 'admin', 'w23e'
 
-SELECT LORDS_OF_THE_STRINGS_V2.Login_Function_Is_Blocked_User('admin')*/
+SELECT LORDS_OF_THE_STRINGS_V2.Login_Function_Is_Blocked_User('admin')
 
 
 
-/*
+
 SELECT * FROM LORDS_OF_THE_STRINGS_V2.Rol
 
 EXEC LORDS_OF_THE_STRINGS_V2.Rol_Procedure_Alta 'Cobrador'
 
 SELECT LORDS_OF_THE_STRINGS_V2.ROL_FUNCTION_EXISTS_ROL('Cobrador')
-*/
 
 
-/*
-SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Funcionalidad_Rol /*12*/
+SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Funcionalidad_Rol = 12
 /*SELECT * FROM LORDS_OF_THE_STRINGS_V2.Funcionalidad_Rol WHERE FuncRol_rol = 6
 SELECT * FROM LORDS_OF_THE_STRINGS_V2.Rol
 SELECT * FROM LORDS_OF_THE_STRINGS_V2.Funcionalidad
@@ -696,7 +764,7 @@ DELETE FROM LORDS_OF_THE_STRINGS_V2.Rol_Usuario WHERE RolUsua_rol=6
 DELETE FROM LORDS_OF_THE_STRINGS_V2.Funcionalidad_Rol WHERE FuncRol_rol=6
 
 UPDATE LORDS_OF_THE_STRINGS_V2.Rol SET Rol_nombre = 'averga' WHERE Rol_codigo = 8*/
-/*
+
 SELECT * FROM LORDS_OF_THE_STRINGS_V2.Empresa WHERE Empresa_nombre LIKE '%'+ 'Empr' +'%'
 
 SELECT * FROM LORDS_OF_THE_STRINGS_V2.Rubro
@@ -709,26 +777,33 @@ Insert into LORDS_OF_THE_STRINGS_V2.Rubro (Rubro_descripcion) values ('Autos'), 
 EXEC LORDS_OF_THE_STRINGS_V2.sp_baja_empresa 1
 
 SELECT * FROM [LORDS_OF_THE_STRINGS_V2].Factura WHERE Factura_rendicion IS NULL
-Select * from LORDS_OF_THE_STRINGS_V2.Factura Where Factura_codigo = 10004 /*Esta factura no existe en nuestra BD :c*/
+Select * from LORDS_OF_THE_STRINGS_V2.Factura Where Factura_codigo = 10004 Esta factura no existe en nuestra BD :c
 
-/*SELECT Nro_Factura, Rendicion_Nro, ItemRendicion_nro FROM gd_esquema.Maestra  WHERE Rendicion_Nro <> ItemRendicion_nro - 1  ORDER BY Nro_Factura*/
+SELECT Nro_Factura, Rendicion_Nro, ItemRendicion_nro FROM gd_esquema.Maestra  WHERE Rendicion_Nro <> ItemRendicion_nro - 1  ORDER BY Nro_Factura
 
-/*REVISAR RENDICIONES*/
+REVISAR RENDICIONES
 
-/*SELECT * FROM LORDS_OF_THE_STRINGS_V2.Sucursal
+SELECT * FROM LORDS_OF_THE_STRINGS_V2.Sucursal
 SELECT * FROM LORDS_OF_THE_STRINGS_V2.Usuario_Sucursal
 
-SELECT * FROM LORDS_OF_THE_STRINGS_V2.Empresa*/
-/*
+SELECT * FROM LORDS_OF_THE_STRINGS_V2.Empresa
+
 SELECT * FROM LORDS_OF_THE_STRINGS_V2.Sucursal
 SELECT * FROM LORDS_OF_THE_STRINGS_V2.Usuario
 
 SELECT * FROM LORDS_OF_THE_STRINGS_V2.Usuario_Sucursal
 
-*/
-/*SELECT LORDS_OF_THE_STRINGS_V2.Rol_Function_Exists_Rol
+SELECT LORDS_OF_THE_STRINGS_V2.Rol_Function_Exists_Rol
 
 SELECT LORDS_OF_THE_STRINGS_V2.fn_get_roles_usuario('admin')
 
 SELECT LORDS_OF_THE_STRINGS_V2.fn_get_roles_usuario('admin');
-SELECT * FROM LORDS_OF_THE_STRINGS_V2.fn_get_roles_usuario('admin')*/
+SELECT * FROM LORDS_OF_THE_STRINGS_V2.fn_get_roles_usuario('admin')
+
+SELECT * FROM LORDS_OF_THE_STRINGS_V2.Pago
+SELECT * FROM LORDS_OF_THE_STRINGS_V2.Sucursal
+SELECT * FROM LORDS_OF_THE_STRINGS_V2.Usuario_Sucursal
+
+
+SELECT * FROM LORDS_OF_THE_STRINGS_V2.Rol_Usuario
+DELETE FROM LORDS_OF_THE_STRINGS_V2.Rol_Usuario WHERE RolUsua_usuario=2*/

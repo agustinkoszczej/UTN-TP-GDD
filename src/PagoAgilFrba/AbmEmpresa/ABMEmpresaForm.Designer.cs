@@ -43,7 +43,7 @@
             this.chkQuitarDeshabilitados = new System.Windows.Forms.CheckBox();
             this.groupBoxFiltrosBusqueda = new System.Windows.Forms.GroupBox();
             this.cmdQuitarFiltros = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblRubrosBuscar = new System.Windows.Forms.Label();
             this.chkLstRubros = new System.Windows.Forms.CheckedListBox();
             this.lblCuitEmpresa = new System.Windows.Forms.Label();
             this.txtCuitEmpresa = new System.Windows.Forms.TextBox();
@@ -150,7 +150,7 @@
             // cmdCerrar
             // 
             this.cmdCerrar.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.cmdCerrar.Location = new System.Drawing.Point(621, 309);
+            this.cmdCerrar.Location = new System.Drawing.Point(645, 293);
             this.cmdCerrar.Name = "cmdCerrar";
             this.cmdCerrar.Size = new System.Drawing.Size(121, 35);
             this.cmdCerrar.TabIndex = 12;
@@ -205,7 +205,7 @@
             // 
             this.groupBoxFiltrosBusqueda.Controls.Add(this.cmdQuitarFiltros);
             this.groupBoxFiltrosBusqueda.Controls.Add(this.chkQuitarDeshabilitados);
-            this.groupBoxFiltrosBusqueda.Controls.Add(this.label1);
+            this.groupBoxFiltrosBusqueda.Controls.Add(this.lblRubrosBuscar);
             this.groupBoxFiltrosBusqueda.Controls.Add(this.chkLstRubros);
             this.groupBoxFiltrosBusqueda.Controls.Add(this.lblCuitEmpresa);
             this.groupBoxFiltrosBusqueda.Controls.Add(this.txtCuitEmpresa);
@@ -230,14 +230,14 @@
             this.cmdQuitarFiltros.UseVisualStyleBackColor = false;
             this.cmdQuitarFiltros.Click += new System.EventHandler(this.cmdQuitarFiltros_Click);
             // 
-            // label1
+            // lblRubrosBuscar
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(350, 17);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 13);
-            this.label1.TabIndex = 27;
-            this.label1.Text = "Rubros";
+            this.lblRubrosBuscar.AutoSize = true;
+            this.lblRubrosBuscar.Location = new System.Drawing.Point(350, 17);
+            this.lblRubrosBuscar.Name = "lblRubrosBuscar";
+            this.lblRubrosBuscar.Size = new System.Drawing.Size(41, 13);
+            this.lblRubrosBuscar.TabIndex = 27;
+            this.lblRubrosBuscar.Text = "Rubros";
             // 
             // chkLstRubros
             // 
@@ -264,6 +264,7 @@
             this.txtCuitEmpresa.Name = "txtCuitEmpresa";
             this.txtCuitEmpresa.Size = new System.Drawing.Size(155, 20);
             this.txtCuitEmpresa.TabIndex = 24;
+            this.txtCuitEmpresa.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCuitEmpresa_KeyPress);
             // 
             // lblNombreEmpresa
             // 
@@ -342,7 +343,7 @@
         private System.Windows.Forms.Label lblNombreEmpresa;
         private System.Windows.Forms.Label lblCuitEmpresa;
         private System.Windows.Forms.TextBox txtCuitEmpresa;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblRubrosBuscar;
         private System.Windows.Forms.CheckedListBox chkLstRubros;
         private System.Windows.Forms.Button cmdQuitarFiltros;
 

@@ -33,6 +33,15 @@ namespace PagoAgilFrba.AbmEmpresa
             groupBoxIngresoEmpresas.Text = tipo_ingreso;
             set_rubros_chkLst();
         }
+
+        private void txtCuitEmpresa_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&(e.KeyChar != '-'))
+            {
+                e.Handled = true;
+            }
+        }
+
         private void set_rubros_chkLst()
         {
             List<Rubro> rubros = RubroDAO.obtener_todos_rubros();
