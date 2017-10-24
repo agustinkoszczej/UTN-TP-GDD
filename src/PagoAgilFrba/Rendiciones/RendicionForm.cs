@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
 
 using PagoAgilFrba.Model;
 using PagoAgilFrba.DAOs;
@@ -30,13 +31,32 @@ namespace PagoAgilFrba.Rendicion
         private void Form1_Load(object sender, EventArgs e)
         {
             cargarEmpresas();
-            porcentajeComision = 0.1;
+
+
+
+            porcentajeComision = obtenerPorcentajeComision();
+        }
+
+        private double obtenerPorcentajeComision()
+        {
+            try
+            {
+                var appSettings = ConfigurationManager.AppSettings;
+                return  double.Parse(appSettings["porcentajeComision"].ToString());
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error al leer App.config");
+                return 0;
+            }
         }
 
         private void cargarEmpresas()
         {
-            string query = "select Empresa_codigo, Empresa_nombre, Empresa_cuit, Empresa_direccion, Empresa_habilitada from LORDS_OF_THE_STRINGS_V2.Empresa E join LORDS_OF_THE_STRINGS_V2.Factura F on E.Empresa_codigo = F.Factura_empresa join LORDS_OF_THE_STRINGS_V2.Pago P on F.Factura_codigo = P.Pago_factura where MONTH(P.Pago_fecha) = MONTH(GETDATE()) AND F.Factura_rendicion IS NULL";
-            RendicionDAO.llenarDataGrid(dataGridEmpresas, query);
+            string query = string.Format(@"SELECT Empresa_codigo, Empresa_nombre, Empresa_cuit, Empresa_direccion, Empresa_habilitada 
+                                            FROM LORDS_OF_THE_STRINGS_V2.Empresa");
+            DBConnection.llenar_grilla(dataGridEmpresas, query);
+            //RendicionDAO.llenarDataGrid(dataGridEmpresas, query);
         }
 
         private void exito(int idRendicion)
@@ -56,19 +76,30 @@ namespace PagoAgilFrba.Rendicion
             }
             else
             {
-                panelEmpresas.Visible = false;
-                panelFacturas.Visible = true;
-                lblEmpresaSelec.Text = "Empresa Seleccionada: " + seleccionada.nombre;
-                facturas = RendicionDAO.obtenerNoRendidasYCargarGrid(dataGridFacturas, seleccionada);
-                lblFacturasARendir.Text = facturas.Count.ToString();
-                sumaCobrada = obtenerSumaFacturas();
-                lblSumaCobrada.Text = "$" + sumaCobrada.ToString();
-                lblPorcentajeComision.Text = (100*porcentajeComision).ToString() + "%";
-                valorComision = porcentajeComision * sumaCobrada;
-                lblValorComision.Text = "$" + valorComision.ToString();
-                totalRendido = sumaCobrada - valorComision;
-                lblTotalRendido.Text = "$" + totalRendido.ToString();
+                if(fueRendidaEsteMes(seleccionada.id)){
+                    MessageBox.Show("La empresa seleccionada ya fue rendida este mes");
+                }
+                else
+                {
+                    panelEmpresas.Visible = false;
+                    panelFacturas.Visible = true;
+                    lblEmpresaSelec.Text = "Empresa Seleccionada: " + seleccionada.nombre;
+                    facturas = RendicionDAO.obtenerNoRendidasYCargarGrid(dataGridFacturas, seleccionada);
+                    lblFacturasARendir.Text = facturas.Count.ToString();
+                    sumaCobrada = obtenerSumaFacturas();
+                    lblSumaCobrada.Text = "$" + sumaCobrada.ToString();
+                    lblPorcentajeComision.Text = (100*porcentajeComision).ToString() + "%";
+                    valorComision = porcentajeComision * sumaCobrada;
+                    lblValorComision.Text = "$" + valorComision.ToString();
+                    totalRendido = sumaCobrada - valorComision;
+                    lblTotalRendido.Text = "$" + totalRendido.ToString();
+                }
             }
+        }
+
+        private bool fueRendidaEsteMes(int idEmpresa)
+        {
+            return RendicionDAO.fn_empresa_rendida_este_mes(idEmpresa);
         }
 
         private double obtenerSumaFacturas()
