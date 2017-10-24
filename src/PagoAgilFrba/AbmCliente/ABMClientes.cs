@@ -52,7 +52,18 @@ namespace PagoAgilFrba.AbmCliente
         {
             if (Utils.cumple_campos_obligatorios(camposObligatorios, errorProvider) && datePickerFNAC.Value < DateTime.Now)
             {
-                Cliente cli = new Cliente(0, txtNombre.Text, txtApellido.Text, uint.Parse(txtDNI.Text), datePickerFNAC.Value, txtDireccion.Text, txtCP.Text, txtMail.Text, txtTelefono.Text, true);
+                uint dni;
+                try
+                {
+                    dni = uint.Parse(txtDNI.Text);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Dni invalido");
+                    return;
+                }
+
+                Cliente cli = new Cliente(0, txtNombre.Text, txtApellido.Text, dni, datePickerFNAC.Value, txtDireccion.Text, txtCP.Text, txtMail.Text, txtTelefono.Text, true);
                 int ex = ClienteDAO.nuevoCliente(cli);
 
                 switch (ex)
@@ -75,6 +86,17 @@ namespace PagoAgilFrba.AbmCliente
         {
             if (Utils.cumple_campos_obligatorios(camposObligatorios, errorProvider) && datePickerFNAC.Value < DateTime.Now)
             {
+                uint dni;
+                try
+                {
+                    dni = uint.Parse(txtDNI.Text);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Dni invalido");
+                    return;
+                }
+
                 Cliente cli = new Cliente(cargado.id, txtNombre.Text, txtApellido.Text, uint.Parse(txtDNI.Text), datePickerFNAC.Value, txtDireccion.Text, txtCP.Text, txtMail.Text, txtTelefono.Text, cargado.habilitado);
                 int ex = ClienteDAO.modificarCliente(cli);
 

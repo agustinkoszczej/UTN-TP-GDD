@@ -34,10 +34,6 @@ namespace PagoAgilFrba.DAOs
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                bool habil = false;
-                if(reader.GetValue(10).ToString() == "True"){
-                    habil = true;
-                }
 
                 Cliente cli = new Cliente(
                     int.Parse(reader.GetValue(0).ToString()),                                                                                                       //id
@@ -49,7 +45,7 @@ namespace PagoAgilFrba.DAOs
                     reader.GetValue(8).ToString(),
                     reader.GetValue(6).ToString(),
                     reader.GetValue(9).ToString(),
-                    habil);
+                    bool.Parse(reader.GetValue(10).ToString()));
                 clientes.Add(cli);
             }
             conn.Close();

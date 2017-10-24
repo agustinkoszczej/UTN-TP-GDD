@@ -48,6 +48,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridFacturas = new System.Windows.Forms.DataGridView();
             this.lblEmpresaSelec = new System.Windows.Forms.Label();
+            this.lblMensaje = new System.Windows.Forms.Label();
             this.panelEmpresas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).BeginInit();
             this.panelFacturas.SuspendLayout();
@@ -56,6 +57,7 @@
             // 
             // panelEmpresas
             // 
+            this.panelEmpresas.Controls.Add(this.lblMensaje);
             this.panelEmpresas.Controls.Add(this.btnCancelar);
             this.panelEmpresas.Controls.Add(this.label1);
             this.panelEmpresas.Controls.Add(this.btnSeleccionar);
@@ -64,6 +66,7 @@
             this.panelEmpresas.Name = "panelEmpresas";
             this.panelEmpresas.Size = new System.Drawing.Size(593, 411);
             this.panelEmpresas.TabIndex = 0;
+            this.panelEmpresas.Paint += new System.Windows.Forms.PaintEventHandler(this.panelEmpresas_Paint);
             // 
             // btnCancelar
             // 
@@ -122,7 +125,7 @@
             this.panelFacturas.Controls.Add(this.label2);
             this.panelFacturas.Controls.Add(this.dataGridFacturas);
             this.panelFacturas.Controls.Add(this.lblEmpresaSelec);
-            this.panelFacturas.Location = new System.Drawing.Point(12, 13);
+            this.panelFacturas.Location = new System.Drawing.Point(9, 12);
             this.panelFacturas.Name = "panelFacturas";
             this.panelFacturas.Size = new System.Drawing.Size(594, 409);
             this.panelFacturas.TabIndex = 1;
@@ -258,13 +261,22 @@
             this.lblEmpresaSelec.TabIndex = 0;
             this.lblEmpresaSelec.Text = "Empresa Seleccionada: ____________";
             // 
+            // lblMensaje
+            // 
+            this.lblMensaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMensaje.Location = new System.Drawing.Point(84, 385);
+            this.lblMensaje.Name = "lblMensaje";
+            this.lblMensaje.Size = new System.Drawing.Size(407, 20);
+            this.lblMensaje.TabIndex = 5;
+            this.lblMensaje.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // RendicionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(619, 436);
-            this.Controls.Add(this.panelFacturas);
+            this.ClientSize = new System.Drawing.Size(609, 430);
             this.Controls.Add(this.panelEmpresas);
+            this.Controls.Add(this.panelFacturas);
             this.Name = "RendicionForm";
             this.Text = "Rendicion de Facturas Pagas";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -300,5 +312,6 @@
         private System.Windows.Forms.Label lblSumaCobrada;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblFacturasARendir;
+        private System.Windows.Forms.Label lblMensaje;
     }
 }

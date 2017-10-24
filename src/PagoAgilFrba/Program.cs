@@ -10,6 +10,8 @@ using PagoAgilFrba.AbmRol;
 using PagoAgilFrba.AbmSucursal;
 using PagoAgilFrba.RegistroPago;
 using PagoAgilFrba.Rendicion;
+using PagoAgilFrba.AbmFactura;
+using PagoAgilFrba.AbmCliente;
 
 namespace PagoAgilFrba
 {
@@ -23,7 +25,7 @@ namespace PagoAgilFrba
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new RendicionForm());
+            Application.Run(new ABMClientes());
         }
     }
 }

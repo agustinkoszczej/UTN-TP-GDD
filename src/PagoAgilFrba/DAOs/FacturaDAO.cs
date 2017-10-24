@@ -46,21 +46,29 @@ namespace PagoAgilFrba.DAOs
         }
 
         public static int ingresar_factura_e_items(Factura factura, List<Item_Factura> items)
-        {//TODO: HACER ESTO EN UN TRANSACCION
+        {
             //0 = ERROR  
             //ID = OK
             try
             {
-                string fechaCanonica = Utilidades.Utils.fechaACanonica(factura.fecha_venc);
+
                 var conn = DBConnection.getConnection();
-                SqlCommand comando = new SqlCommand("INSERT INTO LORDS_OF_THE_STRINGS_V2.Factura(Factura_fecha, Factura_total, Factura_fecha_venc, Factura_empresa, Factura_cliente, Factura_rendicion) values(" +
-                            "CAST(GETDATE() AS DATE)," + factura.total.ToString() + ",'" + fechaCanonica + "'," + factura.empresa.id + "," + factura.cliente.id + ",NULL);", conn);
-                comando.ExecuteNonQuery();
+                              
+                string query = string.Format(@"INSERT INTO LORDS_OF_THE_STRINGS_V2.Factura(Factura_fecha, Factura_total, Factura_fecha_venc, Factura_empresa, Factura_cliente, Factura_rendicion) values(" +
+                            "CAST(GETDATE() AS DATE),@total,@fvenc,@idEmpresa,@idCliente,NULL);SELECT SCOPE_IDENTITY()");
+                
+                SqlCommand comando = new SqlCommand(query, conn);
 
-                string query = string.Format(@"SELECT SCOPE_IDENTITY()");
+                comando.Parameters.Add("@total", SqlDbType.Float);
+                comando.Parameters["@total"].Value = factura.total;
+                comando.Parameters.Add("@fvenc", SqlDbType.Date);
+                comando.Parameters["@fvenc"].Value = factura.fecha_venc;
+                comando.Parameters.Add("@idEmpresa", SqlDbType.Int);
+                comando.Parameters["@idEmpresa"].Value = factura.empresa.id;
+                comando.Parameters.Add("@idCliente", SqlDbType.Int);
+                comando.Parameters["@idCliente"].Value = factura.cliente.id;
 
-                //conn = DBConnection.getConnection();
-                comando = new SqlCommand(query, conn);
+                          
                 comando.CommandType = System.Data.CommandType.Text;
                 SqlDataReader reader = comando.ExecuteReader();
                 reader.Read();
@@ -123,15 +131,11 @@ namespace PagoAgilFrba.DAOs
 
         public static List<Factura> obtener_facturas_no_pagas()
         {
-            //select Factura_codigo, Factura_fecha, Factura_total, Factura_fecha_venc, Factura_empresa, Factura_cliente  
-            //from LORDS_OF_THE_STRINGS_V2.Factura F 
-            //where F.Factura_codigo NOT IN (select Pago_factura from LORDS_OF_THE_STRINGS_V2.Pago)
-
             List<Empresa> empresas = obtener_empresas(0);
 
             List<Factura> facturas = new List<Factura>();
             string query;
-            query = string.Format(@"SELECT Factura_codigo, YEAR(Factura_fecha),MONTH(Factura_fecha),DAY(Factura_fecha), Factura_total, YEAR(Factura_fecha_venc),MONTH(Factura_fecha_venc),DAY(Factura_fecha_venc), Factura_empresa, Factura_cliente  
+            query = string.Format(@"SELECT Factura_codigo, Factura_fecha, Factura_total, Factura_fecha_venc, Factura_empresa, Factura_cliente  
             FROM LORDS_OF_THE_STRINGS_V2.Factura F 
             WHERE F.Factura_codigo NOT IN (select Pago_factura from LORDS_OF_THE_STRINGS_V2.Pago)");
           
@@ -143,11 +147,11 @@ namespace PagoAgilFrba.DAOs
             {
                 Factura f = new Factura(
                                             int.Parse(reader.GetValue(0).ToString()),
-                                            crearDateTime(int.Parse(reader.GetValue(1).ToString()), int.Parse(reader.GetValue(2).ToString()), int.Parse(reader.GetValue(3).ToString())), 
-                                            double.Parse(reader.GetValue(4).ToString()),
-                                            crearDateTime(int.Parse(reader.GetValue(5).ToString()), int.Parse(reader.GetValue(6).ToString()), int.Parse(reader.GetValue(7).ToString())), 
-                                            filtrarEmpresaConID(empresas, int.Parse(reader.GetValue(8).ToString())), 
-                                            obtener_cliente_con_ID(int.Parse(reader.GetValue(9).ToString())), 
+                                            DateTime.Parse(reader.GetValue(1).ToString()),
+                                            double.Parse(reader.GetValue(2).ToString()),
+                                            DateTime.Parse(reader.GetValue(3).ToString()), 
+                                            filtrarEmpresaConID(empresas, int.Parse(reader.GetValue(4).ToString())), 
+                                            obtener_cliente_con_ID(int.Parse(reader.GetValue(5).ToString())), 
                                             null);
                 facturas.Add(f);
             }

@@ -29,9 +29,22 @@ namespace PagoAgilFrba.Rendicion
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            cargarEmpresas();
+            porcentajeComision = 0.1;
+        }
+
+        private void cargarEmpresas()
+        {
             string query = "select Empresa_codigo, Empresa_nombre, Empresa_cuit, Empresa_direccion, Empresa_habilitada from LORDS_OF_THE_STRINGS_V2.Empresa E join LORDS_OF_THE_STRINGS_V2.Factura F on E.Empresa_codigo = F.Factura_empresa join LORDS_OF_THE_STRINGS_V2.Pago P on F.Factura_codigo = P.Pago_factura where MONTH(P.Pago_fecha) = MONTH(GETDATE()) AND F.Factura_rendicion IS NULL";
             RendicionDAO.llenarDataGrid(dataGridEmpresas, query);
-            porcentajeComision = 0.1;
+        }
+
+        private void exito(int idRendicion)
+        {
+            panelFacturas.Visible = false;
+            panelEmpresas.Visible = true;
+            lblMensaje.Text = "Rendicion Nº " + idRendicion + " generada";
+            cargarEmpresas();
         }
 
         private void btnSeleccionar_Click(object sender, EventArgs e)
@@ -112,7 +125,6 @@ namespace PagoAgilFrba.Rendicion
         {
             Model.Rendicion rend = new Model.Rendicion(0, DateTime.Now, totalRendido);
             int idR = RendicionDAO.nuevaRendicion(rend);
-
             if (idR == 0)
             {
                 MessageBox.Show("Error al generar la rendicion");
@@ -129,10 +141,17 @@ namespace PagoAgilFrba.Rendicion
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error al actualizar la factura Nº " + f.id); 
+                        MessageBox.Show("Error al actualizar la factura Nº " + f.id);
+                        return;
                     }
                 }
+                exito(idR);
             }
+        }
+
+        private void panelEmpresas_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

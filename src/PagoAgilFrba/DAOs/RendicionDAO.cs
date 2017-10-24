@@ -33,7 +33,7 @@ namespace PagoAgilFrba.DAOs
 
         public static List<Factura> obtenerNoRendidasYCargarGrid(DataGridView grid, Empresa selec)
         {
-            string query = string.Format(@"SELECT Factura_codigo, Factura_fecha, Factura_total, Factura_fecha_venc, Factura_cliente 
+            string query = string.Format(@"SELECT DISTINCT Factura_codigo, Factura_fecha, Factura_total, Factura_fecha_venc, Factura_cliente 
                                             FROM LORDS_OF_THE_STRINGS_V2.Factura F
                                             join LORDS_OF_THE_STRINGS_V2.Pago P on F.Factura_codigo = P.Pago_factura
                                             WHERE Factura_empresa = @idEmpresa AND MONTH(P.Pago_fecha) = MONTH(GETDATE()) AND F.Factura_rendicion IS NULL");
@@ -80,23 +80,11 @@ namespace PagoAgilFrba.DAOs
         public static int nuevaRendicion(Model.Rendicion rend)
         {
             //0 error bd
-            //ID OK                 HACER ESTO EN UN TRANSACCION
+            //ID OK                 
 
             try
             {
                 var conn = DBConnection.getConnection();
-                //string query = string.Format(@"INSERT INTO LORDS_OF_THE_STRINGS_V2.Rendicion(Rendicion_fecha, Rendicion_importe) VALUES (@fecha, @importe)");
-                //SqlCommand comando = new SqlCommand(query, conn);
-                //// SqlCommand comando = new SqlCommand("INSERT INTO LORDS_OF_THE_STRINGS_V2.Rendicion(Rendicion_fecha, Rendicion_importe) VALUES ('" + Utilidades.Utils.fechaACanonica(rend.fecha) + "', " + rend.importe + ")", conn);
-
-                //comando.Parameters.Add("@fecha", SqlDbType.Date);
-                //comando.Parameters["@fecha"].Value = rend.fecha;
-
-                //comando.Parameters.Add("@importe", SqlDbType.Float);
-                //comando.Parameters["@importe"].Value = rend.importe;
-
-                //comando.ExecuteNonQuery();
-
                 string query = string.Format(@"INSERT INTO LORDS_OF_THE_STRINGS_V2.Rendicion(Rendicion_fecha, Rendicion_importe) VALUES (@fecha, @importe); SELECT SCOPE_IDENTITY();");
 
                 SqlCommand comando = new SqlCommand(query, conn);
