@@ -31,6 +31,24 @@ namespace PagoAgilFrba.DAOs
 
         }
 
+        public static bool fn_empresa_rendida_este_mes(int idEmpresa)
+        {
+            string query = string.Format(@"SELECT LORDS_OF_THE_STRINGS_V2.fn_es_empresa_rendida_este_mes(@idEmpresa)");
+            SqlConnection conn = DBConnection.getConnection();
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@idEmpresa", idEmpresa);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            bool ret = bool.Parse(reader[0].ToString());
+            
+            reader.Close();
+            reader.Dispose();
+            conn.Close();
+
+            return ret;
+        }
+
         public static List<Factura> obtenerNoRendidasYCargarGrid(DataGridView grid, Empresa selec)
         {
             string query = string.Format(@"SELECT DISTINCT Factura_codigo, Factura_fecha, Factura_total, Factura_fecha_venc, Factura_cliente 
