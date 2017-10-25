@@ -148,9 +148,6 @@ namespace PagoAgilFrba.AbmCliente
         private void ABMClientes_Load(object sender, EventArgs e)
         {
             camposObligatorios = new List<Control>() {txtNombre, txtApellido, txtDNI, txtMail, txtDireccion, txtCP};
-            //ClienteDAO.llenarDataGrid(dataGridClientes, "SELECT Cliente_codigo, Cliente_dni, Cliente_nombre, Cliente_apellido, Cliente_fecha_nac, Cliente_mail, Cliente_direccion, Cliente_codigo_postal, Cliente_telefono FROM LORDS_OF_THE_STRINGS_V2.Cliente WHERE Cliente_habilitado = 1"); 
-            cargarGridSinFiltros();
-            this.selectedRow = dataGridClientes.Rows[0];
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
@@ -253,7 +250,7 @@ namespace PagoAgilFrba.AbmCliente
 
         private void cargarGridSinFiltros()
         {
-            ClienteDAO.llenarDataGrid(dataGridClientes, "SELECT Cliente_codigo, Cliente_dni, Cliente_nombre, Cliente_apellido, Cliente_fecha_nac, Cliente_mail, Cliente_direccion, Cliente_codigo_postal, Cliente_telefono, Cliente_habilitado FROM LORDS_OF_THE_STRINGS_V2.Cliente WHERE Cliente_habilitado = 1");
+            DBConnection.llenar_grilla(dataGridClientes, "SELECT Cliente_codigo, Cliente_dni, Cliente_nombre, Cliente_apellido, Cliente_fecha_nac, Cliente_mail, Cliente_direccion, Cliente_codigo_postal, Cliente_telefono, Cliente_habilitado FROM LORDS_OF_THE_STRINGS_V2.Cliente WHERE Cliente_habilitado = 1");
             if (this.selectedRow != null) this.selectedRow = dataGridClientes.Rows[0];
         }
 

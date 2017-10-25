@@ -82,6 +82,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.btnSinFiltros);
             this.panel2.Controls.Add(this.btnModificar);
             this.panel2.Controls.Add(this.btnHabilitar);
             this.panel2.Controls.Add(this.btnInhabilitar);
@@ -123,6 +124,9 @@
             // 
             // dataGridClientes
             // 
+            this.dataGridClientes.AllowUserToAddRows = false;
+            this.dataGridClientes.AllowUserToDeleteRows = false;
+            this.dataGridClientes.AllowUserToResizeRows = false;
             this.dataGridClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridClientes.Location = new System.Drawing.Point(16, 16);
             this.dataGridClientes.MultiSelect = false;
@@ -354,7 +358,6 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.btnSinFiltros);
             this.panel1.Controls.Add(this.btnFiltrar);
             this.panel1.Controls.Add(this.chkHabilitado);
             this.panel1.Controls.Add(this.txtFiltroDNI);
@@ -372,17 +375,17 @@
             // 
             // btnSinFiltros
             // 
-            this.btnSinFiltros.Location = new System.Drawing.Point(672, 53);
+            this.btnSinFiltros.Location = new System.Drawing.Point(672, 222);
             this.btnSinFiltros.Name = "btnSinFiltros";
-            this.btnSinFiltros.Size = new System.Drawing.Size(104, 23);
+            this.btnSinFiltros.Size = new System.Drawing.Size(104, 34);
             this.btnSinFiltros.TabIndex = 18;
-            this.btnSinFiltros.Text = "Borrar Filtros";
+            this.btnSinFiltros.Text = "Mostrar Habilitados";
             this.btnSinFiltros.UseVisualStyleBackColor = true;
             this.btnSinFiltros.Click += new System.EventHandler(this.btnSinFiltros_Click);
             // 
             // btnFiltrar
             // 
-            this.btnFiltrar.Location = new System.Drawing.Point(672, 91);
+            this.btnFiltrar.Location = new System.Drawing.Point(672, 110);
             this.btnFiltrar.Name = "btnFiltrar";
             this.btnFiltrar.Size = new System.Drawing.Size(104, 23);
             this.btnFiltrar.TabIndex = 17;
