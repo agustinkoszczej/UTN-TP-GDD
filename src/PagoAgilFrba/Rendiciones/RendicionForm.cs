@@ -79,6 +79,8 @@ namespace PagoAgilFrba.Rendicion
 
         private void btnSeleccionar_Click(object sender, EventArgs e)
         {
+            int mes = DateTime.Now.Month;
+            int anio = DateTime.Now.Year;
             seleccionada = getEmpresaSelec();
             if (seleccionada == null)
             {
@@ -86,17 +88,97 @@ namespace PagoAgilFrba.Rendicion
             }
             else
             {
-                if(fueRendidaEsteMes(seleccionada.id)){
-                    MessageBox.Show("La empresa seleccionada ya fue rendida este mes");
-                }
-                else
-                {
+
+                    if (chkSoloMesActual.Checked)
+                    {
+                        if (fueRendidaEsteMes(seleccionada.id))
+                        {
+                            MessageBox.Show("La empresa seleccionada ya fue rendida este mes");
+                            return;
+                        }
+                        else
+                        {
+                            RendicionDAO.cargarGridFacturasPagadasEsteMes(dataGridFacturas, seleccionada);
+                        }
+                    }
+                    else
+                    {
+                        bool error = false;
+                        mes= 0;
+                        anio = 0;
+                        try
+                        {
+                            mes = int.Parse(txtMes.Text.ToString());
+                        }
+                        catch (Exception)
+                        {
+                            error = true;
+                        }
+                        if (mes < 1 || mes > 12) error = true;
+
+                        if (error == true)
+                        {
+                            string mensaje = "";
+                            if (txtMes.Text.ToString() == "")
+                            {
+                                mensaje = "Ingrese un mes válido";
+                            }
+                            else
+                            {
+                                mensaje = "'" + txtMes.Text.ToString() + "' no es un mes válido";
+                            }
+                            MessageBox.Show(mensaje);
+                            return;
+                        }
+
+                        try
+                        {
+                            anio = int.Parse(txtAnio.Text.ToString());
+                        }
+                        catch (Exception)
+                        {
+                            error = true;
+                        }
+                        if (mes < 1) error = true;
+
+                        if (error == true)
+                        {
+                            string mensaje = "";
+                            if (txtAnio.Text.ToString() == "")
+                            {
+                                mensaje = "Ingrese un año válido";
+                            }
+                            else
+                            {
+                                mensaje = "'" + txtAnio.Text.ToString() + "' no es un año válido";
+                            }
+                            MessageBox.Show(mensaje);
+                            return;
+                        }
+                        if (fueRendidaMesEspecifico(seleccionada.id,mes, anio))
+                        {
+                            MessageBox.Show("La empresa seleccionada ya fue rendida en el mes ingresado");
+                        }
+                        else
+                        {
+                            RendicionDAO.cargarGridFacturasPagadasMesEspecificado(dataGridFacturas, seleccionada, mes, anio);
+                        }
+                    }
+                    txtMes.Text = "";
+                    txtAnio.Text = "";
+                    lblMesAnio.Text = mes.ToString() + "/" + anio.ToString(); 
                     panelEmpresas.Visible = false;
                     panelFacturas.Visible = true;
                     lblEmpresaSelec.Text = "Empresa Seleccionada: " + seleccionada.nombre;
-                    RendicionDAO.cargarGridFacturasNoRendidas(dataGridFacturas, seleccionada);
-                    //lblFacturasARendir.Text = facturas.Count.ToString();
                     lblFacturasARendir.Text = dataGridFacturas.Rows.Count.ToString();
+                    if (dataGridFacturas.Rows.Count <= 0)
+                    {
+                        lblNoHayFacturas.Visible = true;
+                    }
+                    else
+                    {
+                        lblNoHayFacturas.Visible = false;
+                    }
                     sumaCobrada = obtenerSumaFacturas();
                     lblSumaCobrada.Text = "$" + sumaCobrada.ToString();
                     lblPorcentajeComision.Text = (100*porcentajeComision).ToString() + "%";
@@ -105,12 +187,17 @@ namespace PagoAgilFrba.Rendicion
                     totalRendido = sumaCobrada - valorComision;
                     lblTotalRendido.Text = "$" + totalRendido.ToString();
                 }
-            }
+            
         }
 
         private bool fueRendidaEsteMes(int idEmpresa)
         {
             return RendicionDAO.fn_empresa_rendida_este_mes(idEmpresa);
+        }
+
+        private bool fueRendidaMesEspecifico(int idEmpresa, int mes, int anio)
+        {
+            return RendicionDAO.fn_empresa_rendida_mes_especifico(idEmpresa, mes, anio);
         }
 
         private double obtenerSumaFacturas()
@@ -212,6 +299,24 @@ namespace PagoAgilFrba.Rendicion
         private void panelEmpresas_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void chkSoloMesActual_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkSoloMesActual.Checked)
+            {
+                panelMesARendir.Enabled = false;
+            }
+            else
+            {
+                panelMesARendir.Enabled = true;
+            }
+        }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            panelFacturas.Visible = false;
+            panelEmpresas.Visible = true;
         }
     }
 }

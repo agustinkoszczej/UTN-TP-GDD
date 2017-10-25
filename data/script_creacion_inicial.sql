@@ -658,6 +658,7 @@ IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_estado_factura') IS NOT NULL DROP FUN
 GO
 -- RENDICIÓN
 IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_es_empresa_rendida_este_mes') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_es_empresa_rendida_este_mes]; 
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_es_empresa_rendida_mes_especifico') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_es_empresa_rendida_mes_especifico]; 
 GO
 -------------------------------------------------------------------------------------------------
 -- LOGIN
@@ -775,6 +776,22 @@ BEGIN
 IF EXISTS (SELECT * FROM LORDS_OF_THE_STRINGS_V2.Factura 
 			JOIN LORDS_OF_THE_STRINGS_V2.Rendicion R ON Factura_rendicion = Rendicion_codigo 
 			WHERE Factura_empresa = @id_empresa AND MONTH(R.Rendicion_fecha) = MONTH(GETDATE()) AND YEAR(R.Rendicion_fecha) = YEAR(GETDATE()))
+			RETURN 1
+
+RETURN 0
+END
+GO
+
+-------------------------------------------------------------------------------------------------
+-- FUNCTION FN_ES_EMPRESA_RENDIDA_ESTE_MES
+-------------------------------------------------------------------------------------------------
+CREATE FUNCTION [LORDS_OF_THE_STRINGS_V2].fn_es_empresa_rendida_mes_especifico(@id_empresa numeric(18,0), @mes numeric(2,0), @anio numeric(5,0))
+RETURNS bit
+AS
+BEGIN
+IF EXISTS (SELECT * FROM LORDS_OF_THE_STRINGS_V2.Factura 
+			JOIN LORDS_OF_THE_STRINGS_V2.Rendicion R ON Factura_rendicion = Rendicion_codigo 
+			WHERE Factura_empresa = @id_empresa AND MONTH(R.Rendicion_fecha) = @mes AND YEAR(R.Rendicion_fecha) = @anio)
 			RETURN 1
 
 RETURN 0

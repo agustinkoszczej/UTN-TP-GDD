@@ -45,6 +45,19 @@ namespace PagoAgilFrba.DAOs
             }
         }
 
+        public static void llenar_grilla_command(DataGridView dataGrid, SqlCommand command)
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = command;
+            DataTable table = new DataTable();
+            adapter.Fill(table);
+            BindingSource source = new BindingSource();
+
+            source.DataSource = table;
+            dataGrid.DataSource = source;
+            adapter.Update(table);
+        }
+
 
     }
 }

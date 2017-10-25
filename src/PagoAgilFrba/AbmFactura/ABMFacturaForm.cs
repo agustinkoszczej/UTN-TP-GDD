@@ -81,34 +81,36 @@ namespace PagoAgilFrba.AbmFactura
             string nombreItem = txtItem.Text;
             double monto = 0;
             int cantidad = 0;
-            bool error = false;
             if (Utilidades.Utils.cumple_campos_obligatorios(campos_obligatorios_ITEM, errorProvider))
             {
                 try
                 {
-                    monto = Convert.ToDouble(txtMonto.Text);
+                    monto = double.Parse(txtMonto.Text.ToString());
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Error al convertir '" + txtMonto.Text + "'");
-                    error = true;
+                    MessageBox.Show("'" + txtMonto.Text + "' no es un monto válido");
                     txtMonto.Text = "";
+                    return;
                 }
 
                 try
                 {
-                    cantidad = Convert.ToInt32(txtCantidad.Text);
+                    cantidad = int.Parse(txtCantidad.Text.ToString());
                 }
                 catch (Exception)
                 {
-                    if (!error)
-                    {
-                        MessageBox.Show("Error al convertir '" + txtCantidad.Text + "'");
-                        error = true;
-                    }
+
+                    MessageBox.Show("'" + txtCantidad.Text + "' no es una cantidad válida");
                     txtCantidad.Text = "";
+                    return;
                 }
-                if (!error)
+
+                if (monto <= 0 || cantidad <= 0)
+                {
+                    MessageBox.Show("Ni las cantidades ni los montos pueden ser nulos o negativos");
+                }
+                else
                 {
                     totalSS = totalSS + monto * cantidad;
                     lblTotal.Text = "$" + totalSS.ToString();
