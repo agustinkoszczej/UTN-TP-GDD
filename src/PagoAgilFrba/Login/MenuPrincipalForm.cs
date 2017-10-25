@@ -16,6 +16,7 @@ using PagoAgilFrba.AbmSucursal;
 using PagoAgilFrba.ListadoEstadistico;
 using PagoAgilFrba.RegistroPago;
 using PagoAgilFrba.Rendicion;
+using PagoAgilFrba.Devolucion;
 
 using PagoAgilFrba.Model;
 using PagoAgilFrba.Utilidades;
@@ -175,6 +176,12 @@ namespace PagoAgilFrba
         private void cmdRendirFacturas_Click(object sender, EventArgs e)
         {
             RendicionForm frm = new RendicionForm();
+            frm.Show();
+        }
+
+        private void cmdDevolucion_Click(object sender, EventArgs e)
+        {
+            DevolucionForm frm = new DevolucionForm();
             frm.Show();
         }
     }

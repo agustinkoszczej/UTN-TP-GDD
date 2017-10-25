@@ -35,7 +35,7 @@ namespace PagoAgilFrba.Rendicion
 
         private void cargarEmpresas()
         {
-            string query = "select Empresa_codigo, Empresa_nombre, Empresa_cuit, Empresa_direccion, Empresa_habilitada from LORDS_OF_THE_STRINGS_V2.Empresa E join LORDS_OF_THE_STRINGS_V2.Factura F on E.Empresa_codigo = F.Factura_empresa join LORDS_OF_THE_STRINGS_V2.Pago P on F.Factura_codigo = P.Pago_factura where MONTH(P.Pago_fecha) = MONTH(GETDATE()) AND F.Factura_rendicion IS NULL";
+            string query = "select distinct Empresa_codigo, Empresa_nombre, Empresa_cuit, Empresa_direccion, Empresa_habilitada from LORDS_OF_THE_STRINGS_V2.Empresa E join LORDS_OF_THE_STRINGS_V2.Factura F on E.Empresa_codigo = F.Factura_empresa join LORDS_OF_THE_STRINGS_V2.Pago P on F.Factura_codigo = P.Pago_factura where MONTH(P.Pago_fecha) = MONTH(GETDATE()) AND F.Factura_rendicion IS NULL";
             RendicionDAO.llenarDataGrid(dataGridEmpresas, query);
         }
 
@@ -93,7 +93,7 @@ namespace PagoAgilFrba.Rendicion
 
                 return new Empresa(empresa_id, empresa_cuit, empresa_nombre, empresa_direccion, empresa_habilitada);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }
@@ -139,7 +139,7 @@ namespace PagoAgilFrba.Rendicion
                         f.rendicion = rend;
                         FacturaDAO.modificarFactura(f);
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         MessageBox.Show("Error al actualizar la factura Nº " + f.id);
                         return;

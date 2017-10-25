@@ -11,18 +11,18 @@ namespace PagoAgilFrba.Model
         public int id { get; private set; }
         public DateTime fecha { get; set; }
         public double importe { get; set; }
-        public Sucursal sucursal { get; set; }
-        public Forma_Pago forma_pago { get; set; }
-        public Factura factura { get; set; }
+        public int sucursal { get; set; }
+        public int forma_pago { get; set; }
+        public int factura { get; set; }
 
-        public Pago(int _id, DateTime _fecha, double _importe, Sucursal _sucursal, Forma_Pago _forma_pago, Factura _factura)
+        public Pago(double _importe, int _id_sucursal, int _id_forma_pago, int _id_factura)
         {
-            this.id = _id;
-            this.fecha = _fecha;
+            //this.id = _id;
+            //this.fecha = _fecha; -- La obtengo directo de la BD (GETDATE())
             this.importe = _importe;
-            this.sucursal = _sucursal;
-            this.forma_pago = _forma_pago;
-            this.factura = _factura;
+            this.sucursal = _id_sucursal;
+            this.forma_pago = _id_forma_pago;
+            this.factura = _id_factura;
         }
     }
 }

@@ -250,7 +250,7 @@ GO
 -------------------------------------------------------------------------------------------------
 
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Funcionalidad(Func_nombre)
-VALUES ('ABM_ROL'), ('REGISTRO_USUARIO'),('ABM_CLIENTE'),('ABM_EMPRESA'),('ABM_SUCURSAL'),('ABM_FACTURAS'),('REGISTRO_PAGOS'),('RENDICION_FACTURAS'),('LISTADO_ESTADISTICO');
+VALUES ('ABM_ROL'), ('REGISTRO_USUARIO'),('ABM_CLIENTE'),('ABM_EMPRESA'),('ABM_SUCURSAL'),('ABM_FACTURAS'),('REGISTRO_PAGOS'),('RENDICION_FACTURAS'),('DEVOLUCION_FACTURAS'),('LISTADO_ESTADISTICO');
 GO
 -------------------------------------------------------------------------------------------------
 -- INSERTA EN LA TABLA FUNCIONALIDAD_ROL LOS DISTINTOS TIPOS DE FUNCIONALIDAD DE CADA ROL.
@@ -265,19 +265,52 @@ SELECT DISTINCT 1,
 GO
 ------------------------------------------------------------------------------------------------
 ----------- EL ROL COBRADOR (2) TIENE LAS SIGUIENTES FUNCIONALIDADES:
------------  REGISTRO_PAGOS, RENDICION_FACTURAS, LISTADO_ESTADISTICO
+-----------  REGISTRO_PAGOS, RENDICION_FACTURAS, DEVOLUCION_FACTURAS, LISTADO_ESTADISTICO
 ------------------------------------------------------------------------------------------------
 
-INSERT INTO [LORDS_OF_THE_STRINGS_V2].Funcionalidad_Rol(FuncRol_rol, FuncRol_func) 
-VALUES (2,7)
-GO
-INSERT INTO [LORDS_OF_THE_STRINGS_V2].Funcionalidad_Rol(FuncRol_rol, FuncRol_func) 
-VALUES (2,8)
-GO
-INSERT INTO [LORDS_OF_THE_STRINGS_V2].Funcionalidad_Rol(FuncRol_rol, FuncRol_func) 
-VALUES (2,9)
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Funcionalidad_Rol(
+				FuncRol_rol, 
+				FuncRol_func
+				)
+SELECT DISTINCT
+				2,
+				Func_codigo
+FROM GD2C2017.LORDS_OF_THE_STRINGS_V2.Funcionalidad
+WHERE Func_nombre = 'REGISTRO_PAGOS'
 GO
 
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Funcionalidad_Rol(
+				FuncRol_rol, 
+				FuncRol_func
+				)
+SELECT DISTINCT
+				2,
+				Func_codigo
+FROM GD2C2017.LORDS_OF_THE_STRINGS_V2.Funcionalidad
+WHERE Func_nombre = 'RENDICION_FACTURAS'
+GO
+
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Funcionalidad_Rol(
+				FuncRol_rol, 
+				FuncRol_func
+				)
+SELECT DISTINCT
+				2,
+				Func_codigo
+FROM GD2C2017.LORDS_OF_THE_STRINGS_V2.Funcionalidad
+WHERE Func_nombre = 'DEVOLUCION_FACTURAS'
+GO
+
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Funcionalidad_Rol(
+				FuncRol_rol, 
+				FuncRol_func
+				)
+SELECT DISTINCT
+				2,
+				Func_codigo
+FROM GD2C2017.LORDS_OF_THE_STRINGS_V2.Funcionalidad
+WHERE Func_nombre = 'LISTADO_ESTADISTICO'
+GO
 -----------------------------------------------------------------------------------
 --INSERTA EN LA TABLA USUARIO MANUALMENTE LOS CAMPOS DEL USUARIO DE ROL ADMIN
 -----------------------------------------------------------------------------------
@@ -618,11 +651,6 @@ GO
 -- SUCURSAL
 IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_get_sucursales_usuario') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_get_sucursales_usuario]; 
 GO
--- REGISTRO_PAGOS
-IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_es_factura_paga') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_es_factura_paga]; 
-GO
-IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_buscar_factura') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_buscar_factura]; 
-GO
 -- FACTURA
 IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_es_factura_habilitada') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_es_factura_habilitada]; 
 GO
@@ -685,27 +713,6 @@ AS
              WHERE Usuario_codigo = @user_id AND Sucursal_habilitada = 1)
 GO
 -------------------------------------------------------------------------------------------------
--- REGISTRO_PAGOS
--------------------------------------------------------------------------------------------------
--- FUNCTION FN_ES_FACTURA_PAGA
--------------------------------------------------------------------------------------------------
-CREATE FUNCTION [LORDS_OF_THE_STRINGS_V2].fn_es_factura_paga(@id_factura numeric(18, 0))
-RETURNS bit
-AS
-BEGIN
-	IF EXISTS (SELECT * FROM [LORDS_OF_THE_STRINGS_V2].Factura 
-    JOIN [LORDS_OF_THE_STRINGS_V2].Pago ON (Factura_codigo = Pago_factura) -- Existe Pago de Factura
-	WHERE Factura_habilitada = 1 AND Factura_codigo = @id_factura)
-		BEGIN
-			IF NOT EXISTS ( SELECT * FROM [LORDS_OF_THE_STRINGS_V2].Devolucion 
-			JOIN [LORDS_OF_THE_STRINGS_V2].Factura ON (Factura_codigo = Devolucion_factura) -- Y NO existe Devolución
-			WHERE Factura_habilitada = 1 AND Factura_codigo = @id_factura)
-				RETURN 1
-		END
-	RETURN 0
-END
-GO
--------------------------------------------------------------------------------------------------
 -- FACTURA
 -------------------------------------------------------------------------------------------------
 -- FUNCTION FN_ES_FACTURA_HABILITADA
@@ -722,32 +729,38 @@ GO
 -------------------------------------------------------------------------------------------------
 -- FUNCTION FN_ESTADO_FACTURA
 -------------------------------------------------------------------------------------------------
---0 esta inhabilitada --1 no esta paga (o fue devuelta)  (no se contempla que no esté paga pero si rendida) 
---2 esta paga y no rendida --3 esta rendida --4 Factura inexistente
+-- 0 Está inhabilitada 
+-- 1 No esta paga (o fue devuelta) => no está rendida => puede pagar
+-- 2 Está paga y no rendida 
+-- 3 Está paga y rendida
+-- 4 Factura inexistente
+-- 5 Error
 
 CREATE FUNCTION [LORDS_OF_THE_STRINGS_V2].fn_estado_factura(@idFactura numeric(18,0)) 	
 RETURNS numeric (18, 0)
 AS 
 BEGIN 	
-	IF EXISTS (SELECT * FROM LORDS_OF_THE_STRINGS_V2.Factura WHERE Factura_codigo = @idFactura) 	
-		BEGIN  				
-		IF ((SELECT LORDS_OF_THE_STRINGS_V2.fn_es_factura_habilitada(@idFactura)) = 0)		
-			RETURN 0		
-		ELSE 			
-			BEGIN  			  			
-				IF ((SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Pago WHERE Pago_factura = @idFactura) <
-					(SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Devolucion WHERE Devolucion_factura = @idFactura))
-					RETURN 1
-				ELSE
-				BEGIN
-					IF EXISTS (SELECT * FROM LORDS_OF_THE_STRINGS_V2.Factura WHERE Factura_codigo = @idFactura AND Factura_rendicion IS NULL)
-						RETURN 2
-					ELSE
-						RETURN 3
-				END
-			END
-	END
-RETURN 4
+	IF NOT EXISTS (SELECT * FROM LORDS_OF_THE_STRINGS_V2.Factura WHERE Factura_codigo = @idFactura)
+		RETURN 4 -- 4 Factura inexistente
+
+	IF ((SELECT Factura_habilitada FROM LORDS_OF_THE_STRINGS_V2.Factura WHERE Factura_codigo = @idFactura) = 0)
+		RETURN 0 -- 0 Está inhabilitada
+	
+	IF NOT EXISTS (SELECT * FROM LORDS_OF_THE_STRINGS_V2.Pago WHERE Pago_factura = @idFactura)
+		RETURN 1 -- 1 No esta paga (o fue devuelta) => no está rendida => puede pagar
+	
+	IF (((SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Pago JOIN LORDS_OF_THE_STRINGS_V2.Factura ON (Pago_factura = Factura_codigo)
+		 WHERE Pago_factura = @idFactura) <=
+		 (SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Devolucion WHERE Devolucion_factura = @idFactura)))
+			RETURN 1 -- 1 No esta paga (o fue devuelta) => no está rendida => puede pagar
+	ELSE 
+		BEGIN
+			IF EXISTS (SELECT * FROM LORDS_OF_THE_STRINGS_V2.Factura WHERE Factura_codigo = @idFactura AND Factura_rendicion IS NULL)
+				RETURN 2 -- Pagó y no se rindió la factura
+			ELSE
+				RETURN 3 -- Pagó y se rindió la factura
+		END
+RETURN 5
 END
 GO
 -------------------------------------------------------------------------------------------------
@@ -767,33 +780,6 @@ IF EXISTS (SELECT * FROM LORDS_OF_THE_STRINGS_V2.Factura
 RETURN 0
 END
 GO
--------------------------------------------------------------------------------------------------
--- REGISTRO_PAGOS
--------------------------------------------------------------------------------------------------
--- FUNCTION FN_BUSCAR_FACTURA
--------------------------------------------------------------------------------------------------
-/*CREATE FUNCTION [LORDS_OF_THE_STRINGS_V2].fn_buscar_factura(@id_factura numeric(18, 0), @dni_cliente numeric(18, 0))
-RETURNS table
-AS
-	IF (@id_factura = NULL AND @dni_cliente = NULL)
-	BEGIN
-		RETURN (SELECT Factura_codigo, Factura_fecha, Factura_total, Factura_fecha_venc, Factura_cliente, Cliente_dni, Factura_empresa 
-		FROM LORDS_OF_THE_STRINGS_V2.Factura 
-		JOIN LORDS_OF_THE_STRINGS_V2.Cliente ON (Factura_cliente = Cliente_codigo)
-		WHERE Factura_habilitada = 1 AND Cliente_habilitado = 1 AND Factura_codigo LIKE @id_factura AND Cliente_dni LIKE @dni_cliente)
-	END
-GO*/
-/*
-SELECT * FROM [LORDS_OF_THE_STRINGS_V2].fn_buscar_factura(10002, NULL)
-SELECT [LORDS_OF_THE_STRINGS_V2].fn_is_blocked_user('admin') GO
-10002
-38270412*/
-/*
-SELECT Factura_codigo, Factura_fecha, Factura_total, Factura_fecha_venc, Factura_cliente, Cliente_dni, Factura_empresa 
-	FROM LORDS_OF_THE_STRINGS_V2.Factura 
-    JOIN LORDS_OF_THE_STRINGS_V2.Cliente ON (Factura_cliente = Cliente_codigo)
-    WHERE Factura_habilitada = 1 AND Cliente_habilitado = 1 AND Factura_codigo LIKE 10002 AND Cliente_dni LIKE IF NOT NULL 388
-	*/
 ------------------------------------------------------------------------------------------------------------
 -----------------------------------CREACIÓN DE STORED PROCEDURES--------------------------------------------
 
@@ -889,3 +875,19 @@ GO
 -- PRUEBAS VARIAS
 -------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------
+/*SELECT * FROM LORDS_OF_THE_STRINGS_V2.Pago ORDER BY Pago_codigo DESC
+
+DELETE FROM LORDS_OF_THE_STRINGS_V2.Pago
+
+INSERT INTO LORDS_OF_THE_STRINGS_V2.Rendicion (Rendicion_fecha, Rendicion_importe) VALUES (CONVERT(datetime,'2017-10-24 16:07:00.657', 121),100)
+
+SELECT LORDS_OF_THE_STRINGS_V2.fn_estado_factura(10002)*/
+
+/*SELECT * FROM LORDS_OF_THE_STRINGS_V2.Factura WHERE ((SELECT LORDS_OF_THE_STRINGS_V2.fn_estado_factura(Factura_codigo)) = 2)
+
+UPDATE LORDS_OF_THE_STRINGS_V2.Factura SET Factura_fecha_venc = GETDATE()+2
+
+SELECT * FROM LORDS_OF_THE_STRINGS_V2.Factura WHERE Factura_codigo = 10013
+SELECT * FROM LORDS_OF_THE_STRINGS_V2.Pago WHERE Pago_factura = 10013
+SELECT * FROM LORDS_OF_THE_STRINGS_V2.Devolucion
+DELETE FROM LORDS_OF_THE_STRINGS_V2.Devolucion*/

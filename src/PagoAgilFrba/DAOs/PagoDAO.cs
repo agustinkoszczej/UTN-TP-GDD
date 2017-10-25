@@ -41,5 +41,34 @@ namespace PagoAgilFrba.DAOs
             }
         }
 
+        public static bool agregar_pagos(List<Pago> _pagos)
+        {
+            try
+            {
+                SqlConnection conn = DBConnection.getConnection();
+
+                foreach (Pago pago in _pagos)
+                {
+                    string query = string.Format(@"INSERT INTO LORDS_OF_THE_STRINGS_V2.Pago(Pago_fecha, Pago_importe, Pago_sucursal, Pago_forma_pago, Pago_factura) VALUES (GETDATE(), @importe, @sucursal, @forma_pago, @factura)");
+                    SqlCommand cmd = new SqlCommand(query, conn);
+
+                    //cmd.Parameters.AddWithValue("@fecha", pago.fecha); -- La obtengo directo de la BD
+                    cmd.Parameters.AddWithValue("@importe", pago.importe);
+                    cmd.Parameters.AddWithValue("@sucursal", pago.sucursal);
+                    cmd.Parameters.AddWithValue("@forma_pago", pago.forma_pago);
+                    cmd.Parameters.AddWithValue("@factura", pago.factura);
+
+                    cmd.ExecuteNonQuery();
+                }
+                conn.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al agregar pagos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return false;
+        }
+
     }
 }

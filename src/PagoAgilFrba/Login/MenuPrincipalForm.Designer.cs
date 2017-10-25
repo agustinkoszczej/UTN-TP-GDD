@@ -48,6 +48,7 @@
             this.lblSeleccioneSucursal = new System.Windows.Forms.Label();
             this.lnlCambiarSucursal = new System.Windows.Forms.LinkLabel();
             this.lblSucursal = new System.Windows.Forms.Label();
+            this.cmdDevolucion = new System.Windows.Forms.Button();
             this.groupBoxAcciones.SuspendLayout();
             this.groupBoxABMs.SuspendLayout();
             this.SuspendLayout();
@@ -77,7 +78,7 @@
             // cmdRendirFacturas
             // 
             this.cmdRendirFacturas.Enabled = false;
-            this.cmdRendirFacturas.Location = new System.Drawing.Point(105, 61);
+            this.cmdRendirFacturas.Location = new System.Drawing.Point(30, 61);
             this.cmdRendirFacturas.Margin = new System.Windows.Forms.Padding(2);
             this.cmdRendirFacturas.Name = "cmdRendirFacturas";
             this.cmdRendirFacturas.Size = new System.Drawing.Size(112, 27);
@@ -88,6 +89,7 @@
             // 
             // groupBoxAcciones
             // 
+            this.groupBoxAcciones.Controls.Add(this.cmdDevolucion);
             this.groupBoxAcciones.Controls.Add(this.cmdRendirFacturas);
             this.groupBoxAcciones.Controls.Add(this.cmdListadoEstadistico);
             this.groupBoxAcciones.Controls.Add(this.cmdRegistrarPago);
@@ -288,6 +290,18 @@
             this.lblSucursal.Text = "Se encuentra en la Sucursal:";
             this.lblSucursal.Visible = false;
             // 
+            // cmdDevolucion
+            // 
+            this.cmdDevolucion.Enabled = false;
+            this.cmdDevolucion.Location = new System.Drawing.Point(189, 61);
+            this.cmdDevolucion.Margin = new System.Windows.Forms.Padding(2);
+            this.cmdDevolucion.Name = "cmdDevolucion";
+            this.cmdDevolucion.Size = new System.Drawing.Size(112, 27);
+            this.cmdDevolucion.TabIndex = 7;
+            this.cmdDevolucion.Text = "Devolución Factura";
+            this.cmdDevolucion.UseVisualStyleBackColor = true;
+            this.cmdDevolucion.Click += new System.EventHandler(this.cmdDevolucion_Click);
+            // 
             // MenuPrincipalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -341,6 +355,7 @@
         private System.Windows.Forms.Label lblSeleccioneSucursal;
         private System.Windows.Forms.LinkLabel lnlCambiarSucursal;
         private System.Windows.Forms.Label lblSucursal;
+        private System.Windows.Forms.Button cmdDevolucion;
     }
 }
 

@@ -105,6 +105,14 @@
     <Compile Include="AbmSucursal\IngresoSucursalForm.Designer.cs">
       <DependentUpon>IngresoSucursalForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DAOs\DevolucionDAO.cs" />
+    <Compile Include="Devolucion\DevolucionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Devolucion\DevolucionForm.Designer.cs">
+      <DependentUpon>DevolucionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DAOs\Forma_PagoDAO.cs" />
     <Compile Include="DAOs\RendicionDAO.cs" />
     <Compile Include="DAOs\ClienteDAO.cs" />
     <Compile Include="DAOs\PagoDAO.cs" />
@@ -192,6 +200,9 @@
     <EmbeddedResource Include="AbmSucursal\IngresoSucursalForm.resx">
       <DependentUpon>IngresoSucursalForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Devolucion\DevolucionForm.resx">
+      <DependentUpon>DevolucionForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Login\MenuPrincipalForm.resx">
       <DependentUpon>MenuPrincipalForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -228,6 +239,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Login\Pago_Agil_Login.png" />
+    <Content Include="RegistroPago\Flecha.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

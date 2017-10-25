@@ -16,6 +16,21 @@ namespace PagoAgilFrba.DAOs
 {
     class FacturaDAO
     {
+        public static int estado_factura(int idFactura)
+        {
+            string query = string.Format(@"SELECT LORDS_OF_THE_STRINGS_V2.fn_estado_factura(@id_Factura)");
+
+            SqlConnection conn = DBConnection.getConnection();
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@id_Factura", idFactura);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            int estado = int.Parse(reader.GetValue(0).ToString());
+            conn.Close();
+            return estado;
+        }
+
         public static List<Empresa> obtener_empresas(int habilitadas)
         {
             //0 = TODAS

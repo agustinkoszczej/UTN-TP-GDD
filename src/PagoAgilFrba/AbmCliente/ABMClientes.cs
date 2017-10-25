@@ -206,7 +206,6 @@ namespace PagoAgilFrba.AbmCliente
 
         private void filtrar()
         {
-
             string miFiltroNomb = "";
             string miFiltroApell = "";
             string miFiltroDNI = "";
@@ -227,7 +226,7 @@ namespace PagoAgilFrba.AbmCliente
                 try{
                     dni = int.Parse(txtFiltroDNI.Text.ToString());
                 }
-                catch(Exception ex){
+                catch(Exception){
                     MessageBox.Show("Dni ingresado inválido");
                     return;
                 }

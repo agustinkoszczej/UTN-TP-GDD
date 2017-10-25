@@ -105,7 +105,7 @@ namespace PagoAgilFrba.DAOs
                 conn.Close();
                 return idRendicion;
             }
-            catch (SqlException ex)
+            catch (SqlException)
             {
                 return 0;
             }

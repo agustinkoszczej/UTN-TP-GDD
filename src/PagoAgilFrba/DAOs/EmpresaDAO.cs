@@ -59,7 +59,6 @@ namespace PagoAgilFrba.DAOs
             catch (Exception e)
             {
                 MessageBox.Show("No se pudo realizar la consulta:\n" + e.Message);
-
             }
         }
 
