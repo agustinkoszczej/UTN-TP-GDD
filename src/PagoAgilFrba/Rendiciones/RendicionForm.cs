@@ -53,15 +53,10 @@ namespace PagoAgilFrba.Rendicion
 
         private void cargarEmpresas()
         {
-<<<<<<< HEAD
-            string query = "select distinct Empresa_codigo, Empresa_nombre, Empresa_cuit, Empresa_direccion, Empresa_habilitada from LORDS_OF_THE_STRINGS_V2.Empresa E join LORDS_OF_THE_STRINGS_V2.Factura F on E.Empresa_codigo = F.Factura_empresa join LORDS_OF_THE_STRINGS_V2.Pago P on F.Factura_codigo = P.Pago_factura where MONTH(P.Pago_fecha) = MONTH(GETDATE()) AND F.Factura_rendicion IS NULL";
-            RendicionDAO.llenarDataGrid(dataGridEmpresas, query);
-=======
             string query = string.Format(@"SELECT Empresa_codigo, Empresa_nombre, Empresa_cuit, Empresa_direccion, Empresa_habilitada 
                                             FROM LORDS_OF_THE_STRINGS_V2.Empresa");
             DBConnection.llenar_grilla(dataGridEmpresas, query);
             //RendicionDAO.llenarDataGrid(dataGridEmpresas, query);
->>>>>>> 99d044282fa4a0642fd8c1df622ce5ad53650c4e
         }
 
         private void exito(int idRendicion)
