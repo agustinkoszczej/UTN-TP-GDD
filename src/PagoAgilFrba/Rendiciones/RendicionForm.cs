@@ -165,6 +165,8 @@ namespace PagoAgilFrba.Rendicion
 
         private void btnRendir_Click(object sender, EventArgs e)
         {
+            //HACER ESTO EN UNA TRANSACTION?
+
             if (dataGridFacturas.Rows.Count == 0)
             {
                 exito(0);

@@ -30,6 +30,12 @@ namespace PagoAgilFrba.AbmFactura
             backForm = back;
         }
 
+        private void camposModifEnBlanco(){
+            txtItemNro.Text = "";
+            txtItemMonto.Text = "";
+            txtItemCantidad.Text = "";
+        }
+
         private void ModificarItems_Load(object sender, EventArgs e)
         {
             borrados = new List<Item_Factura>();
@@ -169,8 +175,12 @@ namespace PagoAgilFrba.AbmFactura
 
         private void btnBorrar_Click(object sender, EventArgs e)
         {
-            int itemID = int.Parse(listItems.SelectedItems[0].SubItems[0].Text.ToString());
-            borrarItemSegunID(itemID);
+            if (listItems.SelectedItems.Count > 0)
+            {
+                int itemID = int.Parse(listItems.SelectedItems[0].SubItems[0].Text.ToString());
+                borrarItemSegunID(itemID);
+                camposModifEnBlanco();
+            }
             
         }
 

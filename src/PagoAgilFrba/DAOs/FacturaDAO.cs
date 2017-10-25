@@ -144,42 +144,6 @@ namespace PagoAgilFrba.DAOs
         }
 
 
-        public static List<Factura> obtener_facturas_no_pagas()
-        {
-            List<Empresa> empresas = obtener_empresas(0);
-
-            List<Factura> facturas = new List<Factura>();
-            string query;
-            query = string.Format(@"SELECT Factura_codigo, Factura_fecha, Factura_total, Factura_fecha_venc, Factura_empresa, Factura_cliente  
-            FROM LORDS_OF_THE_STRINGS_V2.Factura F 
-            WHERE F.Factura_codigo NOT IN (select Pago_factura from LORDS_OF_THE_STRINGS_V2.Pago)");
-          
-            SqlConnection conn = DBConnection.getConnection();
-            SqlCommand command = new SqlCommand(query, conn);
-            command.CommandType = System.Data.CommandType.Text;
-            SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                Factura f = new Factura(
-                                            int.Parse(reader.GetValue(0).ToString()),
-                                            DateTime.Parse(reader.GetValue(1).ToString()),
-                                            double.Parse(reader.GetValue(2).ToString()),
-                                            DateTime.Parse(reader.GetValue(3).ToString()), 
-                                            filtrarEmpresaConID(empresas, int.Parse(reader.GetValue(4).ToString())), 
-                                            obtener_cliente_con_ID(int.Parse(reader.GetValue(5).ToString())), 
-                                            null);
-                facturas.Add(f);
-            }
-            conn.Close();
-
-            foreach (Factura f in facturas)
-            {
-                f.items = obtener_items_factura(f);
-            }
-
-            return facturas;
-        }
-
         public static List<Item_Factura> obtener_items_factura(Factura factura)
         {
             List<Item_Factura> items = new List<Item_Factura>();
@@ -202,11 +166,6 @@ namespace PagoAgilFrba.DAOs
             }
             conn.Close();
             return items;
-        }
-
-        private static DateTime crearDateTime(int anno, int mes, int dia)
-        {
-            return new DateTime(anno, mes, dia);
         }
 
         private static Empresa filtrarEmpresaConID(List<Empresa> lista, int idEmp)
@@ -257,14 +216,16 @@ namespace PagoAgilFrba.DAOs
             try
             {
                 SqlConnection conn = DBConnection.getConnection();
-                SqlCommand comando = new SqlCommand("UPDATE LORDS_OF_THE_STRINGS_V2.Factura SET Factura_fecha = @nvaFecha, Factura_total = @nvoTotal, Factura_fecha_venc = @nvoVenc, Factura_empresa = @nvaEmpresa, Factura_cliente = @nvoCliente, Factura_rendicion = @nvaRendicion WHERE Factura_codigo = @IDF", conn);
+                SqlCommand comando = new SqlCommand("UPDATE LORDS_OF_THE_STRINGS_V2.Factura SET Factura_fecha = @nvaFecha, Factura_total = @nvoTotal, Factura_fecha_venc = @nvoVenc, Factura_empresa = @nvaEmpresa, Factura_cliente = @nvoCliente, Factura_rendicion = @nvaRendicion, Factura_habilitada = @habil WHERE Factura_codigo = @IDF", conn);
 
-                comando.Parameters.AddWithValue("@nvaFecha", Utilidades.Utils.fechaACanonica(modificada.fecha));
+                comando.Parameters.Add("@nvaFecha", SqlDbType.Date);
+                comando.Parameters["@nvaFecha"].Value = modificada.fecha;
 
                 comando.Parameters.Add("@nvoTotal", SqlDbType.Float);
                 comando.Parameters["@nvoTotal"].Value = modificada.total;
 
-                comando.Parameters.AddWithValue("@nvoVenc", Utilidades.Utils.fechaACanonica(modificada.fecha_venc));
+                comando.Parameters.Add("@nvoVenc", SqlDbType.Date);
+                comando.Parameters["@nvoVenc"].Value = modificada.fecha_venc;
 
                 comando.Parameters.Add("@nvaEmpresa", SqlDbType.Int);
                 comando.Parameters["@nvaEmpresa"].Value = modificada.empresa.id;
@@ -282,6 +243,9 @@ namespace PagoAgilFrba.DAOs
                     comando.Parameters.Add("@nvaRendicion", SqlDbType.Int);
                     comando.Parameters["@nvaRendicion"].Value = DBNull.Value;
                 }
+
+                comando.Parameters.Add("@habil", SqlDbType.Bit);
+                comando.Parameters["@habil"].Value = modificada.habilitada;
 
                 comando.Parameters.Add("@IDF", SqlDbType.Int);
                 comando.Parameters["@IDF"].Value = modificada.id;
@@ -355,6 +319,54 @@ namespace PagoAgilFrba.DAOs
             {
                 return 0;
             }
+        }
+
+
+        public static void cargarGridItemsFactura(DataGridView grid, Factura selec)
+        {
+            string query = string.Format(@"SELECT ItemFactura_codigo, ItemFactura_cantidad, ItemFactura_monto 
+                                            FROM LORDS_OF_THE_STRINGS_V2.Item_Factura 
+                                            WHERE ItemFactura_factura = @idFactura");
+            SqlConnection conn = DBConnection.getConnection();
+            SqlCommand command = new SqlCommand(query, conn);
+
+            command.Parameters.Add("@idFactura", SqlDbType.Int);
+            command.Parameters["@idFactura"].Value = selec.id;
+
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = command;
+            DataTable table = new DataTable();
+            adapter.Fill(table);
+            BindingSource source = new BindingSource();
+
+            source.DataSource = table;
+            grid.DataSource = source;
+            adapter.Update(table);
+
+
+
+        }
+
+        public static void cargarFacturasFiltrada(DataGridView grid, int idFiltro, string query, string nombreParam)
+        {
+            SqlConnection conn = DBConnection.getConnection();
+            SqlCommand command = new SqlCommand(query, conn);
+
+            command.Parameters.Add(nombreParam, SqlDbType.Int);
+            command.Parameters[nombreParam].Value = idFiltro;
+
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = command;
+            DataTable table = new DataTable();
+            adapter.Fill(table);
+            BindingSource source = new BindingSource();
+
+            source.DataSource = table;
+            grid.DataSource = source;
+            adapter.Update(table);
+
+
+
         }
 
     }

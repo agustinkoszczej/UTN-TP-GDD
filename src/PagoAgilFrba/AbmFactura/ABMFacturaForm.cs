@@ -20,11 +20,15 @@ namespace PagoAgilFrba.AbmFactura
         private double totalSS;
         private List<Empresa> empresas;
         private List<Item_Factura> items;
-        private List<Factura> facturasBM;
+
         private Factura selectedBM;
 
         private List<Control> campos_obligatorios_ALTA;
         private List<Control> campos_obligatorios_ITEM;
+
+        private bool filtrando = false;
+        private string filtro = "";
+        int idFiltro = 0;
 
         public ABMFacturaForm()
         {
@@ -71,60 +75,32 @@ namespace PagoAgilFrba.AbmFactura
             listDetalle.GridLines = true;
 
             //--------TAB BM
-
-            inicializarListItems();
             
             cargarListFacturasBM();
            
         }
 
-        private void inicializarListFacturasBM()
-        {
-            listFacturasBM.Items.Clear();
-            listFacturasBM.Columns.Clear();
-
-
-            listFacturasBM.Columns.Add("Nº", 40);
-            listFacturasBM.Columns.Add("Fecha Alta", 100);
-            listFacturasBM.Columns.Add("Total", 100);
-            listFacturasBM.Columns.Add("Fecha Vencimiento", 100);
-            listFacturasBM.Columns.Add("Empresa", 100);
-            listFacturasBM.Columns.Add("Nº Cliente", 50);
-
-            listFacturasBM.View = View.Details;
-            listFacturasBM.FullRowSelect = true;
-            listFacturasBM.LabelEdit = false;
-            listFacturasBM.AllowColumnReorder = false;
-            listFacturasBM.GridLines = true;
-        }
-
         private void cargarListFacturasBM()
         {
-
-            inicializarListFacturasBM();
+            string query;
             
-            facturasBM = FacturaDAO.obtener_facturas_no_pagas();
-
-            foreach (Factura f in facturasBM)
+            if (filtrando)
             {
-                populateListFacturasBM(f.id.ToString(), f.fecha.ToShortDateString(), f.total.ToString(), f.fecha_venc.ToShortDateString(), f.empresa.nombre.ToString(), f.cliente.id.ToString());
+                query = string.Format(@"SELECT Factura_codigo, Factura_fecha, Factura_total, Factura_fecha_venc, Factura_empresa, Factura_cliente, Factura_habilitada  
+            FROM LORDS_OF_THE_STRINGS_V2.Factura F 
+            WHERE F.Factura_codigo NOT IN (select Pago_factura from LORDS_OF_THE_STRINGS_V2.Pago)" + filtro);
+                FacturaDAO.cargarFacturasFiltrada(dataGridFacturasBM, idFiltro, query, "@idFiltro");
             }
-        }
+            else
+            {
+                query = string.Format(@"SELECT Factura_codigo, Factura_fecha, Factura_total, Factura_fecha_venc, Factura_empresa, Factura_cliente, Factura_habilitada  
+            FROM LORDS_OF_THE_STRINGS_V2.Factura F 
+            WHERE F.Factura_codigo NOT IN (select Pago_factura from LORDS_OF_THE_STRINGS_V2.Pago)");
+                DBConnection.llenar_grilla(dataGridFacturasBM, query);
+            }
 
-        private void inicializarListItems(){
-            listItems.Items.Clear();
-            listItems.Columns.Clear();
-
-            listItems.Columns.Add("Item Nº", 60);
-            listItems.Columns.Add("Factura Nº", 100);
-            listItems.Columns.Add("Cantidad", 100);
-            listItems.Columns.Add("Monto", 100);
-
-            listItems.View = View.Details;
-            listItems.FullRowSelect = true;
-            listItems.LabelEdit = false;
-            listItems.AllowColumnReorder = false;
-            listItems.GridLines = true;
+            loadFacturaSeleccionada();
+            cargarItemsFacturaSeleccionada();
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -171,12 +147,6 @@ namespace PagoAgilFrba.AbmFactura
             }       
         }
 
-        private void populateListFacturasBM(string idFactura, string fechaAlta, string total, string fechaVenc, string nombreEmpresa, string idCliente)
-        {
-            String[] row = { idFactura, fechaAlta, total, fechaVenc, nombreEmpresa, idCliente };
-            listFacturasBM.Items.Add(new ListViewItem(row));
-        }
-
         private void populateListEmpresas(string pos, string nombre, string direcc, string cuit)
         {
             String[] row = { pos, nombre, direcc, cuit };
@@ -189,11 +159,11 @@ namespace PagoAgilFrba.AbmFactura
             listDetalle.Items.Add(new ListViewItem(row));
         }
 
-        private void populateListItems(string id, string monto, string cantidad)
-        {
-            String[] row = { id, monto, cantidad };
-            listItems.Items.Add(new ListViewItem(row));
-        }
+        //private void populateListItems(string id, string monto, string cantidad)
+        //{
+        //    String[] row = { id, monto, cantidad };
+        //    listItems.Items.Add(new ListViewItem(row));
+        //}
 
         private void btnBorrar_Click(object sender, EventArgs e)
         {
@@ -222,11 +192,6 @@ namespace PagoAgilFrba.AbmFactura
                 lblMensaje.Visible = true;
                 lblMensaje.Text = "Espere por favor...";
 
-                ////Parseando la fecha: Formato MM/DD/YYYY
-                //string fechaAParsear = cmbMes.SelectedItem.ToString() + "/" + cmbDia.SelectedItem.ToString() + "/" + cmbAnno.SelectedItem.ToString();
-                //string format = "d";
-                //CultureInfo provider = CultureInfo.InvariantCulture;
-                //DateTime fecha = DateTime.ParseExact(fechaAParsear, format, provider);
                 DateTime fecha = vencimientoDateTimePicker.Value;
 
                 if (fecha < DateTime.Now)
@@ -294,9 +259,8 @@ namespace PagoAgilFrba.AbmFactura
         public void actualizarTabBM()
         {
             //--------ACTUALIZO LA LISTA EN TAB BM
-            inicializarListItems();
+            cargarItemsFacturaSeleccionada();
             cargarListFacturasBM();
-            cargarItemsConFSeleccionada();
         }
 
         private void generarListaItems()
@@ -330,58 +294,42 @@ namespace PagoAgilFrba.AbmFactura
 
         }
 
-        private void listFacturasBM_SelectedIndexChanged(object sender, EventArgs e)
+
+        private void loadFacturaSeleccionada()
         {
-            if (listFacturasBM.SelectedItems.Count > 0)
+            try
             {
-                inicializarListItems();
+                //Factura_codigo, Factura_fecha, Factura_total, Factura_fecha_venc, Factura_empresa, Factura_cliente, Factura_rendicion, Factura_habilitada 
 
-                int fId = int.Parse(listFacturasBM.SelectedItems[0].SubItems[0].Text.ToString());
-                selectedBM = obtenerFacturaDeListaSegunID(fId);
+                string asd = dataGridFacturasBM.SelectedCells[0].Value.ToString();
+                int factura_id = int.Parse(asd);
+                DateTime fecha = DateTime.Parse(dataGridFacturasBM.SelectedCells[1].Value.ToString());
+                double totalFactura = double.Parse(dataGridFacturasBM.SelectedCells[2].Value.ToString());
+                DateTime fechaVenc = DateTime.Parse(dataGridFacturasBM.SelectedCells[3].Value.ToString());
+                int idEmpresa = int.Parse(dataGridFacturasBM.SelectedCells[4].Value.ToString());
+                int idCliente = int.Parse(dataGridFacturasBM.SelectedCells[5].Value.ToString());
+                bool habilitada = bool.Parse(dataGridFacturasBM.SelectedCells[6].Value.ToString());
 
-                cargarItemsConFSeleccionada();
+                selectedBM = new Factura(
+                    factura_id,
+                    fecha,
+                    totalFactura,
+                    fechaVenc,
+                    new Empresa(idEmpresa, "", "", "", true),                                   //Ni empresa ni cliente me importan en esta seleccion
+                    new Cliente(idCliente,"","",0,DateTime.Now,"","","","",true),
+                    null,
+                    habilitada
+                    );
             }
-        }
-
-        private void cargarItemsConFSeleccionada()
-        {
-            if (selectedBM != null)
+            catch (Exception)
             {
-                foreach (Item_Factura it in selectedBM.items)
-                {
-                    populateListItems(it.id.ToString(), it.monto.ToString(), it.cantidad.ToString());
-                }
+                selectedBM = null;
             }
-        }
-
-        private Factura obtenerFacturaDeListaSegunID(int idF)
-        {
-            foreach (Factura fact in facturasBM)
-            {
-                if (fact.id == idF)
-                {
-                    return fact;
-                }
-            }
-            return null;
         }
 
         private void btnBorrarFactura_Click(object sender, EventArgs e)
         {
-            int fId = int.Parse(listFacturasBM.SelectedItems[0].SubItems[0].Text.ToString());
-            Factura f = obtenerFacturaDeListaSegunID(fId);
-
-
-
-            if (FacturaDAO.borrar_factura_e_items(f) != 0)
-            {
-                cargarListFacturasBM();
-                inicializarListItems();
-            }
-            else
-            {
-                MessageBox.Show("Error al borrar " + fId);
-            }
+ 
         }
 
         private void btnVerItems_Click(object sender, EventArgs e)
@@ -391,11 +339,12 @@ namespace PagoAgilFrba.AbmFactura
 
         private void btnModificarFactura_Click(object sender, EventArgs e)
         {
-            int fId = int.Parse(listFacturasBM.SelectedItems[0].SubItems[0].Text.ToString());
-            Factura f = obtenerFacturaDeListaSegunID(fId);
-
-            ModificarFacturas form = new ModificarFacturas(f, this);
-            form.Show();
+            loadFacturaSeleccionada();
+            if (selectedBM != null)
+            {
+                ModificarFacturas form = new ModificarFacturas(selectedBM, this);
+                form.Show();
+            }
         }
 
         private void btnBorrarItem_Click(object sender, EventArgs e)
@@ -407,9 +356,152 @@ namespace PagoAgilFrba.AbmFactura
         {
             if (selectedBM != null)
             {
+                selectedBM.items = itemsEnGrid();
                 ModificarItems form = new ModificarItems(selectedBM, this);
                 form.Show();
             }
+        }
+
+        private List<Item_Factura> itemsEnGrid()
+        {
+            List<Item_Factura> ret = new List<Item_Factura>();
+            foreach (DataGridViewRow fila in dataGridItems.Rows)
+            {
+                int idItem = int.Parse(fila.Cells[0].Value.ToString());
+                double montoItem = double.Parse(fila.Cells[2].Value.ToString());
+                int cantidadItem = int.Parse(fila.Cells[1].Value.ToString());
+                Item_Factura it = new Item_Factura(
+                           idItem,
+                           montoItem,
+                           cantidadItem,
+                           selectedBM
+                           );
+                ret.Add(it);
+
+            }
+            return ret;
+        }
+
+        private void btnFiltrar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridFacturasBM_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void btnInhabilitar_Click(object sender, EventArgs e)
+        {
+            loadFacturaSeleccionada();
+            if (selectedBM != null)
+            {
+                if (selectedBM.habilitada)  //Si esta habilitada modifico
+                {
+                    selectedBM.habilitada = false;
+                    if (FacturaDAO.modificarFactura(selectedBM) != 0)
+                    {
+                        MessageBox.Show("Factura Nº " + selectedBM.id + " inhabilitada");
+                        cargarListFacturasBM();
+                    }
+                    else{
+                        MessageBox.Show("Error al inhabilitar factura Nº " + selectedBM.id);
+                    }
+                }
+            }
+        }
+
+        private void btnHabilitar_Click(object sender, EventArgs e)
+        {
+            loadFacturaSeleccionada();
+            if (selectedBM != null)
+            {
+                if (!selectedBM.habilitada)  //Si no esta habilitada modifico
+                {
+                    selectedBM.habilitada = true;
+                    if (FacturaDAO.modificarFactura(selectedBM) != 0)
+                    {
+                        MessageBox.Show("Factura Nº " + selectedBM.id + " habilitada");
+                        cargarListFacturasBM();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al inhabilitar factura Nº " + selectedBM.id);
+                    }
+                }
+            }
+        }
+
+        private void dataGridFacturasBM_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            cargarItemsFacturaSeleccionada();
+        }
+
+        private void cargarItemsFacturaSeleccionada()
+        {
+            loadFacturaSeleccionada();
+            dataGridItems.DataSource = null;
+            dataGridItems.Rows.Clear();
+            if (selectedBM != null)
+            {
+                FacturaDAO.cargarGridItemsFactura(dataGridItems, selectedBM);
+            }
+        }
+
+        private void btnFiltrarIdFactura_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                idFiltro = int.Parse(txtIdFacturaFiltro.Text.ToString());
+            }
+            catch (Exception)
+            {
+                string mensaje = txtIdFacturaFiltro.Text.ToString() + " no es un Nº de factura válido";
+                if (txtIdFacturaFiltro.Text.ToString() == "")
+                {
+                    mensaje = "Debe ingresar un valor a buscar";
+                }
+                MessageBox.Show(mensaje);
+                return;
+            }
+
+            filtro = " AND Factura_codigo = @idFiltro";
+            filtrando = true;
+            cargarListFacturasBM();
+        }
+
+        private void btnFiltrarIdCliente_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                idFiltro = int.Parse(txtIdClienteFiltro.Text.ToString());
+            }
+            catch (Exception)
+            {
+                string mensaje = txtIdClienteFiltro.Text.ToString() + " no es un Nº de cliente válido";
+                if (txtIdClienteFiltro.Text.ToString() == "")
+                {
+                    mensaje = "Debe ingresar un valor a buscar";
+                }
+                MessageBox.Show(mensaje);
+                return;
+            }
+
+            filtro = " AND Factura_cliente = @idFiltro";
+            filtrando = true;
+            cargarListFacturasBM();
+        }
+
+        private void btnSinFiltros_Click(object sender, EventArgs e)
+        {
+            txtIdFacturaFiltro.Text = "";
+            txtIdClienteFiltro.Text = "";
+            filtro = "";
+            filtrando = false;
+            idFiltro = 0;
+            cargarListFacturasBM();
         }
 
     }
