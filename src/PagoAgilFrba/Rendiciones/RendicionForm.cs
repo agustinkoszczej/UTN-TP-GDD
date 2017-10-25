@@ -57,7 +57,6 @@ namespace PagoAgilFrba.Rendicion
                                             FROM LORDS_OF_THE_STRINGS_V2.Empresa");
             DBConnection.llenar_grilla(dataGridEmpresas, query);
             //RendicionDAO.llenarDataGrid(dataGridEmpresas, query);
-
         }
 
         private void exito(int idRendicion)

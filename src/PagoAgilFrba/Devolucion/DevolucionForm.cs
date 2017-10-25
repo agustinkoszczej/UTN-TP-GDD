@@ -88,10 +88,13 @@ namespace PagoAgilFrba.Devolucion
                 if (validar_campos())
                 {
                    string motivo = get_motivo();
-                   if (DevolucionDAO.agregar_devolucion(motivo, factura))
+                   if (MessageBox.Show("¿Está ud. seguro de querer devolver el pago de $" + lblTotalDevolver.Text + " en PagoAgilFrba?", "Confirmar devolución", MessageBoxButtons.YesNo) == DialogResult.Yes)
                    {
-                       MessageBox.Show("Devolución efectuada correctamente!", "Devolución de Pago", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                       this.Close();
+                       if (DevolucionDAO.agregar_devolucion(motivo, factura))
+                       {
+                           MessageBox.Show("Devolución efectuada correctamente!", "Devolución de Pago", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                           this.Close();
+                       }
                    }
                 }
             }   

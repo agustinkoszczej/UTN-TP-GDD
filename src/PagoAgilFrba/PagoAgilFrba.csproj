@@ -241,7 +241,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Login\Pago_Agil_Login.png" />
-    <Content Include="RegistroPago\Flecha.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
