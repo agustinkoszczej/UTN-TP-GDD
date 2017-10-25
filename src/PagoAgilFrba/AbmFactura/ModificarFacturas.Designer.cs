@@ -33,7 +33,6 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.vencimientoDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.altaDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.listEmpresas = new System.Windows.Forms.ListView();
             this.btnSeleccionarEmpresa = new System.Windows.Forms.Button();
             this.txtFacturaCliente = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -48,16 +47,18 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.dataGridEmpresas = new System.Windows.Forms.DataGridView();
             this.panelModificarFactura.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).BeginInit();
             this.SuspendLayout();
             // 
             // panelModificarFactura
             // 
+            this.panelModificarFactura.Controls.Add(this.dataGridEmpresas);
             this.panelModificarFactura.Controls.Add(this.btnCancelar);
             this.panelModificarFactura.Controls.Add(this.vencimientoDateTimePicker);
             this.panelModificarFactura.Controls.Add(this.altaDateTimePicker);
-            this.panelModificarFactura.Controls.Add(this.listEmpresas);
             this.panelModificarFactura.Controls.Add(this.btnSeleccionarEmpresa);
             this.panelModificarFactura.Controls.Add(this.txtFacturaCliente);
             this.panelModificarFactura.Controls.Add(this.label15);
@@ -78,7 +79,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(462, 275);
+            this.btnCancelar.Location = new System.Drawing.Point(452, 275);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
             this.btnCancelar.TabIndex = 20;
@@ -99,14 +100,6 @@
             this.altaDateTimePicker.Name = "altaDateTimePicker";
             this.altaDateTimePicker.Size = new System.Drawing.Size(281, 20);
             this.altaDateTimePicker.TabIndex = 19;
-            // 
-            // listEmpresas
-            // 
-            this.listEmpresas.Location = new System.Drawing.Point(311, 62);
-            this.listEmpresas.Name = "listEmpresas";
-            this.listEmpresas.Size = new System.Drawing.Size(307, 207);
-            this.listEmpresas.TabIndex = 18;
-            this.listEmpresas.UseCompatibleStateImageBehavior = false;
             // 
             // btnSeleccionarEmpresa
             // 
@@ -170,7 +163,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(543, 275);
+            this.button2.Location = new System.Drawing.Point(533, 275);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 9;
@@ -226,6 +219,27 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // dataGridEmpresas
+            // 
+            this.dataGridEmpresas.AllowUserToAddRows = false;
+            this.dataGridEmpresas.AllowUserToDeleteRows = false;
+            this.dataGridEmpresas.AllowUserToResizeColumns = false;
+            this.dataGridEmpresas.AllowUserToResizeRows = false;
+            this.dataGridEmpresas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridEmpresas.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.dataGridEmpresas.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dataGridEmpresas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridEmpresas.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.dataGridEmpresas.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dataGridEmpresas.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dataGridEmpresas.Location = new System.Drawing.Point(315, 59);
+            this.dataGridEmpresas.MultiSelect = false;
+            this.dataGridEmpresas.Name = "dataGridEmpresas";
+            this.dataGridEmpresas.ReadOnly = true;
+            this.dataGridEmpresas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridEmpresas.Size = new System.Drawing.Size(294, 210);
+            this.dataGridEmpresas.TabIndex = 21;
+            // 
             // ModificarFacturas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -241,6 +255,7 @@
             this.panelModificarFactura.ResumeLayout(false);
             this.panelModificarFactura.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -248,7 +263,6 @@
         #endregion
 
         private System.Windows.Forms.Panel panelModificarFactura;
-        private System.Windows.Forms.ListView listEmpresas;
         private System.Windows.Forms.Button btnSeleccionarEmpresa;
         private System.Windows.Forms.TextBox txtFacturaCliente;
         private System.Windows.Forms.Label label15;
@@ -266,5 +280,6 @@
         private System.Windows.Forms.DateTimePicker altaDateTimePicker;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.DataGridView dataGridEmpresas;
     }
 }

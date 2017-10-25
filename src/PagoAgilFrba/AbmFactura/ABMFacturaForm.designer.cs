@@ -48,45 +48,44 @@
             this.lblItem = new System.Windows.Forms.Label();
             this.lblDetalle = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.listEmpresas = new System.Windows.Forms.ListView();
             this.lblEmpresa = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.vencimientoDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.lblFechaVencimiento = new System.Windows.Forms.Label();
-            this.txtFactura = new System.Windows.Forms.TextBox();
-            this.lblFactura = new System.Windows.Forms.Label();
             this.txtCliente = new System.Windows.Forms.TextBox();
             this.lblCliente = new System.Windows.Forms.Label();
             this.tabBM = new System.Windows.Forms.TabPage();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.btnFiltrarIdCliente = new System.Windows.Forms.Button();
+            this.btnFiltrarIdFactura = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.dataGridItems = new System.Windows.Forms.DataGridView();
             this.btnModificarItem = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.panel4 = new System.Windows.Forms.Panel();
+            this.btnSinFiltros = new System.Windows.Forms.Button();
+            this.btnInhabilitar = new System.Windows.Forms.Button();
             this.dataGridFacturasBM = new System.Windows.Forms.DataGridView();
+            this.btnHabilitar = new System.Windows.Forms.Button();
+            this.btnModificarFactura = new System.Windows.Forms.Button();
             this.txtIdClienteFiltro = new System.Windows.Forms.TextBox();
             this.txtIdFacturaFiltro = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.dataGridItems = new System.Windows.Forms.DataGridView();
-            this.btnModificarFactura = new System.Windows.Forms.Button();
-            this.btnHabilitar = new System.Windows.Forms.Button();
-            this.btnInhabilitar = new System.Windows.Forms.Button();
-            this.btnSinFiltros = new System.Windows.Forms.Button();
-            this.btnFiltrarIdFactura = new System.Windows.Forms.Button();
-            this.btnFiltrarIdCliente = new System.Windows.Forms.Button();
+            this.dataGridEmpresas = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.tabAlta.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabBM.SuspendLayout();
-            this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridFacturasBM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridItems)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -270,21 +269,12 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.listEmpresas);
+            this.panel2.Controls.Add(this.dataGridEmpresas);
             this.panel2.Controls.Add(this.lblEmpresa);
             this.panel2.Location = new System.Drawing.Point(315, 6);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(362, 184);
             this.panel2.TabIndex = 2;
-            // 
-            // listEmpresas
-            // 
-            this.listEmpresas.Location = new System.Drawing.Point(16, 26);
-            this.listEmpresas.MultiSelect = false;
-            this.listEmpresas.Name = "listEmpresas";
-            this.listEmpresas.Size = new System.Drawing.Size(330, 143);
-            this.listEmpresas.TabIndex = 1;
-            this.listEmpresas.UseCompatibleStateImageBehavior = false;
             // 
             // lblEmpresa
             // 
@@ -299,8 +289,6 @@
             // 
             this.panel1.Controls.Add(this.vencimientoDateTimePicker);
             this.panel1.Controls.Add(this.lblFechaVencimiento);
-            this.panel1.Controls.Add(this.txtFactura);
-            this.panel1.Controls.Add(this.lblFactura);
             this.panel1.Controls.Add(this.txtCliente);
             this.panel1.Controls.Add(this.lblCliente);
             this.panel1.Location = new System.Drawing.Point(6, 6);
@@ -310,7 +298,7 @@
             // 
             // vencimientoDateTimePicker
             // 
-            this.vencimientoDateTimePicker.Location = new System.Drawing.Point(6, 131);
+            this.vencimientoDateTimePicker.Location = new System.Drawing.Point(9, 66);
             this.vencimientoDateTimePicker.Name = "vencimientoDateTimePicker";
             this.vencimientoDateTimePicker.Size = new System.Drawing.Size(276, 20);
             this.vencimientoDateTimePicker.TabIndex = 9;
@@ -318,31 +306,15 @@
             // lblFechaVencimiento
             // 
             this.lblFechaVencimiento.AutoSize = true;
-            this.lblFechaVencimiento.Location = new System.Drawing.Point(3, 115);
+            this.lblFechaVencimiento.Location = new System.Drawing.Point(6, 50);
             this.lblFechaVencimiento.Name = "lblFechaVencimiento";
             this.lblFechaVencimiento.Size = new System.Drawing.Size(113, 13);
             this.lblFechaVencimiento.TabIndex = 4;
             this.lblFechaVencimiento.Text = "Fecha de Vencimiento";
             // 
-            // txtFactura
-            // 
-            this.txtFactura.Location = new System.Drawing.Point(6, 76);
-            this.txtFactura.Name = "txtFactura";
-            this.txtFactura.Size = new System.Drawing.Size(276, 20);
-            this.txtFactura.TabIndex = 3;
-            // 
-            // lblFactura
-            // 
-            this.lblFactura.AutoSize = true;
-            this.lblFactura.Location = new System.Drawing.Point(3, 59);
-            this.lblFactura.Name = "lblFactura";
-            this.lblFactura.Size = new System.Drawing.Size(56, 13);
-            this.lblFactura.TabIndex = 2;
-            this.lblFactura.Text = "(*) Factura";
-            // 
             // txtCliente
             // 
-            this.txtCliente.Location = new System.Drawing.Point(6, 27);
+            this.txtCliente.Location = new System.Drawing.Point(9, 27);
             this.txtCliente.Name = "txtCliente";
             this.txtCliente.Size = new System.Drawing.Size(276, 20);
             this.txtCliente.TabIndex = 1;
@@ -367,35 +339,6 @@
             this.tabBM.Text = "Modificar Facturas";
             this.tabBM.UseVisualStyleBackColor = true;
             // 
-            // panel5
-            // 
-            this.panel5.Controls.Add(this.dataGridItems);
-            this.panel5.Controls.Add(this.btnModificarItem);
-            this.panel5.Controls.Add(this.label5);
-            this.panel5.Location = new System.Drawing.Point(6, 241);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(661, 166);
-            this.panel5.TabIndex = 1;
-            // 
-            // btnModificarItem
-            // 
-            this.btnModificarItem.Location = new System.Drawing.Point(6, 73);
-            this.btnModificarItem.Name = "btnModificarItem";
-            this.btnModificarItem.Size = new System.Drawing.Size(95, 23);
-            this.btnModificarItem.TabIndex = 10;
-            this.btnModificarItem.Text = "Modificar Items";
-            this.btnModificarItem.UseVisualStyleBackColor = true;
-            this.btnModificarItem.Click += new System.EventHandler(this.btnModificarItem_Click);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 11);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(32, 13);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "Items";
-            // 
             // panel4
             // 
             this.panel4.Controls.Add(this.btnFiltrarIdCliente);
@@ -416,6 +359,96 @@
             this.panel4.Size = new System.Drawing.Size(673, 410);
             this.panel4.TabIndex = 0;
             this.panel4.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
+            // 
+            // btnFiltrarIdCliente
+            // 
+            this.btnFiltrarIdCliente.Location = new System.Drawing.Point(442, 214);
+            this.btnFiltrarIdCliente.Name = "btnFiltrarIdCliente";
+            this.btnFiltrarIdCliente.Size = new System.Drawing.Size(75, 23);
+            this.btnFiltrarIdCliente.TabIndex = 20;
+            this.btnFiltrarIdCliente.Text = "Buscar";
+            this.btnFiltrarIdCliente.UseVisualStyleBackColor = true;
+            this.btnFiltrarIdCliente.Click += new System.EventHandler(this.btnFiltrarIdCliente_Click);
+            // 
+            // btnFiltrarIdFactura
+            // 
+            this.btnFiltrarIdFactura.Location = new System.Drawing.Point(180, 213);
+            this.btnFiltrarIdFactura.Name = "btnFiltrarIdFactura";
+            this.btnFiltrarIdFactura.Size = new System.Drawing.Size(75, 23);
+            this.btnFiltrarIdFactura.TabIndex = 19;
+            this.btnFiltrarIdFactura.Text = "Buscar";
+            this.btnFiltrarIdFactura.UseVisualStyleBackColor = true;
+            this.btnFiltrarIdFactura.Click += new System.EventHandler(this.btnFiltrarIdFactura_Click);
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.dataGridItems);
+            this.panel5.Controls.Add(this.btnModificarItem);
+            this.panel5.Controls.Add(this.label5);
+            this.panel5.Location = new System.Drawing.Point(6, 241);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(661, 166);
+            this.panel5.TabIndex = 1;
+            // 
+            // dataGridItems
+            // 
+            this.dataGridItems.AllowUserToAddRows = false;
+            this.dataGridItems.AllowUserToDeleteRows = false;
+            this.dataGridItems.AllowUserToResizeColumns = false;
+            this.dataGridItems.AllowUserToResizeRows = false;
+            this.dataGridItems.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridItems.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.dataGridItems.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dataGridItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridItems.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.dataGridItems.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dataGridItems.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dataGridItems.Location = new System.Drawing.Point(104, 11);
+            this.dataGridItems.MultiSelect = false;
+            this.dataGridItems.Name = "dataGridItems";
+            this.dataGridItems.ReadOnly = true;
+            this.dataGridItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridItems.Size = new System.Drawing.Size(554, 152);
+            this.dataGridItems.TabIndex = 16;
+            // 
+            // btnModificarItem
+            // 
+            this.btnModificarItem.Location = new System.Drawing.Point(6, 73);
+            this.btnModificarItem.Name = "btnModificarItem";
+            this.btnModificarItem.Size = new System.Drawing.Size(95, 23);
+            this.btnModificarItem.TabIndex = 10;
+            this.btnModificarItem.Text = "Modificar Items";
+            this.btnModificarItem.UseVisualStyleBackColor = true;
+            this.btnModificarItem.Click += new System.EventHandler(this.btnModificarItem_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(3, 11);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(32, 13);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "Items";
+            // 
+            // btnSinFiltros
+            // 
+            this.btnSinFiltros.Location = new System.Drawing.Point(592, 213);
+            this.btnSinFiltros.Name = "btnSinFiltros";
+            this.btnSinFiltros.Size = new System.Drawing.Size(75, 23);
+            this.btnSinFiltros.TabIndex = 18;
+            this.btnSinFiltros.Text = "Borrar Filtros";
+            this.btnSinFiltros.UseVisualStyleBackColor = true;
+            this.btnSinFiltros.Click += new System.EventHandler(this.btnSinFiltros_Click);
+            // 
+            // btnInhabilitar
+            // 
+            this.btnInhabilitar.Location = new System.Drawing.Point(87, 27);
+            this.btnInhabilitar.Name = "btnInhabilitar";
+            this.btnInhabilitar.Size = new System.Drawing.Size(75, 23);
+            this.btnInhabilitar.TabIndex = 16;
+            this.btnInhabilitar.Text = "Inhabilitar";
+            this.btnInhabilitar.UseVisualStyleBackColor = true;
+            this.btnInhabilitar.Click += new System.EventHandler(this.btnInhabilitar_Click);
             // 
             // dataGridFacturasBM
             // 
@@ -439,6 +472,26 @@
             this.dataGridFacturasBM.TabIndex = 15;
             this.dataGridFacturasBM.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridFacturasBM_CellClick);
             this.dataGridFacturasBM.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridFacturasBM_CellContentClick);
+            // 
+            // btnHabilitar
+            // 
+            this.btnHabilitar.Location = new System.Drawing.Point(6, 27);
+            this.btnHabilitar.Name = "btnHabilitar";
+            this.btnHabilitar.Size = new System.Drawing.Size(75, 23);
+            this.btnHabilitar.TabIndex = 10;
+            this.btnHabilitar.Text = "Habilitar";
+            this.btnHabilitar.UseVisualStyleBackColor = true;
+            this.btnHabilitar.Click += new System.EventHandler(this.btnHabilitar_Click);
+            // 
+            // btnModificarFactura
+            // 
+            this.btnModificarFactura.Location = new System.Drawing.Point(595, 27);
+            this.btnModificarFactura.Name = "btnModificarFactura";
+            this.btnModificarFactura.Size = new System.Drawing.Size(75, 23);
+            this.btnModificarFactura.TabIndex = 8;
+            this.btnModificarFactura.Text = "Modificar";
+            this.btnModificarFactura.UseVisualStyleBackColor = true;
+            this.btnModificarFactura.Click += new System.EventHandler(this.btnModificarFactura_Click);
             // 
             // txtIdClienteFiltro
             // 
@@ -485,86 +538,26 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
-            // dataGridItems
+            // dataGridEmpresas
             // 
-            this.dataGridItems.AllowUserToAddRows = false;
-            this.dataGridItems.AllowUserToDeleteRows = false;
-            this.dataGridItems.AllowUserToResizeColumns = false;
-            this.dataGridItems.AllowUserToResizeRows = false;
-            this.dataGridItems.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridItems.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            this.dataGridItems.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            this.dataGridItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridItems.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.dataGridItems.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dataGridItems.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dataGridItems.Location = new System.Drawing.Point(104, 11);
-            this.dataGridItems.MultiSelect = false;
-            this.dataGridItems.Name = "dataGridItems";
-            this.dataGridItems.ReadOnly = true;
-            this.dataGridItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridItems.Size = new System.Drawing.Size(554, 152);
-            this.dataGridItems.TabIndex = 16;
-            // 
-            // btnModificarFactura
-            // 
-            this.btnModificarFactura.Location = new System.Drawing.Point(595, 27);
-            this.btnModificarFactura.Name = "btnModificarFactura";
-            this.btnModificarFactura.Size = new System.Drawing.Size(75, 23);
-            this.btnModificarFactura.TabIndex = 8;
-            this.btnModificarFactura.Text = "Modificar";
-            this.btnModificarFactura.UseVisualStyleBackColor = true;
-            this.btnModificarFactura.Click += new System.EventHandler(this.btnModificarFactura_Click);
-            // 
-            // btnHabilitar
-            // 
-            this.btnHabilitar.Location = new System.Drawing.Point(6, 27);
-            this.btnHabilitar.Name = "btnHabilitar";
-            this.btnHabilitar.Size = new System.Drawing.Size(75, 23);
-            this.btnHabilitar.TabIndex = 10;
-            this.btnHabilitar.Text = "Habilitar";
-            this.btnHabilitar.UseVisualStyleBackColor = true;
-            this.btnHabilitar.Click += new System.EventHandler(this.btnHabilitar_Click);
-            // 
-            // btnInhabilitar
-            // 
-            this.btnInhabilitar.Location = new System.Drawing.Point(87, 27);
-            this.btnInhabilitar.Name = "btnInhabilitar";
-            this.btnInhabilitar.Size = new System.Drawing.Size(75, 23);
-            this.btnInhabilitar.TabIndex = 16;
-            this.btnInhabilitar.Text = "Inhabilitar";
-            this.btnInhabilitar.UseVisualStyleBackColor = true;
-            this.btnInhabilitar.Click += new System.EventHandler(this.btnInhabilitar_Click);
-            // 
-            // btnSinFiltros
-            // 
-            this.btnSinFiltros.Location = new System.Drawing.Point(592, 213);
-            this.btnSinFiltros.Name = "btnSinFiltros";
-            this.btnSinFiltros.Size = new System.Drawing.Size(75, 23);
-            this.btnSinFiltros.TabIndex = 18;
-            this.btnSinFiltros.Text = "Borrar Filtros";
-            this.btnSinFiltros.UseVisualStyleBackColor = true;
-            this.btnSinFiltros.Click += new System.EventHandler(this.btnSinFiltros_Click);
-            // 
-            // btnFiltrarIdFactura
-            // 
-            this.btnFiltrarIdFactura.Location = new System.Drawing.Point(180, 213);
-            this.btnFiltrarIdFactura.Name = "btnFiltrarIdFactura";
-            this.btnFiltrarIdFactura.Size = new System.Drawing.Size(75, 23);
-            this.btnFiltrarIdFactura.TabIndex = 19;
-            this.btnFiltrarIdFactura.Text = "Buscar";
-            this.btnFiltrarIdFactura.UseVisualStyleBackColor = true;
-            this.btnFiltrarIdFactura.Click += new System.EventHandler(this.btnFiltrarIdFactura_Click);
-            // 
-            // btnFiltrarIdCliente
-            // 
-            this.btnFiltrarIdCliente.Location = new System.Drawing.Point(442, 214);
-            this.btnFiltrarIdCliente.Name = "btnFiltrarIdCliente";
-            this.btnFiltrarIdCliente.Size = new System.Drawing.Size(75, 23);
-            this.btnFiltrarIdCliente.TabIndex = 20;
-            this.btnFiltrarIdCliente.Text = "Buscar";
-            this.btnFiltrarIdCliente.UseVisualStyleBackColor = true;
-            this.btnFiltrarIdCliente.Click += new System.EventHandler(this.btnFiltrarIdCliente_Click);
+            this.dataGridEmpresas.AllowUserToAddRows = false;
+            this.dataGridEmpresas.AllowUserToDeleteRows = false;
+            this.dataGridEmpresas.AllowUserToResizeColumns = false;
+            this.dataGridEmpresas.AllowUserToResizeRows = false;
+            this.dataGridEmpresas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridEmpresas.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.dataGridEmpresas.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dataGridEmpresas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridEmpresas.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.dataGridEmpresas.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dataGridEmpresas.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dataGridEmpresas.Location = new System.Drawing.Point(16, 26);
+            this.dataGridEmpresas.MultiSelect = false;
+            this.dataGridEmpresas.Name = "dataGridEmpresas";
+            this.dataGridEmpresas.ReadOnly = true;
+            this.dataGridEmpresas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridEmpresas.Size = new System.Drawing.Size(330, 153);
+            this.dataGridEmpresas.TabIndex = 16;
             // 
             // ABMFacturaForm
             // 
@@ -587,13 +580,14 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tabBM.ResumeLayout(false);
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridItems)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridFacturasBM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridItems)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -619,12 +613,9 @@
         private System.Windows.Forms.Label lblItem;
         private System.Windows.Forms.Label lblDetalle;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.ListView listEmpresas;
         private System.Windows.Forms.Label lblEmpresa;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblFechaVencimiento;
-        private System.Windows.Forms.TextBox txtFactura;
-        private System.Windows.Forms.Label lblFactura;
         private System.Windows.Forms.TextBox txtCliente;
         private System.Windows.Forms.Label lblCliente;
         private System.Windows.Forms.TabPage tabBM;
@@ -647,5 +638,6 @@
         private System.Windows.Forms.Button btnModificarFactura;
         private System.Windows.Forms.Button btnFiltrarIdFactura;
         private System.Windows.Forms.Button btnFiltrarIdCliente;
+        private System.Windows.Forms.DataGridView dataGridEmpresas;
     }
 }

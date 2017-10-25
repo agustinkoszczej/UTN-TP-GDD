@@ -199,5 +199,11 @@ namespace PagoAgilFrba.Utilidades
 
            return year.ToString() + sMonth + sDay;
        }
+
+       public static void clearDataGrid(DataGridView dataGrid)
+       {
+           dataGrid.DataSource = null;
+           dataGrid.Rows.Clear();
+       }
     }
 }

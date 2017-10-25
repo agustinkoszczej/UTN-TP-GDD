@@ -17,7 +17,7 @@ namespace PagoAgilFrba.AbmFactura
     {
         Factura factura;
         ABMFacturaForm backForm;
-        List<Empresa> empresas;
+        Empresa empresaSelected =null;
         int idCliente;
 
         List<Control> camposObligatorios;
@@ -34,7 +34,7 @@ namespace PagoAgilFrba.AbmFactura
             txtFacturaEmpresa.Text = f.empresa.nombre;
             txtFacturaCliente.Text = f.cliente.id.ToString();
             idCliente = f.cliente.id;
-            listEmpresas.Enabled = false;
+            dataGridEmpresas.Enabled = false;
             this.Text = "Factura Nº " + f.id;
         }
 
@@ -45,59 +45,49 @@ namespace PagoAgilFrba.AbmFactura
 
         private void btnSeleccionarEmpresa_Click(object sender, EventArgs e)
         {
-            if (!listEmpresas.Enabled)
+            if (!dataGridEmpresas.Enabled)
             {
-                listEmpresas.Items.Clear();
-                listEmpresas.Columns.Clear();
-
-                listEmpresas.Columns.Add("", 25);
-                listEmpresas.Columns.Add("Empresa", 100);
-                listEmpresas.Columns.Add("Direccion", 100);
-                listEmpresas.Columns.Add("CUIT", 100);
-
-                listEmpresas.View = View.Details;
-                listEmpresas.FullRowSelect = true;
-                listEmpresas.LabelEdit = false;
-                listEmpresas.AllowColumnReorder = false;
-                listEmpresas.GridLines = true;
-
-                listEmpresas.Enabled = true;
-
-                empresas = FacturaDAO.obtener_empresas(1);
-
-                for (int i = 1; i <= empresas.Count; i++)
-                {
-                    populateListEmpresas(i.ToString(), empresas[i - 1].nombre, empresas[i - 1].direccion, empresas[i - 1].cuit);
-                }
+                Utilidades.Utils.clearDataGrid(dataGridEmpresas);
+                dataGridEmpresas.Enabled = true;
+                FacturaDAO.llenarGridConEmpresas(dataGridEmpresas,1);
             }
             else
             {
-                Empresa empresaSelec = getEmpresaSeleccionada();
-                if (empresaSelec.nombre != txtFacturaEmpresa.Text)
+                loadEmpresaSeleccionada();
+                if (empresaSelected != null)
                 {
-                    factura.empresa = empresaSelec;
-                    txtFacturaEmpresa.Text = factura.empresa.nombre;
+                    if (empresaSelected.nombre != txtFacturaEmpresa.Text)
+                    {
+                        factura.empresa = empresaSelected;
+                        txtFacturaEmpresa.Text = factura.empresa.nombre;
+                    }
                 }
             }
         }
 
-        private Empresa getEmpresaSeleccionada()
+        private void loadEmpresaSeleccionada()
         {
-            string cuitL = listEmpresas.SelectedItems[0].SubItems[3].Text.ToString();
-            foreach (Empresa emp in empresas)
+            try
             {
-                if (emp.cuit == cuitL)
-                {
-                    return emp;
-                }
-            }
-            return null;
-        }
+                //Empresa_codigo, Empresa_cuit, Empresa_nombre, Empresa_direccion
 
-        private void populateListEmpresas(string pos, string nombre, string direcc, string cuit)
-        {
-            String[] row = { pos, nombre, direcc, cuit };
-            listEmpresas.Items.Add(new ListViewItem(row));
+                int empresa_id = int.Parse(dataGridEmpresas.SelectedCells[0].Value.ToString());
+                string cuit = dataGridEmpresas.SelectedCells[1].Value.ToString();
+                string nombre = dataGridEmpresas.SelectedCells[2].Value.ToString();
+                string direccion = dataGridEmpresas.SelectedCells[3].Value.ToString();
+
+                empresaSelected = new Empresa(
+                    empresa_id,
+                    cuit,
+                    nombre,
+                    direccion,
+                    true
+                    );
+            }
+            catch (Exception)
+            {
+                empresaSelected = null;
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

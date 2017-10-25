@@ -25,7 +25,7 @@ namespace PagoAgilFrba.AbmFactura
             InitializeComponent();
             factura = f;
             txtFacturaNumero.Text = f.id.ToString();
-            this.Text = "Items de Factura Nº " + f.id.ToString();
+            this.Text = "PagoAgilFrba | Items de Factura Nº " + f.id.ToString();
             actualizarListItems();
             backForm = back;
         }

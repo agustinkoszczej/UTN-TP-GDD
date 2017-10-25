@@ -31,7 +31,7 @@ namespace PagoAgilFrba.DAOs
             return estado;
         }
 
-        public static List<Empresa> obtener_empresas(int habilitadas)
+        public static void llenarGridConEmpresas(DataGridView grid, int habilitadas)
         {
             //0 = TODAS
             //1 = SOLO HABILITADAS
@@ -47,17 +47,7 @@ namespace PagoAgilFrba.DAOs
             }
 
 
-            SqlConnection conn = DBConnection.getConnection();
-            SqlCommand command = new SqlCommand(query, conn);
-            command.CommandType = System.Data.CommandType.Text;
-            SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                Empresa emp = new Empresa(int.Parse(reader.GetValue(0).ToString()), reader.GetValue(1).ToString(), reader.GetValue(2).ToString(), reader.GetValue(3).ToString(), true);
-                empresas.Add(emp);
-            }
-            conn.Close();
-            return empresas;
+            DBConnection.llenar_grilla(grid, query);
         }
 
         public static int ingresar_factura_e_items(Factura factura, List<Item_Factura> items)
