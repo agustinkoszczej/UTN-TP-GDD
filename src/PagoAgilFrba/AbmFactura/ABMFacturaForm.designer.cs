@@ -48,6 +48,7 @@
             this.lblItem = new System.Windows.Forms.Label();
             this.lblDetalle = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.dataGridEmpresas = new System.Windows.Forms.DataGridView();
             this.lblEmpresa = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.vencimientoDateTimePicker = new System.Windows.Forms.DateTimePicker();
@@ -73,11 +74,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.dataGridEmpresas = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.tabAlta.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).BeginInit();
             this.panel1.SuspendLayout();
             this.tabBM.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -85,7 +86,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridFacturasBM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -275,6 +275,27 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(362, 184);
             this.panel2.TabIndex = 2;
+            // 
+            // dataGridEmpresas
+            // 
+            this.dataGridEmpresas.AllowUserToAddRows = false;
+            this.dataGridEmpresas.AllowUserToDeleteRows = false;
+            this.dataGridEmpresas.AllowUserToResizeColumns = false;
+            this.dataGridEmpresas.AllowUserToResizeRows = false;
+            this.dataGridEmpresas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridEmpresas.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.dataGridEmpresas.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dataGridEmpresas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridEmpresas.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.dataGridEmpresas.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dataGridEmpresas.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dataGridEmpresas.Location = new System.Drawing.Point(16, 26);
+            this.dataGridEmpresas.MultiSelect = false;
+            this.dataGridEmpresas.Name = "dataGridEmpresas";
+            this.dataGridEmpresas.ReadOnly = true;
+            this.dataGridEmpresas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridEmpresas.Size = new System.Drawing.Size(330, 153);
+            this.dataGridEmpresas.TabIndex = 16;
             // 
             // lblEmpresa
             // 
@@ -521,9 +542,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(274, 219);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(54, 13);
+            this.label3.Size = new System.Drawing.Size(61, 13);
             this.label3.TabIndex = 3;
-            this.label3.Text = "Nº Cliente";
+            this.label3.Text = "DNI Cliente";
             // 
             // label1
             // 
@@ -537,27 +558,6 @@
             // errorProvider
             // 
             this.errorProvider.ContainerControl = this;
-            // 
-            // dataGridEmpresas
-            // 
-            this.dataGridEmpresas.AllowUserToAddRows = false;
-            this.dataGridEmpresas.AllowUserToDeleteRows = false;
-            this.dataGridEmpresas.AllowUserToResizeColumns = false;
-            this.dataGridEmpresas.AllowUserToResizeRows = false;
-            this.dataGridEmpresas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridEmpresas.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            this.dataGridEmpresas.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            this.dataGridEmpresas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridEmpresas.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.dataGridEmpresas.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dataGridEmpresas.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dataGridEmpresas.Location = new System.Drawing.Point(16, 26);
-            this.dataGridEmpresas.MultiSelect = false;
-            this.dataGridEmpresas.Name = "dataGridEmpresas";
-            this.dataGridEmpresas.ReadOnly = true;
-            this.dataGridEmpresas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridEmpresas.Size = new System.Drawing.Size(330, 153);
-            this.dataGridEmpresas.TabIndex = 16;
             // 
             // ABMFacturaForm
             // 
@@ -577,6 +577,7 @@
             this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tabBM.ResumeLayout(false);
@@ -587,7 +588,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridItems)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridFacturasBM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).EndInit();
             this.ResumeLayout(false);
 
         }

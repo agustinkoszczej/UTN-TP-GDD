@@ -28,7 +28,8 @@ namespace PagoAgilFrba.AbmFactura
         private List<Control> campos_obligatorios_ITEM;
 
         private bool filtrando = false;
-        private string filtro = "";
+        private string filtroWhere = "";
+        private string filtroJoin = "";
         int idFiltro = 0;
 
         public ABMFacturaForm()
@@ -264,32 +265,26 @@ namespace PagoAgilFrba.AbmFactura
 
         private void cargarListFacturasBM()
         {
-            string query;
+
+            Utils.clearDataGrid(dataGridFacturasBM);
+            Utils.clearDataGrid(dataGridItems);
 
             if (filtrando)
             {
-                query = string.Format(@"SELECT Factura_codigo, Factura_fecha, Factura_total, Factura_fecha_venc, Factura_empresa, Factura_cliente, Factura_habilitada  
-            FROM LORDS_OF_THE_STRINGS_V2.Factura F 
-            WHERE F.Factura_codigo NOT IN (select Pago_factura from LORDS_OF_THE_STRINGS_V2.Pago)" + filtro);
+                string query = string.Format(@"SELECT Factura_codigo, Factura_fecha, Factura_total, Factura_fecha_venc, Factura_empresa, Factura_cliente, Factura_habilitada  
+            FROM LORDS_OF_THE_STRINGS_V2.Factura F " + filtroJoin + 
+            " WHERE F.Factura_codigo NOT IN (select Pago_factura from LORDS_OF_THE_STRINGS_V2.Pago)" + filtroWhere);
                 FacturaDAO.cargarFacturasFiltrada(dataGridFacturasBM, idFiltro, query, "@idFiltro");
+                loadFacturaSeleccionada();
+                cargarItemsFacturaSeleccionada();
             }
-            else
-            {
-                query = string.Format(@"SELECT Factura_codigo, Factura_fecha, Factura_total, Factura_fecha_venc, Factura_empresa, Factura_cliente, Factura_habilitada  
-            FROM LORDS_OF_THE_STRINGS_V2.Factura F 
-            WHERE F.Factura_codigo NOT IN (select Pago_factura from LORDS_OF_THE_STRINGS_V2.Pago)");
-                DBConnection.llenar_grilla(dataGridFacturasBM, query);
-            }
-
-            loadFacturaSeleccionada();
-            cargarItemsFacturaSeleccionada();
         }
 
         private void btnSinFiltros_Click(object sender, EventArgs e)
         {
             txtIdFacturaFiltro.Text = "";
             txtIdClienteFiltro.Text = "";
-            filtro = "";
+            filtroWhere = "";
             filtrando = false;
             idFiltro = 0;
             cargarListFacturasBM();
@@ -309,10 +304,11 @@ namespace PagoAgilFrba.AbmFactura
                     mensaje = "Debe ingresar un valor a buscar";
                 }
                 MessageBox.Show(mensaje);
+                txtIdFacturaFiltro.Text = "";
                 return;
             }
-
-            filtro = " AND Factura_codigo = @idFiltro";
+            filtroJoin = "";
+            filtroWhere = " AND Factura_codigo = @idFiltro";
             filtrando = true;
             cargarListFacturasBM();
         }
@@ -331,10 +327,11 @@ namespace PagoAgilFrba.AbmFactura
                     mensaje = "Debe ingresar un valor a buscar";
                 }
                 MessageBox.Show(mensaje);
+                txtIdClienteFiltro.Text = "";
                 return;
             }
-
-            filtro = " AND Factura_cliente = @idFiltro";
+            filtroJoin = " JOIN LORDS_OF_THE_STRINGS_V2.Cliente C ON F.Factura_cliente = C.Cliente_codigo ";
+            filtroWhere = " AND C.Cliente_dni = @idFiltro";
             filtrando = true;
             cargarListFacturasBM();
         }
