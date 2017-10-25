@@ -49,12 +49,12 @@ namespace PagoAgilFrba.DAOs
             return ret;
         }
 
-        public static List<Factura> obtenerNoRendidasYCargarGrid(DataGridView grid, Empresa selec)
+        public static void cargarGridFacturasNoRendidas(DataGridView grid, Empresa selec)
         {
             string query = string.Format(@"SELECT DISTINCT Factura_codigo, Factura_fecha, Factura_total, Factura_fecha_venc, Factura_cliente 
                                             FROM LORDS_OF_THE_STRINGS_V2.Factura F
-                                            join LORDS_OF_THE_STRINGS_V2.Pago P on F.Factura_codigo = P.Pago_factura
-                                            WHERE Factura_empresa = @idEmpresa AND MONTH(P.Pago_fecha) = MONTH(GETDATE()) AND F.Factura_rendicion IS NULL");
+                                            JOIN LORDS_OF_THE_STRINGS_V2.Pago P ON F.Factura_codigo = P.Pago_factura
+                                            WHERE Factura_empresa = @idEmpresa AND F.Factura_rendicion IS NULL AND F.Factura_habilitada = 1");
             SqlConnection conn = DBConnection.getConnection();
             SqlCommand command = new SqlCommand(query, conn);
 
@@ -71,25 +71,7 @@ namespace PagoAgilFrba.DAOs
             grid.DataSource = source;
             adapter.Update(table);
             
-            List<Factura> facts = new List<Factura>();
-
-            foreach(DataGridViewRow row in grid.Rows){
-                if (row.Cells[0].Value != null)
-                {
-                    Factura f = new Factura(
-                        int.Parse(row.Cells[0].Value.ToString()),
-                        DateTime.Parse(row.Cells[1].Value.ToString()),
-                        double.Parse(row.Cells[2].Value.ToString()),
-                        DateTime.Parse(row.Cells[3].Value.ToString()),
-                        selec,
-                        new Cliente(int.Parse(row.Cells[4].Value.ToString()), "", "", 0, DateTime.Now, "", "", "", "", true),  //genero cualquier cliente, total no me importan aca
-                        null);
-
-                    facts.Add(f);
-                }
-            }
-
-            return facts;
+           
 
         }
 

@@ -17,7 +17,6 @@ namespace PagoAgilFrba.Rendicion
     public partial class RendicionForm : Form
     {
         Empresa seleccionada = null;
-        List<Factura> facturas = null;
         double sumaCobrada;
         double porcentajeComision; //OBTENER DE CONFIG
         double valorComision;
@@ -53,22 +52,29 @@ namespace PagoAgilFrba.Rendicion
 
         private void cargarEmpresas()
         {
-<<<<<<< HEAD
-            string query = "select distinct Empresa_codigo, Empresa_nombre, Empresa_cuit, Empresa_direccion, Empresa_habilitada from LORDS_OF_THE_STRINGS_V2.Empresa E join LORDS_OF_THE_STRINGS_V2.Factura F on E.Empresa_codigo = F.Factura_empresa join LORDS_OF_THE_STRINGS_V2.Pago P on F.Factura_codigo = P.Pago_factura where MONTH(P.Pago_fecha) = MONTH(GETDATE()) AND F.Factura_rendicion IS NULL";
-            RendicionDAO.llenarDataGrid(dataGridEmpresas, query);
-=======
+
             string query = string.Format(@"SELECT Empresa_codigo, Empresa_nombre, Empresa_cuit, Empresa_direccion, Empresa_habilitada 
                                             FROM LORDS_OF_THE_STRINGS_V2.Empresa");
             DBConnection.llenar_grilla(dataGridEmpresas, query);
             //RendicionDAO.llenarDataGrid(dataGridEmpresas, query);
->>>>>>> 99d044282fa4a0642fd8c1df622ce5ad53650c4e
+
         }
 
         private void exito(int idRendicion)
         {
+            string msj;
+            if (idRendicion == 0)
+            {
+                msj = "No hay facturas que rendir";
+            }
+            else
+            {
+                msj = "Rendicion Nº " + idRendicion + " generada";
+            }
+
             panelFacturas.Visible = false;
             panelEmpresas.Visible = true;
-            lblMensaje.Text = "Rendicion Nº " + idRendicion + " generada";
+            lblMensaje.Text = msj;
             cargarEmpresas();
         }
 
@@ -89,8 +95,9 @@ namespace PagoAgilFrba.Rendicion
                     panelEmpresas.Visible = false;
                     panelFacturas.Visible = true;
                     lblEmpresaSelec.Text = "Empresa Seleccionada: " + seleccionada.nombre;
-                    facturas = RendicionDAO.obtenerNoRendidasYCargarGrid(dataGridFacturas, seleccionada);
-                    lblFacturasARendir.Text = facturas.Count.ToString();
+                    RendicionDAO.cargarGridFacturasNoRendidas(dataGridFacturas, seleccionada);
+                    //lblFacturasARendir.Text = facturas.Count.ToString();
+                    lblFacturasARendir.Text = dataGridFacturas.Rows.Count.ToString();
                     sumaCobrada = obtenerSumaFacturas();
                     lblSumaCobrada.Text = "$" + sumaCobrada.ToString();
                     lblPorcentajeComision.Text = (100*porcentajeComision).ToString() + "%";
@@ -110,9 +117,9 @@ namespace PagoAgilFrba.Rendicion
         private double obtenerSumaFacturas()
         {
             double total = 0;
-            foreach (Factura f in facturas)
+            foreach (DataGridViewRow fila in dataGridFacturas.Rows)
             {
-                total = total + f.total;
+                total = total + double.Parse(fila.Cells[2].Value.ToString());
             }
             return total;
         }
@@ -159,29 +166,45 @@ namespace PagoAgilFrba.Rendicion
 
         private void btnRendir_Click(object sender, EventArgs e)
         {
-            Model.Rendicion rend = new Model.Rendicion(0, DateTime.Now, totalRendido);
-            int idR = RendicionDAO.nuevaRendicion(rend);
-            if (idR == 0)
+            if (dataGridFacturas.Rows.Count == 0)
             {
-                MessageBox.Show("Error al generar la rendicion");
+                exito(0);
             }
             else
             {
-                foreach (Factura f in facturas)
+                
+                Model.Rendicion rend = new Model.Rendicion(0, DateTime.Now, totalRendido);
+                int idR = RendicionDAO.nuevaRendicion(rend);
+                if (idR == 0)
                 {
-                    try
-                    {
-                        rend.id = idR;
-                        f.rendicion = rend;
-                        FacturaDAO.modificarFactura(f);
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show("Error al actualizar la factura Nº " + f.id);
-                        return;
-                    }
+                    MessageBox.Show("Error al generar la rendicion");
                 }
-                exito(idR);
+                else
+                {
+                    foreach (DataGridViewRow fila in dataGridFacturas.Rows)
+                    {
+                        string idFactura = fila.Cells[0].Value.ToString(); ///Para mostrar en el msgbox
+                        try
+                        {
+                            rend.id = idR;
+                            Factura f = new Factura(
+                                    int.Parse(fila.Cells[0].Value.ToString()),
+                                    DateTime.Parse(fila.Cells[1].Value.ToString()),
+                                    double.Parse(fila.Cells[2].Value.ToString()),
+                                    DateTime.Parse(fila.Cells[3].Value.ToString()),
+                                    seleccionada,
+                                    new Cliente(int.Parse(fila.Cells[4].Value.ToString()), "", "", 0, DateTime.Now, "", "", "", "", true),  //genero cualquier cliente, total solo importa el id en este update
+                                    rend);
+                            FacturaDAO.modificarFactura(f);
+                        }
+                        catch (Exception)
+                        {
+                            MessageBox.Show("Error al actualizar la factura Nº " + idFactura);
+                            return;
+                        }
+                    }
+                    exito(idR);
+                }
             }
         }
 

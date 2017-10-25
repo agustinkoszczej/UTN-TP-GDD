@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.panelEmpresas = new System.Windows.Forms.Panel();
+            this.lblMensaje = new System.Windows.Forms.Label();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btnSeleccionar = new System.Windows.Forms.Button();
-            this.dataGridEmpresas = new System.Windows.Forms.DataGridView();
             this.panelFacturas = new System.Windows.Forms.Panel();
             this.btnRendir = new System.Windows.Forms.Button();
             this.lblTotalRendido = new System.Windows.Forms.Label();
@@ -46,27 +46,36 @@
             this.lblFacturasARendir = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.dataGridFacturas = new System.Windows.Forms.DataGridView();
             this.lblEmpresaSelec = new System.Windows.Forms.Label();
-            this.lblMensaje = new System.Windows.Forms.Label();
+            this.dataGridEmpresas = new System.Windows.Forms.DataGridView();
+            this.dataGridFacturas = new System.Windows.Forms.DataGridView();
             this.panelEmpresas.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).BeginInit();
             this.panelFacturas.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridFacturas)).BeginInit();
             this.SuspendLayout();
             // 
             // panelEmpresas
             // 
+            this.panelEmpresas.Controls.Add(this.dataGridEmpresas);
             this.panelEmpresas.Controls.Add(this.lblMensaje);
             this.panelEmpresas.Controls.Add(this.btnCancelar);
             this.panelEmpresas.Controls.Add(this.label1);
             this.panelEmpresas.Controls.Add(this.btnSeleccionar);
-            this.panelEmpresas.Controls.Add(this.dataGridEmpresas);
-            this.panelEmpresas.Location = new System.Drawing.Point(13, 13);
+            this.panelEmpresas.Location = new System.Drawing.Point(7, 7);
             this.panelEmpresas.Name = "panelEmpresas";
             this.panelEmpresas.Size = new System.Drawing.Size(593, 411);
             this.panelEmpresas.TabIndex = 0;
             this.panelEmpresas.Paint += new System.Windows.Forms.PaintEventHandler(this.panelEmpresas_Paint);
+            // 
+            // lblMensaje
+            // 
+            this.lblMensaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMensaje.Location = new System.Drawing.Point(84, 385);
+            this.lblMensaje.Name = "lblMensaje";
+            this.lblMensaje.Size = new System.Drawing.Size(407, 20);
+            this.lblMensaje.TabIndex = 5;
+            this.lblMensaje.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnCancelar
             // 
@@ -97,20 +106,9 @@
             this.btnSeleccionar.UseVisualStyleBackColor = true;
             this.btnSeleccionar.Click += new System.EventHandler(this.btnSeleccionar_Click);
             // 
-            // dataGridEmpresas
-            // 
-            this.dataGridEmpresas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridEmpresas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridEmpresas.Location = new System.Drawing.Point(3, 30);
-            this.dataGridEmpresas.MultiSelect = false;
-            this.dataGridEmpresas.Name = "dataGridEmpresas";
-            this.dataGridEmpresas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridEmpresas.Size = new System.Drawing.Size(569, 342);
-            this.dataGridEmpresas.TabIndex = 1;
-            this.dataGridEmpresas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridEmpresas_CellContentClick);
-            // 
             // panelFacturas
             // 
+            this.panelFacturas.Controls.Add(this.dataGridFacturas);
             this.panelFacturas.Controls.Add(this.btnRendir);
             this.panelFacturas.Controls.Add(this.lblTotalRendido);
             this.panelFacturas.Controls.Add(this.label7);
@@ -123,7 +121,6 @@
             this.panelFacturas.Controls.Add(this.lblFacturasARendir);
             this.panelFacturas.Controls.Add(this.label3);
             this.panelFacturas.Controls.Add(this.label2);
-            this.panelFacturas.Controls.Add(this.dataGridFacturas);
             this.panelFacturas.Controls.Add(this.lblEmpresaSelec);
             this.panelFacturas.Location = new System.Drawing.Point(9, 12);
             this.panelFacturas.Name = "panelFacturas";
@@ -241,17 +238,6 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Facturas que se rendirán:";
             // 
-            // dataGridFacturas
-            // 
-            this.dataGridFacturas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridFacturas.Location = new System.Drawing.Point(2, 113);
-            this.dataGridFacturas.MultiSelect = false;
-            this.dataGridFacturas.Name = "dataGridFacturas";
-            this.dataGridFacturas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridFacturas.Size = new System.Drawing.Size(589, 228);
-            this.dataGridFacturas.TabIndex = 1;
-            this.dataGridFacturas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
-            // 
             // lblEmpresaSelec
             // 
             this.lblEmpresaSelec.AutoSize = true;
@@ -261,30 +247,64 @@
             this.lblEmpresaSelec.TabIndex = 0;
             this.lblEmpresaSelec.Text = "Empresa Seleccionada: ____________";
             // 
-            // lblMensaje
+            // dataGridEmpresas
             // 
-            this.lblMensaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMensaje.Location = new System.Drawing.Point(84, 385);
-            this.lblMensaje.Name = "lblMensaje";
-            this.lblMensaje.Size = new System.Drawing.Size(407, 20);
-            this.lblMensaje.TabIndex = 5;
-            this.lblMensaje.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.dataGridEmpresas.AllowUserToAddRows = false;
+            this.dataGridEmpresas.AllowUserToDeleteRows = false;
+            this.dataGridEmpresas.AllowUserToResizeColumns = false;
+            this.dataGridEmpresas.AllowUserToResizeRows = false;
+            this.dataGridEmpresas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridEmpresas.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.dataGridEmpresas.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dataGridEmpresas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridEmpresas.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.dataGridEmpresas.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dataGridEmpresas.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dataGridEmpresas.Location = new System.Drawing.Point(7, 44);
+            this.dataGridEmpresas.MultiSelect = false;
+            this.dataGridEmpresas.Name = "dataGridEmpresas";
+            this.dataGridEmpresas.ReadOnly = true;
+            this.dataGridEmpresas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridEmpresas.Size = new System.Drawing.Size(577, 323);
+            this.dataGridEmpresas.TabIndex = 14;
+            // 
+            // dataGridFacturas
+            // 
+            this.dataGridFacturas.AllowUserToAddRows = false;
+            this.dataGridFacturas.AllowUserToDeleteRows = false;
+            this.dataGridFacturas.AllowUserToResizeColumns = false;
+            this.dataGridFacturas.AllowUserToResizeRows = false;
+            this.dataGridFacturas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridFacturas.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.dataGridFacturas.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dataGridFacturas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridFacturas.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.dataGridFacturas.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dataGridFacturas.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dataGridFacturas.Location = new System.Drawing.Point(8, 113);
+            this.dataGridFacturas.MultiSelect = false;
+            this.dataGridFacturas.Name = "dataGridFacturas";
+            this.dataGridFacturas.ReadOnly = true;
+            this.dataGridFacturas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridFacturas.Size = new System.Drawing.Size(583, 243);
+            this.dataGridFacturas.TabIndex = 14;
             // 
             // RendicionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(609, 430);
+            this.ClientSize = new System.Drawing.Size(613, 425);
             this.Controls.Add(this.panelEmpresas);
             this.Controls.Add(this.panelFacturas);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "RendicionForm";
             this.Text = "Rendicion de Facturas Pagas";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panelEmpresas.ResumeLayout(false);
             this.panelEmpresas.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).EndInit();
             this.panelFacturas.ResumeLayout(false);
             this.panelFacturas.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridFacturas)).EndInit();
             this.ResumeLayout(false);
 
@@ -296,10 +316,8 @@
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnSeleccionar;
-        private System.Windows.Forms.DataGridView dataGridEmpresas;
         private System.Windows.Forms.Panel panelFacturas;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DataGridView dataGridFacturas;
         private System.Windows.Forms.Label lblEmpresaSelec;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnRendir;
@@ -313,5 +331,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblFacturasARendir;
         private System.Windows.Forms.Label lblMensaje;
+        private System.Windows.Forms.DataGridView dataGridEmpresas;
+        private System.Windows.Forms.DataGridView dataGridFacturas;
     }
 }
