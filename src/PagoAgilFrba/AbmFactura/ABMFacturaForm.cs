@@ -23,6 +23,7 @@ namespace PagoAgilFrba.AbmFactura
 
         private Factura facturaSelectedBM;
         private Empresa empresaSelectedAlta;
+        private Cliente clienteSelectedAlta;
 
         private List<Control> campos_obligatorios_ALTA;
         private List<Control> campos_obligatorios_ITEM;
@@ -32,6 +33,8 @@ namespace PagoAgilFrba.AbmFactura
         private string filtroJoin = "";
         int idFiltro = 0;
 
+        int itemsIngresados = 0;
+
         public ABMFacturaForm()
         {
             InitializeComponent();
@@ -39,7 +42,7 @@ namespace PagoAgilFrba.AbmFactura
 
         private void ABMFacturaForm_Load(object sender, EventArgs e)
         {
-            this.campos_obligatorios_ALTA = new List<Control>() { txtCliente, txtCliente, vencimientoDateTimePicker };
+            this.campos_obligatorios_ALTA = new List<Control>() {dataGridCliente, dataGridEmpresas, vencimientoDateTimePicker };
             this.campos_obligatorios_ITEM = new List<Control>() {txtCantidad, txtMonto};
 
             FacturaDAO.llenarGridConEmpresas(dataGridEmpresas,1);
@@ -96,7 +99,7 @@ namespace PagoAgilFrba.AbmFactura
 
                 try
                 {
-                    cantidad = int.Parse(txtCantidad.Text.ToString());
+                    cantidad = int.Parse(txtCantidad.Value.ToString());
                 }
                 catch (Exception)
                 {
@@ -118,6 +121,7 @@ namespace PagoAgilFrba.AbmFactura
                     txtItem.Text = "";
                     txtMonto.Text = "";
                     txtCantidad.Text = "";
+                    itemsIngresados++;
                 }
             }       
         }
@@ -139,6 +143,7 @@ namespace PagoAgilFrba.AbmFactura
                     totalSS = totalSS - (monto * cantidad);
                     lblTotal.Text = "$" + totalSS.ToString();
                     listDetalle.SelectedItems[0].Remove();
+                    itemsIngresados--;
                 }
                 catch (Exception ex)
                 {
@@ -149,7 +154,7 @@ namespace PagoAgilFrba.AbmFactura
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (Utilidades.Utils.cumple_campos_obligatorios(campos_obligatorios_ALTA, errorProvider) && dataGridEmpresas.SelectedRows.Count > 0)
+            if (Utilidades.Utils.cumple_campos_obligatorios(campos_obligatorios_ALTA, errorProvider) && dataGridEmpresas.SelectedRows.Count > 0 && dataGridCliente.SelectedRows.Count > 0)
             {
                 lblMensaje.ForeColor = Color.Black;
                 lblMensaje.Visible = true;
@@ -161,37 +166,55 @@ namespace PagoAgilFrba.AbmFactura
                 {
                     lblMensaje.ForeColor = Color.DarkRed;
                     lblMensaje.Visible = true;
-                    lblMensaje.Text = "La fecha ingresada es anterior inválida";
+                    lblMensaje.Text = "La fecha ingresada es inválida";
+                    return;
                 }
-                else
+
+                if (itemsIngresados < 1)
                 {
+                    lblMensaje.ForeColor = Color.DarkRed;
+                    lblMensaje.Visible = true;
+                    lblMensaje.Text = "No se pueden generar facturas vacias";
+                    return;
+                }
+
                     loadEmpresaSeleccionada();
 
                     if (empresaSelectedAlta == null)
                     {
                         MessageBox.Show("Error al seleccionar empresa");
+                        return;
                     }
                     else
                     {
-                        int idCliente = int.Parse(txtCliente.Text);
-
-                        Factura nueva = new Factura(0, DateTime.Now, totalSS, fecha, empresaSelectedAlta, FacturaDAO.obtener_cliente_con_ID(idCliente), null);
-                        generarListaItems();
-
-                        int value = FacturaDAO.ingresar_factura_e_items(nueva, this.items);
-                        if (value != 0)
+                        loadClienteSeleccionado();
+                        if (clienteSelectedAlta != null)
                         {
-                            exito(value);
-                            
+                            Factura nueva = new Factura(0, DateTime.Now, totalSS, fecha, empresaSelectedAlta, clienteSelectedAlta, null);
+                            generarListaItems();
+
+                            int value = FacturaDAO.ingresar_factura_e_items(nueva, this.items);
+                            if (value != 0)
+                            {
+                                exito(value);
+                                return;
+                            }
+                            else
+                            {
+                                lblMensaje.ForeColor = Color.DarkRed;
+                                lblMensaje.Visible = true;
+                                lblMensaje.Text = "Error al cargar los datos";
+                                return;
+                            }
                         }
                         else
                         {
-                            lblMensaje.ForeColor = Color.DarkRed;
-                            lblMensaje.Visible = true;
-                            lblMensaje.Text = "Error al cargar los datos";
+                            MessageBox.Show("Error al seleccionar cliente");
+                            return;
                         }
+
                     }
-                }
+                
             }
             else
             {
@@ -215,6 +238,8 @@ namespace PagoAgilFrba.AbmFactura
             lblTotal.Text = "$0";
 
             actualizarTabBM();
+            inicializarListDetalleAlta();
+            Utils.clearDataGrid(dataGridCliente);
         }
 
         private void loadEmpresaSeleccionada()
@@ -233,6 +258,40 @@ namespace PagoAgilFrba.AbmFactura
                     cuit,
                     nombre,
                     direccion,
+                    true
+                    );
+            }
+            catch (Exception)
+            {
+                empresaSelectedAlta = null;
+            }
+        }
+
+        private void loadClienteSeleccionado()
+        {
+            try
+            {
+                int cliente_id = int.Parse(dataGridCliente.SelectedCells[0].Value.ToString());
+                uint dni = uint.Parse(dataGridCliente.SelectedCells[1].Value.ToString());
+                string nombre = dataGridCliente.SelectedCells[2].Value.ToString();
+                string apellido = dataGridCliente.SelectedCells[3].Value.ToString();
+                DateTime fnac = DateTime.Parse(dataGridCliente.SelectedCells[4].Value.ToString());
+                string mail = dataGridCliente.SelectedCells[5].Value.ToString();
+                string direccion = dataGridCliente.SelectedCells[6].Value.ToString();
+                string cp = dataGridCliente.SelectedCells[7].Value.ToString();
+                string telefono = dataGridCliente.SelectedCells[8].Value.ToString();
+                
+
+                clienteSelectedAlta = new Cliente(
+                    cliente_id,
+                    nombre,
+                    apellido,
+                    dni,
+                    fnac,
+                    direccion,
+                    cp,
+                    mail,
+                    telefono,
                     true
                     );
             }
@@ -511,6 +570,15 @@ namespace PagoAgilFrba.AbmFactura
         {
             cargarItemsFacturaSeleccionada();
             cargarListFacturasBM();
+        }
+
+        private void btnBuscarCliente_Click(object sender, EventArgs e)
+        {
+            if (txtCliente.Text != "")
+            {
+                ClienteDAO.llenarGridBuscarCliente(dataGridCliente, txtCliente.Text.ToString());
+            }
+
         }
     }
 }

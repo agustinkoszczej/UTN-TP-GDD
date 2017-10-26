@@ -40,14 +40,12 @@
             this.lblTotal = new System.Windows.Forms.Label();
             this.lblTextTotal = new System.Windows.Forms.Label();
             this.lblListaDetalle = new System.Windows.Forms.Label();
-            this.txtCantidad = new System.Windows.Forms.TextBox();
             this.lblCantidad = new System.Windows.Forms.Label();
             this.txtMonto = new System.Windows.Forms.TextBox();
             this.lblMonto = new System.Windows.Forms.Label();
             this.txtItem = new System.Windows.Forms.TextBox();
             this.lblItem = new System.Windows.Forms.Label();
             this.lblDetalle = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.dataGridEmpresas = new System.Windows.Forms.DataGridView();
             this.lblEmpresa = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -74,10 +72,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.txtCantidad = new System.Windows.Forms.NumericUpDown();
+            this.dataGridCliente = new System.Windows.Forms.DataGridView();
+            this.btnBuscarCliente = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabAlta.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).BeginInit();
             this.panel1.SuspendLayout();
             this.tabBM.SuspendLayout();
@@ -86,6 +86,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridFacturasBM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCantidad)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridCliente)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -101,7 +103,6 @@
             // tabAlta
             // 
             this.tabAlta.Controls.Add(this.panel3);
-            this.tabAlta.Controls.Add(this.panel2);
             this.tabAlta.Controls.Add(this.panel1);
             this.tabAlta.Location = new System.Drawing.Point(4, 22);
             this.tabAlta.Name = "tabAlta";
@@ -113,6 +114,7 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.txtCantidad);
             this.panel3.Controls.Add(this.listDetalle);
             this.panel3.Controls.Add(this.lblMensaje);
             this.panel3.Controls.Add(this.btnAceptar);
@@ -121,7 +123,6 @@
             this.panel3.Controls.Add(this.lblTotal);
             this.panel3.Controls.Add(this.lblTextTotal);
             this.panel3.Controls.Add(this.lblListaDetalle);
-            this.panel3.Controls.Add(this.txtCantidad);
             this.panel3.Controls.Add(this.lblCantidad);
             this.panel3.Controls.Add(this.txtMonto);
             this.panel3.Controls.Add(this.lblMonto);
@@ -210,13 +211,6 @@
             this.lblListaDetalle.TabIndex = 7;
             this.lblListaDetalle.Text = "Detalles Agregados";
             // 
-            // txtCantidad
-            // 
-            this.txtCantidad.Location = new System.Drawing.Point(19, 130);
-            this.txtCantidad.Name = "txtCantidad";
-            this.txtCantidad.Size = new System.Drawing.Size(262, 20);
-            this.txtCantidad.TabIndex = 6;
-            // 
             // lblCantidad
             // 
             this.lblCantidad.AutoSize = true;
@@ -267,15 +261,6 @@
             this.lblDetalle.TabIndex = 0;
             this.lblDetalle.Text = "Detalle";
             // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.dataGridEmpresas);
-            this.panel2.Controls.Add(this.lblEmpresa);
-            this.panel2.Location = new System.Drawing.Point(315, 6);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(362, 184);
-            this.panel2.TabIndex = 2;
-            // 
             // dataGridEmpresas
             // 
             this.dataGridEmpresas.AllowUserToAddRows = false;
@@ -289,18 +274,18 @@
             this.dataGridEmpresas.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.dataGridEmpresas.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dataGridEmpresas.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dataGridEmpresas.Location = new System.Drawing.Point(16, 26);
+            this.dataGridEmpresas.Location = new System.Drawing.Point(9, 27);
             this.dataGridEmpresas.MultiSelect = false;
             this.dataGridEmpresas.Name = "dataGridEmpresas";
             this.dataGridEmpresas.ReadOnly = true;
             this.dataGridEmpresas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridEmpresas.Size = new System.Drawing.Size(330, 153);
+            this.dataGridEmpresas.Size = new System.Drawing.Size(276, 105);
             this.dataGridEmpresas.TabIndex = 16;
             // 
             // lblEmpresa
             // 
             this.lblEmpresa.AutoSize = true;
-            this.lblEmpresa.Location = new System.Drawing.Point(13, 10);
+            this.lblEmpresa.Location = new System.Drawing.Point(6, 2);
             this.lblEmpresa.Name = "lblEmpresa";
             this.lblEmpresa.Size = new System.Drawing.Size(107, 13);
             this.lblEmpresa.TabIndex = 0;
@@ -308,18 +293,22 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.dataGridEmpresas);
+            this.panel1.Controls.Add(this.lblEmpresa);
+            this.panel1.Controls.Add(this.btnBuscarCliente);
+            this.panel1.Controls.Add(this.dataGridCliente);
             this.panel1.Controls.Add(this.vencimientoDateTimePicker);
             this.panel1.Controls.Add(this.lblFechaVencimiento);
             this.panel1.Controls.Add(this.txtCliente);
             this.panel1.Controls.Add(this.lblCliente);
             this.panel1.Location = new System.Drawing.Point(6, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(303, 184);
+            this.panel1.Size = new System.Drawing.Size(668, 184);
             this.panel1.TabIndex = 1;
             // 
             // vencimientoDateTimePicker
             // 
-            this.vencimientoDateTimePicker.Location = new System.Drawing.Point(9, 66);
+            this.vencimientoDateTimePicker.Location = new System.Drawing.Point(9, 151);
             this.vencimientoDateTimePicker.Name = "vencimientoDateTimePicker";
             this.vencimientoDateTimePicker.Size = new System.Drawing.Size(276, 20);
             this.vencimientoDateTimePicker.TabIndex = 9;
@@ -327,7 +316,7 @@
             // lblFechaVencimiento
             // 
             this.lblFechaVencimiento.AutoSize = true;
-            this.lblFechaVencimiento.Location = new System.Drawing.Point(6, 50);
+            this.lblFechaVencimiento.Location = new System.Drawing.Point(6, 135);
             this.lblFechaVencimiento.Name = "lblFechaVencimiento";
             this.lblFechaVencimiento.Size = new System.Drawing.Size(113, 13);
             this.lblFechaVencimiento.TabIndex = 4;
@@ -335,19 +324,19 @@
             // 
             // txtCliente
             // 
-            this.txtCliente.Location = new System.Drawing.Point(9, 27);
+            this.txtCliente.Location = new System.Drawing.Point(308, 27);
             this.txtCliente.Name = "txtCliente";
-            this.txtCliente.Size = new System.Drawing.Size(276, 20);
+            this.txtCliente.Size = new System.Drawing.Size(357, 20);
             this.txtCliente.TabIndex = 1;
             // 
             // lblCliente
             // 
             this.lblCliente.AutoSize = true;
-            this.lblCliente.Location = new System.Drawing.Point(3, 10);
+            this.lblCliente.Location = new System.Drawing.Point(305, 9);
             this.lblCliente.Name = "lblCliente";
-            this.lblCliente.Size = new System.Drawing.Size(66, 13);
+            this.lblCliente.Size = new System.Drawing.Size(79, 13);
             this.lblCliente.TabIndex = 0;
-            this.lblCliente.Text = "(*) ID Cliente";
+            this.lblCliente.Text = "Nombre Cliente";
             // 
             // tabBM
             // 
@@ -549,21 +538,71 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(3, 11);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(95, 13);
+            this.label1.Size = new System.Drawing.Size(262, 16);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Facturas no pagas";
+            this.label1.Text = "*Se muestran sólo facturas no pagas";
             // 
             // errorProvider
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // txtCantidad
+            // 
+            this.txtCantidad.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtCantidad.Location = new System.Drawing.Point(19, 129);
+            this.txtCantidad.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.txtCantidad.Name = "txtCantidad";
+            this.txtCantidad.Size = new System.Drawing.Size(261, 20);
+            this.txtCantidad.TabIndex = 16;
+            this.txtCantidad.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // dataGridCliente
+            // 
+            this.dataGridCliente.AllowUserToAddRows = false;
+            this.dataGridCliente.AllowUserToDeleteRows = false;
+            this.dataGridCliente.AllowUserToResizeColumns = false;
+            this.dataGridCliente.AllowUserToResizeRows = false;
+            this.dataGridCliente.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridCliente.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.dataGridCliente.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dataGridCliente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridCliente.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.dataGridCliente.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dataGridCliente.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dataGridCliente.Location = new System.Drawing.Point(308, 53);
+            this.dataGridCliente.MultiSelect = false;
+            this.dataGridCliente.Name = "dataGridCliente";
+            this.dataGridCliente.ReadOnly = true;
+            this.dataGridCliente.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridCliente.Size = new System.Drawing.Size(357, 118);
+            this.dataGridCliente.TabIndex = 17;
+            // 
+            // btnBuscarCliente
+            // 
+            this.btnBuscarCliente.Location = new System.Drawing.Point(590, 4);
+            this.btnBuscarCliente.Name = "btnBuscarCliente";
+            this.btnBuscarCliente.Size = new System.Drawing.Size(75, 23);
+            this.btnBuscarCliente.TabIndex = 17;
+            this.btnBuscarCliente.Text = "Buscar";
+            this.btnBuscarCliente.UseVisualStyleBackColor = true;
+            this.btnBuscarCliente.Click += new System.EventHandler(this.btnBuscarCliente_Click);
+            // 
             // ABMFacturaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(707, 460);
+            this.ClientSize = new System.Drawing.Size(715, 467);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -575,8 +614,6 @@
             this.tabAlta.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -588,6 +625,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridItems)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridFacturasBM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCantidad)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridCliente)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -605,14 +644,12 @@
         private System.Windows.Forms.Label lblTotal;
         private System.Windows.Forms.Label lblTextTotal;
         private System.Windows.Forms.Label lblListaDetalle;
-        private System.Windows.Forms.TextBox txtCantidad;
         private System.Windows.Forms.Label lblCantidad;
         private System.Windows.Forms.TextBox txtMonto;
         private System.Windows.Forms.Label lblMonto;
         private System.Windows.Forms.TextBox txtItem;
         private System.Windows.Forms.Label lblItem;
         private System.Windows.Forms.Label lblDetalle;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label lblEmpresa;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblFechaVencimiento;
@@ -639,5 +676,8 @@
         private System.Windows.Forms.Button btnFiltrarIdFactura;
         private System.Windows.Forms.Button btnFiltrarIdCliente;
         private System.Windows.Forms.DataGridView dataGridEmpresas;
+        private System.Windows.Forms.NumericUpDown txtCantidad;
+        private System.Windows.Forms.Button btnBuscarCliente;
+        private System.Windows.Forms.DataGridView dataGridCliente;
     }
 }
