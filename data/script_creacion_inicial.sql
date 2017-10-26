@@ -2,8 +2,8 @@ USE [GD2C2017]
 GO
 /*IF EXISTS (SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'LORDS_OF_THE_STRINGS_V2')
     DROP SCHEMA LORDS_OF_THE_STRINGS_V2
-GO
-CREATE SCHEMA [LORDS_OF_THE_STRINGS_V2] AUTHORIZATION [gd]*/
+GO*/
+--CREATE SCHEMA [LORDS_OF_THE_STRINGS_V2] AUTHORIZATION [gd]
 GO
 
 -------------------------------------------------------------------------------------------------
@@ -27,8 +27,6 @@ IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].Rendicion', 'U') IS NOT NULL DROP TABLE 
 IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].Empresa', 'U') IS NOT NULL DROP TABLE [LORDS_OF_THE_STRINGS_V2].[Empresa];
 IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].Cliente', 'U') IS NOT NULL DROP TABLE [LORDS_OF_THE_STRINGS_V2].[Cliente];
 IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].Usuario', 'U') IS NOT NULL DROP TABLE [LORDS_OF_THE_STRINGS_V2].[Usuario];
-
--------------------------------------------------------------------------------------------------
 
 -------------------------------------------------------------------------------------------------
 -- TABLE ROL
@@ -80,7 +78,6 @@ CREATE TABLE [LORDS_OF_THE_STRINGS_V2].[Rol_Usuario](
 	PRIMARY KEY (RolUsua_usuario, RolUsua_rol))
 GO
 
-
 -------------------------------------------------------------------------------------------------
 -- TABLE CLIENTE
 -------------------------------------------------------------------------------------------------
@@ -93,10 +90,9 @@ CREATE TABLE [LORDS_OF_THE_STRINGS_V2].[Cliente](
 	[Cliente_fecha_nac] [datetime] NOT NULL,
 	[Cliente_mail] [nvarchar](255) NULL UNIQUE,
 	[Cliente_direccion] [nvarchar](255) NOT NULL,
-	[Cliente_codigo_postal] [nvarchar](255) NULL,
+	[Cliente_codigo_postal] [numeric](18, 0) NOT NULL,
 	[Cliente_telefono] [nvarchar](50) NULL,
 	[Cliente_habilitado] [bit] NOT NULL DEFAULT 1)
-	--FALTARIA TELEFONO? Y USUARIO_CODIGO? CODIGO POSTAL COMO CHAR ACA Y COMO NUMERO EN SUCURSAL?
 GO
 
 -------------------------------------------------------------------------------------------------
@@ -137,8 +133,8 @@ GO
 CREATE TABLE [LORDS_OF_THE_STRINGS_V2].[Sucursal](
 	[Sucursal_codigo] [numeric](18, 0) IDENTITY PRIMARY KEY,
 	[Sucursal_nombre] [nvarchar](50) NOT NULL,
-	[Sucursal_direccion] [nvarchar](50) NOT NULL, --DIRECCION ACA COMO CHAR DE 50 Y 255 EN EMPRESA
-	[Sucursal_codigo_postal] [numeric](18, 0) NOT NULL UNIQUE,
+	[Sucursal_direccion] [nvarchar](255) NOT NULL,
+	[Sucursal_codigo_postal] [nvarchar](255) NOT NULL UNIQUE,
 	[Sucursal_habilitada] [bit] NOT NULL DEFAULT 1)
 GO
 
@@ -159,7 +155,8 @@ GO
 CREATE TABLE [LORDS_OF_THE_STRINGS_V2].[Rendicion](
 	[Rendicion_codigo] [numeric](18, 0) IDENTITY PRIMARY KEY,
 	[Rendicion_fecha] [datetime] NOT NULL,
-	[Rendicion_importe] [numeric](18, 2) NOT NULL)
+	[Rendicion_importe] [numeric](18, 2) NOT NULL,
+	[Rendicion_porcentaje] [numeric](18, 2) NOT NULL)
 GO
 
 -------------------------------------------------------------------------------------------------
@@ -343,12 +340,19 @@ GO
 -------------------------------------------------------------------------------------------------
 -- INSERTA EN LA TABLA CLIENTE
 -------------------------------------------------------------------------------------------------
-
 --HAY DOS MAILS REPETIDOS CON DIFERENTES DNI 
+-- (31294365 con 54053910) y (2592862 con 3703799)
 
-UPDATE GD2C2017.gd_esquema.Maestra
-SET Cliente_Mail = Cliente_Mail + '2'
-WHERE [Cliente-Dni] IN (54053910, 3703799);
+/*
+SELECT DISTINCT [Cliente_Mail], [Cliente-Dni], [Cliente-Nombre],[Cliente-Apellido] Cliente_Direccion, Cliente_Codigo_Postal, [Cliente-Fecha_Nac]
+FROM GD2C2017.gd_esquema.Maestra
+WHERE [Cliente-Dni] IN (31294365, 54053910, 2592862, 3703799)
+*/
+
+UPDATE GD2C2017.gd_esquema.Maestra Set Cliente_Mail = 'ALBANAÁlvarez2@gmail.com' WHERE [Cliente-Dni] = 54053910
+GO
+UPDATE GD2C2017.gd_esquema.Maestra Set Cliente_Mail = 'DAILAMoreno2@gmail.com' WHERE [Cliente-Dni] = 3703799
+GO
 
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Cliente(
 				Cliente_dni,
@@ -378,11 +382,6 @@ FROM
 FROM GD2C2017.gd_esquema.Maestra) as FF
 GROUP BY Cliente_Mail
 HAVING COUNT(*) > 1*/
-
-/*SELECT DISTINCT [Cliente_Mail], [Cliente-Dni], [Cliente-Nombre], Cliente_Direccion, Cliente_Codigo_Postal, [Cliente-Fecha_Nac]
-FROM GD2C2017.gd_esquema.Maestra
-WHERE Cliente_Mail IN ('ALBANAÁlvarez@gmail.com', 'DAILAMoreno@gmail.com')*/
-
 -------------------------------------------------------------------------------------------------
 -- INSERTA EN LA TABLA RUBRO
 -------------------------------------------------------------------------------------------------
@@ -426,7 +425,7 @@ INSERT INTO [LORDS_OF_THE_STRINGS_V2].Sucursal(
 SELECT DISTINCT
 				m.Sucursal_Nombre,
 				m.Sucursal_Dirección,
-				m.Sucursal_Codigo_Postal
+				CONVERT([nvarchar](255),m.Sucursal_Codigo_Postal)
 
 FROM GD2C2017.gd_esquema.Maestra m
 WHERE m.Sucursal_Nombre IS NOT NULL
@@ -470,23 +469,23 @@ GO
 -------------------------------------------------------------------------------------------------
 -- INSERTA EN LA TABLA RENDICION
 -------------------------------------------------------------------------------------------------
---Todas impares son
+--Curious fact: Todas impares son
 SET IDENTITY_INSERT [LORDS_OF_THE_STRINGS_V2].Rendicion ON
 GO
 
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rendicion(
 				Rendicion_codigo,
 				Rendicion_fecha,
-				Rendicion_importe
+				Rendicion_importe,
+				Rendicion_porcentaje
  )
 SELECT DISTINCT
 				m.Rendicion_Nro,
 				m.Rendicion_Fecha,
-				SUM(m.ItemRendicion_Importe)
+				m.ItemRendicion_Importe,
+				ROUND((m.ItemRendicion_Importe/m.Factura_Total*100), 2)
 FROM GD2C2017.gd_esquema.Maestra m
-GROUP BY m.Rendicion_Nro, m.Rendicion_Fecha
-HAVING m.Rendicion_Nro IS NOT NULL
-GO
+WHERE m.Rendicion_Nro IS NOT NULL
 
 /* TODO: VER
 SELECT DISTINCT
@@ -898,9 +897,9 @@ DELETE FROM LORDS_OF_THE_STRINGS_V2.Pago
 
 INSERT INTO LORDS_OF_THE_STRINGS_V2.Rendicion (Rendicion_fecha, Rendicion_importe) VALUES (CONVERT(datetime,'2017-10-24 16:07:00.657', 121),100)
 
-SELECT LORDS_OF_THE_STRINGS_V2.fn_estado_factura(10002)*/
+SELECT LORDS_OF_THE_STRINGS_V2.fn_estado_factura(10002)
 
-/*SELECT * FROM LORDS_OF_THE_STRINGS_V2.Factura WHERE ((SELECT LORDS_OF_THE_STRINGS_V2.fn_estado_factura(Factura_codigo)) = 2)
+SELECT * FROM LORDS_OF_THE_STRINGS_V2.Factura WHERE ((SELECT LORDS_OF_THE_STRINGS_V2.fn_estado_factura(Factura_codigo)) = 2)
 
 UPDATE LORDS_OF_THE_STRINGS_V2.Factura SET Factura_fecha_venc = GETDATE()+2
 
