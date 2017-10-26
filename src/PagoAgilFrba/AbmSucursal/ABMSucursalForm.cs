@@ -16,11 +16,11 @@ namespace PagoAgilFrba.AbmSucursal
 {
     public partial class ABMSucursalForm : Form
     {
-        public Sucursal sucursal_logueada;
+        private Sucursal sucursal_logueada;
 
-        public ABMSucursalForm()
+        public ABMSucursalForm(Sucursal _sucursal)
         {
-            //this.sucursal_logueada = _sucursal;
+            this.sucursal_logueada = _sucursal;
             InitializeComponent();
         }
 
@@ -37,17 +37,12 @@ namespace PagoAgilFrba.AbmSucursal
             Utils.limpiar_controles(new List<Control> { txtDireccionSucursal, txtNombreSucursal, txtCodPostalSucursal, chkQuitarDeshabilitados });
         }
 
-        private void txtCodPostalSucursal_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            Utils.solo_numeros(e);
-        }
-
         private Sucursal get_sucursal_seleccionada_grilla()
         {
             int sucursal_id = int.Parse(dgdSucursales.SelectedCells[0].Value.ToString());
             string sucursal_nombre = dgdSucursales.SelectedCells[1].Value.ToString();
             string sucursal_direccion = dgdSucursales.SelectedCells[2].Value.ToString();
-            int sucursal_cod_postal = int.Parse(dgdSucursales.SelectedCells[3].Value.ToString());
+            string sucursal_cod_postal = dgdSucursales.SelectedCells[3].Value.ToString();
             bool sucursal_habilitada = bool.Parse(dgdSucursales.SelectedCells[4].Value.ToString());
 
             return new Sucursal(sucursal_id, sucursal_nombre, sucursal_direccion, sucursal_cod_postal, sucursal_habilitada);
@@ -158,7 +153,7 @@ namespace PagoAgilFrba.AbmSucursal
 
         private void cmdCerrar_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
     }
 }

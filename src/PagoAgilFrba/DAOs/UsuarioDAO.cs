@@ -68,7 +68,7 @@ namespace PagoAgilFrba.DAOs
                 int id = int.Parse(reader["Sucursal_codigo"].ToString());
                 string nombre = reader["Sucursal_nombre"].ToString();
                 string direccion = reader["Sucursal_direccion"].ToString();
-                int cod_postal = int.Parse(reader["Sucursal_codigo_postal"].ToString());
+                string cod_postal = reader["Sucursal_codigo_postal"].ToString();
                 bool habilitada = bool.Parse(reader["Sucursal_habilitada"].ToString());
 
                 Sucursal suc = new Sucursal(id, nombre, direccion, cod_postal, habilitada);

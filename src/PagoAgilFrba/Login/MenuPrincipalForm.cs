@@ -146,7 +146,7 @@ namespace PagoAgilFrba
 
         private void cmdABMSucursal_Click(object sender, EventArgs e)
         {
-            ABMSucursalForm frm = new ABMSucursalForm();
+            ABMSucursalForm frm = new ABMSucursalForm(this.sucursal_seleccionada);
             frm.Show();
         }
 

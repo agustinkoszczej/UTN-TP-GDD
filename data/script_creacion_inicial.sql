@@ -90,7 +90,7 @@ CREATE TABLE [LORDS_OF_THE_STRINGS_V2].[Cliente](
 	[Cliente_fecha_nac] [datetime] NOT NULL,
 	[Cliente_mail] [nvarchar](255) NULL UNIQUE,
 	[Cliente_direccion] [nvarchar](255) NOT NULL,
-	[Cliente_codigo_postal] [numeric](18, 0) NOT NULL,
+	[Cliente_codigo_postal] [nvarchar](255) NOT NULL,
 	[Cliente_telefono] [nvarchar](50) NULL,
 	[Cliente_habilitado] [bit] NOT NULL DEFAULT 1)
 GO

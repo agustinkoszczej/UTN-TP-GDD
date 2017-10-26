@@ -90,7 +90,6 @@
             this.txtCodPostalSucursal.Name = "txtCodPostalSucursal";
             this.txtCodPostalSucursal.Size = new System.Drawing.Size(155, 20);
             this.txtCodPostalSucursal.TabIndex = 2;
-            this.txtCodPostalSucursal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodPostalSucursal_KeyPress);
             // 
             // cmdCancelar
             // 

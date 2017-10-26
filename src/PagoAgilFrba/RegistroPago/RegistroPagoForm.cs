@@ -24,7 +24,7 @@ namespace PagoAgilFrba.RegistroPago
         public RegistroPagoForm(/*Sucursal _sucursal_actual*/)
         {
             //this.sucursal_actual = _sucursal_actual;
-            this.sucursal_actual = new Sucursal(1, "Sarlompa", "Chubut", 111, true);
+            this.sucursal_actual = new Sucursal(1, "Sarlompa", "Chubut", "111", true);
 
             InitializeComponent();
         }

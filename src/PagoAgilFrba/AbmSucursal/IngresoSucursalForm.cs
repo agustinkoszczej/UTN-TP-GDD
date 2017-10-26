@@ -40,12 +40,6 @@ namespace PagoAgilFrba.AbmSucursal
             }
         }
 
-        private void txtCodPostalSucursal_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            Utils.solo_numeros(e);
-        }
-
-
         private void cmdAceptar_Click(object sender, EventArgs e)
         {
             if (sucursal_modificar == null)
@@ -61,7 +55,7 @@ namespace PagoAgilFrba.AbmSucursal
         {
           if (Utils.cumple_campos_obligatorios(campos_obligatorios, errorProvider) && validar_cod_postal())
             {
-                Sucursal sucursal_nueva = new Sucursal(txtNombreSucursal.Text, txtDireccionSucursal.Text, Convert.ToInt32(txtCodPostalSucursal.Text));
+                Sucursal sucursal_nueva = new Sucursal(txtNombreSucursal.Text, txtDireccionSucursal.Text, txtCodPostalSucursal.Text);
                 if (SucursalDAO.agregar_sucursal(sucursal_nueva))
                 {
                     MessageBox.Show("Sucursal agregada correctamente!", tipo_ingreso, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -83,7 +77,7 @@ namespace PagoAgilFrba.AbmSucursal
         {
             if (Utils.cumple_campos_obligatorios(campos_obligatorios, errorProvider) && validar_cod_postal())
             {
-                Sucursal sucursal_nueva = new Sucursal(txtNombreSucursal.Text, txtDireccionSucursal.Text, Convert.ToInt32(txtCodPostalSucursal.Text));
+                Sucursal sucursal_nueva = new Sucursal(txtNombreSucursal.Text, txtDireccionSucursal.Text, txtCodPostalSucursal.Text);
                 sucursal_nueva.id = sucursal_modificar.id;
                 if (SucursalDAO.modificar_sucursal(sucursal_nueva))
                 {
@@ -113,7 +107,7 @@ namespace PagoAgilFrba.AbmSucursal
             if(string.IsNullOrEmpty(txtCodPostalSucursal.Text)){
                 return true;
             }
-            if ((SucursalDAO.validar_cod_postal(Convert.ToInt32(txtCodPostalSucursal.Text))) || ((sucursal_modificar != null) && (sucursal_modificar.cod_postal == Convert.ToInt32(txtCodPostalSucursal.Text))))
+            if ((SucursalDAO.validar_cod_postal(Convert.ToInt32(txtCodPostalSucursal.Text))) || ((sucursal_modificar != null) && (sucursal_modificar.cod_postal == txtCodPostalSucursal.Text)))
             {
                 errorProvider.SetError(txtCodPostalSucursal, null);
             }
