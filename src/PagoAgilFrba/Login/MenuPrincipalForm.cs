@@ -182,7 +182,7 @@ namespace PagoAgilFrba
 
         private void cmdRegistrarPago_Click(object sender, EventArgs e)
         {
-            RegistroPagoForm frm = new RegistroPagoForm();
+            RegistroPagoForm frm = new RegistroPagoForm(this.sucursal_seleccionada);
             frm.Show();
             //this.Enabled = false;
         }
