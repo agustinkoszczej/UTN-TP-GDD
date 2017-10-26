@@ -12,14 +12,18 @@ using PagoAgilFrba.DAOs;
 using PagoAgilFrba.Model;
 using PagoAgilFrba.Utilidades;
 
+using PagoAgilFrba.Login;
+
 namespace PagoAgilFrba.AbmRol
 {
     public partial class ABMRolForm : Form
     {
+        private Rol rol_logueado;
 
-        public ABMRolForm()
+        public ABMRolForm(Rol _rol)
         {
             InitializeComponent();
+            this.rol_logueado = _rol;
         }
 
         private void ABMRolForm_Load(object sender, EventArgs e)
@@ -102,6 +106,20 @@ namespace PagoAgilFrba.AbmRol
                 }
             if (MessageBox.Show(mensaje, "PagoAgilFrba | ABM Rol", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
+                if (rol.id == rol_logueado.id) 
+                {
+                    if (MessageBox.Show("¿Está a punto de inhabilitar el Rol en el que se encuentra logueado, se cerrará la sesión al finalizar, desea continuar?", "PagoAgilFrba | ABM Rol", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        RolDAO.borrar_rol(rol);
+                        Application.Exit();
+                        Application.Restart();
+                        return;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
                 RolDAO.borrar_rol(rol);
                 iniciar_formulario();
             }
@@ -115,6 +133,11 @@ namespace PagoAgilFrba.AbmRol
         private void chkQuitarDeshabilitados_CheckedChanged(object sender, EventArgs e)
         {
             iniciar_formulario();
+        }
+
+        private void cmdCerrar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

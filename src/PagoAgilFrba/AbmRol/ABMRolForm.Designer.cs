@@ -146,6 +146,7 @@
             this.cmdCerrar.TabIndex = 12;
             this.cmdCerrar.Text = "Cerrar";
             this.cmdCerrar.UseVisualStyleBackColor = false;
+            this.cmdCerrar.Click += new System.EventHandler(this.cmdCerrar_Click);
             // 
             // lblRoles
             // 

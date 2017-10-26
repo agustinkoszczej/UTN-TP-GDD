@@ -105,6 +105,7 @@
     <Compile Include="AbmSucursal\IngresoSucursalForm.Designer.cs">
       <DependentUpon>IngresoSucursalForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DAOs\Listado_EstadisticoDAO.cs" />
     <Compile Include="DAOs\DevolucionDAO.cs" />
     <Compile Include="Devolucion\DevolucionForm.cs">
       <SubType>Form</SubType>
@@ -130,11 +131,11 @@
     <Compile Include="Login\MenuPrincipalForm.Designer.cs">
       <DependentUpon>MenuPrincipalForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ListadoEstadistico\Form1.cs">
+    <Compile Include="ListadoEstadistico\ListadoEstadisticoForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ListadoEstadistico\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ListadoEstadistico\ListadoEstadisticoForm.Designer.cs">
+      <DependentUpon>ListadoEstadisticoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Login\LoginForm.cs">
       <SubType>Form</SubType>
@@ -155,7 +156,7 @@
     <Compile Include="Model\Funcionalidad.cs" />
     <Compile Include="Model\Rol.cs" />
     <Compile Include="Model\Usuario.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="PagoAgilFrbaInit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistroPago\RegistroPagoForm.cs">
       <SubType>Form</SubType>
@@ -202,6 +203,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Devolucion\DevolucionForm.resx">
       <DependentUpon>DevolucionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListadoEstadistico\ListadoEstadisticoForm.resx">
+      <DependentUpon>ListadoEstadisticoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\MenuPrincipalForm.resx">
       <DependentUpon>MenuPrincipalForm.cs</DependentUpon>

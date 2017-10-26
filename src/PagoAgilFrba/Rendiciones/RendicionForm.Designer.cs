@@ -42,6 +42,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnSeleccionar = new System.Windows.Forms.Button();
             this.panelFacturas = new System.Windows.Forms.Panel();
+            this.lblNoHayFacturas = new System.Windows.Forms.Label();
+            this.lblMesAnio = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.btnVolver = new System.Windows.Forms.Button();
             this.dataGridFacturas = new System.Windows.Forms.DataGridView();
             this.btnRendir = new System.Windows.Forms.Button();
             this.lblTotalRendido = new System.Windows.Forms.Label();
@@ -56,10 +60,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblEmpresaSelec = new System.Windows.Forms.Label();
-            this.btnVolver = new System.Windows.Forms.Button();
-            this.label11 = new System.Windows.Forms.Label();
-            this.lblMesAnio = new System.Windows.Forms.Label();
-            this.lblNoHayFacturas = new System.Windows.Forms.Label();
             this.panelEmpresas.SuspendLayout();
             this.panelMesARendir.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).BeginInit();
@@ -185,7 +185,7 @@
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
             this.btnCancelar.TabIndex = 4;
-            this.btnCancelar.Text = "Salir";
+            this.btnCancelar.Text = "Cerrar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
@@ -233,6 +233,45 @@
             this.panelFacturas.Size = new System.Drawing.Size(594, 409);
             this.panelFacturas.TabIndex = 1;
             this.panelFacturas.Visible = false;
+            // 
+            // lblNoHayFacturas
+            // 
+            this.lblNoHayFacturas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNoHayFacturas.Location = new System.Drawing.Point(179, 366);
+            this.lblNoHayFacturas.Name = "lblNoHayFacturas";
+            this.lblNoHayFacturas.Size = new System.Drawing.Size(261, 39);
+            this.lblNoHayFacturas.TabIndex = 18;
+            this.lblNoHayFacturas.Text = "No existen facturas que rendir en el mes seleccionado";
+            this.lblNoHayFacturas.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblNoHayFacturas.Visible = false;
+            // 
+            // lblMesAnio
+            // 
+            this.lblMesAnio.AutoSize = true;
+            this.lblMesAnio.Location = new System.Drawing.Point(481, 25);
+            this.lblMesAnio.Name = "lblMesAnio";
+            this.lblMesAnio.Size = new System.Drawing.Size(58, 13);
+            this.lblMesAnio.TabIndex = 17;
+            this.lblMesAnio.Text = "MM/AAAA";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(399, 25);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(85, 13);
+            this.label11.TabIndex = 16;
+            this.label11.Text = "Mostrando mes: ";
+            // 
+            // btnVolver
+            // 
+            this.btnVolver.Location = new System.Drawing.Point(4, 383);
+            this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(79, 23);
+            this.btnVolver.TabIndex = 15;
+            this.btnVolver.Text = "Volver";
+            this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
             // dataGridFacturas
             // 
@@ -374,45 +413,6 @@
             this.lblEmpresaSelec.TabIndex = 0;
             this.lblEmpresaSelec.Text = "Empresa Seleccionada: ____________";
             // 
-            // btnVolver
-            // 
-            this.btnVolver.Location = new System.Drawing.Point(4, 383);
-            this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(79, 23);
-            this.btnVolver.TabIndex = 15;
-            this.btnVolver.Text = "Volver";
-            this.btnVolver.UseVisualStyleBackColor = true;
-            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(399, 25);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(85, 13);
-            this.label11.TabIndex = 16;
-            this.label11.Text = "Mostrando mes: ";
-            // 
-            // lblMesAnio
-            // 
-            this.lblMesAnio.AutoSize = true;
-            this.lblMesAnio.Location = new System.Drawing.Point(481, 25);
-            this.lblMesAnio.Name = "lblMesAnio";
-            this.lblMesAnio.Size = new System.Drawing.Size(58, 13);
-            this.lblMesAnio.TabIndex = 17;
-            this.lblMesAnio.Text = "MM/AAAA";
-            // 
-            // lblNoHayFacturas
-            // 
-            this.lblNoHayFacturas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNoHayFacturas.Location = new System.Drawing.Point(179, 366);
-            this.lblNoHayFacturas.Name = "lblNoHayFacturas";
-            this.lblNoHayFacturas.Size = new System.Drawing.Size(261, 39);
-            this.lblNoHayFacturas.TabIndex = 18;
-            this.lblNoHayFacturas.Text = "No existen facturas que rendir en el mes seleccionado";
-            this.lblNoHayFacturas.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblNoHayFacturas.Visible = false;
-            // 
             // RendicionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -421,8 +421,10 @@
             this.Controls.Add(this.panelEmpresas);
             this.Controls.Add(this.panelFacturas);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "RendicionForm";
-            this.Text = "Rendicion de Facturas Pagas";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "PagoAgilFrba | Rendición de Facturas Pagas";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panelEmpresas.ResumeLayout(false);
             this.panelEmpresas.PerformLayout();

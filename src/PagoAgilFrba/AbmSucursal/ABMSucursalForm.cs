@@ -77,10 +77,18 @@ namespace PagoAgilFrba.AbmSucursal
             }
             if (MessageBox.Show(mensaje, "PagoAgilFrba | ABM Sucursal", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if ((sucursal.id == sucursal_logueada.id) && (MessageBox.Show("¿Está a punto de inhabilitar la Sucursal en la que se encuentra logueado, se cerrará la sesión al finalizar, desea continuar?", "PagoAgilFrba | ABM Sucursal", MessageBoxButtons.YesNo) == DialogResult.Yes))
+                if (sucursal.id == sucursal_logueada.id)
                 {
-                    SucursalDAO.borrar_sucursal(sucursal);
-                    Application.Restart();
+                    if (MessageBox.Show("¿Está a punto de inhabilitar la Sucursal en la que se encuentra logueado, se cerrará la sesión al finalizar, desea continuar?", "PagoAgilFrba | ABM Sucursal", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        SucursalDAO.borrar_sucursal(sucursal);
+                        Application.Exit();
+                        Application.Restart();
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
                 SucursalDAO.borrar_sucursal(sucursal);
                 iniciar_formulario();

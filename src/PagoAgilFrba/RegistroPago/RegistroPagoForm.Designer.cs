@@ -165,7 +165,7 @@
             this.cmdBuscar.Name = "cmdBuscar";
             this.cmdBuscar.Size = new System.Drawing.Size(121, 35);
             this.cmdBuscar.TabIndex = 11;
-            this.cmdBuscar.Text = "Aplicar filtros";
+            this.cmdBuscar.Text = "Buscar";
             this.cmdBuscar.UseVisualStyleBackColor = false;
             this.cmdBuscar.Click += new System.EventHandler(this.cmdBuscar_Click);
             // 

@@ -218,5 +218,10 @@ namespace PagoAgilFrba.AbmEmpresa
             Utils.limpiar_controles((new List<Control>() { txtCuitEmpresa, txtNombreEmpresa, chkLstRubros }));
             iniciar_formulario();
         }
+
+        private void cmdCerrar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

@@ -16,7 +16,7 @@ using PagoAgilFrba.Devolucion;
 
 namespace PagoAgilFrba
 {
-    static class Program
+    static class PagoAgilFrbaInit
     {
         /// <summary>
         /// Punto de entrada principal para la aplicación.

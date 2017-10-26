@@ -28,10 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.cmdListadoEstadistico = new System.Windows.Forms.Button();
             this.cmdRegistrarPago = new System.Windows.Forms.Button();
             this.cmdRendirFacturas = new System.Windows.Forms.Button();
             this.groupBoxAcciones = new System.Windows.Forms.GroupBox();
+            this.cmdDevolucion = new System.Windows.Forms.Button();
             this.cmdSeleccionarSucursal = new System.Windows.Forms.Button();
             this.cboSucursales = new System.Windows.Forms.ComboBox();
             this.lblUsuario = new System.Windows.Forms.Label();
@@ -48,9 +50,10 @@
             this.lblSeleccioneSucursal = new System.Windows.Forms.Label();
             this.lnlCambiarSucursal = new System.Windows.Forms.LinkLabel();
             this.lblSucursal = new System.Windows.Forms.Label();
-            this.cmdDevolucion = new System.Windows.Forms.Button();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBoxAcciones.SuspendLayout();
             this.groupBoxABMs.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdListadoEstadistico
@@ -63,6 +66,7 @@
             this.cmdListadoEstadistico.TabIndex = 6;
             this.cmdListadoEstadistico.Text = "Listado Estadistico";
             this.cmdListadoEstadistico.UseVisualStyleBackColor = true;
+            this.cmdListadoEstadistico.Click += new System.EventHandler(this.cmdListadoEstadistico_Click);
             // 
             // cmdRegistrarPago
             // 
@@ -74,6 +78,7 @@
             this.cmdRegistrarPago.TabIndex = 5;
             this.cmdRegistrarPago.Text = "Registrar Pago";
             this.cmdRegistrarPago.UseVisualStyleBackColor = true;
+            this.cmdRegistrarPago.Click += new System.EventHandler(this.cmdRegistrarPago_Click);
             // 
             // cmdRendirFacturas
             // 
@@ -102,6 +107,18 @@
             this.groupBoxAcciones.TabStop = false;
             this.groupBoxAcciones.Text = "Acciones";
             this.groupBoxAcciones.Visible = false;
+            // 
+            // cmdDevolucion
+            // 
+            this.cmdDevolucion.Enabled = false;
+            this.cmdDevolucion.Location = new System.Drawing.Point(189, 61);
+            this.cmdDevolucion.Margin = new System.Windows.Forms.Padding(2);
+            this.cmdDevolucion.Name = "cmdDevolucion";
+            this.cmdDevolucion.Size = new System.Drawing.Size(112, 27);
+            this.cmdDevolucion.TabIndex = 7;
+            this.cmdDevolucion.Text = "Devolución Factura";
+            this.cmdDevolucion.UseVisualStyleBackColor = true;
+            this.cmdDevolucion.Click += new System.EventHandler(this.cmdDevolucion_Click);
             // 
             // cmdSeleccionarSucursal
             // 
@@ -290,17 +307,9 @@
             this.lblSucursal.Text = "Se encuentra en la Sucursal:";
             this.lblSucursal.Visible = false;
             // 
-            // cmdDevolucion
+            // errorProvider
             // 
-            this.cmdDevolucion.Enabled = false;
-            this.cmdDevolucion.Location = new System.Drawing.Point(189, 61);
-            this.cmdDevolucion.Margin = new System.Windows.Forms.Padding(2);
-            this.cmdDevolucion.Name = "cmdDevolucion";
-            this.cmdDevolucion.Size = new System.Drawing.Size(112, 27);
-            this.cmdDevolucion.TabIndex = 7;
-            this.cmdDevolucion.Text = "Devolución Factura";
-            this.cmdDevolucion.UseVisualStyleBackColor = true;
-            this.cmdDevolucion.Click += new System.EventHandler(this.cmdDevolucion_Click);
+            this.errorProvider.ContainerControl = this;
             // 
             // MenuPrincipalForm
             // 
@@ -328,6 +337,7 @@
             this.Load += new System.EventHandler(this.MenuPrincipalForm_Load);
             this.groupBoxAcciones.ResumeLayout(false);
             this.groupBoxABMs.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -356,6 +366,7 @@
         private System.Windows.Forms.LinkLabel lnlCambiarSucursal;
         private System.Windows.Forms.Label lblSucursal;
         private System.Windows.Forms.Button cmdDevolucion;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }
 

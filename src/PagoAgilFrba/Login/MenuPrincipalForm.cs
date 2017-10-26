@@ -106,6 +106,10 @@ namespace PagoAgilFrba
                                 cmdABMEmpresa.Enabled = true;
                                 //cmdABMEmpresa.Visible = true;
                                 break;
+                            case "DEVOLUCION_FACTURAS":
+                                cmdDevolucion.Enabled = true;
+                                //cmdDevolucion.Visible = true;
+                                break;
                         }
                     }
                 }
@@ -122,66 +126,90 @@ namespace PagoAgilFrba
 
         private void cmdABMRol_Click(object sender, EventArgs e)
         {
-            ABMRolForm frm = new ABMRolForm();
+            ABMRolForm frm = new ABMRolForm(this.rol_seleccionado);
             frm.Show();
+            //this.Enabled = false;
         }
 
         private void cmdABMFactura_Click(object sender, EventArgs e)
         {
             ABMFacturaForm frm = new ABMFacturaForm();
             frm.Show();
+            //this.Enabled = false;
         }
 
         private void cmdABMEmpresa_Click(object sender, EventArgs e)
         {
             ABMEmpresaForm frm = new ABMEmpresaForm();
             frm.Show();
+            //this.Enabled = false;
         }
 
         private void cmdABMCliente_Click(object sender, EventArgs e)
         {
             ABMClientes frm = new ABMClientes();
             frm.Show();
+            //this.Enabled = false;
         }
 
         private void cmdABMSucursal_Click(object sender, EventArgs e)
         {
             ABMSucursalForm frm = new ABMSucursalForm(this.sucursal_seleccionada);
             frm.Show();
-        }
-
-        private void cmdSeleccionarSucursal_Click(object sender, EventArgs e)
-        {
-            this.sucursal_seleccionada = (Sucursal) cboSucursales.SelectedItem;
-            lblSucursalSeleccionada.Text = sucursal_seleccionada.nombre;
-            groupBoxABMs.Visible = true;
-            groupBoxAcciones.Visible = true;
-            lblSucursalSeleccionada.Visible = true;
-            lblSucursal.Visible = true;
-            lnlCambiarSucursal.Visible = true;
-            this.Height = 356;
-
-            cmdSeleccionarSucursal.Visible = false;
-            cboSucursales.Visible = false;
-            lblSeleccioneSucursal.Visible = false;
-        }
-
-        private void lnlCambiarSucursal_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            this.Close();
-            MenuPrincipalForm frm = new MenuPrincipalForm(usuario_logueado, rol_seleccionado);
-            frm.Show();
+            //this.Enabled = false;
         }
 
         private void cmdRendirFacturas_Click(object sender, EventArgs e)
         {
             RendicionForm frm = new RendicionForm();
             frm.Show();
+            //this.Enabled = false;
         }
 
         private void cmdDevolucion_Click(object sender, EventArgs e)
         {
             DevolucionForm frm = new DevolucionForm();
+            frm.Show();
+            //this.Enabled = false;
+        }
+
+        private void cmdListadoEstadistico_Click(object sender, EventArgs e)
+        {
+            ListadoEstadisticoForm frm = new ListadoEstadisticoForm();
+            frm.Show();
+            //this.Enabled = false;
+        }
+
+        private void cmdRegistrarPago_Click(object sender, EventArgs e)
+        {
+            RegistroPagoForm frm = new RegistroPagoForm();
+            frm.Show();
+            //this.Enabled = false;
+        }
+
+        private void cmdSeleccionarSucursal_Click(object sender, EventArgs e)
+        {
+            if (Utils.cumple_campos_obligatorios(new List<Control>() { cboSucursales }, errorProvider))
+            {
+                this.sucursal_seleccionada = (Sucursal)cboSucursales.SelectedItem;
+                lblSucursalSeleccionada.Text = sucursal_seleccionada.nombre;
+                groupBoxABMs.Visible = true;
+                groupBoxAcciones.Visible = true;
+                lblSucursalSeleccionada.Visible = true;
+                lblSucursal.Visible = true;
+                lnlCambiarSucursal.Visible = true;
+                this.Height = 356;
+
+                cmdSeleccionarSucursal.Visible = false;
+                cboSucursales.Visible = false;
+                lblSeleccioneSucursal.Visible = false;
+            }
+        }
+
+        private void lnlCambiarSucursal_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Close();
+            MenuPrincipalForm frm = new MenuPrincipalForm(usuario_logueado, rol_seleccionado);
             frm.Show();
         }
     }
