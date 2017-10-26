@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnSinFiltros = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnHabilitar = new System.Windows.Forms.Button();
             this.btnInhabilitar = new System.Windows.Forms.Button();
-            this.dataGridClientes = new System.Windows.Forms.DataGridView();
             this.panel4 = new System.Windows.Forms.Panel();
             this.datePickerFNAC = new System.Windows.Forms.DateTimePicker();
             this.lblMensaje = new System.Windows.Forms.Label();
@@ -59,7 +59,6 @@
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.lblNombre = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnSinFiltros = new System.Windows.Forms.Button();
             this.btnFiltrar = new System.Windows.Forms.Button();
             this.chkHabilitado = new System.Windows.Forms.CheckBox();
             this.txtFiltroDNI = new System.Windows.Forms.TextBox();
@@ -70,27 +69,38 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.dataGridClientes = new System.Windows.Forms.DataGridView();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridClientes)).BeginInit();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridClientes)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.dataGridClientes);
             this.panel2.Controls.Add(this.btnSinFiltros);
             this.panel2.Controls.Add(this.btnModificar);
             this.panel2.Controls.Add(this.btnHabilitar);
             this.panel2.Controls.Add(this.btnInhabilitar);
-            this.panel2.Controls.Add(this.dataGridClientes);
             this.panel2.Location = new System.Drawing.Point(386, 12);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(788, 312);
             this.panel2.TabIndex = 1;
+            // 
+            // btnSinFiltros
+            // 
+            this.btnSinFiltros.Location = new System.Drawing.Point(672, 222);
+            this.btnSinFiltros.Name = "btnSinFiltros";
+            this.btnSinFiltros.Size = new System.Drawing.Size(104, 34);
+            this.btnSinFiltros.TabIndex = 18;
+            this.btnSinFiltros.Text = "Mostrar Habilitados";
+            this.btnSinFiltros.UseVisualStyleBackColor = true;
+            this.btnSinFiltros.Click += new System.EventHandler(this.btnSinFiltros_Click);
             // 
             // btnModificar
             // 
@@ -121,24 +131,6 @@
             this.btnInhabilitar.Text = "Inhabilitar";
             this.btnInhabilitar.UseVisualStyleBackColor = true;
             this.btnInhabilitar.Click += new System.EventHandler(this.btnInhabilitar_Click);
-            // 
-            // dataGridClientes
-            // 
-            this.dataGridClientes.AllowUserToAddRows = false;
-            this.dataGridClientes.AllowUserToDeleteRows = false;
-            this.dataGridClientes.AllowUserToResizeRows = false;
-            this.dataGridClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridClientes.Location = new System.Drawing.Point(16, 16);
-            this.dataGridClientes.MultiSelect = false;
-            this.dataGridClientes.Name = "dataGridClientes";
-            this.dataGridClientes.ReadOnly = true;
-            this.dataGridClientes.RowTemplate.ReadOnly = true;
-            this.dataGridClientes.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridClientes.Size = new System.Drawing.Size(650, 280);
-            this.dataGridClientes.TabIndex = 0;
-            this.dataGridClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridClientes_CellClick);
-            this.dataGridClientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridClientes_CellContentClick);
             // 
             // panel4
             // 
@@ -220,7 +212,7 @@
             this.lblCodigoPostal.Name = "lblCodigoPostal";
             this.lblCodigoPostal.Size = new System.Drawing.Size(85, 13);
             this.lblCodigoPostal.TabIndex = 12;
-            this.lblCodigoPostal.Text = "Codigo Postal (*)";
+            this.lblCodigoPostal.Text = "Código Postal (*)";
             // 
             // txtDireccion
             // 
@@ -236,7 +228,7 @@
             this.lblDireccionCalle.Name = "lblDireccionCalle";
             this.lblDireccionCalle.Size = new System.Drawing.Size(65, 13);
             this.lblDireccionCalle.TabIndex = 2;
-            this.lblDireccionCalle.Text = "Direccion (*)";
+            this.lblDireccionCalle.Text = "Dirección (*)";
             // 
             // panel6
             // 
@@ -296,7 +288,6 @@
             this.panel7.Size = new System.Drawing.Size(368, 157);
             this.panel7.TabIndex = 9;
             this.panel7.Tag = "Datos principales";
-            this.panel7.Paint += new System.Windows.Forms.PaintEventHandler(this.panel7_Paint);
             // 
             // btnLimpiar
             // 
@@ -314,6 +305,7 @@
             this.txtDNI.Name = "txtDNI";
             this.txtDNI.Size = new System.Drawing.Size(329, 20);
             this.txtDNI.TabIndex = 5;
+            this.txtDNI.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDNI_KeyPress);
             // 
             // lblDNI
             // 
@@ -373,16 +365,6 @@
             this.panel1.TabIndex = 13;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
-            // btnSinFiltros
-            // 
-            this.btnSinFiltros.Location = new System.Drawing.Point(672, 222);
-            this.btnSinFiltros.Name = "btnSinFiltros";
-            this.btnSinFiltros.Size = new System.Drawing.Size(104, 34);
-            this.btnSinFiltros.TabIndex = 18;
-            this.btnSinFiltros.Text = "Mostrar Habilitados";
-            this.btnSinFiltros.UseVisualStyleBackColor = true;
-            this.btnSinFiltros.Click += new System.EventHandler(this.btnSinFiltros_Click);
-            // 
             // btnFiltrar
             // 
             this.btnFiltrar.Location = new System.Drawing.Point(672, 110);
@@ -411,7 +393,6 @@
             this.txtFiltroDNI.Name = "txtFiltroDNI";
             this.txtFiltroDNI.Size = new System.Drawing.Size(650, 20);
             this.txtFiltroDNI.TabIndex = 11;
-            this.txtFiltroDNI.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label3
             // 
@@ -428,7 +409,6 @@
             this.txtFiltroApellido.Name = "txtFiltroApellido";
             this.txtFiltroApellido.Size = new System.Drawing.Size(650, 20);
             this.txtFiltroApellido.TabIndex = 9;
-            this.txtFiltroApellido.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // label4
             // 
@@ -468,6 +448,27 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // dataGridClientes
+            // 
+            this.dataGridClientes.AllowUserToAddRows = false;
+            this.dataGridClientes.AllowUserToDeleteRows = false;
+            this.dataGridClientes.AllowUserToResizeColumns = false;
+            this.dataGridClientes.AllowUserToResizeRows = false;
+            this.dataGridClientes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridClientes.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.dataGridClientes.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dataGridClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridClientes.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.dataGridClientes.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dataGridClientes.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dataGridClientes.Location = new System.Drawing.Point(16, 16);
+            this.dataGridClientes.MultiSelect = false;
+            this.dataGridClientes.Name = "dataGridClientes";
+            this.dataGridClientes.ReadOnly = true;
+            this.dataGridClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridClientes.Size = new System.Drawing.Size(650, 280);
+            this.dataGridClientes.TabIndex = 14;
+            // 
             // ABMClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -485,7 +486,6 @@
             this.Text = "PagoAgilFrba | ABM Cliente";
             this.Load += new System.EventHandler(this.ABMClientes_Load);
             this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridClientes)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.panel5.ResumeLayout(false);
@@ -497,6 +497,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridClientes)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -530,7 +531,6 @@
         private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.Button btnHabilitar;
         private System.Windows.Forms.Button btnInhabilitar;
-        private System.Windows.Forms.DataGridView dataGridClientes;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnFiltrar;
@@ -544,5 +544,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnSinFiltros;
         private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.DataGridView dataGridClientes;
     }
 }

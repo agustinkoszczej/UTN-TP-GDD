@@ -31,11 +31,6 @@ namespace PagoAgilFrba.AbmCliente
             InitializeComponent();
         }
 
-        private void panel7_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void btnCrear_Click(object sender, EventArgs e)
         {
             if (cargado != null)
@@ -59,7 +54,7 @@ namespace PagoAgilFrba.AbmCliente
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Dni invalido");
+                    MessageBox.Show("DNI invalido");
                     return;
                 }
 
@@ -93,7 +88,7 @@ namespace PagoAgilFrba.AbmCliente
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Dni invalido");
+                    MessageBox.Show("DNI invalido");
                     return;
                 }
 
@@ -114,16 +109,6 @@ namespace PagoAgilFrba.AbmCliente
                         break;
                 }
             }
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -313,9 +298,12 @@ namespace PagoAgilFrba.AbmCliente
             }
         }
 
-        private void dataGridClientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void txtDNI_KeyPress(object sender, KeyPressEventArgs e)
         {
-
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

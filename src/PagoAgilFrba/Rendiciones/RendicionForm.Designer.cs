@@ -36,7 +36,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.chkSoloMesActual = new System.Windows.Forms.CheckBox();
-            this.dataGridEmpresas = new System.Windows.Forms.DataGridView();
             this.lblMensaje = new System.Windows.Forms.Label();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -60,18 +59,19 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblEmpresaSelec = new System.Windows.Forms.Label();
+            this.dataGridEmpresas = new System.Windows.Forms.DataGridView();
             this.panelEmpresas.SuspendLayout();
             this.panelMesARendir.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).BeginInit();
             this.panelFacturas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridFacturas)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).BeginInit();
             this.SuspendLayout();
             // 
             // panelEmpresas
             // 
+            this.panelEmpresas.Controls.Add(this.dataGridEmpresas);
             this.panelEmpresas.Controls.Add(this.panelMesARendir);
             this.panelEmpresas.Controls.Add(this.chkSoloMesActual);
-            this.panelEmpresas.Controls.Add(this.dataGridEmpresas);
             this.panelEmpresas.Controls.Add(this.lblMensaje);
             this.panelEmpresas.Controls.Add(this.btnCancelar);
             this.panelEmpresas.Controls.Add(this.label1);
@@ -148,27 +148,6 @@
             this.chkSoloMesActual.Text = "Rendir solo mes actual";
             this.chkSoloMesActual.UseVisualStyleBackColor = true;
             this.chkSoloMesActual.CheckedChanged += new System.EventHandler(this.chkSoloMesActual_CheckedChanged);
-            // 
-            // dataGridEmpresas
-            // 
-            this.dataGridEmpresas.AllowUserToAddRows = false;
-            this.dataGridEmpresas.AllowUserToDeleteRows = false;
-            this.dataGridEmpresas.AllowUserToResizeColumns = false;
-            this.dataGridEmpresas.AllowUserToResizeRows = false;
-            this.dataGridEmpresas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridEmpresas.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            this.dataGridEmpresas.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            this.dataGridEmpresas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridEmpresas.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.dataGridEmpresas.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dataGridEmpresas.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dataGridEmpresas.Location = new System.Drawing.Point(7, 27);
-            this.dataGridEmpresas.MultiSelect = false;
-            this.dataGridEmpresas.Name = "dataGridEmpresas";
-            this.dataGridEmpresas.ReadOnly = true;
-            this.dataGridEmpresas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridEmpresas.Size = new System.Drawing.Size(577, 261);
-            this.dataGridEmpresas.TabIndex = 14;
             // 
             // lblMensaje
             // 
@@ -413,6 +392,27 @@
             this.lblEmpresaSelec.TabIndex = 0;
             this.lblEmpresaSelec.Text = "Empresa Seleccionada: ____________";
             // 
+            // dataGridEmpresas
+            // 
+            this.dataGridEmpresas.AllowUserToAddRows = false;
+            this.dataGridEmpresas.AllowUserToDeleteRows = false;
+            this.dataGridEmpresas.AllowUserToResizeColumns = false;
+            this.dataGridEmpresas.AllowUserToResizeRows = false;
+            this.dataGridEmpresas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridEmpresas.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.dataGridEmpresas.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dataGridEmpresas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridEmpresas.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.dataGridEmpresas.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dataGridEmpresas.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dataGridEmpresas.Location = new System.Drawing.Point(4, 29);
+            this.dataGridEmpresas.MultiSelect = false;
+            this.dataGridEmpresas.Name = "dataGridEmpresas";
+            this.dataGridEmpresas.ReadOnly = true;
+            this.dataGridEmpresas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridEmpresas.Size = new System.Drawing.Size(581, 261);
+            this.dataGridEmpresas.TabIndex = 23;
+            // 
             // RendicionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -430,10 +430,10 @@
             this.panelEmpresas.PerformLayout();
             this.panelMesARendir.ResumeLayout(false);
             this.panelMesARendir.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).EndInit();
             this.panelFacturas.ResumeLayout(false);
             this.panelFacturas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridFacturas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -459,7 +459,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblFacturasARendir;
         private System.Windows.Forms.Label lblMensaje;
-        private System.Windows.Forms.DataGridView dataGridEmpresas;
         private System.Windows.Forms.DataGridView dataGridFacturas;
         private System.Windows.Forms.Panel panelMesARendir;
         private System.Windows.Forms.Label label10;
@@ -472,5 +471,6 @@
         private System.Windows.Forms.Label lblMesAnio;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label lblNoHayFacturas;
+        private System.Windows.Forms.DataGridView dataGridEmpresas;
     }
 }

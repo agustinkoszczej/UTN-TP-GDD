@@ -232,13 +232,13 @@
             this.dataGridEmpresas.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.dataGridEmpresas.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dataGridEmpresas.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dataGridEmpresas.Location = new System.Drawing.Point(315, 59);
+            this.dataGridEmpresas.Location = new System.Drawing.Point(318, 59);
             this.dataGridEmpresas.MultiSelect = false;
             this.dataGridEmpresas.Name = "dataGridEmpresas";
             this.dataGridEmpresas.ReadOnly = true;
             this.dataGridEmpresas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridEmpresas.Size = new System.Drawing.Size(294, 210);
-            this.dataGridEmpresas.TabIndex = 21;
+            this.dataGridEmpresas.Size = new System.Drawing.Size(293, 210);
+            this.dataGridEmpresas.TabIndex = 22;
             // 
             // ModificarFacturas
             // 
