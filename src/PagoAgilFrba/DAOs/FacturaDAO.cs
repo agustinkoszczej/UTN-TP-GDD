@@ -82,8 +82,11 @@ namespace PagoAgilFrba.DAOs
 
                 foreach (Item_Factura fi in items)
                 {
-                    comando = new SqlCommand("INSERT INTO LORDS_OF_THE_STRINGS_V2.Item_Factura(ItemFactura_factura, ItemFactura_cantidad, ItemFactura_monto) values(" +
-                             idFactura.ToString() + "," + fi.cantidad + "," + fi.monto + ");", conn);
+                    query = string.Format(@"INSERT INTO LORDS_OF_THE_STRINGS_V2.Item_Factura(ItemFactura_factura, ItemFactura_cantidad, ItemFactura_monto) values(@idFactura,@cantidad,@monto);");
+                    comando = new SqlCommand(query, conn);
+                    comando.Parameters.AddWithValue("@idFactura", idFactura);
+                    comando.Parameters.AddWithValue("@cantidad", fi.cantidad);
+                    comando.Parameters.AddWithValue("@monto", fi.monto * fi.cantidad);      //AGREGO EL * CANTIDAD PORQUE LA TABLA MAESTRA ESTÁ ASI
                     comando.ExecuteNonQuery();
                 }
 

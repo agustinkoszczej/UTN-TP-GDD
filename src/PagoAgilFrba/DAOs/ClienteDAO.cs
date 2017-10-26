@@ -150,5 +150,19 @@ namespace PagoAgilFrba.DAOs
                 return 0;
             }
         }
+
+
+        public static void llenarGridBuscarCliente(DataGridView grid, string nombreCliente)
+        {
+            string query = string.Format(@"SELECT Cliente_codigo, Cliente_dni, Cliente_nombre, Cliente_apellido, Cliente_fecha_nac, Cliente_mail, Cliente_direccion, Cliente_codigo_postal, Cliente_telefono 
+                                        FROM LORDS_OF_THE_STRINGS_V2.Cliente WHERE UPPER(Cliente_nombre) LIKE UPPER('%' + @nombre + '%') OR UPPER(Cliente_apellido) LIKE UPPER('%' + @apell + '%')
+                                        AND Cliente_habilitado = 1");
+            
+            SqlConnection conn = DBConnection.getConnection();
+            SqlCommand comando = new SqlCommand(query, conn);
+            comando.Parameters.AddWithValue("@nombre", nombreCliente);
+            comando.Parameters.AddWithValue("@apell", nombreCliente);
+            DBConnection.llenar_grilla_command(grid, comando);
+        }
     }
 }
