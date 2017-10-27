@@ -15,7 +15,7 @@ using PagoAgilFrba.Utilidades;
 
 namespace PagoAgilFrba.AbmCliente
 {
-    public partial class ABMClientes : Form
+    public partial class ABMClienteForm : Form
     {
         DataGridViewRow selectedRow = null;
         Cliente cargado = null;
@@ -26,113 +26,13 @@ namespace PagoAgilFrba.AbmCliente
 
         List<Control> camposObligatorios;
 
-        public ABMClientes()
+        public ABMClienteForm()
         {
             InitializeComponent();
         }
 
-        private void btnCrear_Click(object sender, EventArgs e)
-        {
-            if (cargado != null)
-            {
-                modificarCliente();
-            }
-            else
-            {
-                nuevoCliente();
-            }
-        }
-
-        private void nuevoCliente()
-        {
-            if (Utils.cumple_campos_obligatorios(camposObligatorios, errorProvider) && datePickerFNAC.Value < DateTime.Now)
-            {
-                uint dni;
-                try
-                {
-                    dni = uint.Parse(txtDNI.Text);
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("DNI invalido");
-                    return;
-                }
-
-                Cliente cli = new Cliente(0, txtNombre.Text, txtApellido.Text, dni, datePickerFNAC.Value, txtDireccion.Text, txtCP.Text, txtMail.Text, txtTelefono.Text, true);
-                int ex = ClienteDAO.nuevoCliente(cli);
-
-                switch (ex)
-                {
-                    case 0:
-                        MessageBox.Show("Error al crear cliente");
-                    break;
-                    case 1:
-                        MessageBox.Show("Ya existe un cliente con ese mail");
-                    break;
-                    default:
-                        limpiarCampos();
-                        MessageBox.Show("Cliente generado");
-                    break;
-                }
-            }
-        }
-
-        private void modificarCliente()
-        {
-            if (Utils.cumple_campos_obligatorios(camposObligatorios, errorProvider) && datePickerFNAC.Value < DateTime.Now)
-            {
-                uint dni;
-                try
-                {
-                    dni = uint.Parse(txtDNI.Text);
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("DNI invalido");
-                    return;
-                }
-
-                Cliente cli = new Cliente(cargado.id, txtNombre.Text, txtApellido.Text, uint.Parse(txtDNI.Text), datePickerFNAC.Value, txtDireccion.Text, txtCP.Text, txtMail.Text, txtTelefono.Text, cargado.habilitado);
-                int ex = ClienteDAO.modificarCliente(cli);
-
-                switch (ex)
-                {
-                    case 0:
-                        MessageBox.Show("Error al crear cliente");
-                        break;
-                    case 1:
-                        MessageBox.Show("Ya existe un cliente con ese mail");
-                        break;
-                    default:
-                        limpiarCampos();
-                        MessageBox.Show("Cliente generado");
-                        break;
-                }
-            }
-        }
-
-        private void btnLimpiar_Click(object sender, EventArgs e)
-        {
-            limpiarCampos();
-        }
-
-        private void limpiarCampos()
-        {
-            txtNombre.Text = "";
-            txtApellido.Text = "";
-            txtDNI.Text = "";
-            txtMail.Text = "";
-            txtTelefono.Text = "";
-            txtDireccion.Text = "";
-            txtCP.Text = "";
-            datePickerFNAC.Value = DateTime.Now;
-            btnCrear.Text = "Nuevo Cliente";
-            cargado = null;
-        }
-
         private void ABMClientes_Load(object sender, EventArgs e)
         {
-            camposObligatorios = new List<Control>() {txtNombre, txtApellido, txtDNI, txtMail, txtDireccion, txtCP};
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
@@ -154,20 +54,8 @@ namespace PagoAgilFrba.AbmCliente
                     selectedRow.Cells[8].Value.ToString(),                                                                                  //TELEFONO
                     habil);                                                                                                                 //HABILITADO
 
-
-                txtNombre.Text = cargado.nombre;
-                txtApellido.Text = cargado.apellido;
-                txtDNI.Text = cargado.dni.ToString();
-                txtMail.Text = cargado.mail;
-                txtTelefono.Text = cargado.telefono;
-                txtDireccion.Text = cargado.direccion;
-                txtCP.Text = cargado.cod_postal;
-                datePickerFNAC.Value = cargado.fecha_nacimiento;
-
-
-                btnCrear.Text = "Guardar Cambios";
-
-
+                NuevoClienteForm frm = new NuevoClienteForm(cargado);
+                frm.Show();
             }
         }
 
@@ -183,6 +71,7 @@ namespace PagoAgilFrba.AbmCliente
             filtroApellido = txtFiltroApellido.Text.ToString();
             filtroDNI = txtFiltroDNI.Text.ToString();
             filtrar();
+            this.selectedRow = dataGridClientes.Rows[0];
         }
 
 
@@ -304,6 +193,17 @@ namespace PagoAgilFrba.AbmCliente
             {
                 e.Handled = true;
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            NuevoClienteForm frm = new NuevoClienteForm();
+            frm.Show();
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
