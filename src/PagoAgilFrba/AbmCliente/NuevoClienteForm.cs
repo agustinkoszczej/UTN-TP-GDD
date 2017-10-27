@@ -19,20 +19,23 @@ namespace PagoAgilFrba.AbmCliente
 
         List<Control> camposObligatorios;
         Cliente cargado = null;
+        ABMClienteForm backForm; 
 
-        public NuevoClienteForm()
+        public NuevoClienteForm(ABMClienteForm back)
         {
             InitializeComponent();
             this.Text = "PagoAgilFrba | Nuevo Cliente";
             btnCrear.Text = "Nuevo Cliente";
+            backForm = back;
         }
 
-        public NuevoClienteForm(Cliente aModificar)
+        public NuevoClienteForm(Cliente aModificar, ABMClienteForm back)
         {
             InitializeComponent();
             cargarCliente(aModificar);
             this.Text = "PagoAgilFrba | Modificar Cliente";
             btnCrear.Text = "Guardar";
+            backForm = back;
         }
 
         private void cargarCliente(Cliente cli)
@@ -46,11 +49,6 @@ namespace PagoAgilFrba.AbmCliente
             txtDireccion.Text = cargado.direccion;
             txtCP.Text = cargado.cod_postal;
             datePickerFNAC.Value = cargado.fecha_nacimiento;
-        }
-
-        private void panel5_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void NuevoClienteForm_Load(object sender, System.EventArgs e)
@@ -80,7 +78,6 @@ namespace PagoAgilFrba.AbmCliente
             txtDireccion.Text = "";
             txtCP.Text = "";
             datePickerFNAC.Value = DateTime.Now;
-            btnCrear.Text = "Nuevo Cliente";
             cargado = null;
         }
 
@@ -113,6 +110,7 @@ namespace PagoAgilFrba.AbmCliente
                     default:
                         limpiarCampos();
                         MessageBox.Show("Cliente generado");
+                        backForm.filtrar();
                         this.Close();
                         break;
                 }
@@ -141,14 +139,16 @@ namespace PagoAgilFrba.AbmCliente
                 switch (ex)
                 {
                     case 0:
-                        MessageBox.Show("Error al crear cliente");
+                        MessageBox.Show("Error al modificar cliente");
                         break;
                     case 1:
                         MessageBox.Show("Ya existe un cliente con ese mail");
                         break;
                     default:
+                        MessageBox.Show("Cliente " + cargado.id  + " modificado");
+                        backForm.filtrar();
                         limpiarCampos();
-                        MessageBox.Show("Cliente generado");
+                        this.Close();
                         break;
                 }
             }
@@ -157,6 +157,37 @@ namespace PagoAgilFrba.AbmCliente
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
-        }    
+        }
+
+        private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Utils.solo_texto(e);
+        }
+
+        private void txtApellido_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Utils.solo_texto(e);
+        }
+
+        private void txtFiltroNombre_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Utils.solo_texto(e);
+        }
+
+        private void txtFiltroApellido_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Utils.solo_texto(e);
+        }
+
+        private void txtDNI_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Utils.solo_numeros(e);
+        }
+
+        private void txtTelefono_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Utils.solo_numeros(e);
+        }
+
     }
 }

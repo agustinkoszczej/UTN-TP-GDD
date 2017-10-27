@@ -24,8 +24,6 @@ namespace PagoAgilFrba.AbmCliente
         string filtroApellido = ""; 
         string filtroDNI = "";
 
-        List<Control> camposObligatorios;
-
         public ABMClienteForm()
         {
             InitializeComponent();
@@ -54,7 +52,7 @@ namespace PagoAgilFrba.AbmCliente
                     selectedRow.Cells[8].Value.ToString(),                                                                                  //TELEFONO
                     habil);                                                                                                                 //HABILITADO
 
-                NuevoClienteForm frm = new NuevoClienteForm(cargado);
+                NuevoClienteForm frm = new NuevoClienteForm(cargado, this);
                 frm.Show();
             }
         }
@@ -71,11 +69,11 @@ namespace PagoAgilFrba.AbmCliente
             filtroApellido = txtFiltroApellido.Text.ToString();
             filtroDNI = txtFiltroDNI.Text.ToString();
             filtrar();
-            this.selectedRow = dataGridClientes.Rows[0];
+            
         }
 
 
-        private void filtrar()
+        public void filtrar()
         {
             string miFiltroNomb = "";
             string miFiltroApell = "";
@@ -114,12 +112,7 @@ namespace PagoAgilFrba.AbmCliente
             ClienteDAO.llenarDataGrid(dataGridClientes, busqueda, this.filtroNombre, this.filtroApellido, dni);
 
             filtrando = true;
-            if (this.selectedRow != null) this.selectedRow = dataGridClientes.Rows[0];
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
+            this.selectedRow = dataGridClientes.Rows[0];
         }
 
         private void cargarGridSinFiltros()
@@ -197,13 +190,19 @@ namespace PagoAgilFrba.AbmCliente
 
         private void button1_Click(object sender, EventArgs e)
         {
-            NuevoClienteForm frm = new NuevoClienteForm();
+            NuevoClienteForm frm = new NuevoClienteForm(this);
             frm.Show();
         }
 
-        private void panel2_Paint(object sender, PaintEventArgs e)
+        private void txtFiltroNombre_KeyPress(object sender, KeyPressEventArgs e)
         {
-
+            Utils.solo_texto(e);
         }
+
+        private void txtFiltroApellido_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Utils.solo_texto(e);
+        }
+
     }
 }

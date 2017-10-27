@@ -162,6 +162,14 @@ namespace PagoAgilFrba.Utilidades
            }
        }
 
+       public static void solo_texto(KeyPressEventArgs e)
+       {
+           if (!char.IsLetter(e.KeyChar))
+           {
+               e.Handled = true;
+           }
+       }
+
        public static void descheckear_items(CheckedListBox items)
        {
            foreach (int i in items.CheckedIndices)

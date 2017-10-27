@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.btnCancelar = new System.Windows.Forms.Button();
             this.datePickerFNAC = new System.Windows.Forms.DateTimePicker();
             this.lblMensaje = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -53,7 +54,6 @@
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.lblNombre = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.btnCancelar = new System.Windows.Forms.Button();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -71,8 +71,18 @@
             this.panel4.Controls.Add(this.lblTitleFNac);
             this.panel4.Location = new System.Drawing.Point(12, 363);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(365, 113);
+            this.panel4.Size = new System.Drawing.Size(385, 113);
             this.panel4.TabIndex = 16;
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.Location = new System.Drawing.Point(6, 78);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(64, 23);
+            this.btnCancelar.TabIndex = 13;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // datePickerFNAC
             // 
@@ -125,9 +135,8 @@
             this.panel5.Controls.Add(this.lblDireccionCalle);
             this.panel5.Location = new System.Drawing.Point(12, 269);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(368, 88);
+            this.panel5.Size = new System.Drawing.Size(385, 88);
             this.panel5.TabIndex = 15;
-            this.panel5.Paint += new System.Windows.Forms.PaintEventHandler(this.panel5_Paint);
             // 
             // txtCP
             // 
@@ -169,7 +178,7 @@
             this.panel6.Controls.Add(this.lblMail);
             this.panel6.Location = new System.Drawing.Point(12, 175);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(368, 88);
+            this.panel6.Size = new System.Drawing.Size(385, 88);
             this.panel6.TabIndex = 14;
             // 
             // txtTelefono
@@ -215,7 +224,7 @@
             this.panel7.Controls.Add(this.lblNombre);
             this.panel7.Location = new System.Drawing.Point(12, 12);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(368, 157);
+            this.panel7.Size = new System.Drawing.Size(385, 157);
             this.panel7.TabIndex = 13;
             this.panel7.Tag = "Datos principales";
             // 
@@ -225,6 +234,7 @@
             this.txtDNI.Name = "txtDNI";
             this.txtDNI.Size = new System.Drawing.Size(355, 20);
             this.txtDNI.TabIndex = 5;
+            this.txtDNI.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDNI_KeyPress);
             // 
             // lblDNI
             // 
@@ -240,7 +250,8 @@
             this.txtApellido.Location = new System.Drawing.Point(6, 76);
             this.txtApellido.Name = "txtApellido";
             this.txtApellido.Size = new System.Drawing.Size(356, 20);
-            this.txtApellido.TabIndex = 3;
+            this.txtApellido.TabIndex = 2;
+            this.txtApellido.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtApellido_KeyPress);
             // 
             // lblApellido
             // 
@@ -248,7 +259,7 @@
             this.lblApellido.Location = new System.Drawing.Point(5, 60);
             this.lblApellido.Name = "lblApellido";
             this.lblApellido.Size = new System.Drawing.Size(57, 13);
-            this.lblApellido.TabIndex = 2;
+            this.lblApellido.TabIndex = 3;
             this.lblApellido.Text = "Apellido (*)";
             // 
             // txtNombre
@@ -257,6 +268,7 @@
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(354, 20);
             this.txtNombre.TabIndex = 1;
+            this.txtNombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNombre_KeyPress);
             // 
             // lblNombre
             // 
@@ -270,16 +282,6 @@
             // errorProvider
             // 
             this.errorProvider.ContainerControl = this;
-            // 
-            // btnCancelar
-            // 
-            this.btnCancelar.Location = new System.Drawing.Point(6, 78);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(64, 23);
-            this.btnCancelar.TabIndex = 13;
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // NuevoClienteForm
             // 
