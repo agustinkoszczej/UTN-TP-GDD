@@ -42,7 +42,7 @@ namespace PagoAgilFrba
 
         private void MenuPrincipalForm_Load(object sender, EventArgs e)
         {
-            this.Height = 120;
+            this.Height = 155;
             cargar_sucursales();
             FuncionalidadDAO.cargar_funcionalidades_asignadas(rol_seleccionado);
             validar_permisos();
@@ -70,6 +70,7 @@ namespace PagoAgilFrba
         private void validar_permisos()
         {
             lblUsuarioLogueado.Text = usuario_logueado.username;
+            lblRolSeleccionado.Text = rol_seleccionado.nombre;
               foreach (Funcionalidad func in rol_seleccionado.funcionalidades)
                     {
                         switch (func.nombre)
@@ -198,7 +199,7 @@ namespace PagoAgilFrba
                 lblSucursalSeleccionada.Visible = true;
                 lblSucursal.Visible = true;
                 lnlCambiarSucursal.Visible = true;
-                this.Height = 356;
+                this.Height = 406;
 
                 cmdSeleccionarSucursal.Visible = false;
                 cboSucursales.Visible = false;
@@ -208,9 +209,12 @@ namespace PagoAgilFrba
 
         private void lnlCambiarSucursal_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            this.Close();
-            MenuPrincipalForm frm = new MenuPrincipalForm(usuario_logueado, rol_seleccionado);
-            frm.Show();
+            if (MessageBox.Show("¿Está ud. seguro de querer cambiar de Sucursal de PagoAgilFrba?", "Cambiar Sucursal de PagoAgilFrba", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                this.Close();
+                MenuPrincipalForm frm = new MenuPrincipalForm(usuario_logueado, rol_seleccionado);
+                frm.Show();
+            }
         }
     }
 }

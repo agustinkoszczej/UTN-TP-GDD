@@ -91,7 +91,15 @@ namespace PagoAgilFrba.Login
                 if (usuario.roles.Count == 0)
                 {
                     MessageBox.Show("Al parecer no tiene Roles asignados, porfavor contáctese con el Administrador", "Error Roles", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
                     Application.Restart();
+                    return;
+                }
+                if (usuario.roles.Count == 1)
+                {
+                    Form form = new MenuPrincipalForm(usuario, usuario.roles.First());
+                    form.Show();
+                    this.Hide();
                 }
         }
 
