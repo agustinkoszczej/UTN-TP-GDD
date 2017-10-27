@@ -48,6 +48,8 @@
             this.lblItem = new System.Windows.Forms.Label();
             this.lblDetalle = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.dataGridEmpresas = new System.Windows.Forms.DataGridView();
+            this.dataGridCliente = new System.Windows.Forms.DataGridView();
             this.lblEmpresa = new System.Windows.Forms.Label();
             this.btnBuscarCliente = new System.Windows.Forms.Button();
             this.vencimientoDateTimePicker = new System.Windows.Forms.DateTimePicker();
@@ -56,9 +58,11 @@
             this.lblCliente = new System.Windows.Forms.Label();
             this.tabBM = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.dataGridFacturasBM = new System.Windows.Forms.DataGridView();
             this.btnFiltrarIdCliente = new System.Windows.Forms.Button();
             this.btnFiltrarIdFactura = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.dataGridItems = new System.Windows.Forms.DataGridView();
             this.btnModificarItem = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.btnSinFiltros = new System.Windows.Forms.Button();
@@ -71,23 +75,19 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.dataGridFacturasBM = new System.Windows.Forms.DataGridView();
-            this.dataGridItems = new System.Windows.Forms.DataGridView();
-            this.dataGridCliente = new System.Windows.Forms.DataGridView();
-            this.dataGridEmpresas = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.tabAlta.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtCantidad)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridCliente)).BeginInit();
             this.tabBM.SuspendLayout();
             this.panel4.SuspendLayout();
-            this.panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridFacturasBM)).BeginInit();
+            this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridItems)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridCliente)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -97,7 +97,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(694, 449);
+            this.tabControl1.Size = new System.Drawing.Size(792, 504);
             this.tabControl1.TabIndex = 0;
             // 
             // tabAlta
@@ -107,7 +107,7 @@
             this.tabAlta.Location = new System.Drawing.Point(4, 22);
             this.tabAlta.Name = "tabAlta";
             this.tabAlta.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAlta.Size = new System.Drawing.Size(686, 423);
+            this.tabAlta.Size = new System.Drawing.Size(784, 478);
             this.tabAlta.TabIndex = 0;
             this.tabAlta.Text = "Generar Facturas";
             this.tabAlta.UseVisualStyleBackColor = true;
@@ -129,9 +129,9 @@
             this.panel3.Controls.Add(this.txtItem);
             this.panel3.Controls.Add(this.lblItem);
             this.panel3.Controls.Add(this.lblDetalle);
-            this.panel3.Location = new System.Drawing.Point(7, 196);
+            this.panel3.Location = new System.Drawing.Point(7, 256);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(670, 216);
+            this.panel3.Size = new System.Drawing.Size(771, 216);
             this.panel3.TabIndex = 3;
             // 
             // txtCantidad
@@ -144,7 +144,7 @@
             0,
             0});
             this.txtCantidad.Name = "txtCantidad";
-            this.txtCantidad.Size = new System.Drawing.Size(261, 20);
+            this.txtCantidad.Size = new System.Drawing.Size(321, 20);
             this.txtCantidad.TabIndex = 16;
             this.txtCantidad.Value = new decimal(new int[] {
             1,
@@ -154,9 +154,9 @@
             // 
             // listDetalle
             // 
-            this.listDetalle.Location = new System.Drawing.Point(324, 23);
+            this.listDetalle.Location = new System.Drawing.Point(360, 23);
             this.listDetalle.Name = "listDetalle";
-            this.listDetalle.Size = new System.Drawing.Size(330, 138);
+            this.listDetalle.Size = new System.Drawing.Size(394, 138);
             this.listDetalle.TabIndex = 15;
             this.listDetalle.UseCompatibleStateImageBehavior = false;
             // 
@@ -174,7 +174,7 @@
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(592, 190);
+            this.btnAceptar.Location = new System.Drawing.Point(692, 190);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 23);
             this.btnAceptar.TabIndex = 13;
@@ -184,7 +184,7 @@
             // 
             // btnBorrar
             // 
-            this.btnBorrar.Location = new System.Drawing.Point(324, 167);
+            this.btnBorrar.Location = new System.Drawing.Point(360, 167);
             this.btnBorrar.Name = "btnBorrar";
             this.btnBorrar.Size = new System.Drawing.Size(75, 23);
             this.btnBorrar.TabIndex = 12;
@@ -194,7 +194,7 @@
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(205, 167);
+            this.btnAgregar.Location = new System.Drawing.Point(253, 167);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(75, 23);
             this.btnAgregar.TabIndex = 11;
@@ -223,7 +223,7 @@
             // lblListaDetalle
             // 
             this.lblListaDetalle.AutoSize = true;
-            this.lblListaDetalle.Location = new System.Drawing.Point(321, 6);
+            this.lblListaDetalle.Location = new System.Drawing.Point(421, 6);
             this.lblListaDetalle.Name = "lblListaDetalle";
             this.lblListaDetalle.Size = new System.Drawing.Size(99, 13);
             this.lblListaDetalle.TabIndex = 7;
@@ -242,7 +242,7 @@
             // 
             this.txtMonto.Location = new System.Drawing.Point(19, 84);
             this.txtMonto.Name = "txtMonto";
-            this.txtMonto.Size = new System.Drawing.Size(262, 20);
+            this.txtMonto.Size = new System.Drawing.Size(321, 20);
             this.txtMonto.TabIndex = 4;
             // 
             // lblMonto
@@ -258,7 +258,7 @@
             // 
             this.txtItem.Location = new System.Drawing.Point(19, 40);
             this.txtItem.Name = "txtItem";
-            this.txtItem.Size = new System.Drawing.Size(262, 20);
+            this.txtItem.Size = new System.Drawing.Size(321, 20);
             this.txtItem.TabIndex = 2;
             // 
             // lblItem
@@ -291,13 +291,55 @@
             this.panel1.Controls.Add(this.lblCliente);
             this.panel1.Location = new System.Drawing.Point(6, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(668, 184);
+            this.panel1.Size = new System.Drawing.Size(772, 244);
             this.panel1.TabIndex = 1;
+            // 
+            // dataGridEmpresas
+            // 
+            this.dataGridEmpresas.AllowUserToAddRows = false;
+            this.dataGridEmpresas.AllowUserToDeleteRows = false;
+            this.dataGridEmpresas.AllowUserToResizeColumns = false;
+            this.dataGridEmpresas.AllowUserToResizeRows = false;
+            this.dataGridEmpresas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridEmpresas.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.dataGridEmpresas.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dataGridEmpresas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridEmpresas.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.dataGridEmpresas.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dataGridEmpresas.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dataGridEmpresas.Location = new System.Drawing.Point(9, 69);
+            this.dataGridEmpresas.MultiSelect = false;
+            this.dataGridEmpresas.Name = "dataGridEmpresas";
+            this.dataGridEmpresas.ReadOnly = true;
+            this.dataGridEmpresas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridEmpresas.Size = new System.Drawing.Size(369, 157);
+            this.dataGridEmpresas.TabIndex = 24;
+            // 
+            // dataGridCliente
+            // 
+            this.dataGridCliente.AllowUserToAddRows = false;
+            this.dataGridCliente.AllowUserToDeleteRows = false;
+            this.dataGridCliente.AllowUserToResizeColumns = false;
+            this.dataGridCliente.AllowUserToResizeRows = false;
+            this.dataGridCliente.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridCliente.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.dataGridCliente.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dataGridCliente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridCliente.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.dataGridCliente.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dataGridCliente.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dataGridCliente.Location = new System.Drawing.Point(398, 53);
+            this.dataGridCliente.MultiSelect = false;
+            this.dataGridCliente.Name = "dataGridCliente";
+            this.dataGridCliente.ReadOnly = true;
+            this.dataGridCliente.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridCliente.Size = new System.Drawing.Size(357, 173);
+            this.dataGridCliente.TabIndex = 23;
             // 
             // lblEmpresa
             // 
             this.lblEmpresa.AutoSize = true;
-            this.lblEmpresa.Location = new System.Drawing.Point(6, 2);
+            this.lblEmpresa.Location = new System.Drawing.Point(12, 53);
             this.lblEmpresa.Name = "lblEmpresa";
             this.lblEmpresa.Size = new System.Drawing.Size(107, 13);
             this.lblEmpresa.TabIndex = 0;
@@ -305,7 +347,7 @@
             // 
             // btnBuscarCliente
             // 
-            this.btnBuscarCliente.Location = new System.Drawing.Point(590, 4);
+            this.btnBuscarCliente.Location = new System.Drawing.Point(686, 4);
             this.btnBuscarCliente.Name = "btnBuscarCliente";
             this.btnBuscarCliente.Size = new System.Drawing.Size(75, 23);
             this.btnBuscarCliente.TabIndex = 17;
@@ -315,7 +357,7 @@
             // 
             // vencimientoDateTimePicker
             // 
-            this.vencimientoDateTimePicker.Location = new System.Drawing.Point(9, 151);
+            this.vencimientoDateTimePicker.Location = new System.Drawing.Point(9, 24);
             this.vencimientoDateTimePicker.Name = "vencimientoDateTimePicker";
             this.vencimientoDateTimePicker.Size = new System.Drawing.Size(276, 20);
             this.vencimientoDateTimePicker.TabIndex = 9;
@@ -323,7 +365,7 @@
             // lblFechaVencimiento
             // 
             this.lblFechaVencimiento.AutoSize = true;
-            this.lblFechaVencimiento.Location = new System.Drawing.Point(6, 135);
+            this.lblFechaVencimiento.Location = new System.Drawing.Point(6, 8);
             this.lblFechaVencimiento.Name = "lblFechaVencimiento";
             this.lblFechaVencimiento.Size = new System.Drawing.Size(113, 13);
             this.lblFechaVencimiento.TabIndex = 4;
@@ -331,19 +373,19 @@
             // 
             // txtCliente
             // 
-            this.txtCliente.Location = new System.Drawing.Point(308, 27);
+            this.txtCliente.Location = new System.Drawing.Point(398, 27);
             this.txtCliente.Name = "txtCliente";
-            this.txtCliente.Size = new System.Drawing.Size(357, 20);
+            this.txtCliente.Size = new System.Drawing.Size(363, 20);
             this.txtCliente.TabIndex = 1;
             // 
             // lblCliente
             // 
             this.lblCliente.AutoSize = true;
-            this.lblCliente.Location = new System.Drawing.Point(305, 9);
+            this.lblCliente.Location = new System.Drawing.Point(395, 8);
             this.lblCliente.Name = "lblCliente";
-            this.lblCliente.Size = new System.Drawing.Size(79, 13);
+            this.lblCliente.Size = new System.Drawing.Size(61, 13);
             this.lblCliente.TabIndex = 0;
-            this.lblCliente.Text = "Nombre Cliente";
+            this.lblCliente.Text = "DNI Cliente";
             // 
             // tabBM
             // 
@@ -351,7 +393,7 @@
             this.tabBM.Location = new System.Drawing.Point(4, 22);
             this.tabBM.Name = "tabBM";
             this.tabBM.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBM.Size = new System.Drawing.Size(686, 423);
+            this.tabBM.Size = new System.Drawing.Size(784, 478);
             this.tabBM.TabIndex = 2;
             this.tabBM.Text = "Modificar Facturas";
             this.tabBM.UseVisualStyleBackColor = true;
@@ -371,15 +413,37 @@
             this.panel4.Controls.Add(this.label4);
             this.panel4.Controls.Add(this.label3);
             this.panel4.Controls.Add(this.label1);
-            this.panel4.Location = new System.Drawing.Point(7, 7);
+            this.panel4.Location = new System.Drawing.Point(3, 3);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(673, 410);
+            this.panel4.Size = new System.Drawing.Size(775, 469);
             this.panel4.TabIndex = 0;
             this.panel4.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
             // 
+            // dataGridFacturasBM
+            // 
+            this.dataGridFacturasBM.AllowUserToAddRows = false;
+            this.dataGridFacturasBM.AllowUserToDeleteRows = false;
+            this.dataGridFacturasBM.AllowUserToResizeColumns = false;
+            this.dataGridFacturasBM.AllowUserToResizeRows = false;
+            this.dataGridFacturasBM.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridFacturasBM.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.dataGridFacturasBM.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dataGridFacturasBM.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridFacturasBM.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.dataGridFacturasBM.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dataGridFacturasBM.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dataGridFacturasBM.Location = new System.Drawing.Point(6, 43);
+            this.dataGridFacturasBM.MultiSelect = false;
+            this.dataGridFacturasBM.Name = "dataGridFacturasBM";
+            this.dataGridFacturasBM.ReadOnly = true;
+            this.dataGridFacturasBM.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridFacturasBM.Size = new System.Drawing.Size(685, 213);
+            this.dataGridFacturasBM.TabIndex = 21;
+            this.dataGridFacturasBM.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridFacturasBM_CellClick_1);
+            // 
             // btnFiltrarIdCliente
             // 
-            this.btnFiltrarIdCliente.Location = new System.Drawing.Point(442, 214);
+            this.btnFiltrarIdCliente.Location = new System.Drawing.Point(442, 273);
             this.btnFiltrarIdCliente.Name = "btnFiltrarIdCliente";
             this.btnFiltrarIdCliente.Size = new System.Drawing.Size(75, 23);
             this.btnFiltrarIdCliente.TabIndex = 20;
@@ -389,7 +453,7 @@
             // 
             // btnFiltrarIdFactura
             // 
-            this.btnFiltrarIdFactura.Location = new System.Drawing.Point(180, 213);
+            this.btnFiltrarIdFactura.Location = new System.Drawing.Point(180, 272);
             this.btnFiltrarIdFactura.Name = "btnFiltrarIdFactura";
             this.btnFiltrarIdFactura.Size = new System.Drawing.Size(75, 23);
             this.btnFiltrarIdFactura.TabIndex = 19;
@@ -402,10 +466,31 @@
             this.panel5.Controls.Add(this.dataGridItems);
             this.panel5.Controls.Add(this.btnModificarItem);
             this.panel5.Controls.Add(this.label5);
-            this.panel5.Location = new System.Drawing.Point(6, 241);
+            this.panel5.Location = new System.Drawing.Point(6, 300);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(661, 166);
+            this.panel5.Size = new System.Drawing.Size(766, 166);
             this.panel5.TabIndex = 1;
+            // 
+            // dataGridItems
+            // 
+            this.dataGridItems.AllowUserToAddRows = false;
+            this.dataGridItems.AllowUserToDeleteRows = false;
+            this.dataGridItems.AllowUserToResizeColumns = false;
+            this.dataGridItems.AllowUserToResizeRows = false;
+            this.dataGridItems.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridItems.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.dataGridItems.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dataGridItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridItems.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.dataGridItems.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dataGridItems.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dataGridItems.Location = new System.Drawing.Point(103, 7);
+            this.dataGridItems.MultiSelect = false;
+            this.dataGridItems.Name = "dataGridItems";
+            this.dataGridItems.ReadOnly = true;
+            this.dataGridItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridItems.Size = new System.Drawing.Size(660, 152);
+            this.dataGridItems.TabIndex = 22;
             // 
             // btnModificarItem
             // 
@@ -428,7 +513,7 @@
             // 
             // btnSinFiltros
             // 
-            this.btnSinFiltros.Location = new System.Drawing.Point(592, 213);
+            this.btnSinFiltros.Location = new System.Drawing.Point(616, 271);
             this.btnSinFiltros.Name = "btnSinFiltros";
             this.btnSinFiltros.Size = new System.Drawing.Size(75, 23);
             this.btnSinFiltros.TabIndex = 18;
@@ -438,7 +523,7 @@
             // 
             // btnInhabilitar
             // 
-            this.btnInhabilitar.Location = new System.Drawing.Point(87, 27);
+            this.btnInhabilitar.Location = new System.Drawing.Point(697, 233);
             this.btnInhabilitar.Name = "btnInhabilitar";
             this.btnInhabilitar.Size = new System.Drawing.Size(75, 23);
             this.btnInhabilitar.TabIndex = 16;
@@ -448,7 +533,7 @@
             // 
             // btnHabilitar
             // 
-            this.btnHabilitar.Location = new System.Drawing.Point(6, 27);
+            this.btnHabilitar.Location = new System.Drawing.Point(697, 204);
             this.btnHabilitar.Name = "btnHabilitar";
             this.btnHabilitar.Size = new System.Drawing.Size(75, 23);
             this.btnHabilitar.TabIndex = 10;
@@ -458,7 +543,7 @@
             // 
             // btnModificarFactura
             // 
-            this.btnModificarFactura.Location = new System.Drawing.Point(595, 27);
+            this.btnModificarFactura.Location = new System.Drawing.Point(697, 55);
             this.btnModificarFactura.Name = "btnModificarFactura";
             this.btnModificarFactura.Size = new System.Drawing.Size(75, 23);
             this.btnModificarFactura.TabIndex = 8;
@@ -468,14 +553,14 @@
             // 
             // txtIdClienteFiltro
             // 
-            this.txtIdClienteFiltro.Location = new System.Drawing.Point(334, 216);
+            this.txtIdClienteFiltro.Location = new System.Drawing.Point(334, 275);
             this.txtIdClienteFiltro.Name = "txtIdClienteFiltro";
             this.txtIdClienteFiltro.Size = new System.Drawing.Size(102, 20);
             this.txtIdClienteFiltro.TabIndex = 6;
             // 
             // txtIdFacturaFiltro
             // 
-            this.txtIdFacturaFiltro.Location = new System.Drawing.Point(72, 215);
+            this.txtIdFacturaFiltro.Location = new System.Drawing.Point(72, 274);
             this.txtIdFacturaFiltro.Name = "txtIdFacturaFiltro";
             this.txtIdFacturaFiltro.Size = new System.Drawing.Size(102, 20);
             this.txtIdFacturaFiltro.TabIndex = 5;
@@ -483,7 +568,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 218);
+            this.label4.Location = new System.Drawing.Point(8, 277);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(58, 13);
             this.label4.TabIndex = 4;
@@ -492,7 +577,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(274, 219);
+            this.label3.Location = new System.Drawing.Point(274, 278);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(61, 13);
             this.label3.TabIndex = 3;
@@ -512,95 +597,11 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
-            // dataGridFacturasBM
-            // 
-            this.dataGridFacturasBM.AllowUserToAddRows = false;
-            this.dataGridFacturasBM.AllowUserToDeleteRows = false;
-            this.dataGridFacturasBM.AllowUserToResizeColumns = false;
-            this.dataGridFacturasBM.AllowUserToResizeRows = false;
-            this.dataGridFacturasBM.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridFacturasBM.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            this.dataGridFacturasBM.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            this.dataGridFacturasBM.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridFacturasBM.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.dataGridFacturasBM.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dataGridFacturasBM.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dataGridFacturasBM.Location = new System.Drawing.Point(6, 55);
-            this.dataGridFacturasBM.MultiSelect = false;
-            this.dataGridFacturasBM.Name = "dataGridFacturasBM";
-            this.dataGridFacturasBM.ReadOnly = true;
-            this.dataGridFacturasBM.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridFacturasBM.Size = new System.Drawing.Size(661, 152);
-            this.dataGridFacturasBM.TabIndex = 21;
-            // 
-            // dataGridItems
-            // 
-            this.dataGridItems.AllowUserToAddRows = false;
-            this.dataGridItems.AllowUserToDeleteRows = false;
-            this.dataGridItems.AllowUserToResizeColumns = false;
-            this.dataGridItems.AllowUserToResizeRows = false;
-            this.dataGridItems.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridItems.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            this.dataGridItems.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            this.dataGridItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridItems.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.dataGridItems.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dataGridItems.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dataGridItems.Location = new System.Drawing.Point(103, 7);
-            this.dataGridItems.MultiSelect = false;
-            this.dataGridItems.Name = "dataGridItems";
-            this.dataGridItems.ReadOnly = true;
-            this.dataGridItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridItems.Size = new System.Drawing.Size(554, 152);
-            this.dataGridItems.TabIndex = 22;
-            // 
-            // dataGridCliente
-            // 
-            this.dataGridCliente.AllowUserToAddRows = false;
-            this.dataGridCliente.AllowUserToDeleteRows = false;
-            this.dataGridCliente.AllowUserToResizeColumns = false;
-            this.dataGridCliente.AllowUserToResizeRows = false;
-            this.dataGridCliente.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridCliente.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            this.dataGridCliente.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            this.dataGridCliente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridCliente.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.dataGridCliente.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dataGridCliente.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dataGridCliente.Location = new System.Drawing.Point(302, 53);
-            this.dataGridCliente.MultiSelect = false;
-            this.dataGridCliente.Name = "dataGridCliente";
-            this.dataGridCliente.ReadOnly = true;
-            this.dataGridCliente.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridCliente.Size = new System.Drawing.Size(357, 118);
-            this.dataGridCliente.TabIndex = 23;
-            // 
-            // dataGridEmpresas
-            // 
-            this.dataGridEmpresas.AllowUserToAddRows = false;
-            this.dataGridEmpresas.AllowUserToDeleteRows = false;
-            this.dataGridEmpresas.AllowUserToResizeColumns = false;
-            this.dataGridEmpresas.AllowUserToResizeRows = false;
-            this.dataGridEmpresas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridEmpresas.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            this.dataGridEmpresas.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            this.dataGridEmpresas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridEmpresas.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.dataGridEmpresas.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dataGridEmpresas.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dataGridEmpresas.Location = new System.Drawing.Point(9, 27);
-            this.dataGridEmpresas.MultiSelect = false;
-            this.dataGridEmpresas.Name = "dataGridEmpresas";
-            this.dataGridEmpresas.ReadOnly = true;
-            this.dataGridEmpresas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridEmpresas.Size = new System.Drawing.Size(276, 105);
-            this.dataGridEmpresas.TabIndex = 24;
-            // 
             // ABMFacturaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(715, 467);
+            this.ClientSize = new System.Drawing.Size(816, 528);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -615,16 +616,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtCantidad)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridCliente)).EndInit();
             this.tabBM.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridFacturasBM)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridFacturasBM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridItems)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridCliente)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }

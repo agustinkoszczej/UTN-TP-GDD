@@ -113,7 +113,7 @@ namespace PagoAgilFrba.RegistroPago
             int cliente = int.Parse(dgdFacturas.SelectedCells[4].Value.ToString());
             int empresa = int.Parse(dgdFacturas.SelectedCells[6].Value.ToString());
 
-            return new Factura(id, DateTime.Parse(fecha), total, DateTime.Parse(fecha_venc), EmpresaDAO.obtener_empresa_con_ID(empresa), FacturaDAO.obtener_cliente_con_ID(cliente));
+            return new Factura(id, DateTime.Parse(fecha), total, DateTime.Parse(fecha_venc), EmpresaDAO.obtener_empresa_con_ID(empresa), ClienteDAO.obtener_cliente_con_ID(cliente));
         }
 
         private Factura get_factura_a_pagar_seleccionada_grilla()

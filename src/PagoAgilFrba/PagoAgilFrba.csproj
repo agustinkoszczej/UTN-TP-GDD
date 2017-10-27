@@ -45,11 +45,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbmCliente\ABMClientes.cs">
+    <Compile Include="AbmCliente\ABMClienteForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmCliente\ABMClientes.designer.cs">
-      <DependentUpon>ABMClientes.cs</DependentUpon>
+    <Compile Include="AbmCliente\ABMClienteForm.designer.cs">
+      <DependentUpon>ABMClienteForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmCliente\NuevoClienteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmCliente\NuevoClienteForm.Designer.cs">
+      <DependentUpon>NuevoClienteForm.cs</DependentUpon>
     </Compile>
     <Compile Include="AbmEmpresa\ABMEmpresaForm.cs">
       <SubType>Form</SubType>
@@ -171,8 +177,11 @@
       <DependentUpon>RendicionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilidades\Utils.cs" />
-    <EmbeddedResource Include="AbmCliente\ABMClientes.resx">
-      <DependentUpon>ABMClientes.cs</DependentUpon>
+    <EmbeddedResource Include="AbmCliente\ABMClienteForm.resx">
+      <DependentUpon>ABMClienteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmCliente\NuevoClienteForm.resx">
+      <DependentUpon>NuevoClienteForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmEmpresa\ABMEmpresaForm.resx">
       <DependentUpon>ABMEmpresaForm.cs</DependentUpon>

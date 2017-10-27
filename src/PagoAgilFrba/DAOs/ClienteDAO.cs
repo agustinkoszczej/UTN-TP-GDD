@@ -152,17 +152,52 @@ namespace PagoAgilFrba.DAOs
         }
 
 
-        public static void llenarGridBuscarCliente(DataGridView grid, string nombreCliente)
+        public static void llenarGridBuscarCliente(DataGridView grid, string dniCliente)
         {
             string query = string.Format(@"SELECT Cliente_codigo, Cliente_dni, Cliente_nombre, Cliente_apellido, Cliente_fecha_nac, Cliente_mail, Cliente_direccion, Cliente_codigo_postal, Cliente_telefono 
-                                        FROM LORDS_OF_THE_STRINGS_V2.Cliente WHERE UPPER(Cliente_nombre) LIKE UPPER('%' + @nombre + '%') OR UPPER(Cliente_apellido) LIKE UPPER('%' + @apell + '%')
-                                        AND Cliente_habilitado = 1");
+                                        FROM LORDS_OF_THE_STRINGS_V2.Cliente WHERE Cliente_dni = @dni AND Cliente_habilitado = 1");
             
             SqlConnection conn = DBConnection.getConnection();
             SqlCommand comando = new SqlCommand(query, conn);
-            comando.Parameters.AddWithValue("@nombre", nombreCliente);
-            comando.Parameters.AddWithValue("@apell", nombreCliente);
+            comando.Parameters.AddWithValue("@dni", dniCliente);
             DBConnection.llenar_grilla_command(grid, comando);
+        }
+
+
+        public static Cliente obtener_cliente_con_ID(int id_cliente)
+        {
+            List<Empresa> empresas = new List<Empresa>();
+            string query = string.Format(@"SELECT Cliente_codigo, Cliente_nombre, Cliente_apellido, Cliente_dni, Cliente_fecha_nac, Cliente_mail, Cliente_direccion, Cliente_codigo_postal, Cliente_telefono FROM LORDS_OF_THE_STRINGS_V2.Cliente WHERE Cliente_habilitado = 1 AND Cliente_codigo = @idCliente");
+            SqlConnection conn = DBConnection.getConnection();
+            SqlCommand command = new SqlCommand(query, conn);
+
+            command.Parameters.Add("@idCliente", SqlDbType.Int);
+            command.Parameters["@idCliente"].Value = id_cliente;
+
+            command.CommandType = System.Data.CommandType.Text;
+            SqlDataReader reader = command.ExecuteReader();
+            Cliente cli;
+            try
+            {
+                reader.Read();
+                cli = new Cliente(
+                    int.Parse(reader.GetValue(0).ToString()),                   //id
+                    reader.GetValue(1).ToString(),                              //nombre
+                    reader.GetValue(2).ToString(),                              //apellido
+                    uint.Parse(reader.GetValue(3).ToString()),                  //dni
+                    DateTime.Parse(reader.GetValue(4).ToString()),              //fnac
+                    reader.GetValue(6).ToString(),                              //direccion
+                    reader.GetValue(7).ToString(),                              //cp
+                    reader.GetValue(5).ToString(),                              //mail
+                    reader.GetValue(8).ToString(),                              //tel
+                    true);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            conn.Close();
+            return cli;
         }
     }
 }

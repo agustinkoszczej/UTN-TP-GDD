@@ -100,41 +100,7 @@ namespace PagoAgilFrba.DAOs
             }
         }
 
-        public static Cliente obtener_cliente_con_ID(int id_cliente)
-        {
-            List<Empresa> empresas = new List<Empresa>();
-            string query = string.Format(@"SELECT Cliente_codigo, Cliente_nombre, Cliente_apellido, Cliente_dni, Cliente_fecha_nac, Cliente_mail, Cliente_direccion, Cliente_codigo_postal, Cliente_telefono FROM LORDS_OF_THE_STRINGS_V2.Cliente WHERE Cliente_habilitado = 1 AND Cliente_codigo = @idCliente");
-            SqlConnection conn = DBConnection.getConnection();
-            SqlCommand command = new SqlCommand(query, conn);
-
-            command.Parameters.Add("@idCliente", SqlDbType.Int);
-            command.Parameters["@idCliente"].Value = id_cliente;
-
-            command.CommandType = System.Data.CommandType.Text;
-            SqlDataReader reader = command.ExecuteReader();
-            Cliente cli;
-            try
-            {
-                reader.Read();
-                cli = new Cliente(
-                    int.Parse(reader.GetValue(0).ToString()),                   //id
-                    reader.GetValue(1).ToString(),                              //nombre
-                    reader.GetValue(2).ToString(),                              //apellido
-                    uint.Parse(reader.GetValue(3).ToString()),                  //dni
-                    DateTime.Parse(reader.GetValue(4).ToString()),              //fnac
-                    reader.GetValue(6).ToString(),                              //direccion
-                    reader.GetValue(7).ToString(),                              //cp
-                    reader.GetValue(5).ToString(),                              //mail
-                    reader.GetValue(8).ToString(),                              //tel
-                    true);
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-            conn.Close();
-            return cli;
-        }
+        
 
 
         public static List<Item_Factura> obtener_items_factura(Factura factura)
@@ -326,15 +292,7 @@ namespace PagoAgilFrba.DAOs
             command.Parameters.Add("@idFactura", SqlDbType.Int);
             command.Parameters["@idFactura"].Value = selec.id;
 
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = command;
-            DataTable table = new DataTable();
-            adapter.Fill(table);
-            BindingSource source = new BindingSource();
-
-            source.DataSource = table;
-            grid.DataSource = source;
-            adapter.Update(table);
+            DBConnection.llenar_grilla_command(grid, command);
 
 
 
@@ -348,18 +306,7 @@ namespace PagoAgilFrba.DAOs
             command.Parameters.Add(nombreParam, SqlDbType.Int);
             command.Parameters[nombreParam].Value = idFiltro;
 
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = command;
-            DataTable table = new DataTable();
-            adapter.Fill(table);
-            BindingSource source = new BindingSource();
-
-            source.DataSource = table;
-            grid.DataSource = source;
-            adapter.Update(table);
-
-
-
+            DBConnection.llenar_grilla_command(grid, command);
         }
 
     }
