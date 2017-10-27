@@ -65,7 +65,7 @@ namespace PagoAgilFrba.Devolucion
             int cliente = int.Parse(dgdFacturas.SelectedCells[4].Value.ToString());
             int empresa = int.Parse(dgdFacturas.SelectedCells[6].Value.ToString());
 
-            return new Factura(id, DateTime.Parse(fecha), total, DateTime.Parse(fecha_venc), EmpresaDAO.obtener_empresa_con_ID(empresa), FacturaDAO.obtener_cliente_con_ID(cliente));
+            return new Factura(id, DateTime.Parse(fecha), total, DateTime.Parse(fecha_venc), EmpresaDAO.obtener_empresa_con_ID(empresa), ClienteDAO.obtener_cliente_con_ID(cliente));
         }
 
         private void cmdQuitarFiltros_Click(object sender, EventArgs e)

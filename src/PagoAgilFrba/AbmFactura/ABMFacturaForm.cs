@@ -297,7 +297,7 @@ namespace PagoAgilFrba.AbmFactura
             }
             catch (Exception)
             {
-                empresaSelectedAlta = null;
+                clienteSelectedAlta = null;
             }
         }
 
@@ -336,7 +336,7 @@ namespace PagoAgilFrba.AbmFactura
             FROM LORDS_OF_THE_STRINGS_V2.Factura F " + filtroJoin + 
             " WHERE F.Factura_codigo NOT IN (select Pago_factura from LORDS_OF_THE_STRINGS_V2.Pago)" + filtroWhere);
                 FacturaDAO.cargarFacturasFiltrada(dataGridFacturasBM, idFiltro, query, "@idFiltro");
-                loadFacturaSeleccionada();
+                //loadFacturaSeleccionada();
                 cargarItemsFacturaSeleccionada();
             }
         }
@@ -504,8 +504,8 @@ namespace PagoAgilFrba.AbmFactura
                     fecha,
                     totalFactura,
                     fechaVenc,
-                    new Empresa(idEmpresa, "", "", "", true),                                   //Ni empresa ni cliente me importan en esta seleccion
-                    new Cliente(idCliente, "", "", 0, DateTime.Now, "", "", "", "", true),
+                    EmpresaDAO.obtener_empresa_con_ID(idEmpresa),
+                    ClienteDAO.obtener_cliente_con_ID(idCliente),
                     null,
                     habilitada
                     );
@@ -579,6 +579,12 @@ namespace PagoAgilFrba.AbmFactura
                 ClienteDAO.llenarGridBuscarCliente(dataGridCliente, txtCliente.Text.ToString());
             }
 
+        }
+
+        private void dataGridFacturasBM_CellClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            //loadFacturaSeleccionada();
+            cargarItemsFacturaSeleccionada();
         }
     }
 }

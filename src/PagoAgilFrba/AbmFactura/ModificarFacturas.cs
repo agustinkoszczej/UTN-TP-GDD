@@ -18,7 +18,7 @@ namespace PagoAgilFrba.AbmFactura
         Factura factura;
         ABMFacturaForm backForm;
         Empresa empresaSelected =null;
-        int idCliente;
+        Cliente clienteSelected = null;
 
         List<Control> camposObligatorios;
 
@@ -32,15 +32,15 @@ namespace PagoAgilFrba.AbmFactura
             vencimientoDateTimePicker.Value = f.fecha_venc;
             txtFacturaTotal.Text = f.total.ToString();
             txtFacturaEmpresa.Text = f.empresa.nombre;
-            txtFacturaCliente.Text = f.cliente.id.ToString();
-            idCliente = f.cliente.id;
+            txtClienteSeleccionado.Text = f.cliente.nombre + " " + f.cliente.apellido;
+            clienteSelected = f.cliente;
             dataGridEmpresas.Enabled = false;
             this.Text = "Factura Nº " + f.id;
         }
 
         private void ModificarFacturas_Load(object sender, EventArgs e)
         {
-            this.camposObligatorios = new List<Control>() { txtFacturaNro, txtFacturaCliente, txtFacturaEmpresa, txtFacturaTotal, vencimientoDateTimePicker, altaDateTimePicker };
+            this.camposObligatorios = new List<Control>() { txtFacturaNro, txtFiltroCliente, txtFacturaEmpresa, txtFacturaTotal, vencimientoDateTimePicker, altaDateTimePicker };
         }
 
         private void btnSeleccionarEmpresa_Click(object sender, EventArgs e)
@@ -50,6 +50,7 @@ namespace PagoAgilFrba.AbmFactura
                 Utilidades.Utils.clearDataGrid(dataGridEmpresas);
                 dataGridEmpresas.Enabled = true;
                 FacturaDAO.llenarGridConEmpresas(dataGridEmpresas,1);
+                btnSeleccionarEmpresa.Text = "Seleccionar";
             }
             else
             {
@@ -60,6 +61,7 @@ namespace PagoAgilFrba.AbmFactura
                     {
                         factura.empresa = empresaSelected;
                         txtFacturaEmpresa.Text = factura.empresa.nombre;
+                        btnSeleccionarEmpresa.Text = "Cambiar";
                     }
                 }
             }
@@ -90,6 +92,8 @@ namespace PagoAgilFrba.AbmFactura
             }
         }
 
+        
+
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -97,35 +101,103 @@ namespace PagoAgilFrba.AbmFactura
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Cliente elegido;
-            bool error = false;
-            if(idCliente != int.Parse(txtFacturaCliente.Text)){
-                elegido = FacturaDAO.obtener_cliente_con_ID(int.Parse(txtFacturaCliente.Text));
-                if (elegido == null)
+            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void enableCambiarCliente(Boolean enabled)
+        {
+            txtFiltroCliente.Enabled = enabled;
+            btnBuscarPorDNI.Enabled = enabled;
+            dataGridClientes.Enabled = enabled;
+        }
+
+        private void btnCambiarCliente_Click(object sender, EventArgs e)
+        {
+            if (!dataGridClientes.Enabled)
+            {
+                Utilidades.Utils.clearDataGrid(dataGridClientes);
+                enableCambiarCliente(true);
+                btnSeleccionarEmpresa.Text = "Seleccionar";
+            }
+            else
+            {
+                loadClienteSeleccionado();
+                if (clienteSelected != null)
                 {
-                    MessageBox.Show("Id de cliente ingresado inexistente");
-                    error = true;
+                    if (clienteSelected.nombre != txtClienteSeleccionado.Text)
+                    {
+                        factura.cliente = clienteSelected;
+                        txtClienteSeleccionado.Text = factura.cliente.nombre + " " + factura.cliente.apellido;
+                        btnCambiarCliente.Text = "Cambiar";
+                    }
                 }
             }
-            else{
-                elegido = factura.cliente;
-            }
+        }
 
-            if (!error)
+        private void btnBuscarPorDNI_Click(object sender, EventArgs e)
+        {
+            if (txtFiltroCliente.Text != "" && txtFiltroCliente.Enabled)
             {
-                Factura modificada = new Factura(factura.id, altaDateTimePicker.Value, factura.total, vencimientoDateTimePicker.Value, factura.empresa, elegido, null);
+                ClienteDAO.llenarGridBuscarCliente(dataGridClientes, txtFiltroCliente.Text.ToString());
+            }
+        }
+
+        private void loadClienteSeleccionado()
+        {
+            try
+            {
+                int cliente_id = int.Parse(dataGridClientes.SelectedCells[0].Value.ToString());
+                uint dni = uint.Parse(dataGridClientes.SelectedCells[1].Value.ToString());
+                string nombre = dataGridClientes.SelectedCells[2].Value.ToString();
+                string apellido = dataGridClientes.SelectedCells[3].Value.ToString();
+                DateTime fnac = DateTime.Parse(dataGridClientes.SelectedCells[4].Value.ToString());
+                string mail = dataGridClientes.SelectedCells[5].Value.ToString();
+                string direccion = dataGridClientes.SelectedCells[6].Value.ToString();
+                string cp = dataGridClientes.SelectedCells[7].Value.ToString();
+                string telefono = dataGridClientes.SelectedCells[8].Value.ToString();
+
+
+                clienteSelected = new Cliente(
+                    cliente_id,
+                    nombre,
+                    apellido,
+                    dni,
+                    fnac,
+                    direccion,
+                    cp,
+                    mail,
+                    telefono,
+                    true
+                    );
+            }
+            catch (Exception)
+            {
+                clienteSelected = null;
+            }
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+
+                Factura modificada = new Factura(factura.id, altaDateTimePicker.Value, factura.total, vencimientoDateTimePicker.Value, factura.empresa, clienteSelected, null);
 
                 if (FacturaDAO.modificarFactura(modificada) != 0)
                 {
                     this.Close();
-                    MessageBox.Show("Factura " + factura.id + "modificada");
+                    MessageBox.Show("Factura Nº " + factura.id + " modificada");
                     this.backForm.actualizarTabBM();
                 }
                 else
                 {
                     MessageBox.Show("Error al modificar Factura " + factura.id);
                 }
-            }
+            
         }
+
     }
 }
