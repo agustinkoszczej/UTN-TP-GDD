@@ -19,20 +19,23 @@ namespace PagoAgilFrba.AbmCliente
 
         List<Control> camposObligatorios;
         Cliente cargado = null;
+        ABMClienteForm backForm; 
 
-        public NuevoClienteForm()
+        public NuevoClienteForm(ABMClienteForm back)
         {
             InitializeComponent();
             this.Text = "PagoAgilFrba | Nuevo Cliente";
             btnCrear.Text = "Nuevo Cliente";
+            backForm = back;
         }
 
-        public NuevoClienteForm(Cliente aModificar)
+        public NuevoClienteForm(Cliente aModificar, ABMClienteForm back)
         {
             InitializeComponent();
             cargarCliente(aModificar);
             this.Text = "PagoAgilFrba | Modificar Cliente";
             btnCrear.Text = "Guardar";
+            backForm = back;
         }
 
         private void cargarCliente(Cliente cli)
@@ -80,7 +83,6 @@ namespace PagoAgilFrba.AbmCliente
             txtDireccion.Text = "";
             txtCP.Text = "";
             datePickerFNAC.Value = DateTime.Now;
-            btnCrear.Text = "Nuevo Cliente";
             cargado = null;
         }
 
@@ -113,6 +115,7 @@ namespace PagoAgilFrba.AbmCliente
                     default:
                         limpiarCampos();
                         MessageBox.Show("Cliente generado");
+                        backForm.filtrar();
                         this.Close();
                         break;
                 }
@@ -141,14 +144,16 @@ namespace PagoAgilFrba.AbmCliente
                 switch (ex)
                 {
                     case 0:
-                        MessageBox.Show("Error al crear cliente");
+                        MessageBox.Show("Error al modificar cliente");
                         break;
                     case 1:
                         MessageBox.Show("Ya existe un cliente con ese mail");
                         break;
                     default:
+                        MessageBox.Show("Cliente " + cargado.id  + " modificado");
+                        backForm.filtrar();
                         limpiarCampos();
-                        MessageBox.Show("Cliente generado");
+                        this.Close();
                         break;
                 }
             }
