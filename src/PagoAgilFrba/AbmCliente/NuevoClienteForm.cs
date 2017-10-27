@@ -51,11 +51,6 @@ namespace PagoAgilFrba.AbmCliente
             datePickerFNAC.Value = cargado.fecha_nacimiento;
         }
 
-        private void panel5_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void NuevoClienteForm_Load(object sender, System.EventArgs e)
         {
             camposObligatorios = new List<Control>() { txtNombre, txtApellido, txtDNI, txtMail, txtDireccion, txtCP };
@@ -162,6 +157,37 @@ namespace PagoAgilFrba.AbmCliente
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
-        }    
+        }
+
+        private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Utils.solo_texto(e);
+        }
+
+        private void txtApellido_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Utils.solo_texto(e);
+        }
+
+        private void txtFiltroNombre_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Utils.solo_texto(e);
+        }
+
+        private void txtFiltroApellido_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Utils.solo_texto(e);
+        }
+
+        private void txtDNI_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Utils.solo_numeros(e);
+        }
+
+        private void txtTelefono_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Utils.solo_numeros(e);
+        }
+
     }
 }

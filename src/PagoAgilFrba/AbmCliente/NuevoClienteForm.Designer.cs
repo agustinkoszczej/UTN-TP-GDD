@@ -137,7 +137,6 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(385, 88);
             this.panel5.TabIndex = 15;
-            this.panel5.Paint += new System.Windows.Forms.PaintEventHandler(this.panel5_Paint);
             // 
             // txtCP
             // 
@@ -235,6 +234,7 @@
             this.txtDNI.Name = "txtDNI";
             this.txtDNI.Size = new System.Drawing.Size(355, 20);
             this.txtDNI.TabIndex = 5;
+            this.txtDNI.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDNI_KeyPress);
             // 
             // lblDNI
             // 
@@ -250,7 +250,8 @@
             this.txtApellido.Location = new System.Drawing.Point(6, 76);
             this.txtApellido.Name = "txtApellido";
             this.txtApellido.Size = new System.Drawing.Size(356, 20);
-            this.txtApellido.TabIndex = 3;
+            this.txtApellido.TabIndex = 2;
+            this.txtApellido.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtApellido_KeyPress);
             // 
             // lblApellido
             // 
@@ -258,7 +259,7 @@
             this.lblApellido.Location = new System.Drawing.Point(5, 60);
             this.lblApellido.Name = "lblApellido";
             this.lblApellido.Size = new System.Drawing.Size(57, 13);
-            this.lblApellido.TabIndex = 2;
+            this.lblApellido.TabIndex = 3;
             this.lblApellido.Text = "Apellido (*)";
             // 
             // txtNombre
@@ -267,6 +268,7 @@
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(354, 20);
             this.txtNombre.TabIndex = 1;
+            this.txtNombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNombre_KeyPress);
             // 
             // lblNombre
             // 

@@ -115,11 +115,6 @@ namespace PagoAgilFrba.AbmCliente
             this.selectedRow = dataGridClientes.Rows[0];
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void cargarGridSinFiltros()
         {
             DBConnection.llenar_grilla(dataGridClientes, "SELECT Cliente_codigo, Cliente_dni, Cliente_nombre, Cliente_apellido, Cliente_fecha_nac, Cliente_mail, Cliente_direccion, Cliente_codigo_postal, Cliente_telefono, Cliente_habilitado FROM LORDS_OF_THE_STRINGS_V2.Cliente WHERE Cliente_habilitado = 1");
@@ -199,9 +194,15 @@ namespace PagoAgilFrba.AbmCliente
             frm.Show();
         }
 
-        private void panel2_Paint(object sender, PaintEventArgs e)
+        private void txtFiltroNombre_KeyPress(object sender, KeyPressEventArgs e)
         {
-
+            Utils.solo_texto(e);
         }
+
+        private void txtFiltroApellido_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Utils.solo_texto(e);
+        }
+
     }
 }
