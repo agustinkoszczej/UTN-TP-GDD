@@ -651,13 +651,15 @@ GO
 IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_get_sucursales_usuario') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_get_sucursales_usuario]; 
 GO
 -- FACTURA
-IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_es_factura_habilitada') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_es_factura_habilitada]; 
-GO
 IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_estado_factura') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_estado_factura]; 
 GO
 -- RENDICIÓN
-IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_es_empresa_rendida_este_mes') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_es_empresa_rendida_este_mes]; 
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_es_empresa_rendida_este_mes') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_es_empresa_rendida_este_mes];
+GO
 IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_es_empresa_rendida_mes_especifico') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_es_empresa_rendida_mes_especifico]; 
+GO
+-- REGISTRO DE PAGOS
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_puede_pagar_factura') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_puede_pagar_factura];
 GO
 -------------------------------------------------------------------------------------------------
 -- LOGIN
@@ -715,18 +717,6 @@ GO
 -------------------------------------------------------------------------------------------------
 -- FACTURA
 -------------------------------------------------------------------------------------------------
--- FUNCTION FN_ES_FACTURA_HABILITADA
--------------------------------------------------------------------------------------------------
-CREATE FUNCTION [LORDS_OF_THE_STRINGS_V2].fn_es_factura_habilitada(@idFactura numeric(18,0)) 	
-RETURNS bit 
-AS 
-BEGIN
- 	RETURN (SELECT Factura_habilitada FROM LORDS_OF_THE_STRINGS_V2.Factura WHERE Factura_codigo = @idFactura) 
-END
-GO
--------------------------------------------------------------------------------------------------
--- FACTURA
--------------------------------------------------------------------------------------------------
 -- FUNCTION FN_ESTADO_FACTURA
 -------------------------------------------------------------------------------------------------
 -- 0 Está inhabilitada 
@@ -780,7 +770,8 @@ IF EXISTS (SELECT * FROM LORDS_OF_THE_STRINGS_V2.Factura
 RETURN 0
 END
 GO
-
+-------------------------------------------------------------------------------------------------
+-- RENDICIÓN
 -------------------------------------------------------------------------------------------------
 -- FUNCTION FN_ES_EMPRESA_RENDIDA_ESTE_MES
 -------------------------------------------------------------------------------------------------
@@ -792,6 +783,28 @@ IF EXISTS (SELECT * FROM LORDS_OF_THE_STRINGS_V2.Factura
 			JOIN LORDS_OF_THE_STRINGS_V2.Rendicion R ON Factura_rendicion = Rendicion_codigo 
 			WHERE Factura_empresa = @id_empresa AND MONTH(R.Rendicion_fecha) = @mes AND YEAR(R.Rendicion_fecha) = @anio)
 			RETURN 1
+
+RETURN 0
+END
+GO
+-------------------------------------------------------------------------------------------------
+-- REGISTRO DE PAGOS
+-------------------------------------------------------------------------------------------------
+-- FUNCTION FN_PUEDE_PAGAR_FACTURA
+-------------------------------------------------------------------------------------------------
+CREATE FUNCTION [LORDS_OF_THE_STRINGS_V2].fn_puede_pagar_factura(@idFactura numeric(18,0)) 	
+RETURNS bit 
+AS 
+BEGIN
+IF NOT EXISTS (SELECT * FROM LORDS_OF_THE_STRINGS_V2.Factura 
+			   JOIN LORDS_OF_THE_STRINGS_V2.Empresa ON (Factura_empresa = Empresa_codigo) 
+			   WHERE Factura_codigo = @idFactura AND Factura_fecha_venc > GETDATE() AND Empresa_habilitada = 1 AND Factura_rendicion IS NULL)
+	RETURN 0 -- 0 Fecha vencimiento no es mayor a la actual y/o la empresa no está habilitada y/o fue rendida
+
+IF ((SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Pago JOIN LORDS_OF_THE_STRINGS_V2.Factura ON (Pago_factura = Factura_codigo) 
+		 WHERE Pago_factura = @idFactura) <=
+		 (SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Devolucion WHERE Devolucion_factura = @idFactura))
+			RETURN 1 -- 1 No esta paga (o fue devuelta) => puede pagar
 
 RETURN 0
 END
@@ -891,19 +904,3 @@ GO
 -- PRUEBAS VARIAS
 -------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------
-/*SELECT * FROM LORDS_OF_THE_STRINGS_V2.Pago ORDER BY Pago_codigo DESC
-
-DELETE FROM LORDS_OF_THE_STRINGS_V2.Pago
-
-INSERT INTO LORDS_OF_THE_STRINGS_V2.Rendicion (Rendicion_fecha, Rendicion_importe) VALUES (CONVERT(datetime,'2017-10-24 16:07:00.657', 121),100)
-
-SELECT LORDS_OF_THE_STRINGS_V2.fn_estado_factura(10002)
-
-SELECT * FROM LORDS_OF_THE_STRINGS_V2.Factura WHERE ((SELECT LORDS_OF_THE_STRINGS_V2.fn_estado_factura(Factura_codigo)) = 2)
-
-UPDATE LORDS_OF_THE_STRINGS_V2.Factura SET Factura_fecha_venc = GETDATE()+2
-
-SELECT * FROM LORDS_OF_THE_STRINGS_V2.Factura WHERE Factura_codigo = 10013
-SELECT * FROM LORDS_OF_THE_STRINGS_V2.Pago WHERE Pago_factura = 10013
-SELECT * FROM LORDS_OF_THE_STRINGS_V2.Devolucion
-DELETE FROM LORDS_OF_THE_STRINGS_V2.Devolucion*/

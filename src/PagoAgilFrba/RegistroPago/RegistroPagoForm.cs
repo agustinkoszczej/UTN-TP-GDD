@@ -56,7 +56,7 @@ namespace PagoAgilFrba.RegistroPago
 
         private void cmdQuitarFiltros_Click(object sender, EventArgs e)
         {
-            Utils.limpiar_controles((new List<Control>() { txtDNICliente, txtNroFactura}));
+            Utils.limpiar_controles((new List<Control>() { txtDNICliente, txtNroFactura, chkSoloPosibles}));
             dgdFacturas.DataSource = null;
             actualizar_facturas_a_pagar();
         }
@@ -72,6 +72,17 @@ namespace PagoAgilFrba.RegistroPago
 
         private void filtrar()
         {
+            string query_pagos_disponibles = null, join_empresas = null;
+
+            if (chkSoloPosibles.Checked)
+            {
+                join_empresas = " JOIN LORDS_OF_THE_STRINGS_V2.Empresa E ON (F.Factura_empresa = E.Empresa_codigo)";
+                query_pagos_disponibles = string.Format(@" AND (SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Pago
+		                                                WHERE Pago_factura = F.Factura_codigo) <=
+		                                                (SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Devolucion WHERE Devolucion_factura = F.Factura_codigo)
+                                                        AND F.Factura_fecha_venc > GETDATE() AND E.Empresa_habilitada = 1 AND F.Factura_rendicion IS NULL");
+            }
+
             if (string.IsNullOrEmpty(txtDNICliente.Text) && string.IsNullOrEmpty(txtNroFactura.Text))
             {
                 dgdFacturas.DataSource = null; return;
@@ -80,15 +91,16 @@ namespace PagoAgilFrba.RegistroPago
            
             if (!string.IsNullOrEmpty(txtDNICliente.Text))
             {
-                query_dni = " AND Cliente_dni LIKE @dni";
+                query_dni = " AND C.Cliente_dni LIKE @dni";
             }
             if (!string.IsNullOrEmpty(txtNroFactura.Text))
             {
-                query_nro_factura = " AND Factura_codigo LIKE @nro_factura";
+                query_nro_factura = " AND F.Factura_codigo LIKE @nro_factura";
             }
-            query_final = string.Format(@"SELECT Factura_codigo Código, Factura_fecha Fecha, Factura_total Total, Factura_fecha_venc Fecha_Vencimiento, Factura_cliente Codigo_Cliente, Cliente_dni DNI_Cliente, Factura_empresa Empresa FROM LORDS_OF_THE_STRINGS_V2.Factura 
-                                           JOIN LORDS_OF_THE_STRINGS_V2.Cliente ON (Factura_cliente = Cliente_codigo)
-                                           WHERE Factura_habilitada = 1 AND Cliente_habilitado = 1" + query_dni + query_nro_factura);
+            query_final = string.Format(@"SELECT Factura_codigo Código, Factura_fecha Fecha, Factura_total Total, Factura_fecha_venc Fecha_Vencimiento, Factura_cliente Codigo_Cliente, Cliente_dni DNI_Cliente, Factura_empresa Empresa 
+                                           FROM LORDS_OF_THE_STRINGS_V2.Factura F
+                                           JOIN LORDS_OF_THE_STRINGS_V2.Cliente C ON (F.Factura_cliente = C.Cliente_codigo)"+join_empresas+
+                                           "WHERE Factura_habilitada = 1 AND Cliente_habilitado = 1" + query_pagos_disponibles + query_dni + query_nro_factura);
             PagoDAO.buscar_factura(dgdFacturas, query_final, txtNroFactura.Text, txtDNICliente.Text);
         }
 
@@ -132,7 +144,7 @@ namespace PagoAgilFrba.RegistroPago
             }
             Factura factura = get_factura_seleccionada_grilla();
 
-            if (validar_factura(factura))
+            if (validar_factura(factura) || (chkSoloPosibles.Checked))
             {
                 facturas_a_pagar.Add(factura);
                 actualizar_facturas_a_pagar();

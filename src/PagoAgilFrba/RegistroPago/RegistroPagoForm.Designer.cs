@@ -53,6 +53,7 @@
             this.lblFormaDePago = new System.Windows.Forms.Label();
             this.lnlCerrarSesion = new System.Windows.Forms.LinkLabel();
             this.cmdSalir = new System.Windows.Forms.Button();
+            this.chkSoloPosibles = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgdFacturas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.groupBoxFiltrosBusqueda.SuspendLayout();
@@ -99,6 +100,7 @@
             // 
             // groupBoxFiltrosBusqueda
             // 
+            this.groupBoxFiltrosBusqueda.Controls.Add(this.chkSoloPosibles);
             this.groupBoxFiltrosBusqueda.Controls.Add(this.cmdQuitarFiltros);
             this.groupBoxFiltrosBusqueda.Controls.Add(this.lblDNICliente);
             this.groupBoxFiltrosBusqueda.Controls.Add(this.txtDNICliente);
@@ -108,7 +110,7 @@
             this.groupBoxFiltrosBusqueda.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxFiltrosBusqueda.Location = new System.Drawing.Point(490, 44);
             this.groupBoxFiltrosBusqueda.Name = "groupBoxFiltrosBusqueda";
-            this.groupBoxFiltrosBusqueda.Size = new System.Drawing.Size(351, 108);
+            this.groupBoxFiltrosBusqueda.Size = new System.Drawing.Size(351, 123);
             this.groupBoxFiltrosBusqueda.TabIndex = 18;
             this.groupBoxFiltrosBusqueda.TabStop = false;
             this.groupBoxFiltrosBusqueda.Text = "Filtros de búsqueda";
@@ -116,7 +118,7 @@
             // cmdQuitarFiltros
             // 
             this.cmdQuitarFiltros.BackColor = System.Drawing.Color.RoyalBlue;
-            this.cmdQuitarFiltros.Location = new System.Drawing.Point(184, 63);
+            this.cmdQuitarFiltros.Location = new System.Drawing.Point(184, 81);
             this.cmdQuitarFiltros.Name = "cmdQuitarFiltros";
             this.cmdQuitarFiltros.Size = new System.Drawing.Size(121, 35);
             this.cmdQuitarFiltros.TabIndex = 28;
@@ -161,7 +163,7 @@
             // cmdBuscar
             // 
             this.cmdBuscar.BackColor = System.Drawing.Color.Orange;
-            this.cmdBuscar.Location = new System.Drawing.Point(13, 63);
+            this.cmdBuscar.Location = new System.Drawing.Point(13, 81);
             this.cmdBuscar.Name = "cmdBuscar";
             this.cmdBuscar.Size = new System.Drawing.Size(121, 35);
             this.cmdBuscar.TabIndex = 11;
@@ -196,7 +198,7 @@
             this.groupBoxAcciones.Controls.Add(this.cmdAgregarFactura);
             this.groupBoxAcciones.Controls.Add(this.cmdQuitarFactura);
             this.groupBoxAcciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxAcciones.Location = new System.Drawing.Point(503, 158);
+            this.groupBoxAcciones.Location = new System.Drawing.Point(490, 173);
             this.groupBoxAcciones.Name = "groupBoxAcciones";
             this.groupBoxAcciones.Size = new System.Drawing.Size(156, 108);
             this.groupBoxAcciones.TabIndex = 21;
@@ -216,7 +218,7 @@
             this.dgdFacturasAPagar.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.dgdFacturasAPagar.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgdFacturasAPagar.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dgdFacturasAPagar.Location = new System.Drawing.Point(12, 298);
+            this.dgdFacturasAPagar.Location = new System.Drawing.Point(12, 307);
             this.dgdFacturasAPagar.MultiSelect = false;
             this.dgdFacturasAPagar.Name = "dgdFacturasAPagar";
             this.dgdFacturasAPagar.ReadOnly = true;
@@ -238,7 +240,7 @@
             this.dgdItemsFactura.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.dgdItemsFactura.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgdItemsFactura.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dgdItemsFactura.Location = new System.Drawing.Point(503, 298);
+            this.dgdItemsFactura.Location = new System.Drawing.Point(503, 307);
             this.dgdItemsFactura.MultiSelect = false;
             this.dgdItemsFactura.Name = "dgdItemsFactura";
             this.dgdItemsFactura.ReadOnly = true;
@@ -250,7 +252,7 @@
             // 
             this.lblFacturasAPagar.AutoSize = true;
             this.lblFacturasAPagar.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFacturasAPagar.Location = new System.Drawing.Point(8, 272);
+            this.lblFacturasAPagar.Location = new System.Drawing.Point(8, 281);
             this.lblFacturasAPagar.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblFacturasAPagar.Name = "lblFacturasAPagar";
             this.lblFacturasAPagar.Size = new System.Drawing.Size(166, 24);
@@ -261,7 +263,7 @@
             // 
             this.lblItemsFactura.AutoSize = true;
             this.lblItemsFactura.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblItemsFactura.Location = new System.Drawing.Point(499, 272);
+            this.lblItemsFactura.Location = new System.Drawing.Point(499, 281);
             this.lblItemsFactura.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblItemsFactura.Name = "lblItemsFactura";
             this.lblItemsFactura.Size = new System.Drawing.Size(187, 24);
@@ -341,13 +343,23 @@
             // 
             this.cmdSalir.BackColor = System.Drawing.Color.Transparent;
             this.cmdSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdSalir.Location = new System.Drawing.Point(701, 196);
+            this.cmdSalir.Location = new System.Drawing.Point(713, 196);
             this.cmdSalir.Name = "cmdSalir";
             this.cmdSalir.Size = new System.Drawing.Size(128, 38);
             this.cmdSalir.TabIndex = 31;
             this.cmdSalir.Text = "Cerrar";
             this.cmdSalir.UseVisualStyleBackColor = false;
             this.cmdSalir.Click += new System.EventHandler(this.cmdSalir_Click);
+            // 
+            // chkSoloPosibles
+            // 
+            this.chkSoloPosibles.AutoSize = true;
+            this.chkSoloPosibles.Location = new System.Drawing.Point(17, 63);
+            this.chkSoloPosibles.Name = "chkSoloPosibles";
+            this.chkSoloPosibles.Size = new System.Drawing.Size(221, 17);
+            this.chkSoloPosibles.TabIndex = 29;
+            this.chkSoloPosibles.Text = "Sólo Facturas disponibles de pago";
+            this.chkSoloPosibles.UseVisualStyleBackColor = true;
             // 
             // RegistroPagoForm
             // 
@@ -414,5 +426,6 @@
         private System.Windows.Forms.Label lblFormaDePago;
         private System.Windows.Forms.LinkLabel lnlCerrarSesion;
         private System.Windows.Forms.Button cmdSalir;
+        private System.Windows.Forms.CheckBox chkSoloPosibles;
     }
 }
