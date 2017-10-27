@@ -592,7 +592,7 @@ INSERT INTO [LORDS_OF_THE_STRINGS_V2].Item_Factura(
 SELECT DISTINCT 
 					m.Nro_Factura, 
 					m.ItemFactura_Cantidad, 
-					(m.ItemFactura_Monto)/(m.ItemFactura_Cantidad)
+					m.ItemFactura_Monto
 FROM GD2C2017.LORDS_OF_THE_STRINGS_V2.Factura f
 JOIN GD2C2017.gd_esquema.Maestra m
 		ON f.Factura_codigo = m.Nro_Factura
