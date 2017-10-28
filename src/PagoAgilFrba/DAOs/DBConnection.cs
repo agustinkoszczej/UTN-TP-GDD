@@ -58,6 +58,42 @@ namespace PagoAgilFrba.DAOs
             adapter.Update(table);
         }
 
+        public static void llenar_grilla_ejecutando_SP(string sp, DataGridView grilla, Dictionary<String, int> parametros, string mensaje)
+        {
+            DataTable dataTable;
+            SqlDataAdapter dataAdapter;
 
+            try
+            {
+                SqlConnection conn = DBConnection.getConnection();
+                SqlCommand cmd = new SqlCommand(sp, conn);
+                foreach (KeyValuePair<string, int> parametro in parametros)
+                {
+                    cmd.Parameters.Add(new SqlParameter(parametro.Key, parametro.Value));
+                }
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                dataAdapter = new SqlDataAdapter();
+                dataTable = new DataTable();
+
+                dataAdapter.SelectCommand = cmd;
+                dataAdapter.Fill(dataTable);
+
+                if (dataTable.Rows.Count == 0)
+                {
+                    MessageBox.Show("No existen resultados para esta consulta", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    grilla.DataSource = dataTable;
+                }
+
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, mensaje, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

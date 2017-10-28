@@ -825,6 +825,18 @@ GO
 -- SUCURSAL
 IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].sp_baja_sucursal') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[sp_baja_sucursal]; 
 GO
+-- LISTADO PORCENTAJE DE FACTURAS
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].sp_porcentaje_de_facturas') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[sp_porcentaje_de_facturas]; 
+GO
+-- LISTADO EMPRESAS CON MAYOR MONTO
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].sp_empresas_mayor_monto') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[sp_empresas_mayor_monto]; 
+GO
+-- LISTADO CLIENTES CUMPLIDORES
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].sp_clientes_cumplidores') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[sp_clientes_cumplidores]; 
+GO
+-- LISTADO CLIENTES CON MÁS PAGOS 
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].sp_clientes_mas_pagos') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[sp_clientes_mas_pagos]; 
+GO
 
 -------------------------------------------------------------------------------------------------
 -- LOGIN
@@ -897,6 +909,81 @@ AS
 	RETURN 1
 END
 GO
+
+-------------------------------------------------------------------------------------------------
+-- LISTADOS
+-------------------------------------------------------------------------------------------------
+-- PROCEDURE SP_PORCENTAJE_DE_FACTURAS
+-------------------------------------------------------------------------------------------------
+CREATE PROCEDURE [LORDS_OF_THE_STRINGS_V2].sp_porcentaje_de_facturas(@trimestre numeric(1,0), @año numeric(4,0))
+AS
+ BEGIN
+	SELECT TOP 5 e.Empresa_nombre,count(p.Pago_codigo)*100/count(*) as Porcentaje from [GD2C2017].[LORDS_OF_THE_STRINGS_V2].[Factura] f 
+	                                left join [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Pago p ON
+		                                p.Pago_factura = f.Factura_codigo
+	                                join [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Empresa e ON
+		                                e.Empresa_codigo = f.Factura_empresa
+                                    where YEAR(f.Factura_fecha) = @año AND 
+											MONTH(f.Factura_fecha) BETWEEN (3 * @trimestre + 1) AND ((3 * @trimestre + 1) + 2) 
+                                     group by e.Empresa_nombre, Factura_empresa order by Porcentaje desc
+END 
+GO
+-------------------------------------------------------------------------------------------------
+-- LISTADOS
+-------------------------------------------------------------------------------------------------
+-- PROCEDURE SP_EMPRESAS_MAYOR_MONTO
+-------------------------------------------------------------------------------------------------
+CREATE PROCEDURE [LORDS_OF_THE_STRINGS_V2].sp_empresas_mayor_monto(@trimestre numeric(1,0), @año numeric(4,0))
+AS
+ BEGIN
+	SELECT TOP 5 empresa_nombre, sum(rendicion_importe) as monto_rendido from LORDS_OF_THE_STRINGS_V2.Factura f
+			inner join [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Empresa e ON
+				e.Empresa_codigo = f.Factura_empresa
+	        inner join [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Rendicion r ON
+				r.Rendicion_codigo = f.Factura_rendicion
+			where YEAR(r.Rendicion_fecha) = @año AND 
+					MONTH(r.Rendicion_fecha) BETWEEN (3 * @trimestre + 1) AND ((3 * @trimestre + 1) + 2) 
+			group by Empresa_nombre order by sum(rendicion_importe) desc
+END
+GO
+-------------------------------------------------------------------------------------------------
+-- LISTADOS
+-------------------------------------------------------------------------------------------------
+-- PROCEDURE SP_CLIENTES_CUMPLIDORES
+-------------------------------------------------------------------------------------------------
+CREATE PROCEDURE [LORDS_OF_THE_STRINGS_V2].sp_clientes_cumplidores(@trimestre numeric(1,0), @año numeric(4,0))
+AS
+ BEGIN
+	SELECT TOP 5 c.Cliente_codigo, c.Cliente_nombre, c.Cliente_apellido, c.Cliente_dni, count(p.Pago_codigo)*100/count(*) as Porcentaje from [GD2C2017].[LORDS_OF_THE_STRINGS_V2].[Factura] f 
+			left join [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Pago p ON
+				p.Pago_factura = f.Factura_codigo
+			join [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Cliente c ON
+				c.Cliente_codigo = f.Factura_cliente
+            where YEAR(f.Factura_fecha) = @año AND 
+					MONTH(f.Factura_fecha) BETWEEN (3 * @trimestre + 1) AND ((3 * @trimestre + 1) + 2) 
+			group by c.Cliente_codigo, c.Cliente_nombre, c.Cliente_apellido, c.Cliente_dni order by Porcentaje desc
+ END
+GO
+-------------------------------------------------------------------------------------------------
+-- LISTADOS
+-------------------------------------------------------------------------------------------------
+-- PROCEDURE SP_CLIENTES_MÁS_PAGOS
+-------------------------------------------------------------------------------------------------
+CREATE PROCEDURE [LORDS_OF_THE_STRINGS_V2].sp_clientes_mas_pagos(@trimestre numeric(1,0), @año numeric(4,0))
+AS
+ BEGIN
+	SELECT TOP 5 c.Cliente_codigo, c.Cliente_nombre, c.Cliente_apellido, c.Cliente_dni, count(p.Pago_codigo) as Cantidad_de_pagos
+		from [GD2C2017].[LORDS_OF_THE_STRINGS_V2].[Factura] f 
+			left join [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Pago p ON
+				p.Pago_factura = f.Factura_codigo
+			join [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Cliente c ON
+				c.Cliente_codigo = f.Factura_cliente
+            where YEAR(f.Factura_fecha) = @año AND 
+					MONTH(f.Factura_fecha) BETWEEN (3 * @trimestre + 1) AND ((3 * @trimestre + 1) + 2) 
+			group by c.Cliente_codigo, c.Cliente_nombre, c.Cliente_apellido, c.Cliente_dni order by Cantidad_de_pagos desc
+ END
+GO
+
 
 
 -------------------------------------------------------------------------------------------------

@@ -111,7 +111,6 @@
     <Compile Include="AbmSucursal\IngresoSucursalForm.Designer.cs">
       <DependentUpon>IngresoSucursalForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DAOs\Listado_EstadisticoDAO.cs" />
     <Compile Include="DAOs\DevolucionDAO.cs" />
     <Compile Include="Devolucion\DevolucionForm.cs">
       <SubType>Form</SubType>

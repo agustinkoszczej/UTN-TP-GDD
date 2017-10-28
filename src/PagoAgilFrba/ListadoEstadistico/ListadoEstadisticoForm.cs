@@ -20,9 +20,10 @@ namespace PagoAgilFrba.ListadoEstadistico
         {
             InitializeComponent();
 
-            cboTrimestre.Items.Add("1° Trimestre: Enero-Abril");
-            cboTrimestre.Items.Add("2° Trimestre: Mayo-Agosto");
-            cboTrimestre.Items.Add("3° Trimestre: Septiembre-Diciembre");
+            cboTrimestre.Items.Add("1° Trimestre: Enero-Marzo");
+            cboTrimestre.Items.Add("2° Trimestre: Abril-Junio");
+            cboTrimestre.Items.Add("3° Trimestre: Julio-Septiembre");
+            cboTrimestre.Items.Add("4° Trimestre: Octubre-Diciembre");
 
             cboListados.Items.Add("Porcentaje de facturas cobradas por empresa");
             cboListados.Items.Add("Empresas con mayor monto rendido");
@@ -37,19 +38,32 @@ namespace PagoAgilFrba.ListadoEstadistico
         {
             if (Utils.cumple_campos_obligatorios(campos_obligatorios, errorProvider))
             {
+                Utils.clearDataGrid(dtgListado);
+                Dictionary<string, int> dict = new Dictionary<string, int>();
+                dict.Add("@trimestre", cboTrimestre.SelectedIndex);
+                dict.Add("@año", Convert.ToInt32(txtAño.Text));
+
                 switch (cboListados.SelectedIndex)
                 {
                     case 0:
-                        ListadoEstadisticoDAO.cargar_grilla_porcentaje_de_facturas(dtgListado, cboTrimestre.SelectedIndex, txtAño.Text);
+                        DBConnection.llenar_grilla_ejecutando_SP("LORDS_OF_THE_STRINGS_V2.sp_porcentaje_de_facturas",
+                                                        dtgListado, dict,
+                                                        "Error al generar el listado");
                         break;
                     case 1:
-                        ListadoEstadisticoDAO.cargar_grilla_empresas_mayor_monto(dtgListado, cboTrimestre.SelectedIndex, txtAño.Text);
+                        DBConnection.llenar_grilla_ejecutando_SP("LORDS_OF_THE_STRINGS_V2.sp_empresas_mayor_monto",
+                                                        dtgListado, dict,
+                                                        "Error al generar el listado");
                         break;
                     case 2:
-                        ListadoEstadisticoDAO.cargar_grilla_clientes_mas_pagos(dtgListado, cboTrimestre.SelectedIndex, txtAño.Text);
+                        DBConnection.llenar_grilla_ejecutando_SP("LORDS_OF_THE_STRINGS_V2.sp_clientes_mas_pagos",
+                                                        dtgListado, dict,
+                                                        "Error al generar el listado");
                         break;
                     case 3:
-                        ListadoEstadisticoDAO.cargar_grilla_clientes_cumplidores(dtgListado, cboTrimestre.SelectedIndex, txtAño.Text);
+                        DBConnection.llenar_grilla_ejecutando_SP("LORDS_OF_THE_STRINGS_V2.sp_clientes_cumplidores",
+                                                        dtgListado, dict,
+                                                        "Error al generar el listado");
                         break;
                 }
 
