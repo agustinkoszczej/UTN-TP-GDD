@@ -64,7 +64,6 @@
             this.panel5 = new System.Windows.Forms.Panel();
             this.dataGridItems = new System.Windows.Forms.DataGridView();
             this.btnModificarItem = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
             this.btnSinFiltros = new System.Windows.Forms.Button();
             this.btnInhabilitar = new System.Windows.Forms.Button();
             this.btnHabilitar = new System.Windows.Forms.Button();
@@ -75,6 +74,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.lblFacturas = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cmdCerrar = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabAlta.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -94,6 +96,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabAlta);
             this.tabControl1.Controls.Add(this.tabBM);
+            this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -163,43 +166,46 @@
             // lblMensaje
             // 
             this.lblMensaje.AutoSize = true;
-            this.lblMensaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMensaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMensaje.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblMensaje.Location = new System.Drawing.Point(5, 199);
             this.lblMensaje.Name = "lblMensaje";
-            this.lblMensaje.Size = new System.Drawing.Size(113, 13);
+            this.lblMensaje.Size = new System.Drawing.Size(136, 16);
             this.lblMensaje.TabIndex = 14;
             this.lblMensaje.Text = "Espere por favor...";
             this.lblMensaje.Visible = false;
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(692, 190);
+            this.btnAceptar.BackColor = System.Drawing.Color.LimeGreen;
+            this.btnAceptar.Location = new System.Drawing.Point(639, 181);
             this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(75, 23);
+            this.btnAceptar.Size = new System.Drawing.Size(115, 32);
             this.btnAceptar.TabIndex = 13;
             this.btnAceptar.Text = "Aceptar";
-            this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.UseVisualStyleBackColor = false;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // btnBorrar
             // 
+            this.btnBorrar.BackColor = System.Drawing.Color.Red;
             this.btnBorrar.Location = new System.Drawing.Point(360, 167);
             this.btnBorrar.Name = "btnBorrar";
             this.btnBorrar.Size = new System.Drawing.Size(75, 23);
             this.btnBorrar.TabIndex = 12;
             this.btnBorrar.Text = "Borrar";
-            this.btnBorrar.UseVisualStyleBackColor = true;
+            this.btnBorrar.UseVisualStyleBackColor = false;
             this.btnBorrar.Click += new System.EventHandler(this.btnBorrar_Click);
             // 
             // btnAgregar
             // 
+            this.btnAgregar.BackColor = System.Drawing.Color.RoyalBlue;
             this.btnAgregar.Location = new System.Drawing.Point(253, 167);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(75, 23);
             this.btnAgregar.TabIndex = 11;
             this.btnAgregar.Text = "Agregar";
-            this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.UseVisualStyleBackColor = false;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // lblTotal
@@ -207,7 +213,7 @@
             this.lblTotal.AutoSize = true;
             this.lblTotal.Location = new System.Drawing.Point(55, 167);
             this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(13, 13);
+            this.lblTotal.Size = new System.Drawing.Size(14, 13);
             this.lblTotal.TabIndex = 10;
             this.lblTotal.Text = "$";
             // 
@@ -216,16 +222,16 @@
             this.lblTextTotal.AutoSize = true;
             this.lblTextTotal.Location = new System.Drawing.Point(19, 167);
             this.lblTextTotal.Name = "lblTextTotal";
-            this.lblTextTotal.Size = new System.Drawing.Size(34, 13);
+            this.lblTextTotal.Size = new System.Drawing.Size(40, 13);
             this.lblTextTotal.TabIndex = 9;
             this.lblTextTotal.Text = "Total:";
             // 
             // lblListaDetalle
             // 
             this.lblListaDetalle.AutoSize = true;
-            this.lblListaDetalle.Location = new System.Drawing.Point(421, 6);
+            this.lblListaDetalle.Location = new System.Drawing.Point(357, 7);
             this.lblListaDetalle.Name = "lblListaDetalle";
-            this.lblListaDetalle.Size = new System.Drawing.Size(99, 13);
+            this.lblListaDetalle.Size = new System.Drawing.Size(117, 13);
             this.lblListaDetalle.TabIndex = 7;
             this.lblListaDetalle.Text = "Detalles Agregados";
             // 
@@ -234,7 +240,7 @@
             this.lblCantidad.AutoSize = true;
             this.lblCantidad.Location = new System.Drawing.Point(16, 113);
             this.lblCantidad.Name = "lblCantidad";
-            this.lblCantidad.Size = new System.Drawing.Size(49, 13);
+            this.lblCantidad.Size = new System.Drawing.Size(57, 13);
             this.lblCantidad.TabIndex = 5;
             this.lblCantidad.Text = "Cantidad";
             // 
@@ -250,7 +256,7 @@
             this.lblMonto.AutoSize = true;
             this.lblMonto.Location = new System.Drawing.Point(16, 67);
             this.lblMonto.Name = "lblMonto";
-            this.lblMonto.Size = new System.Drawing.Size(37, 13);
+            this.lblMonto.Size = new System.Drawing.Size(42, 13);
             this.lblMonto.TabIndex = 3;
             this.lblMonto.Text = "Monto";
             // 
@@ -266,7 +272,7 @@
             this.lblItem.AutoSize = true;
             this.lblItem.Location = new System.Drawing.Point(16, 23);
             this.lblItem.Name = "lblItem";
-            this.lblItem.Size = new System.Drawing.Size(27, 13);
+            this.lblItem.Size = new System.Drawing.Size(31, 13);
             this.lblItem.TabIndex = 1;
             this.lblItem.Text = "Item";
             // 
@@ -275,7 +281,7 @@
             this.lblDetalle.AutoSize = true;
             this.lblDetalle.Location = new System.Drawing.Point(5, 4);
             this.lblDetalle.Name = "lblDetalle";
-            this.lblDetalle.Size = new System.Drawing.Size(40, 13);
+            this.lblDetalle.Size = new System.Drawing.Size(47, 13);
             this.lblDetalle.TabIndex = 0;
             this.lblDetalle.Text = "Detalle";
             // 
@@ -302,6 +308,7 @@
             this.dataGridEmpresas.AllowUserToResizeRows = false;
             this.dataGridEmpresas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridEmpresas.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.dataGridEmpresas.BackgroundColor = System.Drawing.Color.FloralWhite;
             this.dataGridEmpresas.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dataGridEmpresas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridEmpresas.Cursor = System.Windows.Forms.Cursors.Arrow;
@@ -323,6 +330,7 @@
             this.dataGridCliente.AllowUserToResizeRows = false;
             this.dataGridCliente.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridCliente.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.dataGridCliente.BackgroundColor = System.Drawing.Color.FloralWhite;
             this.dataGridCliente.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dataGridCliente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridCliente.Cursor = System.Windows.Forms.Cursors.Arrow;
@@ -341,18 +349,19 @@
             this.lblEmpresa.AutoSize = true;
             this.lblEmpresa.Location = new System.Drawing.Point(12, 53);
             this.lblEmpresa.Name = "lblEmpresa";
-            this.lblEmpresa.Size = new System.Drawing.Size(107, 13);
+            this.lblEmpresa.Size = new System.Drawing.Size(126, 13);
             this.lblEmpresa.TabIndex = 0;
             this.lblEmpresa.Text = "Seleccionar Empresa";
             // 
             // btnBuscarCliente
             // 
-            this.btnBuscarCliente.Location = new System.Drawing.Point(686, 4);
+            this.btnBuscarCliente.BackColor = System.Drawing.Color.Gold;
+            this.btnBuscarCliente.Location = new System.Drawing.Point(674, 24);
             this.btnBuscarCliente.Name = "btnBuscarCliente";
-            this.btnBuscarCliente.Size = new System.Drawing.Size(75, 23);
+            this.btnBuscarCliente.Size = new System.Drawing.Size(87, 24);
             this.btnBuscarCliente.TabIndex = 17;
             this.btnBuscarCliente.Text = "Buscar";
-            this.btnBuscarCliente.UseVisualStyleBackColor = true;
+            this.btnBuscarCliente.UseVisualStyleBackColor = false;
             this.btnBuscarCliente.Click += new System.EventHandler(this.btnBuscarCliente_Click);
             // 
             // vencimientoDateTimePicker
@@ -367,7 +376,7 @@
             this.lblFechaVencimiento.AutoSize = true;
             this.lblFechaVencimiento.Location = new System.Drawing.Point(6, 8);
             this.lblFechaVencimiento.Name = "lblFechaVencimiento";
-            this.lblFechaVencimiento.Size = new System.Drawing.Size(113, 13);
+            this.lblFechaVencimiento.Size = new System.Drawing.Size(133, 13);
             this.lblFechaVencimiento.TabIndex = 4;
             this.lblFechaVencimiento.Text = "Fecha de Vencimiento";
             // 
@@ -376,7 +385,7 @@
             this.txtCliente.Location = new System.Drawing.Point(398, 27);
             this.txtCliente.MaxLength = 18;
             this.txtCliente.Name = "txtCliente";
-            this.txtCliente.Size = new System.Drawing.Size(363, 20);
+            this.txtCliente.Size = new System.Drawing.Size(270, 20);
             this.txtCliente.TabIndex = 1;
             // 
             // lblCliente
@@ -384,7 +393,7 @@
             this.lblCliente.AutoSize = true;
             this.lblCliente.Location = new System.Drawing.Point(395, 8);
             this.lblCliente.Name = "lblCliente";
-            this.lblCliente.Size = new System.Drawing.Size(61, 13);
+            this.lblCliente.Size = new System.Drawing.Size(72, 13);
             this.lblCliente.TabIndex = 0;
             this.lblCliente.Text = "DNI Cliente";
             // 
@@ -401,6 +410,7 @@
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.lblFacturas);
             this.panel4.Controls.Add(this.dataGridFacturasBM);
             this.panel4.Controls.Add(this.btnFiltrarIdCliente);
             this.panel4.Controls.Add(this.btnFiltrarIdFactura);
@@ -428,6 +438,7 @@
             this.dataGridFacturasBM.AllowUserToResizeRows = false;
             this.dataGridFacturasBM.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridFacturasBM.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.dataGridFacturasBM.BackgroundColor = System.Drawing.Color.FloralWhite;
             this.dataGridFacturasBM.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dataGridFacturasBM.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridFacturasBM.Cursor = System.Windows.Forms.Cursors.Arrow;
@@ -438,35 +449,37 @@
             this.dataGridFacturasBM.Name = "dataGridFacturasBM";
             this.dataGridFacturasBM.ReadOnly = true;
             this.dataGridFacturasBM.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridFacturasBM.Size = new System.Drawing.Size(685, 213);
+            this.dataGridFacturasBM.Size = new System.Drawing.Size(670, 213);
             this.dataGridFacturasBM.TabIndex = 21;
             this.dataGridFacturasBM.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridFacturasBM_CellClick_1);
             // 
             // btnFiltrarIdCliente
             // 
-            this.btnFiltrarIdCliente.Location = new System.Drawing.Point(442, 273);
+            this.btnFiltrarIdCliente.BackColor = System.Drawing.Color.DarkOrange;
+            this.btnFiltrarIdCliente.Location = new System.Drawing.Point(452, 262);
             this.btnFiltrarIdCliente.Name = "btnFiltrarIdCliente";
-            this.btnFiltrarIdCliente.Size = new System.Drawing.Size(75, 23);
+            this.btnFiltrarIdCliente.Size = new System.Drawing.Size(82, 34);
             this.btnFiltrarIdCliente.TabIndex = 20;
             this.btnFiltrarIdCliente.Text = "Buscar";
-            this.btnFiltrarIdCliente.UseVisualStyleBackColor = true;
+            this.btnFiltrarIdCliente.UseVisualStyleBackColor = false;
             this.btnFiltrarIdCliente.Click += new System.EventHandler(this.btnFiltrarIdCliente_Click);
             // 
             // btnFiltrarIdFactura
             // 
-            this.btnFiltrarIdFactura.Location = new System.Drawing.Point(180, 272);
+            this.btnFiltrarIdFactura.BackColor = System.Drawing.Color.DarkOrange;
+            this.btnFiltrarIdFactura.Location = new System.Drawing.Point(186, 262);
             this.btnFiltrarIdFactura.Name = "btnFiltrarIdFactura";
-            this.btnFiltrarIdFactura.Size = new System.Drawing.Size(75, 23);
+            this.btnFiltrarIdFactura.Size = new System.Drawing.Size(79, 33);
             this.btnFiltrarIdFactura.TabIndex = 19;
             this.btnFiltrarIdFactura.Text = "Buscar";
-            this.btnFiltrarIdFactura.UseVisualStyleBackColor = true;
+            this.btnFiltrarIdFactura.UseVisualStyleBackColor = false;
             this.btnFiltrarIdFactura.Click += new System.EventHandler(this.btnFiltrarIdFactura_Click);
             // 
             // panel5
             // 
+            this.panel5.Controls.Add(this.label2);
             this.panel5.Controls.Add(this.dataGridItems);
             this.panel5.Controls.Add(this.btnModificarItem);
-            this.panel5.Controls.Add(this.label5);
             this.panel5.Location = new System.Drawing.Point(6, 300);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(766, 166);
@@ -480,6 +493,7 @@
             this.dataGridItems.AllowUserToResizeRows = false;
             this.dataGridItems.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridItems.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.dataGridItems.BackgroundColor = System.Drawing.Color.FloralWhite;
             this.dataGridItems.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dataGridItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridItems.Cursor = System.Windows.Forms.Cursors.Arrow;
@@ -495,66 +509,63 @@
             // 
             // btnModificarItem
             // 
+            this.btnModificarItem.BackColor = System.Drawing.Color.Gold;
             this.btnModificarItem.Location = new System.Drawing.Point(6, 73);
             this.btnModificarItem.Name = "btnModificarItem";
-            this.btnModificarItem.Size = new System.Drawing.Size(95, 23);
+            this.btnModificarItem.Size = new System.Drawing.Size(95, 42);
             this.btnModificarItem.TabIndex = 10;
             this.btnModificarItem.Text = "Modificar Items";
-            this.btnModificarItem.UseVisualStyleBackColor = true;
+            this.btnModificarItem.UseVisualStyleBackColor = false;
             this.btnModificarItem.Click += new System.EventHandler(this.btnModificarItem_Click);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 11);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(32, 13);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "Items";
             // 
             // btnSinFiltros
             // 
-            this.btnSinFiltros.Location = new System.Drawing.Point(616, 271);
+            this.btnSinFiltros.BackColor = System.Drawing.Color.DarkRed;
+            this.btnSinFiltros.ForeColor = System.Drawing.Color.White;
+            this.btnSinFiltros.Location = new System.Drawing.Point(643, 264);
             this.btnSinFiltros.Name = "btnSinFiltros";
-            this.btnSinFiltros.Size = new System.Drawing.Size(75, 23);
+            this.btnSinFiltros.Size = new System.Drawing.Size(126, 28);
             this.btnSinFiltros.TabIndex = 18;
-            this.btnSinFiltros.Text = "Borrar Filtros";
-            this.btnSinFiltros.UseVisualStyleBackColor = true;
+            this.btnSinFiltros.Text = "Limpiar Tablas";
+            this.btnSinFiltros.UseVisualStyleBackColor = false;
             this.btnSinFiltros.Click += new System.EventHandler(this.btnSinFiltros_Click);
             // 
             // btnInhabilitar
             // 
-            this.btnInhabilitar.Location = new System.Drawing.Point(697, 233);
+            this.btnInhabilitar.BackColor = System.Drawing.Color.Red;
+            this.btnInhabilitar.Location = new System.Drawing.Point(682, 209);
             this.btnInhabilitar.Name = "btnInhabilitar";
-            this.btnInhabilitar.Size = new System.Drawing.Size(75, 23);
+            this.btnInhabilitar.Size = new System.Drawing.Size(87, 47);
             this.btnInhabilitar.TabIndex = 16;
             this.btnInhabilitar.Text = "Inhabilitar";
-            this.btnInhabilitar.UseVisualStyleBackColor = true;
+            this.btnInhabilitar.UseVisualStyleBackColor = false;
             this.btnInhabilitar.Click += new System.EventHandler(this.btnInhabilitar_Click);
             // 
             // btnHabilitar
             // 
-            this.btnHabilitar.Location = new System.Drawing.Point(697, 204);
+            this.btnHabilitar.BackColor = System.Drawing.Color.ForestGreen;
+            this.btnHabilitar.Location = new System.Drawing.Point(682, 159);
             this.btnHabilitar.Name = "btnHabilitar";
-            this.btnHabilitar.Size = new System.Drawing.Size(75, 23);
+            this.btnHabilitar.Size = new System.Drawing.Size(87, 44);
             this.btnHabilitar.TabIndex = 10;
             this.btnHabilitar.Text = "Habilitar";
-            this.btnHabilitar.UseVisualStyleBackColor = true;
+            this.btnHabilitar.UseVisualStyleBackColor = false;
             this.btnHabilitar.Click += new System.EventHandler(this.btnHabilitar_Click);
             // 
             // btnModificarFactura
             // 
-            this.btnModificarFactura.Location = new System.Drawing.Point(697, 55);
+            this.btnModificarFactura.BackColor = System.Drawing.Color.Gold;
+            this.btnModificarFactura.Location = new System.Drawing.Point(682, 43);
             this.btnModificarFactura.Name = "btnModificarFactura";
-            this.btnModificarFactura.Size = new System.Drawing.Size(75, 23);
+            this.btnModificarFactura.Size = new System.Drawing.Size(87, 42);
             this.btnModificarFactura.TabIndex = 8;
-            this.btnModificarFactura.Text = "Modificar";
-            this.btnModificarFactura.UseVisualStyleBackColor = true;
+            this.btnModificarFactura.Text = "Modificar Factura";
+            this.btnModificarFactura.UseVisualStyleBackColor = false;
             this.btnModificarFactura.Click += new System.EventHandler(this.btnModificarFactura_Click);
             // 
             // txtIdClienteFiltro
             // 
-            this.txtIdClienteFiltro.Location = new System.Drawing.Point(334, 275);
+            this.txtIdClienteFiltro.Location = new System.Drawing.Point(347, 270);
             this.txtIdClienteFiltro.MaxLength = 18;
             this.txtIdClienteFiltro.Name = "txtIdClienteFiltro";
             this.txtIdClienteFiltro.Size = new System.Drawing.Size(102, 20);
@@ -562,7 +573,7 @@
             // 
             // txtIdFacturaFiltro
             // 
-            this.txtIdFacturaFiltro.Location = new System.Drawing.Point(72, 274);
+            this.txtIdFacturaFiltro.Location = new System.Drawing.Point(78, 269);
             this.txtIdFacturaFiltro.MaxLength = 18;
             this.txtIdFacturaFiltro.Name = "txtIdFacturaFiltro";
             this.txtIdFacturaFiltro.Size = new System.Drawing.Size(102, 20);
@@ -571,18 +582,18 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 277);
+            this.label4.Location = new System.Drawing.Point(8, 272);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(58, 13);
+            this.label4.Size = new System.Drawing.Size(68, 13);
             this.label4.TabIndex = 4;
             this.label4.Text = "Nº Factura";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(274, 278);
+            this.label3.Location = new System.Drawing.Point(274, 273);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(61, 13);
+            this.label3.Size = new System.Drawing.Size(72, 13);
             this.label3.TabIndex = 3;
             this.label3.Text = "DNI Cliente";
             // 
@@ -590,7 +601,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 11);
+            this.label1.Location = new System.Drawing.Point(386, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(262, 16);
             this.label1.TabIndex = 0;
@@ -600,11 +611,45 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // lblFacturas
+            // 
+            this.lblFacturas.AutoSize = true;
+            this.lblFacturas.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFacturas.Location = new System.Drawing.Point(2, 16);
+            this.lblFacturas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblFacturas.Name = "lblFacturas";
+            this.lblFacturas.Size = new System.Drawing.Size(90, 24);
+            this.lblFacturas.TabIndex = 22;
+            this.lblFacturas.Text = "Facturas";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(2, 7);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(59, 24);
+            this.label2.TabIndex = 23;
+            this.label2.Text = "Items";
+            // 
+            // cmdCerrar
+            // 
+            this.cmdCerrar.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.cmdCerrar.Location = new System.Drawing.Point(752, 7);
+            this.cmdCerrar.Name = "cmdCerrar";
+            this.cmdCerrar.Size = new System.Drawing.Size(52, 21);
+            this.cmdCerrar.TabIndex = 23;
+            this.cmdCerrar.Text = "Cerrar";
+            this.cmdCerrar.UseVisualStyleBackColor = false;
+            this.cmdCerrar.Click += new System.EventHandler(this.cmdCerrar_Click);
+            // 
             // ABMFacturaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(816, 528);
+            this.Controls.Add(this.cmdCerrar);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -667,7 +712,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnModificarItem;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DateTimePicker vencimientoDateTimePicker;
         private System.Windows.Forms.Button btnSinFiltros;
         private System.Windows.Forms.Button btnInhabilitar;
@@ -681,5 +725,8 @@
         private System.Windows.Forms.DataGridView dataGridCliente;
         private System.Windows.Forms.DataGridView dataGridFacturasBM;
         private System.Windows.Forms.DataGridView dataGridItems;
+        private System.Windows.Forms.Label lblFacturas;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button cmdCerrar;
     }
 }

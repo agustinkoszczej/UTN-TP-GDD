@@ -39,7 +39,6 @@
             this.chkSoloMesActual = new System.Windows.Forms.CheckBox();
             this.lblMensaje = new System.Windows.Forms.Label();
             this.btnCancelar = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.btnSeleccionar = new System.Windows.Forms.Button();
             this.panelFacturas = new System.Windows.Forms.Panel();
             this.lblNoHayFacturas = new System.Windows.Forms.Label();
@@ -60,6 +59,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblEmpresaSelec = new System.Windows.Forms.Label();
+            this.lblEmpresas = new System.Windows.Forms.Label();
             this.panelEmpresas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).BeginInit();
             this.panelMesARendir.SuspendLayout();
@@ -69,14 +69,14 @@
             // 
             // panelEmpresas
             // 
+            this.panelEmpresas.Controls.Add(this.lblEmpresas);
             this.panelEmpresas.Controls.Add(this.dataGridEmpresas);
             this.panelEmpresas.Controls.Add(this.panelMesARendir);
             this.panelEmpresas.Controls.Add(this.chkSoloMesActual);
             this.panelEmpresas.Controls.Add(this.lblMensaje);
             this.panelEmpresas.Controls.Add(this.btnCancelar);
-            this.panelEmpresas.Controls.Add(this.label1);
             this.panelEmpresas.Controls.Add(this.btnSeleccionar);
-            this.panelEmpresas.Location = new System.Drawing.Point(9, 7);
+            this.panelEmpresas.Location = new System.Drawing.Point(10, 7);
             this.panelEmpresas.Name = "panelEmpresas";
             this.panelEmpresas.Size = new System.Drawing.Size(593, 411);
             this.panelEmpresas.TabIndex = 0;
@@ -90,6 +90,7 @@
             this.dataGridEmpresas.AllowUserToResizeRows = false;
             this.dataGridEmpresas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridEmpresas.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.dataGridEmpresas.BackgroundColor = System.Drawing.Color.FloralWhite;
             this.dataGridEmpresas.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dataGridEmpresas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridEmpresas.Cursor = System.Windows.Forms.Cursors.Arrow;
@@ -119,14 +120,16 @@
             // label10
             // 
             this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(13, 11);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(131, 13);
+            this.label10.Size = new System.Drawing.Size(157, 13);
             this.label10.TabIndex = 20;
             this.label10.Text = "Seleccione el mes a rendir";
             // 
             // txtMes
             // 
+            this.txtMes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMes.Location = new System.Drawing.Point(16, 51);
             this.txtMes.MaxLength = 2;
             this.txtMes.Name = "txtMes";
@@ -135,6 +138,7 @@
             // 
             // txtAnio
             // 
+            this.txtAnio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAnio.Location = new System.Drawing.Point(157, 51);
             this.txtAnio.MaxLength = 4;
             this.txtAnio.Name = "txtAnio";
@@ -144,18 +148,20 @@
             // label8
             // 
             this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(13, 34);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(30, 13);
+            this.label8.Size = new System.Drawing.Size(34, 13);
             this.label8.TabIndex = 15;
             this.label8.Text = "Mes:";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(154, 35);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(29, 13);
+            this.label9.Size = new System.Drawing.Size(33, 13);
             this.label9.TabIndex = 16;
             this.label9.Text = "Año:";
             // 
@@ -164,9 +170,10 @@
             this.chkSoloMesActual.AutoSize = true;
             this.chkSoloMesActual.Checked = true;
             this.chkSoloMesActual.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSoloMesActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkSoloMesActual.Location = new System.Drawing.Point(23, 308);
             this.chkSoloMesActual.Name = "chkSoloMesActual";
-            this.chkSoloMesActual.Size = new System.Drawing.Size(133, 17);
+            this.chkSoloMesActual.Size = new System.Drawing.Size(155, 17);
             this.chkSoloMesActual.TabIndex = 17;
             this.chkSoloMesActual.Text = "Rendir solo mes actual";
             this.chkSoloMesActual.UseVisualStyleBackColor = true;
@@ -175,39 +182,34 @@
             // lblMensaje
             // 
             this.lblMensaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMensaje.Location = new System.Drawing.Point(84, 385);
+            this.lblMensaje.Location = new System.Drawing.Point(113, 385);
             this.lblMensaje.Name = "lblMensaje";
-            this.lblMensaje.Size = new System.Drawing.Size(407, 20);
+            this.lblMensaje.Size = new System.Drawing.Size(365, 20);
             this.lblMensaje.TabIndex = 5;
             this.lblMensaje.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(3, 385);
+            this.btnCancelar.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelar.Location = new System.Drawing.Point(3, 379);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelar.Size = new System.Drawing.Size(104, 29);
             this.btnCancelar.TabIndex = 4;
             this.btnCancelar.Text = "Cerrar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(4, 11);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(152, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Selecciona la empresa a rendir";
             // 
             // btnSeleccionar
             // 
-            this.btnSeleccionar.Location = new System.Drawing.Point(497, 385);
+            this.btnSeleccionar.BackColor = System.Drawing.Color.DarkOrange;
+            this.btnSeleccionar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSeleccionar.Location = new System.Drawing.Point(483, 379);
             this.btnSeleccionar.Name = "btnSeleccionar";
-            this.btnSeleccionar.Size = new System.Drawing.Size(75, 23);
+            this.btnSeleccionar.Size = new System.Drawing.Size(107, 28);
             this.btnSeleccionar.TabIndex = 2;
             this.btnSeleccionar.Text = "Seleccionar";
-            this.btnSeleccionar.UseVisualStyleBackColor = true;
+            this.btnSeleccionar.UseVisualStyleBackColor = false;
             this.btnSeleccionar.Click += new System.EventHandler(this.btnSeleccionar_Click);
             // 
             // panelFacturas
@@ -250,29 +252,33 @@
             // lblMesAnio
             // 
             this.lblMesAnio.AutoSize = true;
+            this.lblMesAnio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMesAnio.Location = new System.Drawing.Point(481, 25);
             this.lblMesAnio.Name = "lblMesAnio";
-            this.lblMesAnio.Size = new System.Drawing.Size(58, 13);
+            this.lblMesAnio.Size = new System.Drawing.Size(65, 13);
             this.lblMesAnio.TabIndex = 17;
             this.lblMesAnio.Text = "MM/AAAA";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.Location = new System.Drawing.Point(399, 25);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(85, 13);
+            this.label11.Size = new System.Drawing.Size(100, 13);
             this.label11.TabIndex = 16;
             this.label11.Text = "Mostrando mes: ";
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(4, 383);
+            this.btnVolver.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnVolver.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVolver.Location = new System.Drawing.Point(-2, 375);
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(79, 23);
+            this.btnVolver.Size = new System.Drawing.Size(99, 36);
             this.btnVolver.TabIndex = 15;
             this.btnVolver.Text = "Volver";
-            this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.UseVisualStyleBackColor = false;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
             // dataGridFacturas
@@ -283,6 +289,7 @@
             this.dataGridFacturas.AllowUserToResizeRows = false;
             this.dataGridFacturas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridFacturas.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.dataGridFacturas.BackgroundColor = System.Drawing.Color.FloralWhite;
             this.dataGridFacturas.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dataGridFacturas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridFacturas.Cursor = System.Windows.Forms.Cursors.Arrow;
@@ -298,101 +305,113 @@
             // 
             // btnRendir
             // 
-            this.btnRendir.Location = new System.Drawing.Point(484, 383);
+            this.btnRendir.BackColor = System.Drawing.Color.LimeGreen;
+            this.btnRendir.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRendir.Location = new System.Drawing.Point(464, 370);
             this.btnRendir.Name = "btnRendir";
-            this.btnRendir.Size = new System.Drawing.Size(107, 23);
+            this.btnRendir.Size = new System.Drawing.Size(127, 36);
             this.btnRendir.TabIndex = 13;
             this.btnRendir.Text = "Rendir Facturas";
-            this.btnRendir.UseVisualStyleBackColor = true;
+            this.btnRendir.UseVisualStyleBackColor = false;
             this.btnRendir.Click += new System.EventHandler(this.btnRendir_Click);
             // 
             // lblTotalRendido
             // 
             this.lblTotalRendido.AutoSize = true;
+            this.lblTotalRendido.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalRendido.Location = new System.Drawing.Point(98, 359);
             this.lblTotalRendido.Name = "lblTotalRendido";
-            this.lblTotalRendido.Size = new System.Drawing.Size(19, 13);
+            this.lblTotalRendido.Size = new System.Drawing.Size(21, 13);
             this.lblTotalRendido.TabIndex = 12;
             this.lblTotalRendido.Text = "$$";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(3, 359);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(80, 13);
+            this.label7.Size = new System.Drawing.Size(95, 13);
             this.label7.TabIndex = 11;
             this.label7.Text = "Total Rendido: ";
             // 
             // lblPorcentajeComision
             // 
             this.lblPorcentajeComision.AutoSize = true;
+            this.lblPorcentajeComision.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPorcentajeComision.Location = new System.Drawing.Point(309, 74);
             this.lblPorcentajeComision.Name = "lblPorcentajeComision";
-            this.lblPorcentajeComision.Size = new System.Drawing.Size(15, 13);
+            this.lblPorcentajeComision.Size = new System.Drawing.Size(16, 13);
             this.lblPorcentajeComision.TabIndex = 10;
             this.lblPorcentajeComision.Text = "%";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(179, 74);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(124, 13);
+            this.label6.Size = new System.Drawing.Size(148, 13);
             this.label6.TabIndex = 9;
             this.label6.Text = "Porcentaje de Comisión: ";
             // 
             // lblValorComision
             // 
             this.lblValorComision.AutoSize = true;
+            this.lblValorComision.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblValorComision.Location = new System.Drawing.Point(96, 74);
             this.lblValorComision.Name = "lblValorComision";
-            this.lblValorComision.Size = new System.Drawing.Size(19, 13);
+            this.lblValorComision.Size = new System.Drawing.Size(21, 13);
             this.lblValorComision.TabIndex = 8;
             this.lblValorComision.Text = "$$";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(1, 74);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(55, 13);
+            this.label5.Size = new System.Drawing.Size(65, 13);
             this.label5.TabIndex = 7;
             this.label5.Text = "Comisión: ";
             // 
             // lblSumaCobrada
             // 
             this.lblSumaCobrada.AutoSize = true;
+            this.lblSumaCobrada.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSumaCobrada.Location = new System.Drawing.Point(96, 51);
             this.lblSumaCobrada.Name = "lblSumaCobrada";
-            this.lblSumaCobrada.Size = new System.Drawing.Size(19, 13);
+            this.lblSumaCobrada.Size = new System.Drawing.Size(21, 13);
             this.lblSumaCobrada.TabIndex = 6;
             this.lblSumaCobrada.Text = "$$";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(1, 51);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(82, 13);
+            this.label4.Size = new System.Drawing.Size(96, 13);
             this.label4.TabIndex = 5;
             this.label4.Text = "Suma cobrada: ";
             // 
             // lblFacturasARendir
             // 
             this.lblFacturasARendir.AutoSize = true;
+            this.lblFacturasARendir.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFacturasARendir.Location = new System.Drawing.Point(96, 25);
             this.lblFacturasARendir.Name = "lblFacturasARendir";
-            this.lblFacturasARendir.Size = new System.Drawing.Size(44, 13);
+            this.lblFacturasARendir.Size = new System.Drawing.Size(50, 13);
             this.lblFacturasARendir.TabIndex = 4;
             this.lblFacturasARendir.Text = "Numero";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(1, 25);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(89, 13);
+            this.label3.Size = new System.Drawing.Size(107, 13);
             this.label3.TabIndex = 3;
             this.label3.Text = "Facturas a rendir:";
             this.label3.Click += new System.EventHandler(this.label3_Click);
@@ -400,26 +419,39 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(3, 97);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(127, 13);
+            this.label2.Size = new System.Drawing.Size(152, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Facturas que se rendirán:";
             // 
             // lblEmpresaSelec
             // 
             this.lblEmpresaSelec.AutoSize = true;
+            this.lblEmpresaSelec.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEmpresaSelec.Location = new System.Drawing.Point(0, 0);
             this.lblEmpresaSelec.Name = "lblEmpresaSelec";
-            this.lblEmpresaSelec.Size = new System.Drawing.Size(194, 13);
+            this.lblEmpresaSelec.Size = new System.Drawing.Size(299, 18);
             this.lblEmpresaSelec.TabIndex = 0;
             this.lblEmpresaSelec.Text = "Empresa Seleccionada: ____________";
+            // 
+            // lblEmpresas
+            // 
+            this.lblEmpresas.AutoSize = true;
+            this.lblEmpresas.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEmpresas.Location = new System.Drawing.Point(2, 2);
+            this.lblEmpresas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblEmpresas.Name = "lblEmpresas";
+            this.lblEmpresas.Size = new System.Drawing.Size(302, 24);
+            this.lblEmpresas.TabIndex = 24;
+            this.lblEmpresas.Text = "Seleccione la empresa a rendir";
             // 
             // RendicionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(614, 431);
+            this.ClientSize = new System.Drawing.Size(612, 424);
             this.Controls.Add(this.panelEmpresas);
             this.Controls.Add(this.panelFacturas);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -444,7 +476,6 @@
 
         private System.Windows.Forms.Panel panelEmpresas;
         private System.Windows.Forms.Button btnCancelar;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnSeleccionar;
         private System.Windows.Forms.Panel panelFacturas;
         private System.Windows.Forms.Label label2;
@@ -474,5 +505,6 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label lblNoHayFacturas;
         private System.Windows.Forms.DataGridView dataGridEmpresas;
+        private System.Windows.Forms.Label lblEmpresas;
     }
 }
