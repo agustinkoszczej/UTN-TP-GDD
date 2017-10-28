@@ -48,13 +48,13 @@
             this.label14 = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnGuardar = new System.Windows.Forms.Button();
             this.btnCambiarCliente = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.btnBuscarPorDNI = new System.Windows.Forms.Button();
             this.txtClienteSeleccionado = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridClientes = new System.Windows.Forms.DataGridView();
-            this.btnGuardar = new System.Windows.Forms.Button();
             this.panelModificarFactura.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
@@ -96,6 +96,7 @@
             // 
             this.txtFacturaTotal.Enabled = false;
             this.txtFacturaTotal.Location = new System.Drawing.Point(13, 101);
+            this.txtFacturaTotal.MaxLength = 21;
             this.txtFacturaTotal.Name = "txtFacturaTotal";
             this.txtFacturaTotal.Size = new System.Drawing.Size(351, 20);
             this.txtFacturaTotal.TabIndex = 12;
@@ -131,6 +132,7 @@
             // 
             this.txtFacturaNro.Enabled = false;
             this.txtFacturaNro.Location = new System.Drawing.Point(13, 62);
+            this.txtFacturaNro.MaxLength = 18;
             this.txtFacturaNro.Name = "txtFacturaNro";
             this.txtFacturaNro.Size = new System.Drawing.Size(351, 20);
             this.txtFacturaNro.TabIndex = 2;
@@ -198,6 +200,7 @@
             // 
             this.txtFiltroCliente.Enabled = false;
             this.txtFiltroCliente.Location = new System.Drawing.Point(469, 199);
+            this.txtFiltroCliente.MaxLength = 18;
             this.txtFiltroCliente.Name = "txtFiltroCliente";
             this.txtFiltroCliente.Size = new System.Drawing.Size(198, 20);
             this.txtFiltroCliente.TabIndex = 16;
@@ -252,6 +255,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(772, 257);
             this.panel1.TabIndex = 23;
+            // 
+            // btnGuardar
+            // 
+            this.btnGuardar.Location = new System.Drawing.Point(697, 234);
+            this.btnGuardar.Name = "btnGuardar";
+            this.btnGuardar.Size = new System.Drawing.Size(75, 23);
+            this.btnGuardar.TabIndex = 30;
+            this.btnGuardar.Text = "Guardar";
+            this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // btnCambiarCliente
             // 
@@ -321,16 +334,6 @@
             this.dataGridClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridClientes.Size = new System.Drawing.Size(359, 142);
             this.dataGridClientes.TabIndex = 24;
-            // 
-            // btnGuardar
-            // 
-            this.btnGuardar.Location = new System.Drawing.Point(697, 234);
-            this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(75, 23);
-            this.btnGuardar.TabIndex = 30;
-            this.btnGuardar.Text = "Guardar";
-            this.btnGuardar.UseVisualStyleBackColor = true;
-            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // ModificarFacturas
             // 

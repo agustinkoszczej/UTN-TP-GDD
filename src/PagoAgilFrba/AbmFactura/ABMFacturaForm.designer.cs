@@ -374,6 +374,7 @@
             // txtCliente
             // 
             this.txtCliente.Location = new System.Drawing.Point(398, 27);
+            this.txtCliente.MaxLength = 18;
             this.txtCliente.Name = "txtCliente";
             this.txtCliente.Size = new System.Drawing.Size(363, 20);
             this.txtCliente.TabIndex = 1;
@@ -554,6 +555,7 @@
             // txtIdClienteFiltro
             // 
             this.txtIdClienteFiltro.Location = new System.Drawing.Point(334, 275);
+            this.txtIdClienteFiltro.MaxLength = 18;
             this.txtIdClienteFiltro.Name = "txtIdClienteFiltro";
             this.txtIdClienteFiltro.Size = new System.Drawing.Size(102, 20);
             this.txtIdClienteFiltro.TabIndex = 6;
@@ -561,6 +563,7 @@
             // txtIdFacturaFiltro
             // 
             this.txtIdFacturaFiltro.Location = new System.Drawing.Point(72, 274);
+            this.txtIdFacturaFiltro.MaxLength = 18;
             this.txtIdFacturaFiltro.Name = "txtIdFacturaFiltro";
             this.txtIdFacturaFiltro.Size = new System.Drawing.Size(102, 20);
             this.txtIdFacturaFiltro.TabIndex = 5;

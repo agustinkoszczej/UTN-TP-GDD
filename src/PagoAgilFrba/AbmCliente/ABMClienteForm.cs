@@ -112,7 +112,10 @@ namespace PagoAgilFrba.AbmCliente
             ClienteDAO.llenarDataGrid(dataGridClientes, busqueda, this.filtroNombre, this.filtroApellido, dni);
 
             filtrando = true;
-            this.selectedRow = dataGridClientes.Rows[0];
+            if (dataGridClientes.Rows.Count > 0)
+            {
+                this.selectedRow = dataGridClientes.Rows[0];
+            }
         }
 
         private void cargarGridSinFiltros()

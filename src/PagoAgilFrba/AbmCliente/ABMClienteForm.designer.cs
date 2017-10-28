@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.dataGridClientes = new System.Windows.Forms.DataGridView();
             this.btnSinFiltros = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
@@ -46,7 +47,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.button1 = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridClientes)).BeginInit();
             this.panel1.SuspendLayout();
@@ -65,6 +65,16 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(788, 312);
             this.panel2.TabIndex = 1;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(3, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(104, 23);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "Nuevo Cliente";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // dataGridClientes
             // 
@@ -168,6 +178,7 @@
             // txtFiltroDNI
             // 
             this.txtFiltroDNI.Location = new System.Drawing.Point(16, 112);
+            this.txtFiltroDNI.MaxLength = 18;
             this.txtFiltroDNI.Name = "txtFiltroDNI";
             this.txtFiltroDNI.Size = new System.Drawing.Size(650, 20);
             this.txtFiltroDNI.TabIndex = 11;
@@ -184,6 +195,7 @@
             // txtFiltroApellido
             // 
             this.txtFiltroApellido.Location = new System.Drawing.Point(16, 74);
+            this.txtFiltroApellido.MaxLength = 255;
             this.txtFiltroApellido.Name = "txtFiltroApellido";
             this.txtFiltroApellido.Size = new System.Drawing.Size(650, 20);
             this.txtFiltroApellido.TabIndex = 9;
@@ -201,6 +213,7 @@
             // txtFiltroNombre
             // 
             this.txtFiltroNombre.Location = new System.Drawing.Point(16, 34);
+            this.txtFiltroNombre.MaxLength = 255;
             this.txtFiltroNombre.Name = "txtFiltroNombre";
             this.txtFiltroNombre.Size = new System.Drawing.Size(650, 20);
             this.txtFiltroNombre.TabIndex = 7;
@@ -226,16 +239,6 @@
             // errorProvider
             // 
             this.errorProvider.ContainerControl = this;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(3, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(104, 23);
-            this.button1.TabIndex = 13;
-            this.button1.Text = "Nuevo Cliente";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // ABMClienteForm
             // 
