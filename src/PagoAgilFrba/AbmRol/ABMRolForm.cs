@@ -18,12 +18,14 @@ namespace PagoAgilFrba.AbmRol
 {
     public partial class ABMRolForm : Form
     {
-        private Rol rol_logueado;
+        public Rol rol_logueado;
+        public MenuPrincipalForm menu;
 
-        public ABMRolForm(Rol _rol)
+        public ABMRolForm(Rol _rol, MenuPrincipalForm _menu)
         {
             InitializeComponent();
             this.rol_logueado = _rol;
+            this.menu = _menu;
         }
 
         private void ABMRolForm_Load(object sender, EventArgs e)

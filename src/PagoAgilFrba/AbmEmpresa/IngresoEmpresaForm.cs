@@ -150,5 +150,9 @@ namespace PagoAgilFrba.AbmEmpresa
             }
             return true;
         }
+        private void IngresoEmpresaForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            empresa_form.iniciar_formulario();
+        }
     }
 }

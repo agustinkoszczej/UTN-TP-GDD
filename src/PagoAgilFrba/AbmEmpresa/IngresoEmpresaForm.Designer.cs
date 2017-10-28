@@ -168,6 +168,7 @@
             this.Name = "IngresoEmpresaForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PagoAgilFrba | Ingreso Empresa";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.IngresoEmpresaForm_FormClosing);
             this.groupBoxIngresoEmpresas.ResumeLayout(false);
             this.groupBoxIngresoEmpresas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();

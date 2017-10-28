@@ -144,6 +144,7 @@
             this.Name = "IngresoSucursalForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PagoAgilFrba | Ingreso Sucursal";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.IngresoSucursalForm_FormClosing);
             this.groupBoxIngresoSucursales.ResumeLayout(false);
             this.groupBoxIngresoSucursales.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();

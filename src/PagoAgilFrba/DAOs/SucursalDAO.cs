@@ -48,9 +48,9 @@ namespace PagoAgilFrba.DAOs
             DBConnection.llenar_grilla(grillaSucursales, query);
         }
 
-        public static bool validar_cod_postal(int _cod_postal)
+        public static bool validar_cod_postal(string _cod_postal)
         {
-            string query = string.Format(@"SELECT * FROM LORDS_OF_THE_STRINGS_V2.Sucursal WHERE Sucursal_codigo_postal=@cod_postal");
+            string query = string.Format(@"SELECT * FROM LORDS_OF_THE_STRINGS_V2.Sucursal WHERE Sucursal_codigo_postal LIKE @cod_postal");
             SqlConnection conn = DBConnection.getConnection();
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@cod_postal", _cod_postal);
@@ -71,6 +71,11 @@ namespace PagoAgilFrba.DAOs
                 cmd.Parameters.AddWithValue("@direccion", sucursal.direccion);
                 cmd.Parameters.AddWithValue("@cod_postal", sucursal.cod_postal);
 
+                int sucursal_cod_generado = Convert.ToInt32(cmd.ExecuteScalar());
+
+                query = string.Format(@"INSERT INTO LORDS_OF_THE_STRINGS_V2.Usuario_Sucursal(UsuarioSucur_usuario, UsuarioSucur_sucursal) VALUES (1, @id_sucursal)");
+                cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id_sucursal", sucursal_cod_generado);
                 cmd.ExecuteNonQuery();
 
                 conn.Close();

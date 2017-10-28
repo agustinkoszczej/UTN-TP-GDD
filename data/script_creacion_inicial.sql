@@ -240,7 +240,10 @@ GO
 -------------------------------------------------------------------------------------------------
 
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rol(Rol_nombre)
-VALUES ('Administrador'),('Cobrador'); 
+VALUES ('Administrador'); 
+GO
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rol(Rol_nombre)
+VALUES ('Cobrador');
 GO
 -------------------------------------------------------------------------------------------------
 -- INSERTA EN LA TABLA FUNCIONALIDAD  LOS DISTINTOS TIPOS DE FUNCIONALIDAD.
@@ -1006,22 +1009,22 @@ INSERT INTO [LORDS_OF_THE_STRINGS_V2].Usuario_Sucursal(UsuarioSucur_usuario, Usu
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Usuario_Sucursal(UsuarioSucur_usuario, UsuarioSucur_sucursal) VALUES (2,1)
 
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Factura( Factura_fecha, Factura_fecha_venc, Factura_total, Factura_empresa, Factura_cliente, Factura_rendicion)
-VALUES (getDate(), DATEADD(day, 10, getDate()), 500, 2, 60, null)
+VALUES (getDate(), DATEADD(DAY, 10, GETDATE()), 500, 2, 60, NULL)
 
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Factura( Factura_fecha, Factura_fecha_venc, Factura_total, Factura_empresa, Factura_cliente, Factura_rendicion)
-VALUES (getDate(), DATEADD(day, 10, getDate()), 22500, 2, 43, null)
+VALUES (GETDATE(), DATEADD(DAY, 10, GETDATE()), 22500, 2, 43, NULL)
 
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Factura( Factura_fecha, Factura_fecha_venc, Factura_total, Factura_empresa, Factura_cliente, Factura_rendicion)
-VALUES (getDate(), DATEADD(day, 10, getDate()), 8500, 2, 10, null)
+VALUES (GETDATE(), DATEADD(DAY, 10, GETDATE()), 8500, 2, 10, NULL)
 
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Factura( Factura_fecha, Factura_fecha_venc, Factura_total, Factura_empresa, Factura_cliente, Factura_rendicion)
-VALUES (getDate(), DATEADD(day, 10, getDate()), 37800, 2, 721, null)
+VALUES (GETDATE(), DATEADD(DAY, 10, GETDATE()), 37800, 2, 721, NULL)
 
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Factura( Factura_fecha, Factura_fecha_venc, Factura_total, Factura_empresa, Factura_cliente, Factura_rendicion)
-VALUES (getDate(), DATEADD(day, 10, getDate()), 13400, 3, 178, null)
+VALUES (GETDATE(), DATEADD(DAY, 10, GETDATE()), 13400, 3, 178, NULL)
 
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Factura( Factura_fecha, Factura_fecha_venc, Factura_total, Factura_empresa, Factura_cliente, Factura_rendicion)
-VALUES (getDate(), DATEADD(day, 10, getDate()), 6513400, 3, 975, null)
+VALUES (GETDATE(), DATEADD(DAY, 10, GETDATE()), 6513400, 3, 975, NULL)
 
 
 
@@ -1030,3 +1033,4 @@ VALUES (getDate(), DATEADD(day, 10, getDate()), 6513400, 3, 975, null)
 -- PRUEBAS VARIAS
 -------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------
+

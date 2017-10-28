@@ -44,7 +44,6 @@ namespace PagoAgilFrba
         {
             this.Height = 155;
             cargar_sucursales();
-            FuncionalidadDAO.cargar_funcionalidades_asignadas(rol_seleccionado);
             validar_permisos();
         }
 
@@ -67,8 +66,19 @@ namespace PagoAgilFrba
         }
 
         //Función del sistema que chequea el Rol y permisos del usuario
-        private void validar_permisos()
+        public void validar_permisos()
         {
+            FuncionalidadDAO.cargar_funcionalidades_asignadas(rol_seleccionado);
+            cmdRegistrarPago.Enabled = false;
+            cmdRendirFacturas.Enabled = false;
+            cmdListadoEstadistico.Enabled = false;
+            cmdABMCliente.Enabled = false;
+            cmdABMFactura.Enabled = false;
+            cmdABMRol.Enabled = false;
+            cmdABMSucursal.Enabled = false;
+            cmdABMEmpresa.Enabled = false;
+            cmdDevolucion.Enabled = false;
+
             lblUsuarioLogueado.Text = usuario_logueado.username;
             lblRolSeleccionado.Text = rol_seleccionado.nombre;
               foreach (Funcionalidad func in rol_seleccionado.funcionalidades)
@@ -127,7 +137,7 @@ namespace PagoAgilFrba
 
         private void cmdABMRol_Click(object sender, EventArgs e)
         {
-            ABMRolForm frm = new ABMRolForm(this.rol_seleccionado);
+            ABMRolForm frm = new ABMRolForm(this.rol_seleccionado, this);
             frm.Show();
             //this.Enabled = false;
         }

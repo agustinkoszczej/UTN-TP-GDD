@@ -24,7 +24,6 @@ namespace PagoAgilFrba.AbmRol
         public IngresoRolForm(ABMRolForm _rol_form, string _tipo_ingreso, Rol _rol_modificar)
         {
             InitializeComponent();
-                   
             this.rol_form = _rol_form;
             this.tipo_ingreso = _tipo_ingreso;
             this.rol_modificar = _rol_modificar;
@@ -102,15 +101,38 @@ namespace PagoAgilFrba.AbmRol
             {
                 Rol rol_nuevo = new Rol(txtNombreRol.Text, get_funcionalidades_chkLst());
                 rol_nuevo.id = rol_modificar.id;
-                if (RolDAO.modificar_rol(rol_nuevo, rol_modificar.funcionalidades))
+                if ((this.rol_form.rol_logueado.id == rol_modificar.id) && (!rol_nuevo.funcionalidades.Any(f => f.nombre == "ABM_ROL")))
                 {
-                    MessageBox.Show("Rol modificado correctamente!", tipo_ingreso, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.Close();
-                    rol_form.iniciar_formulario();
+                    if (MessageBox.Show("¿Está a punto de quitar sus permisos para el ABM de Rol en el usuario que se encuentra logueado, se cerrará la sesión al finalizar, desea continuar?", "PagoAgilFrba | ABM Rol", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        if (RolDAO.modificar_rol(rol_nuevo, rol_modificar.funcionalidades))
+                        {
+                            MessageBox.Show("Rol modificado correctamente!", tipo_ingreso, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.Close();
+                            rol_form.menu.validar_permisos();
+                            rol_form.menu.Focus();
+                            rol_form.Close();
+                        }
+                    }
+                    else
+                    {
+                        return;
+                    }
+                    
                 }
                 else
                 {
-                    MessageBox.Show("Hubo un error en el " + tipo_ingreso, "Error en el ABM Rol", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (RolDAO.modificar_rol(rol_nuevo, rol_modificar.funcionalidades))
+                    {
+                        MessageBox.Show("Rol modificado correctamente!", tipo_ingreso, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Close();
+                        rol_form.iniciar_formulario();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Hubo un error en el " + tipo_ingreso, "Error en el ABM Rol", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
             }
             if (!validar_nombre())
@@ -127,7 +149,7 @@ namespace PagoAgilFrba.AbmRol
 
         private bool validar_nombre()
         {
-            if ((RolDAO.validar_nombre(txtNombreRol.Text)) || ((rol_modificar != null) && (rol_modificar.nombre.ToUpper() == txtNombreRol.Text.ToUpper())))
+            if ((RolDAO.validar_nombre(txtNombreRol.Text.Trim())) || ((rol_modificar != null) && (rol_modificar.nombre.Trim().ToUpper() == txtNombreRol.Text.Trim().ToUpper())))
             {
                 errorProvider.SetError(txtNombreRol, null);
             }
@@ -137,6 +159,10 @@ namespace PagoAgilFrba.AbmRol
                     return false;
             }
             return true;
+        }
+
+        private void IngresoRolForm_FormClosing(object sender, FormClosingEventArgs e) {
+            rol_form.iniciar_formulario(); 
         }
     }
 }

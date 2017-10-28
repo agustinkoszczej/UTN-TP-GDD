@@ -107,7 +107,7 @@ namespace PagoAgilFrba.AbmSucursal
             if(string.IsNullOrEmpty(txtCodPostalSucursal.Text)){
                 return true;
             }
-            if ((SucursalDAO.validar_cod_postal(Convert.ToInt32(txtCodPostalSucursal.Text))) || ((sucursal_modificar != null) && (sucursal_modificar.cod_postal == txtCodPostalSucursal.Text)))
+            if ((SucursalDAO.validar_cod_postal((txtCodPostalSucursal.Text.Trim().ToUpper()))) || ((sucursal_modificar != null) && (sucursal_modificar.cod_postal.Trim().ToUpper() == txtCodPostalSucursal.Text.Trim().ToUpper())))
             {
                 errorProvider.SetError(txtCodPostalSucursal, null);
             }
@@ -117,6 +117,10 @@ namespace PagoAgilFrba.AbmSucursal
                 return false;
             }
             return true;
+        }
+        private void IngresoSucursalForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            sucursal_form.iniciar_formulario();
         }
     }
 }

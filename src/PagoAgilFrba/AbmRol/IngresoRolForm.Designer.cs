@@ -122,11 +122,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(410, 307);
             this.Controls.Add(this.groupBoxIngresoRoles);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "IngresoRolForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PagoAgilFrba | Ingreso Rol";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.IngresoRolForm_FormClosing);
             this.groupBoxIngresoRoles.ResumeLayout(false);
             this.groupBoxIngresoRoles.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();

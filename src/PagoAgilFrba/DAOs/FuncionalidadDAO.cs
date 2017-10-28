@@ -37,6 +37,7 @@ namespace PagoAgilFrba.DAOs
         }
         public static void cargar_funcionalidades_asignadas(Rol rol)
         {
+            rol.funcionalidades = new List<Funcionalidad>();
             string query = string.Format(@"SELECT * FROM LORDS_OF_THE_STRINGS_V2.fn_get_funcionalidades_rol(@rol_id)");
 
             SqlConnection conn = DBConnection.getConnection();
