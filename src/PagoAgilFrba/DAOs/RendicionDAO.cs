@@ -101,7 +101,7 @@ namespace PagoAgilFrba.DAOs
             try
             {
                 var conn = DBConnection.getConnection();
-                string query = string.Format(@"INSERT INTO LORDS_OF_THE_STRINGS_V2.Rendicion(Rendicion_fecha, Rendicion_importe) VALUES (@fecha, @importe); SELECT SCOPE_IDENTITY();");
+                string query = string.Format(@"INSERT INTO LORDS_OF_THE_STRINGS_V2.Rendicion(Rendicion_fecha, Rendicion_importe, Rendicion_porcentaje) VALUES (@fecha, @importe, @porcentaje); SELECT SCOPE_IDENTITY();");
 
                 SqlCommand comando = new SqlCommand(query, conn);
 
@@ -111,18 +111,15 @@ namespace PagoAgilFrba.DAOs
                 comando.Parameters.Add("@importe", SqlDbType.Float);
                 comando.Parameters["@importe"].Value = rend.importe;
 
-                comando.CommandType = System.Data.CommandType.Text;
-                SqlDataReader reader = comando.ExecuteReader();
-                reader.Read();
-                string asd = reader.GetValue(0).ToString();
-                int idRendicion = int.Parse(asd);
-                reader.Close();
+                comando.Parameters.Add("@porcentaje", SqlDbType.Float);
+                comando.Parameters["@porcentaje"].Value = rend.porcentajeComision;
 
-                conn.Close();
-                return idRendicion;
+                return Convert.ToInt32( comando.ExecuteScalar() );
+ 
             }
-            catch (SqlException)
+            catch (SqlException ex)
             {
+                MessageBox.Show(ex.Message);
                 return 0;
             }
         }

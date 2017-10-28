@@ -11,12 +11,14 @@ namespace PagoAgilFrba.Model
         public int id { get; set; }
         public DateTime fecha { get; set; }
         public double importe { get; set; }
+        public double porcentajeComision { get; set; }
 
-        public Rendicion(int _id, DateTime _fecha, double _importe)
+        public Rendicion(int _id, DateTime _fecha, double _importe, double _porcentajeComision)
         {
             this.id = _id;
             this.fecha = _fecha;
             this.importe = _importe;
+            this.porcentajeComision = _porcentajeComision;
         }
     }
 }

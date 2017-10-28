@@ -260,8 +260,8 @@ namespace PagoAgilFrba.Rendicion
             }
             else
             {
-                
-                Model.Rendicion rend = new Model.Rendicion(0, DateTime.Now, totalRendido);
+
+                Model.Rendicion rend = new Model.Rendicion(0, DateTime.Now, totalRendido, porcentajeComision);
                 int idR = RendicionDAO.nuevaRendicion(rend);
                 if (idR == 0)
                 {
