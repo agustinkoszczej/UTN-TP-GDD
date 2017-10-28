@@ -107,7 +107,7 @@ namespace PagoAgilFrba.AbmCliente
                 miFiltroHabil = " AND Cliente_habilitado = 1";
             }
 
-            string busqueda = string.Format(@"SELECT Cliente_codigo, Cliente_dni, Cliente_nombre, Cliente_apellido, Cliente_fecha_nac, Cliente_mail, Cliente_direccion, Cliente_codigo_postal, Cliente_telefono, Cliente_habilitado FROM LORDS_OF_THE_STRINGS_V2.Cliente" + miFiltroNomb + miFiltroApell + miFiltroDNI + miFiltroHabil);
+            string busqueda = string.Format(@"SELECT Cliente_codigo Código, Cliente_dni DNI, Cliente_nombre Nombre, Cliente_apellido Apellido, Cliente_fecha_nac Fecha_Nacimiento, Cliente_mail Mail, Cliente_direccion Dirección, Cliente_codigo_postal Código_Postal, Cliente_telefono Teléfono, Cliente_habilitado Habilitado FROM LORDS_OF_THE_STRINGS_V2.Cliente" + miFiltroNomb + miFiltroApell + miFiltroDNI + miFiltroHabil);
 
             ClienteDAO.llenarDataGrid(dataGridClientes, busqueda, this.filtroNombre, this.filtroApellido, dni);
 
@@ -120,7 +120,7 @@ namespace PagoAgilFrba.AbmCliente
 
         private void cargarGridSinFiltros()
         {
-            DBConnection.llenar_grilla(dataGridClientes, "SELECT Cliente_codigo, Cliente_dni, Cliente_nombre, Cliente_apellido, Cliente_fecha_nac, Cliente_mail, Cliente_direccion, Cliente_codigo_postal, Cliente_telefono, Cliente_habilitado FROM LORDS_OF_THE_STRINGS_V2.Cliente WHERE Cliente_habilitado = 1");
+            DBConnection.llenar_grilla(dataGridClientes, "SELECT Cliente_codigo Código, Cliente_dni DNI, Cliente_nombre Nombre, Cliente_apellido Apellido, Cliente_fecha_nac Fecha_Nacimiento, Cliente_mail Mail, Cliente_direccion Dirección, Cliente_codigo_postal Código_Postal, Cliente_telefono Teléfono, Cliente_habilitado Habilitado FROM LORDS_OF_THE_STRINGS_V2.Cliente WHERE Cliente_habilitado = 1");
             if (this.selectedRow != null) this.selectedRow = dataGridClientes.Rows[0];
         }
 
@@ -162,7 +162,6 @@ namespace PagoAgilFrba.AbmCliente
 
         private void btnInhabilitar_Click(object sender, EventArgs e)
         {
-
             if (selectedRow.Cells[9].Value.ToString() == "True")   //SI  ESTA HABILITADO
             {
                 if (ClienteDAO.habilitarClienteConID(int.Parse(selectedRow.Cells[0].Value.ToString()), false) != 0)
@@ -206,6 +205,25 @@ namespace PagoAgilFrba.AbmCliente
         {
             Utils.solo_texto(e);
         }
+        private void txtFiltroDNI_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Utils.solo_numeros(e);
+        }
 
+        private void cmdQuitarFiltros_Click(object sender, EventArgs e)
+        {
+            Utils.limpiar_controles((new List<Control>() { txtFiltroApellido, txtFiltroDNI, txtFiltroNombre }));
+            Utils.clearDataGrid(dataGridClientes);
+        }
+
+        private void lnlCerrarSesion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Utils.cerrar_sesion();
+        }
+
+        private void cmdCerrar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

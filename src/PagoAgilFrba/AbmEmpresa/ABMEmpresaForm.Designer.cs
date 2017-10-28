@@ -98,7 +98,7 @@
             this.cmdModificarEmpresa.Name = "cmdModificarEmpresa";
             this.cmdModificarEmpresa.Size = new System.Drawing.Size(121, 35);
             this.cmdModificarEmpresa.TabIndex = 10;
-            this.cmdModificarEmpresa.Text = "Modificar";
+            this.cmdModificarEmpresa.Text = "Modificar Empresa";
             this.cmdModificarEmpresa.UseVisualStyleBackColor = false;
             this.cmdModificarEmpresa.Click += new System.EventHandler(this.cmdModificarRol_Click);
             // 
@@ -213,6 +213,7 @@
             this.groupBoxFiltrosBusqueda.Controls.Add(this.lblNombreEmpresa);
             this.groupBoxFiltrosBusqueda.Controls.Add(this.txtNombreEmpresa);
             this.groupBoxFiltrosBusqueda.Controls.Add(this.cmdBuscar);
+            this.groupBoxFiltrosBusqueda.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxFiltrosBusqueda.Location = new System.Drawing.Point(15, 374);
             this.groupBoxFiltrosBusqueda.Name = "groupBoxFiltrosBusqueda";
             this.groupBoxFiltrosBusqueda.Size = new System.Drawing.Size(771, 158);

@@ -88,7 +88,7 @@
             this.cmdModificarRol.Name = "cmdModificarRol";
             this.cmdModificarRol.Size = new System.Drawing.Size(121, 35);
             this.cmdModificarRol.TabIndex = 10;
-            this.cmdModificarRol.Text = "Modificar";
+            this.cmdModificarRol.Text = "Modificar Rol";
             this.cmdModificarRol.UseVisualStyleBackColor = false;
             this.cmdModificarRol.Click += new System.EventHandler(this.cmdModificarRol_Click);
             // 

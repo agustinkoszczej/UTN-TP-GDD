@@ -154,7 +154,7 @@ namespace PagoAgilFrba.DAOs
 
         public static void llenarGridBuscarCliente(DataGridView grid, string dniCliente)
         {
-            string query = string.Format(@"SELECT Cliente_codigo, Cliente_dni, Cliente_nombre, Cliente_apellido, Cliente_fecha_nac, Cliente_mail, Cliente_direccion, Cliente_codigo_postal, Cliente_telefono 
+            string query = string.Format(@"SELECT Cliente_codigo Código, Cliente_dni DNI, Cliente_nombre Nombre, Cliente_apellido Apellido, Cliente_fecha_nac Fecha_Nacimiento, Cliente_mail Mail, Cliente_direccion Dirección, Cliente_codigo_postal Código_Postal, Cliente_telefono Teléfono
                                         FROM LORDS_OF_THE_STRINGS_V2.Cliente WHERE Cliente_dni = @dni AND Cliente_habilitado = 1");
             
             SqlConnection conn = DBConnection.getConnection();

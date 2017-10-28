@@ -57,6 +57,7 @@
             this.groupBoxIngresoEmpresas.Controls.Add(this.chkLstRubros);
             this.groupBoxIngresoEmpresas.Controls.Add(this.txtNombreEmpresa);
             this.groupBoxIngresoEmpresas.Controls.Add(this.lblNombreEmpresa);
+            this.groupBoxIngresoEmpresas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxIngresoEmpresas.Location = new System.Drawing.Point(12, 9);
             this.groupBoxIngresoEmpresas.Name = "groupBoxIngresoEmpresas";
             this.groupBoxIngresoEmpresas.Size = new System.Drawing.Size(382, 312);
