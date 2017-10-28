@@ -76,7 +76,7 @@
             this.cmdModificarSucursal.Name = "cmdModificarSucursal";
             this.cmdModificarSucursal.Size = new System.Drawing.Size(121, 35);
             this.cmdModificarSucursal.TabIndex = 10;
-            this.cmdModificarSucursal.Text = "Modificar";
+            this.cmdModificarSucursal.Text = "Modificar Sucursal";
             this.cmdModificarSucursal.UseVisualStyleBackColor = false;
             this.cmdModificarSucursal.Click += new System.EventHandler(this.cmdModificarSucursal_Click);
             // 

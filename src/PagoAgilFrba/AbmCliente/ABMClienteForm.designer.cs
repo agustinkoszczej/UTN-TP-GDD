@@ -29,52 +29,147 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.dataGridClientes = new System.Windows.Forms.DataGridView();
-            this.btnSinFiltros = new System.Windows.Forms.Button();
-            this.btnModificar = new System.Windows.Forms.Button();
-            this.btnHabilitar = new System.Windows.Forms.Button();
-            this.btnInhabilitar = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnFiltrar = new System.Windows.Forms.Button();
-            this.chkHabilitado = new System.Windows.Forms.CheckBox();
-            this.txtFiltroDNI = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtFiltroApellido = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtFiltroNombre = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridClientes)).BeginInit();
-            this.panel1.SuspendLayout();
+            this.groupBoxFiltrosBusqueda = new System.Windows.Forms.GroupBox();
+            this.txtFiltroDNI = new System.Windows.Forms.TextBox();
+            this.cmdQuitarFiltros = new System.Windows.Forms.Button();
+            this.chkHabilitado = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.btnSinFiltros = new System.Windows.Forms.Button();
+            this.txtFiltroApellido = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtFiltroNombre = new System.Windows.Forms.TextBox();
+            this.btnFiltrar = new System.Windows.Forms.Button();
+            this.dataGridClientes = new System.Windows.Forms.DataGridView();
+            this.button1 = new System.Windows.Forms.Button();
+            this.btnModificar = new System.Windows.Forms.Button();
+            this.btnInhabilitar = new System.Windows.Forms.Button();
+            this.btnHabilitar = new System.Windows.Forms.Button();
+            this.groupBoxAcciones = new System.Windows.Forms.GroupBox();
+            this.lnlCerrarSesion = new System.Windows.Forms.LinkLabel();
+            this.lblClientes = new System.Windows.Forms.Label();
+            this.cmdCerrar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            this.groupBoxFiltrosBusqueda.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridClientes)).BeginInit();
+            this.groupBoxAcciones.SuspendLayout();
             this.SuspendLayout();
             // 
-            // panel2
+            // errorProvider
             // 
-            this.panel2.Controls.Add(this.button1);
-            this.panel2.Controls.Add(this.dataGridClientes);
-            this.panel2.Controls.Add(this.btnSinFiltros);
-            this.panel2.Controls.Add(this.btnModificar);
-            this.panel2.Controls.Add(this.btnHabilitar);
-            this.panel2.Controls.Add(this.btnInhabilitar);
-            this.panel2.Location = new System.Drawing.Point(12, 12);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(788, 312);
-            this.panel2.TabIndex = 1;
+            this.errorProvider.ContainerControl = this;
             // 
-            // button1
+            // groupBoxFiltrosBusqueda
             // 
-            this.button1.Location = new System.Drawing.Point(3, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(104, 23);
-            this.button1.TabIndex = 13;
-            this.button1.Text = "Nuevo Cliente";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.groupBoxFiltrosBusqueda.Controls.Add(this.txtFiltroDNI);
+            this.groupBoxFiltrosBusqueda.Controls.Add(this.cmdQuitarFiltros);
+            this.groupBoxFiltrosBusqueda.Controls.Add(this.chkHabilitado);
+            this.groupBoxFiltrosBusqueda.Controls.Add(this.label3);
+            this.groupBoxFiltrosBusqueda.Controls.Add(this.label4);
+            this.groupBoxFiltrosBusqueda.Controls.Add(this.btnSinFiltros);
+            this.groupBoxFiltrosBusqueda.Controls.Add(this.txtFiltroApellido);
+            this.groupBoxFiltrosBusqueda.Controls.Add(this.label5);
+            this.groupBoxFiltrosBusqueda.Controls.Add(this.txtFiltroNombre);
+            this.groupBoxFiltrosBusqueda.Controls.Add(this.btnFiltrar);
+            this.groupBoxFiltrosBusqueda.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxFiltrosBusqueda.Location = new System.Drawing.Point(7, 300);
+            this.groupBoxFiltrosBusqueda.Name = "groupBoxFiltrosBusqueda";
+            this.groupBoxFiltrosBusqueda.Size = new System.Drawing.Size(523, 146);
+            this.groupBoxFiltrosBusqueda.TabIndex = 19;
+            this.groupBoxFiltrosBusqueda.TabStop = false;
+            this.groupBoxFiltrosBusqueda.Text = "Filtros de búsqueda";
+            // 
+            // txtFiltroDNI
+            // 
+            this.txtFiltroDNI.Location = new System.Drawing.Point(353, 37);
+            this.txtFiltroDNI.Name = "txtFiltroDNI";
+            this.txtFiltroDNI.Size = new System.Drawing.Size(155, 20);
+            this.txtFiltroDNI.TabIndex = 29;
+            // 
+            // cmdQuitarFiltros
+            // 
+            this.cmdQuitarFiltros.BackColor = System.Drawing.Color.RoyalBlue;
+            this.cmdQuitarFiltros.Location = new System.Drawing.Point(26, 103);
+            this.cmdQuitarFiltros.Name = "cmdQuitarFiltros";
+            this.cmdQuitarFiltros.Size = new System.Drawing.Size(121, 35);
+            this.cmdQuitarFiltros.TabIndex = 28;
+            this.cmdQuitarFiltros.Text = "Quitar filtros";
+            this.cmdQuitarFiltros.UseVisualStyleBackColor = false;
+            this.cmdQuitarFiltros.Click += new System.EventHandler(this.cmdQuitarFiltros_Click);
+            // 
+            // chkHabilitado
+            // 
+            this.chkHabilitado.AutoSize = true;
+            this.chkHabilitado.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkHabilitado.Location = new System.Drawing.Point(353, 85);
+            this.chkHabilitado.Name = "chkHabilitado";
+            this.chkHabilitado.Size = new System.Drawing.Size(149, 16);
+            this.chkHabilitado.TabIndex = 22;
+            this.chkHabilitado.Text = "Solo Clientes habilitados";
+            this.chkHabilitado.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(350, 17);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(93, 13);
+            this.label3.TabIndex = 27;
+            this.label3.Text = "DNI del Cliente";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(181, 21);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(116, 13);
+            this.label4.TabIndex = 25;
+            this.label4.Text = "Apellido del Cliente";
+            // 
+            // btnSinFiltros
+            // 
+            this.btnSinFiltros.Location = new System.Drawing.Point(184, 85);
+            this.btnSinFiltros.Name = "btnSinFiltros";
+            this.btnSinFiltros.Size = new System.Drawing.Size(127, 41);
+            this.btnSinFiltros.TabIndex = 18;
+            this.btnSinFiltros.Text = "Mostrar todos los Clientes Habilitados";
+            this.btnSinFiltros.UseVisualStyleBackColor = true;
+            this.btnSinFiltros.Click += new System.EventHandler(this.btnSinFiltros_Click);
+            // 
+            // txtFiltroApellido
+            // 
+            this.txtFiltroApellido.Location = new System.Drawing.Point(184, 37);
+            this.txtFiltroApellido.Name = "txtFiltroApellido";
+            this.txtFiltroApellido.Size = new System.Drawing.Size(155, 20);
+            this.txtFiltroApellido.TabIndex = 24;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(10, 21);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(114, 13);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "Nombre del Cliente";
+            // 
+            // txtFiltroNombre
+            // 
+            this.txtFiltroNombre.Location = new System.Drawing.Point(13, 37);
+            this.txtFiltroNombre.Name = "txtFiltroNombre";
+            this.txtFiltroNombre.Size = new System.Drawing.Size(155, 20);
+            this.txtFiltroNombre.TabIndex = 12;
+            // 
+            // btnFiltrar
+            // 
+            this.btnFiltrar.BackColor = System.Drawing.Color.Orange;
+            this.btnFiltrar.Location = new System.Drawing.Point(26, 62);
+            this.btnFiltrar.Name = "btnFiltrar";
+            this.btnFiltrar.Size = new System.Drawing.Size(121, 35);
+            this.btnFiltrar.TabIndex = 11;
+            this.btnFiltrar.Text = "Aplicar filtros";
+            this.btnFiltrar.UseVisualStyleBackColor = false;
+            this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
             // 
             // dataGridClientes
             // 
@@ -89,197 +184,154 @@
             this.dataGridClientes.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.dataGridClientes.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dataGridClientes.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dataGridClientes.Location = new System.Drawing.Point(16, 32);
+            this.dataGridClientes.Location = new System.Drawing.Point(7, 33);
             this.dataGridClientes.MultiSelect = false;
             this.dataGridClientes.Name = "dataGridClientes";
             this.dataGridClientes.ReadOnly = true;
             this.dataGridClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridClientes.Size = new System.Drawing.Size(650, 264);
+            this.dataGridClientes.Size = new System.Drawing.Size(851, 264);
             this.dataGridClientes.TabIndex = 14;
             // 
-            // btnSinFiltros
+            // button1
             // 
-            this.btnSinFiltros.Location = new System.Drawing.Point(672, 222);
-            this.btnSinFiltros.Name = "btnSinFiltros";
-            this.btnSinFiltros.Size = new System.Drawing.Size(104, 34);
-            this.btnSinFiltros.TabIndex = 18;
-            this.btnSinFiltros.Text = "Mostrar Habilitados";
-            this.btnSinFiltros.UseVisualStyleBackColor = true;
-            this.btnSinFiltros.Click += new System.EventHandler(this.btnSinFiltros_Click);
+            this.button1.BackColor = System.Drawing.Color.LimeGreen;
+            this.button1.Location = new System.Drawing.Point(10, 21);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(176, 35);
+            this.button1.TabIndex = 19;
+            this.button1.Text = "Nuevo Cliente";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(672, 273);
+            this.btnModificar.BackColor = System.Drawing.Color.Gold;
+            this.btnModificar.Location = new System.Drawing.Point(10, 99);
             this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(104, 23);
-            this.btnModificar.TabIndex = 16;
-            this.btnModificar.Text = "Modificar";
-            this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Size = new System.Drawing.Size(176, 35);
+            this.btnModificar.TabIndex = 20;
+            this.btnModificar.Text = "Modificar Cliente";
+            this.btnModificar.UseVisualStyleBackColor = false;
             this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
-            // 
-            // btnHabilitar
-            // 
-            this.btnHabilitar.Location = new System.Drawing.Point(672, 59);
-            this.btnHabilitar.Name = "btnHabilitar";
-            this.btnHabilitar.Size = new System.Drawing.Size(104, 23);
-            this.btnHabilitar.TabIndex = 15;
-            this.btnHabilitar.Text = "Habilitar";
-            this.btnHabilitar.UseVisualStyleBackColor = true;
-            this.btnHabilitar.Click += new System.EventHandler(this.btnHabilitar_Click);
             // 
             // btnInhabilitar
             // 
-            this.btnInhabilitar.Location = new System.Drawing.Point(672, 30);
+            this.btnInhabilitar.BackColor = System.Drawing.Color.Red;
+            this.btnInhabilitar.Location = new System.Drawing.Point(10, 62);
             this.btnInhabilitar.Name = "btnInhabilitar";
-            this.btnInhabilitar.Size = new System.Drawing.Size(104, 23);
-            this.btnInhabilitar.TabIndex = 14;
-            this.btnInhabilitar.Text = "Inhabilitar";
-            this.btnInhabilitar.UseVisualStyleBackColor = true;
+            this.btnInhabilitar.Size = new System.Drawing.Size(85, 31);
+            this.btnInhabilitar.TabIndex = 21;
+            this.btnInhabilitar.Text = "Deshabilitar";
+            this.btnInhabilitar.UseVisualStyleBackColor = false;
             this.btnInhabilitar.Click += new System.EventHandler(this.btnInhabilitar_Click);
             // 
-            // panel1
+            // btnHabilitar
             // 
-            this.panel1.Controls.Add(this.btnFiltrar);
-            this.panel1.Controls.Add(this.chkHabilitado);
-            this.panel1.Controls.Add(this.txtFiltroDNI);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.txtFiltroApellido);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.txtFiltroNombre);
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(12, 330);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(788, 146);
-            this.panel1.TabIndex = 13;
+            this.btnHabilitar.AccessibleRole = System.Windows.Forms.AccessibleRole.Clock;
+            this.btnHabilitar.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.btnHabilitar.Location = new System.Drawing.Point(101, 62);
+            this.btnHabilitar.Name = "btnHabilitar";
+            this.btnHabilitar.Size = new System.Drawing.Size(85, 31);
+            this.btnHabilitar.TabIndex = 22;
+            this.btnHabilitar.Text = "Habilitar";
+            this.btnHabilitar.UseVisualStyleBackColor = false;
+            this.btnHabilitar.Click += new System.EventHandler(this.btnHabilitar_Click);
             // 
-            // btnFiltrar
+            // groupBoxAcciones
             // 
-            this.btnFiltrar.Location = new System.Drawing.Point(672, 110);
-            this.btnFiltrar.Name = "btnFiltrar";
-            this.btnFiltrar.Size = new System.Drawing.Size(104, 23);
-            this.btnFiltrar.TabIndex = 17;
-            this.btnFiltrar.Text = "Filtrar";
-            this.btnFiltrar.UseVisualStyleBackColor = true;
-            this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
+            this.groupBoxAcciones.Controls.Add(this.btnInhabilitar);
+            this.groupBoxAcciones.Controls.Add(this.button1);
+            this.groupBoxAcciones.Controls.Add(this.btnModificar);
+            this.groupBoxAcciones.Controls.Add(this.btnHabilitar);
+            this.groupBoxAcciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxAcciones.Location = new System.Drawing.Point(536, 300);
+            this.groupBoxAcciones.Name = "groupBoxAcciones";
+            this.groupBoxAcciones.Size = new System.Drawing.Size(195, 146);
+            this.groupBoxAcciones.TabIndex = 23;
+            this.groupBoxAcciones.TabStop = false;
+            this.groupBoxAcciones.Text = "Acciones";
             // 
-            // chkHabilitado
+            // lnlCerrarSesion
             // 
-            this.chkHabilitado.AutoSize = true;
-            this.chkHabilitado.Checked = true;
-            this.chkHabilitado.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkHabilitado.Location = new System.Drawing.Point(637, 10);
-            this.chkHabilitado.Name = "chkHabilitado";
-            this.chkHabilitado.Size = new System.Drawing.Size(139, 17);
-            this.chkHabilitado.TabIndex = 12;
-            this.chkHabilitado.Text = "Solo clientes habilitados";
-            this.chkHabilitado.UseVisualStyleBackColor = true;
+            this.lnlCerrarSesion.AutoSize = true;
+            this.lnlCerrarSesion.Location = new System.Drawing.Point(791, 6);
+            this.lnlCerrarSesion.Name = "lnlCerrarSesion";
+            this.lnlCerrarSesion.Size = new System.Drawing.Size(67, 13);
+            this.lnlCerrarSesion.TabIndex = 22;
+            this.lnlCerrarSesion.TabStop = true;
+            this.lnlCerrarSesion.Text = "cerrar sesión";
+            this.lnlCerrarSesion.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnlCerrarSesion_LinkClicked);
             // 
-            // txtFiltroDNI
+            // lblClientes
             // 
-            this.txtFiltroDNI.Location = new System.Drawing.Point(16, 112);
-            this.txtFiltroDNI.MaxLength = 18;
-            this.txtFiltroDNI.Name = "txtFiltroDNI";
-            this.txtFiltroDNI.Size = new System.Drawing.Size(650, 20);
-            this.txtFiltroDNI.TabIndex = 11;
+            this.lblClientes.AutoSize = true;
+            this.lblClientes.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClientes.Location = new System.Drawing.Point(3, 6);
+            this.lblClientes.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblClientes.Name = "lblClientes";
+            this.lblClientes.Size = new System.Drawing.Size(85, 24);
+            this.lblClientes.TabIndex = 24;
+            this.lblClientes.Text = "Clientes";
             // 
-            // label3
+            // cmdCerrar
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 96);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "D.N.I.";
-            // 
-            // txtFiltroApellido
-            // 
-            this.txtFiltroApellido.Location = new System.Drawing.Point(16, 74);
-            this.txtFiltroApellido.MaxLength = 255;
-            this.txtFiltroApellido.Name = "txtFiltroApellido";
-            this.txtFiltroApellido.Size = new System.Drawing.Size(650, 20);
-            this.txtFiltroApellido.TabIndex = 9;
-            this.txtFiltroApellido.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFiltroApellido_KeyPress);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 58);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(44, 13);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Apellido";
-            // 
-            // txtFiltroNombre
-            // 
-            this.txtFiltroNombre.Location = new System.Drawing.Point(16, 34);
-            this.txtFiltroNombre.MaxLength = 255;
-            this.txtFiltroNombre.Name = "txtFiltroNombre";
-            this.txtFiltroNombre.Size = new System.Drawing.Size(650, 20);
-            this.txtFiltroNombre.TabIndex = 7;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 18);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(44, 13);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "Nombre";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(357, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Filtros de Busqueda";
-            // 
-            // errorProvider
-            // 
-            this.errorProvider.ContainerControl = this;
+            this.cmdCerrar.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.cmdCerrar.Location = new System.Drawing.Point(737, 360);
+            this.cmdCerrar.Name = "cmdCerrar";
+            this.cmdCerrar.Size = new System.Drawing.Size(121, 35);
+            this.cmdCerrar.TabIndex = 23;
+            this.cmdCerrar.Text = "Cerrar";
+            this.cmdCerrar.UseVisualStyleBackColor = false;
+            this.cmdCerrar.Click += new System.EventHandler(this.cmdCerrar_Click);
             // 
             // ABMClienteForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(810, 483);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.panel2);
+            this.ClientSize = new System.Drawing.Size(869, 455);
+            this.Controls.Add(this.cmdCerrar);
+            this.Controls.Add(this.lblClientes);
+            this.Controls.Add(this.dataGridClientes);
+            this.Controls.Add(this.groupBoxAcciones);
+            this.Controls.Add(this.lnlCerrarSesion);
+            this.Controls.Add(this.groupBoxFiltrosBusqueda);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "ABMClienteForm";
             this.Text = "PagoAgilFrba | ABM Cliente";
             this.Load += new System.EventHandler(this.ABMClientes_Load);
-            this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridClientes)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            this.groupBoxFiltrosBusqueda.ResumeLayout(false);
+            this.groupBoxFiltrosBusqueda.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridClientes)).EndInit();
+            this.groupBoxAcciones.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button btnModificar;
-        private System.Windows.Forms.Button btnHabilitar;
-        private System.Windows.Forms.Button btnInhabilitar;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnFiltrar;
-        private System.Windows.Forms.CheckBox chkHabilitado;
-        private System.Windows.Forms.TextBox txtFiltroDNI;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtFiltroApellido;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtFiltroNombre;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnSinFiltros;
         private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.GroupBox groupBoxFiltrosBusqueda;
+        private System.Windows.Forms.TextBox txtFiltroDNI;
+        private System.Windows.Forms.Button cmdQuitarFiltros;
+        private System.Windows.Forms.CheckBox chkHabilitado;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtFiltroApellido;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtFiltroNombre;
+        private System.Windows.Forms.Button btnFiltrar;
         private System.Windows.Forms.DataGridView dataGridClientes;
+        private System.Windows.Forms.Button btnSinFiltros;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnModificar;
+        private System.Windows.Forms.Button btnInhabilitar;
+        private System.Windows.Forms.Button btnHabilitar;
+        private System.Windows.Forms.GroupBox groupBoxAcciones;
+        private System.Windows.Forms.LinkLabel lnlCerrarSesion;
+        private System.Windows.Forms.Label lblClientes;
+        private System.Windows.Forms.Button cmdCerrar;
     }
 }
