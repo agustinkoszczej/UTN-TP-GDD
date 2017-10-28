@@ -901,6 +901,45 @@ GO
 
 -------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------
+-- LOTES DE PRUEBA
+-------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rubro( Rubro_descripcion ) VALUES	('Rubro 2');
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rubro( Rubro_descripcion ) VALUES	('Rubro 3');
+
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Empresa( Empresa_cuit, Empresa_nombre, Empresa_direccion) VALUES ('9-99999999-9', 'Aguas Argentinas', 'Av. Rivadavia 2000');
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Empresa( Empresa_cuit, Empresa_nombre, Empresa_direccion) VALUES ('8-88888888-8', 'Edesur', 'Riobamba 300');
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Empresa( Empresa_cuit, Empresa_nombre, Empresa_direccion) VALUES ('7-77777777-7', 'Movistar', 'Av. Gaona 3250');
+
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Sucursal( Sucursal_nombre, Sucursal_direccion, Sucursal_codigo_postal ) VALUES ('Sucursal 2', 'Colombres 100', 'C1020');
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Sucursal( Sucursal_nombre, Sucursal_direccion, Sucursal_codigo_postal ) VALUES ('Sucursal 3', 'Albert 900', 'C2546');
+
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Usuario_Sucursal(UsuarioSucur_usuario, UsuarioSucur_sucursal) VALUES (1,2)
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Usuario_Sucursal(UsuarioSucur_usuario, UsuarioSucur_sucursal) VALUES (1,3)
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Usuario_Sucursal(UsuarioSucur_usuario, UsuarioSucur_sucursal) VALUES (2,1)
+
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Factura( Factura_fecha, Factura_fecha_venc, Factura_total, Factura_empresa, Factura_cliente, Factura_rendicion)
+VALUES (getDate(), DATEADD(day, 10, getDate()), 500, 2, 60, null)
+
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Factura( Factura_fecha, Factura_fecha_venc, Factura_total, Factura_empresa, Factura_cliente, Factura_rendicion)
+VALUES (getDate(), DATEADD(day, 10, getDate()), 22500, 2, 43, null)
+
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Factura( Factura_fecha, Factura_fecha_venc, Factura_total, Factura_empresa, Factura_cliente, Factura_rendicion)
+VALUES (getDate(), DATEADD(day, 10, getDate()), 8500, 2, 10, null)
+
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Factura( Factura_fecha, Factura_fecha_venc, Factura_total, Factura_empresa, Factura_cliente, Factura_rendicion)
+VALUES (getDate(), DATEADD(day, 10, getDate()), 37800, 2, 721, null)
+
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Factura( Factura_fecha, Factura_fecha_venc, Factura_total, Factura_empresa, Factura_cliente, Factura_rendicion)
+VALUES (getDate(), DATEADD(day, 10, getDate()), 13400, 3, 178, null)
+
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Factura( Factura_fecha, Factura_fecha_venc, Factura_total, Factura_empresa, Factura_cliente, Factura_rendicion)
+VALUES (getDate(), DATEADD(day, 10, getDate()), 6513400, 3, 975, null)
+
+
+
+-------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------
 -- PRUEBAS VARIAS
 -------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------
