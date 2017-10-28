@@ -133,6 +133,7 @@
             // txtDNICliente
             // 
             this.txtDNICliente.Location = new System.Drawing.Point(184, 37);
+            this.txtDNICliente.MaxLength = 18;
             this.txtDNICliente.Name = "txtDNICliente";
             this.txtDNICliente.Size = new System.Drawing.Size(155, 20);
             this.txtDNICliente.TabIndex = 24;
@@ -150,6 +151,7 @@
             // txtNroFactura
             // 
             this.txtNroFactura.Location = new System.Drawing.Point(13, 37);
+            this.txtNroFactura.MaxLength = 18;
             this.txtNroFactura.Name = "txtNroFactura";
             this.txtNroFactura.Size = new System.Drawing.Size(155, 20);
             this.txtNroFactura.TabIndex = 12;
@@ -229,6 +231,7 @@
             // 
             this.rtxtOtro.Enabled = false;
             this.rtxtOtro.Location = new System.Drawing.Point(15, 111);
+            this.rtxtOtro.MaxLength = 255;
             this.rtxtOtro.Name = "rtxtOtro";
             this.rtxtOtro.Size = new System.Drawing.Size(156, 71);
             this.rtxtOtro.TabIndex = 39;

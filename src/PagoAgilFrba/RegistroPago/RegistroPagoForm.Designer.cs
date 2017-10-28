@@ -33,6 +33,7 @@
             this.dgdFacturas = new System.Windows.Forms.DataGridView();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBoxFiltrosBusqueda = new System.Windows.Forms.GroupBox();
+            this.chkSoloPosibles = new System.Windows.Forms.CheckBox();
             this.cmdQuitarFiltros = new System.Windows.Forms.Button();
             this.lblDNICliente = new System.Windows.Forms.Label();
             this.txtDNICliente = new System.Windows.Forms.TextBox();
@@ -53,7 +54,6 @@
             this.lblFormaDePago = new System.Windows.Forms.Label();
             this.lnlCerrarSesion = new System.Windows.Forms.LinkLabel();
             this.cmdSalir = new System.Windows.Forms.Button();
-            this.chkSoloPosibles = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgdFacturas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.groupBoxFiltrosBusqueda.SuspendLayout();
@@ -115,6 +115,16 @@
             this.groupBoxFiltrosBusqueda.TabStop = false;
             this.groupBoxFiltrosBusqueda.Text = "Filtros de búsqueda";
             // 
+            // chkSoloPosibles
+            // 
+            this.chkSoloPosibles.AutoSize = true;
+            this.chkSoloPosibles.Location = new System.Drawing.Point(17, 63);
+            this.chkSoloPosibles.Name = "chkSoloPosibles";
+            this.chkSoloPosibles.Size = new System.Drawing.Size(221, 17);
+            this.chkSoloPosibles.TabIndex = 29;
+            this.chkSoloPosibles.Text = "Sólo Facturas disponibles de pago";
+            this.chkSoloPosibles.UseVisualStyleBackColor = true;
+            // 
             // cmdQuitarFiltros
             // 
             this.cmdQuitarFiltros.BackColor = System.Drawing.Color.RoyalBlue;
@@ -138,6 +148,7 @@
             // txtDNICliente
             // 
             this.txtDNICliente.Location = new System.Drawing.Point(184, 37);
+            this.txtDNICliente.MaxLength = 18;
             this.txtDNICliente.Name = "txtDNICliente";
             this.txtDNICliente.Size = new System.Drawing.Size(155, 20);
             this.txtDNICliente.TabIndex = 24;
@@ -155,6 +166,7 @@
             // txtNroFactura
             // 
             this.txtNroFactura.Location = new System.Drawing.Point(13, 37);
+            this.txtNroFactura.MaxLength = 18;
             this.txtNroFactura.Name = "txtNroFactura";
             this.txtNroFactura.Size = new System.Drawing.Size(155, 20);
             this.txtNroFactura.TabIndex = 12;
@@ -350,16 +362,6 @@
             this.cmdSalir.Text = "Cerrar";
             this.cmdSalir.UseVisualStyleBackColor = false;
             this.cmdSalir.Click += new System.EventHandler(this.cmdSalir_Click);
-            // 
-            // chkSoloPosibles
-            // 
-            this.chkSoloPosibles.AutoSize = true;
-            this.chkSoloPosibles.Location = new System.Drawing.Point(17, 63);
-            this.chkSoloPosibles.Name = "chkSoloPosibles";
-            this.chkSoloPosibles.Size = new System.Drawing.Size(221, 17);
-            this.chkSoloPosibles.TabIndex = 29;
-            this.chkSoloPosibles.Text = "Sólo Facturas disponibles de pago";
-            this.chkSoloPosibles.UseVisualStyleBackColor = true;
             // 
             // RegistroPagoForm
             // 

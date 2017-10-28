@@ -99,6 +99,7 @@
             // 
             this.txtAño.Location = new System.Drawing.Point(314, 63);
             this.txtAño.Margin = new System.Windows.Forms.Padding(2);
+            this.txtAño.MaxLength = 18;
             this.txtAño.Name = "txtAño";
             this.txtAño.Size = new System.Drawing.Size(122, 20);
             this.txtAño.TabIndex = 32;

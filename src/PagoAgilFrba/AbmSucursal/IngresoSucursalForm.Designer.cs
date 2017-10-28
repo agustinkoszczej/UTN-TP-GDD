@@ -62,6 +62,7 @@
             // txtDireccionSucursal
             // 
             this.txtDireccionSucursal.Location = new System.Drawing.Point(6, 101);
+            this.txtDireccionSucursal.MaxLength = 255;
             this.txtDireccionSucursal.Name = "txtDireccionSucursal";
             this.txtDireccionSucursal.Size = new System.Drawing.Size(155, 20);
             this.txtDireccionSucursal.TabIndex = 3;
@@ -87,6 +88,7 @@
             // txtCodPostalSucursal
             // 
             this.txtCodPostalSucursal.Location = new System.Drawing.Point(6, 63);
+            this.txtCodPostalSucursal.MaxLength = 255;
             this.txtCodPostalSucursal.Name = "txtCodPostalSucursal";
             this.txtCodPostalSucursal.Size = new System.Drawing.Size(155, 20);
             this.txtCodPostalSucursal.TabIndex = 2;
@@ -116,6 +118,7 @@
             // txtNombreSucursal
             // 
             this.txtNombreSucursal.Location = new System.Drawing.Point(6, 26);
+            this.txtNombreSucursal.MaxLength = 50;
             this.txtNombreSucursal.Name = "txtNombreSucursal";
             this.txtNombreSucursal.Size = new System.Drawing.Size(155, 20);
             this.txtNombreSucursal.TabIndex = 1;
