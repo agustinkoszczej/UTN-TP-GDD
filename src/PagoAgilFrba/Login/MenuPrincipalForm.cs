@@ -15,7 +15,7 @@ using PagoAgilFrba.AbmRol;
 using PagoAgilFrba.AbmSucursal;
 using PagoAgilFrba.ListadoEstadistico;
 using PagoAgilFrba.RegistroPago;
-using PagoAgilFrba.Rendicion;
+using PagoAgilFrba.Rendiciones;
 using PagoAgilFrba.Devolucion;
 
 using PagoAgilFrba.Model;
@@ -32,12 +32,14 @@ namespace PagoAgilFrba
         public Usuario usuario_logueado;
         public Rol rol_seleccionado;
         public Sucursal sucursal_seleccionada;
+        private bool restart;
 
         public MenuPrincipalForm(Usuario _usuario, Rol _rol_seleccionado)
         {
             InitializeComponent();
             this.usuario_logueado = _usuario;
             this.rol_seleccionado = _rol_seleccionado;
+            this.restart = false;
         }
 
         private void MenuPrincipalForm_Load(object sender, EventArgs e)
@@ -219,12 +221,19 @@ namespace PagoAgilFrba
 
         private void lnlCambiarSucursal_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (MessageBox.Show("¿Está ud. seguro de querer cambiar de Sucursal de PagoAgilFrba?", "Cambiar Sucursal de PagoAgilFrba", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("¿Está ud. seguro de querer cambiar de Sucursal de PagoAgilFrba?", "Cambiar Sucursal de PagoAgilFrba", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
-                this.Close();
                 MenuPrincipalForm frm = new MenuPrincipalForm(usuario_logueado, rol_seleccionado);
                 frm.Show();
+                frm.Focus();
+                this.restart = true;
+                this.Close();
             }
+        }
+        private void MenuPrincipalForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+           if(!restart)
+               Application.Exit();
         }
     }
 }

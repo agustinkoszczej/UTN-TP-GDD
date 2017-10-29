@@ -63,7 +63,7 @@ namespace PagoAgilFrba.DAOs
         {
             try
             {
-                string query = string.Format(@"INSERT INTO LORDS_OF_THE_STRINGS_V2.Sucursal(Sucursal_nombre, Sucursal_direccion, Sucursal_codigo_postal) VALUES (@nombre, @direccion, @cod_postal); SELECT SCOPE_IDENTITY()");
+                string query = string.Format(@"INSERT INTO LORDS_OF_THE_STRINGS_V2.Sucursal(Sucursal_nombre, Sucursal_direccion, Sucursal_codigo_postal) VALUES (@nombre, @direccion, @cod_postal)");
                 SqlConnection conn = DBConnection.getConnection();
                 SqlCommand cmd = new SqlCommand(query, conn);
   
@@ -71,11 +71,6 @@ namespace PagoAgilFrba.DAOs
                 cmd.Parameters.AddWithValue("@direccion", sucursal.direccion);
                 cmd.Parameters.AddWithValue("@cod_postal", sucursal.cod_postal);
 
-                int sucursal_cod_generado = Convert.ToInt32(cmd.ExecuteScalar());
-
-                query = string.Format(@"INSERT INTO LORDS_OF_THE_STRINGS_V2.Usuario_Sucursal(UsuarioSucur_usuario, UsuarioSucur_sucursal) VALUES (1, @id_sucursal)");
-                cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@id_sucursal", sucursal_cod_generado);
                 cmd.ExecuteNonQuery();
 
                 conn.Close();

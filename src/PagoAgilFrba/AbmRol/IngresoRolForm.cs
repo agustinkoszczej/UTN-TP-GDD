@@ -29,7 +29,7 @@ namespace PagoAgilFrba.AbmRol
             this.rol_modificar = _rol_modificar;
             this.campos_obligatorios = new List<Control>() { txtNombreRol, chkLstFuncionalidades };
 
-            groupBoxIngresoRoles.Text = tipo_ingreso;
+            lblRoles.Text = tipo_ingreso;
             set_funcionalidades_chkLst();
         }
         private void set_funcionalidades_chkLst()
@@ -151,7 +151,10 @@ namespace PagoAgilFrba.AbmRol
         {
             if ((RolDAO.validar_nombre(txtNombreRol.Text.Trim())) || ((rol_modificar != null) && (rol_modificar.nombre.Trim().ToUpper() == txtNombreRol.Text.Trim().ToUpper())))
             {
-                errorProvider.SetError(txtNombreRol, null);
+                if (!Utils.esCampoVacio(txtNombreRol, errorProvider))
+                {
+                    errorProvider.SetError(txtNombreRol, null);
+                }
             }
             else
             {

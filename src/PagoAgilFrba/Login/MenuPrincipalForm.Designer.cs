@@ -361,6 +361,7 @@
             this.Name = "MenuPrincipalForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PagoAgilFrba | Menú Principal";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MenuPrincipalForm_FormClosing);
             this.Load += new System.EventHandler(this.MenuPrincipalForm_Load);
             this.groupBoxAcciones.ResumeLayout(false);
             this.groupBoxABMs.ResumeLayout(false);

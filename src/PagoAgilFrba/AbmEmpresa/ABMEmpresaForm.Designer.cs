@@ -36,7 +36,6 @@
             this.cmdBorrarEmpresa = new System.Windows.Forms.Button();
             this.groupBoxAcciones = new System.Windows.Forms.GroupBox();
             this.dgdEmpresas = new System.Windows.Forms.DataGridView();
-            this.cmdCerrar = new System.Windows.Forms.Button();
             this.lblEmpresas = new System.Windows.Forms.Label();
             this.lblRubros = new System.Windows.Forms.Label();
             this.lnlCerrarSesion = new System.Windows.Forms.LinkLabel();
@@ -50,6 +49,7 @@
             this.lblNombreEmpresa = new System.Windows.Forms.Label();
             this.txtNombreEmpresa = new System.Windows.Forms.TextBox();
             this.cmdBuscar = new System.Windows.Forms.Button();
+            this.cmdCerrar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgdRubros)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.groupBoxAcciones.SuspendLayout();
@@ -83,9 +83,9 @@
             // cmdAltaEmpresa
             // 
             this.cmdAltaEmpresa.BackColor = System.Drawing.Color.LimeGreen;
-            this.cmdAltaEmpresa.Location = new System.Drawing.Point(35, 30);
+            this.cmdAltaEmpresa.Location = new System.Drawing.Point(23, 31);
             this.cmdAltaEmpresa.Name = "cmdAltaEmpresa";
-            this.cmdAltaEmpresa.Size = new System.Drawing.Size(121, 35);
+            this.cmdAltaEmpresa.Size = new System.Drawing.Size(135, 35);
             this.cmdAltaEmpresa.TabIndex = 9;
             this.cmdAltaEmpresa.Text = "Nueva Empresa";
             this.cmdAltaEmpresa.UseVisualStyleBackColor = false;
@@ -94,9 +94,9 @@
             // cmdModificarEmpresa
             // 
             this.cmdModificarEmpresa.BackColor = System.Drawing.Color.Gold;
-            this.cmdModificarEmpresa.Location = new System.Drawing.Point(35, 146);
+            this.cmdModificarEmpresa.Location = new System.Drawing.Point(23, 146);
             this.cmdModificarEmpresa.Name = "cmdModificarEmpresa";
-            this.cmdModificarEmpresa.Size = new System.Drawing.Size(121, 35);
+            this.cmdModificarEmpresa.Size = new System.Drawing.Size(135, 35);
             this.cmdModificarEmpresa.TabIndex = 10;
             this.cmdModificarEmpresa.Text = "Modificar Empresa";
             this.cmdModificarEmpresa.UseVisualStyleBackColor = false;
@@ -105,9 +105,9 @@
             // cmdBorrarEmpresa
             // 
             this.cmdBorrarEmpresa.BackColor = System.Drawing.Color.Red;
-            this.cmdBorrarEmpresa.Location = new System.Drawing.Point(35, 88);
+            this.cmdBorrarEmpresa.Location = new System.Drawing.Point(23, 88);
             this.cmdBorrarEmpresa.Name = "cmdBorrarEmpresa";
-            this.cmdBorrarEmpresa.Size = new System.Drawing.Size(121, 35);
+            this.cmdBorrarEmpresa.Size = new System.Drawing.Size(135, 35);
             this.cmdBorrarEmpresa.TabIndex = 11;
             this.cmdBorrarEmpresa.Text = "Habilitar/Deshabilitar";
             this.cmdBorrarEmpresa.UseVisualStyleBackColor = false;
@@ -118,7 +118,8 @@
             this.groupBoxAcciones.Controls.Add(this.cmdAltaEmpresa);
             this.groupBoxAcciones.Controls.Add(this.cmdModificarEmpresa);
             this.groupBoxAcciones.Controls.Add(this.cmdBorrarEmpresa);
-            this.groupBoxAcciones.Location = new System.Drawing.Point(610, 39);
+            this.groupBoxAcciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxAcciones.Location = new System.Drawing.Point(610, 53);
             this.groupBoxAcciones.Name = "groupBoxAcciones";
             this.groupBoxAcciones.Size = new System.Drawing.Size(176, 203);
             this.groupBoxAcciones.TabIndex = 12;
@@ -146,17 +147,6 @@
             this.dgdEmpresas.Size = new System.Drawing.Size(342, 323);
             this.dgdEmpresas.TabIndex = 13;
             this.dgdEmpresas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgdRoles_CellContentClick);
-            // 
-            // cmdCerrar
-            // 
-            this.cmdCerrar.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.cmdCerrar.Location = new System.Drawing.Point(645, 293);
-            this.cmdCerrar.Name = "cmdCerrar";
-            this.cmdCerrar.Size = new System.Drawing.Size(121, 35);
-            this.cmdCerrar.TabIndex = 12;
-            this.cmdCerrar.Text = "Cerrar";
-            this.cmdCerrar.UseVisualStyleBackColor = false;
-            this.cmdCerrar.Click += new System.EventHandler(this.cmdCerrar_Click);
             // 
             // lblEmpresas
             // 
@@ -195,7 +185,7 @@
             // 
             this.chkQuitarDeshabilitados.AutoSize = true;
             this.chkQuitarDeshabilitados.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkQuitarDeshabilitados.Location = new System.Drawing.Point(13, 73);
+            this.chkQuitarDeshabilitados.Location = new System.Drawing.Point(13, 104);
             this.chkQuitarDeshabilitados.Name = "chkQuitarDeshabilitados";
             this.chkQuitarDeshabilitados.Size = new System.Drawing.Size(133, 16);
             this.chkQuitarDeshabilitados.TabIndex = 22;
@@ -213,10 +203,10 @@
             this.groupBoxFiltrosBusqueda.Controls.Add(this.lblNombreEmpresa);
             this.groupBoxFiltrosBusqueda.Controls.Add(this.txtNombreEmpresa);
             this.groupBoxFiltrosBusqueda.Controls.Add(this.cmdBuscar);
-            this.groupBoxFiltrosBusqueda.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxFiltrosBusqueda.Location = new System.Drawing.Point(15, 374);
+            this.groupBoxFiltrosBusqueda.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxFiltrosBusqueda.Location = new System.Drawing.Point(12, 371);
             this.groupBoxFiltrosBusqueda.Name = "groupBoxFiltrosBusqueda";
-            this.groupBoxFiltrosBusqueda.Size = new System.Drawing.Size(771, 158);
+            this.groupBoxFiltrosBusqueda.Size = new System.Drawing.Size(771, 132);
             this.groupBoxFiltrosBusqueda.TabIndex = 13;
             this.groupBoxFiltrosBusqueda.TabStop = false;
             this.groupBoxFiltrosBusqueda.Text = "Filtros de búsqueda";
@@ -224,7 +214,7 @@
             // cmdQuitarFiltros
             // 
             this.cmdQuitarFiltros.BackColor = System.Drawing.Color.RoyalBlue;
-            this.cmdQuitarFiltros.Location = new System.Drawing.Point(184, 105);
+            this.cmdQuitarFiltros.Location = new System.Drawing.Point(621, 85);
             this.cmdQuitarFiltros.Name = "cmdQuitarFiltros";
             this.cmdQuitarFiltros.Size = new System.Drawing.Size(121, 35);
             this.cmdQuitarFiltros.TabIndex = 28;
@@ -235,34 +225,36 @@
             // lblRubrosBuscar
             // 
             this.lblRubrosBuscar.AutoSize = true;
-            this.lblRubrosBuscar.Location = new System.Drawing.Point(350, 17);
+            this.lblRubrosBuscar.Location = new System.Drawing.Point(186, 21);
             this.lblRubrosBuscar.Name = "lblRubrosBuscar";
-            this.lblRubrosBuscar.Size = new System.Drawing.Size(41, 13);
+            this.lblRubrosBuscar.Size = new System.Drawing.Size(47, 13);
             this.lblRubrosBuscar.TabIndex = 27;
             this.lblRubrosBuscar.Text = "Rubros";
             // 
             // chkLstRubros
             // 
             this.chkLstRubros.CheckOnClick = true;
+            this.chkLstRubros.ColumnWidth = 150;
+            this.chkLstRubros.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkLstRubros.FormattingEnabled = true;
-            this.chkLstRubros.Location = new System.Drawing.Point(350, 37);
+            this.chkLstRubros.Location = new System.Drawing.Point(186, 41);
             this.chkLstRubros.MultiColumn = true;
             this.chkLstRubros.Name = "chkLstRubros";
-            this.chkLstRubros.Size = new System.Drawing.Size(403, 109);
+            this.chkLstRubros.Size = new System.Drawing.Size(403, 79);
             this.chkLstRubros.TabIndex = 26;
             // 
             // lblCuitEmpresa
             // 
             this.lblCuitEmpresa.AutoSize = true;
-            this.lblCuitEmpresa.Location = new System.Drawing.Point(181, 21);
+            this.lblCuitEmpresa.Location = new System.Drawing.Point(10, 58);
             this.lblCuitEmpresa.Name = "lblCuitEmpresa";
-            this.lblCuitEmpresa.Size = new System.Drawing.Size(95, 13);
+            this.lblCuitEmpresa.Size = new System.Drawing.Size(113, 13);
             this.lblCuitEmpresa.TabIndex = 25;
             this.lblCuitEmpresa.Text = "Cuit de la Empresa";
             // 
             // txtCuitEmpresa
             // 
-            this.txtCuitEmpresa.Location = new System.Drawing.Point(184, 37);
+            this.txtCuitEmpresa.Location = new System.Drawing.Point(13, 73);
             this.txtCuitEmpresa.Name = "txtCuitEmpresa";
             this.txtCuitEmpresa.Size = new System.Drawing.Size(155, 20);
             this.txtCuitEmpresa.TabIndex = 24;
@@ -273,7 +265,7 @@
             this.lblNombreEmpresa.AutoSize = true;
             this.lblNombreEmpresa.Location = new System.Drawing.Point(10, 21);
             this.lblNombreEmpresa.Name = "lblNombreEmpresa";
-            this.lblNombreEmpresa.Size = new System.Drawing.Size(114, 13);
+            this.lblNombreEmpresa.Size = new System.Drawing.Size(134, 13);
             this.lblNombreEmpresa.TabIndex = 13;
             this.lblNombreEmpresa.Text = "Nombre de la Empresa";
             // 
@@ -287,7 +279,7 @@
             // cmdBuscar
             // 
             this.cmdBuscar.BackColor = System.Drawing.Color.Orange;
-            this.cmdBuscar.Location = new System.Drawing.Point(13, 105);
+            this.cmdBuscar.Location = new System.Drawing.Point(621, 22);
             this.cmdBuscar.Name = "cmdBuscar";
             this.cmdBuscar.Size = new System.Drawing.Size(121, 35);
             this.cmdBuscar.TabIndex = 11;
@@ -295,16 +287,27 @@
             this.cmdBuscar.UseVisualStyleBackColor = false;
             this.cmdBuscar.Click += new System.EventHandler(this.cmdBuscar_Click);
             // 
+            // cmdCerrar
+            // 
+            this.cmdCerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdCerrar.Location = new System.Drawing.Point(633, 289);
+            this.cmdCerrar.Name = "cmdCerrar";
+            this.cmdCerrar.Size = new System.Drawing.Size(135, 35);
+            this.cmdCerrar.TabIndex = 30;
+            this.cmdCerrar.Text = "Cerrar";
+            this.cmdCerrar.UseVisualStyleBackColor = true;
+            this.cmdCerrar.Click += new System.EventHandler(this.cmdCerrar_Click);
+            // 
             // ABMEmpresaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(798, 564);
+            this.ClientSize = new System.Drawing.Size(798, 512);
+            this.Controls.Add(this.cmdCerrar);
             this.Controls.Add(this.groupBoxFiltrosBusqueda);
             this.Controls.Add(this.lnlCerrarSesion);
             this.Controls.Add(this.lblRubros);
             this.Controls.Add(this.lblEmpresas);
-            this.Controls.Add(this.cmdCerrar);
             this.Controls.Add(this.dgdEmpresas);
             this.Controls.Add(this.groupBoxAcciones);
             this.Controls.Add(this.dgdRubros);
@@ -334,7 +337,6 @@
         private System.Windows.Forms.Button cmdModificarEmpresa;
         private System.Windows.Forms.GroupBox groupBoxAcciones;
         private System.Windows.Forms.DataGridView dgdEmpresas;
-        private System.Windows.Forms.Button cmdCerrar;
         private System.Windows.Forms.Label lblRubros;
         private System.Windows.Forms.Label lblEmpresas;
         private System.Windows.Forms.LinkLabel lnlCerrarSesion;
@@ -348,6 +350,7 @@
         private System.Windows.Forms.Label lblRubrosBuscar;
         private System.Windows.Forms.CheckedListBox chkLstRubros;
         private System.Windows.Forms.Button cmdQuitarFiltros;
+        private System.Windows.Forms.Button cmdCerrar;
 
     }
 }

@@ -30,7 +30,7 @@ namespace PagoAgilFrba.AbmSucursal
             this.sucursal_modificar = _sucursal_modificar;
             this.campos_obligatorios = new List<Control>() { txtNombreSucursal, txtCodPostalSucursal, txtDireccionSucursal};
 
-            groupBoxIngresoSucursales.Text = tipo_ingreso;
+            lblSucursales.Text = tipo_ingreso;
 
             if (sucursal_modificar != null)
             {

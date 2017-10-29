@@ -222,12 +222,6 @@ GO
 
 
 
-
-
-
-
-
-
 -------------------------------------------------------------------------------------------------
 -------------------------------- MIGRACIÓN DE DATOS----------------------------------------------
 -------------------------------------------------------------------------------------------------
@@ -327,7 +321,7 @@ VALUES (1,1)
 GO
 -----------------------------------------------------------------------------------
 --INSERTA EN LA TABLA USUARIO MANUALMENTE LOS CAMPOS DEL USUARIO DE ROL COBRADOR
--- ------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------
 
 DECLARE @pass [nvarchar](255)
 SET @pass = '12345'
@@ -340,6 +334,41 @@ INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rol_Usuario(RolUsua_usuario, RolUsua_rol)
 VALUES (2,2)
 GO
 
+-----------------------------------------------------------------------------------
+--INSERTA EN LA TABLA USUARIO MANUALMENTE USUARIOS DE PRUEBA
+-----------------------------------------------------------------------------------
+
+DECLARE @pass [nvarchar](255)
+SET @pass = '12345'
+
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Usuario(Usuario_username, Usuario_password)
+VALUES ('cobrador_sin_sucursal', HASHBYTES('SHA2_256', @pass))
+GO
+-- Rol Cobrador (2)
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rol_Usuario(RolUsua_usuario, RolUsua_rol)
+VALUES (3,2)
+GO
+-----------------------------------------------------------------------------------
+DECLARE @pass [nvarchar](255)
+SET @pass = '12345'
+
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Usuario(Usuario_username, Usuario_password)
+VALUES ('usuario_sin_rol', HASHBYTES('SHA2_256', @pass))
+GO
+-----------------------------------------------------------------------------------
+DECLARE @pass [nvarchar](255)
+SET @pass = '12345'
+
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Usuario(Usuario_username, Usuario_password)
+VALUES ('admin_y_cobrador', HASHBYTES('SHA2_256', @pass))
+GO
+
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rol_Usuario(RolUsua_usuario, RolUsua_rol)
+VALUES (5,1) --Rol Administrador
+GO
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rol_Usuario(RolUsua_usuario, RolUsua_rol)
+VALUES (5,2) --Rol Cobrador
+GO
 -------------------------------------------------------------------------------------------------
 -- INSERTA EN LA TABLA CLIENTE
 -------------------------------------------------------------------------------------------------
@@ -379,12 +408,6 @@ FROM GD2C2017.gd_esquema.Maestra m
 WHERE m.[Cliente-Dni] IS NOT NULL
 GO
 
-/*SELECT Cliente_Mail, COUNT(*) 
-FROM
-(SELECT DISTINCT [Cliente-Dni], Cliente_Mail
-FROM GD2C2017.gd_esquema.Maestra) as FF
-GROUP BY Cliente_Mail
-HAVING COUNT(*) > 1*/
 -------------------------------------------------------------------------------------------------
 -- INSERTA EN LA TABLA RUBRO
 -------------------------------------------------------------------------------------------------
@@ -446,10 +469,12 @@ SELECT DISTINCT 1,
 				FROM [LORDS_OF_THE_STRINGS_V2].Sucursal
 GO
 
-------------------------------------------------------------------------------------------------
------------ EL USUARIO COBRADOR (2) NO TIENE SUCURSALES
------------  
-------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------
+------------- EL USUARIO ADMIN_Y_COBRADOR (1) TIENE SOLO LA SUCURSAL Nº2000
+-------------------------------------------------------------------------------------------------
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Usuario_Sucursal(UsuarioSucur_usuario, UsuarioSucur_sucursal)
+VALUES(5,1)
+GO
 
 -------------------------------------------------------------------------------------------------
 -- INSERTA EN LA TABLA RUBRO_EMPRESA
@@ -473,6 +498,7 @@ GO
 -- INSERTA EN LA TABLA RENDICION
 -------------------------------------------------------------------------------------------------
 --Curious fact: Todas impares son
+
 SET IDENTITY_INSERT [LORDS_OF_THE_STRINGS_V2].Rendicion ON
 GO
 
@@ -489,16 +515,6 @@ SELECT DISTINCT
 				ROUND((m.ItemRendicion_Importe/m.Factura_Total*100), 2)
 FROM GD2C2017.gd_esquema.Maestra m
 WHERE m.Rendicion_Nro IS NOT NULL
-
-/* TODO: VER
-SELECT DISTINCT
-				m.Rendicion_Nro,
-				m.Rendicion_Fecha,
-				m.ItemRendicion_Importe
-FROM GD2C2017.gd_esquema.Maestra m
-WHERE m.Rendicion_Nro IS NOT NULL
-GO
-*/
 
 SET IDENTITY_INSERT [LORDS_OF_THE_STRINGS_V2].Rendicion OFF
 GO
@@ -812,6 +828,42 @@ IF ((SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Pago JOIN LORDS_OF_THE_STRINGS
 RETURN 0
 END
 GO
+
+------------------------------------------------------------------------------------------------------------
+----------------------------------------CREACIÓN DE TRIGGERS------------------------------------------------
+
+------------------------------------------------------------------------------------------------------------
+-- SUCURSAL
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].tr_agregar_sucursal_a_admin') IS NOT NULL DROP TRIGGER [LORDS_OF_THE_STRINGS_V2].[tr_agregar_sucursal_a_admin]; 
+GO
+
+-------------------------------------------------------------------------------------------------
+-- SUCURSAL
+-------------------------------------------------------------------------------------------------
+-- TRIGGER TR_AGREGAR_SUCURSAL_A_ADMIN
+-------------------------------------------------------------------------------------------------
+CREATE TRIGGER [LORDS_OF_THE_STRINGS_V2].tr_agregar_sucursal_a_admin ON [LORDS_OF_THE_STRINGS_V2].Sucursal AFTER INSERT, UPDATE
+AS
+BEGIN
+
+	DECLARE ids_inserted_cursor CURSOR FOR SELECT Sucursal_codigo FROM inserted WHERE Sucursal_habilitada = 1
+	DECLARE @id_suc numeric(18,0)
+
+	DECLARE @id_admin numeric(18,0) = (SELECT Usuario_codigo FROM LORDS_OF_THE_STRINGS_V2.Usuario WHERE Usuario_username = 'admin')
+	---------------------------------------------------------------------------------------------------------------------
+	------------------------------------------------------ INSERT  ------------------------------------------------------
+	---------------------------------------------------------------------------------------------------------------------
+	OPEN ids_inserted_cursor
+	FETCH NEXT FROM ids_inserted_cursor INTO @id_suc
+	WHILE @@FETCH_STATUS = 0
+		BEGIN
+			INSERT INTO LORDS_OF_THE_STRINGS_V2.Usuario_Sucursal(UsuarioSucur_usuario, UsuarioSucur_sucursal) VALUES (@id_admin, @id_suc)
+			FETCH NEXT FROM ids_inserted_cursor INTO @id_suc
+		END
+	CLOSE ids_inserted_cursor
+	DEALLOCATE ids_inserted_cursor 
+END
+GO
 ------------------------------------------------------------------------------------------------------------
 -----------------------------------CREACIÓN DE STORED PROCEDURES--------------------------------------------
 
@@ -908,7 +960,8 @@ CREATE PROCEDURE [LORDS_OF_THE_STRINGS_V2].sp_baja_sucursal(@id_sucursal numeric
 AS
  BEGIN
 	UPDATE [LORDS_OF_THE_STRINGS_V2].Sucursal SET Sucursal_habilitada = ~Sucursal_habilitada WHERE Sucursal_codigo = @id_sucursal /*Invierto estado*/
-	DELETE FROM [LORDS_OF_THE_STRINGS_V2].Usuario_Sucursal WHERE UsuarioSucur_sucursal=@id_sucursal
+	IF ((SELECT Sucursal_habilitada FROM [LORDS_OF_THE_STRINGS_V2].Sucursal WHERE Sucursal_codigo = @id_sucursal) = 0)
+		DELETE FROM [LORDS_OF_THE_STRINGS_V2].Usuario_Sucursal WHERE UsuarioSucur_sucursal=@id_sucursal -- Si la deshabilitada borro los usuarios asociados
 	RETURN 1
 END
 GO
@@ -921,14 +974,14 @@ GO
 CREATE PROCEDURE [LORDS_OF_THE_STRINGS_V2].sp_porcentaje_de_facturas(@trimestre numeric(1,0), @año numeric(4,0))
 AS
  BEGIN
-	SELECT TOP 5 e.Empresa_nombre,count(p.Pago_codigo)*100/count(*) as Porcentaje from [GD2C2017].[LORDS_OF_THE_STRINGS_V2].[Factura] f 
-	                                left join [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Pago p ON
+	SELECT TOP 5 e.Empresa_nombre, COUNT(p.Pago_codigo)*100/COUNT(*) AS Porcentaje FROM [GD2C2017].[LORDS_OF_THE_STRINGS_V2].[Factura] f 
+	                                LEFT JOIN [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Pago p ON
 		                                p.Pago_factura = f.Factura_codigo
-	                                join [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Empresa e ON
+	                                JOIN [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Empresa e ON
 		                                e.Empresa_codigo = f.Factura_empresa
-                                    where YEAR(f.Factura_fecha) = @año AND 
+                                    WHERE YEAR(f.Factura_fecha) = @año AND 
 											MONTH(f.Factura_fecha) BETWEEN (3 * @trimestre + 1) AND ((3 * @trimestre + 1) + 2) 
-                                     group by e.Empresa_nombre, Factura_empresa order by Porcentaje desc
+                                     GROUP BY e.Empresa_nombre, Factura_empresa ORDER BY Porcentaje DESC
 END 
 GO
 -------------------------------------------------------------------------------------------------
@@ -939,14 +992,14 @@ GO
 CREATE PROCEDURE [LORDS_OF_THE_STRINGS_V2].sp_empresas_mayor_monto(@trimestre numeric(1,0), @año numeric(4,0))
 AS
  BEGIN
-	SELECT TOP 5 empresa_nombre, sum(rendicion_importe) as monto_rendido from LORDS_OF_THE_STRINGS_V2.Factura f
-			inner join [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Empresa e ON
+	SELECT TOP 5 Empresa_nombre, SUM(rendicion_importe) AS Monto_Rendido FROM LORDS_OF_THE_STRINGS_V2.Factura f
+			INNER JOIN [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Empresa e ON
 				e.Empresa_codigo = f.Factura_empresa
-	        inner join [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Rendicion r ON
+	        INNER JOIN [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Rendicion r ON
 				r.Rendicion_codigo = f.Factura_rendicion
-			where YEAR(r.Rendicion_fecha) = @año AND 
+			WHERE YEAR(r.Rendicion_fecha) = @año AND 
 					MONTH(r.Rendicion_fecha) BETWEEN (3 * @trimestre + 1) AND ((3 * @trimestre + 1) + 2) 
-			group by Empresa_nombre order by sum(rendicion_importe) desc
+			GROUP BY Empresa_nombre ORDER BY SUM(rendicion_importe) DESC
 END
 GO
 -------------------------------------------------------------------------------------------------
@@ -957,14 +1010,14 @@ GO
 CREATE PROCEDURE [LORDS_OF_THE_STRINGS_V2].sp_clientes_cumplidores(@trimestre numeric(1,0), @año numeric(4,0))
 AS
  BEGIN
-	SELECT TOP 5 c.Cliente_codigo, c.Cliente_nombre, c.Cliente_apellido, c.Cliente_dni, count(p.Pago_codigo)*100/count(*) as Porcentaje from [GD2C2017].[LORDS_OF_THE_STRINGS_V2].[Factura] f 
-			left join [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Pago p ON
+	SELECT TOP 5 c.Cliente_codigo, c.Cliente_nombre, c.Cliente_apellido, c.Cliente_dni, COUNT(p.Pago_codigo)*100/COUNT(*) AS Porcentaje FROM [GD2C2017].[LORDS_OF_THE_STRINGS_V2].[Factura] f 
+			LEFT JOIN [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Pago p ON
 				p.Pago_factura = f.Factura_codigo
-			join [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Cliente c ON
+			JOIN [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Cliente c ON
 				c.Cliente_codigo = f.Factura_cliente
-            where YEAR(f.Factura_fecha) = @año AND 
-					MONTH(f.Factura_fecha) BETWEEN (3 * @trimestre + 1) AND ((3 * @trimestre + 1) + 2) 
-			group by c.Cliente_codigo, c.Cliente_nombre, c.Cliente_apellido, c.Cliente_dni order by Porcentaje desc
+            WHERE YEAR(p.Pago_fecha) = @año AND 
+					MONTH(p.Pago_fecha) BETWEEN (3 * @trimestre + 1) AND ((3 * @trimestre + 1) + 2) 
+			GROUP BY c.Cliente_codigo, c.Cliente_nombre, c.Cliente_apellido, c.Cliente_dni ORDER BY Porcentaje DESC
  END
 GO
 -------------------------------------------------------------------------------------------------
@@ -975,15 +1028,15 @@ GO
 CREATE PROCEDURE [LORDS_OF_THE_STRINGS_V2].sp_clientes_mas_pagos(@trimestre numeric(1,0), @año numeric(4,0))
 AS
  BEGIN
-	SELECT TOP 5 c.Cliente_codigo, c.Cliente_nombre, c.Cliente_apellido, c.Cliente_dni, count(p.Pago_codigo) as Cantidad_de_pagos
-		from [GD2C2017].[LORDS_OF_THE_STRINGS_V2].[Factura] f 
-			left join [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Pago p ON
+	SELECT TOP 5 c.Cliente_codigo, c.Cliente_nombre, c.Cliente_apellido, c.Cliente_dni, COUNT(p.Pago_codigo) AS Cantidad_de_pagos
+		FROM [GD2C2017].[LORDS_OF_THE_STRINGS_V2].[Factura] f 
+			LEFT JOIN [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Pago p ON
 				p.Pago_factura = f.Factura_codigo
-			join [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Cliente c ON
+			JOIN [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Cliente c ON
 				c.Cliente_codigo = f.Factura_cliente
-            where YEAR(f.Factura_fecha) = @año AND 
-					MONTH(f.Factura_fecha) BETWEEN (3 * @trimestre + 1) AND ((3 * @trimestre + 1) + 2) 
-			group by c.Cliente_codigo, c.Cliente_nombre, c.Cliente_apellido, c.Cliente_dni order by Cantidad_de_pagos desc
+            WHERE YEAR(p.Pago_fecha) = @año AND 
+					MONTH(p.Pago_fecha) BETWEEN (3 * @trimestre + 1) AND ((3 * @trimestre + 1) + 2) 
+			GROUP BY c.Cliente_codigo, c.Cliente_nombre, c.Cliente_apellido, c.Cliente_dni ORDER BY Cantidad_de_pagos DESC
  END
 GO
 
@@ -996,20 +1049,30 @@ GO
 -------------------------------------------------------------------------------------------------
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rubro( Rubro_descripcion ) VALUES	('Rubro 2');
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rubro( Rubro_descripcion ) VALUES	('Rubro 3');
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rubro( Rubro_descripcion ) VALUES	('Servcio de agua corriente');
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rubro( Rubro_descripcion ) VALUES	('Servicio eléctrico');
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rubro( Rubro_descripcion ) VALUES	('Servicio telefónico');
+GO
 
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Empresa( Empresa_cuit, Empresa_nombre, Empresa_direccion) VALUES ('9-99999999-9', 'Aguas Argentinas', 'Av. Rivadavia 2000');
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Empresa( Empresa_cuit, Empresa_nombre, Empresa_direccion) VALUES ('8-88888888-8', 'Edesur', 'Riobamba 300');
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Empresa( Empresa_cuit, Empresa_nombre, Empresa_direccion) VALUES ('7-77777777-7', 'Movistar', 'Av. Gaona 3250');
+GO
+
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rubro_Empresa( RubroEmpr_empresa, RubroEmpr_rubro ) VALUES (2, 4) --Aguas Argentinas con Servicio de agua corriente
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rubro_Empresa( RubroEmpr_empresa, RubroEmpr_rubro ) VALUES (3, 5) --Edesur con Servicio eléctrico
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rubro_Empresa( RubroEmpr_empresa, RubroEmpr_rubro ) VALUES (4, 6) --Movistar con Servicio telefónico
+GO
 
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Sucursal( Sucursal_nombre, Sucursal_direccion, Sucursal_codigo_postal ) VALUES ('Sucursal 2', 'Colombres 100', 'C1020');
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Sucursal( Sucursal_nombre, Sucursal_direccion, Sucursal_codigo_postal ) VALUES ('Sucursal 3', 'Albert 900', 'C2546');
+GO
 
-INSERT INTO [LORDS_OF_THE_STRINGS_V2].Usuario_Sucursal(UsuarioSucur_usuario, UsuarioSucur_sucursal) VALUES (1,2)
-INSERT INTO [LORDS_OF_THE_STRINGS_V2].Usuario_Sucursal(UsuarioSucur_usuario, UsuarioSucur_sucursal) VALUES (1,3)
-INSERT INTO [LORDS_OF_THE_STRINGS_V2].Usuario_Sucursal(UsuarioSucur_usuario, UsuarioSucur_sucursal) VALUES (2,1)
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Usuario_Sucursal( UsuarioSucur_usuario, UsuarioSucur_sucursal ) VALUES (2,1) --cobrador con Sucursal N°2000
+GO
 
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Factura( Factura_fecha, Factura_fecha_venc, Factura_total, Factura_empresa, Factura_cliente, Factura_rendicion)
-VALUES (getDate(), DATEADD(DAY, 10, GETDATE()), 500, 2, 60, NULL)
+VALUES (GETDATE(), DATEADD(DAY, 10, GETDATE()), 500, 2, 60, NULL)
 
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Factura( Factura_fecha, Factura_fecha_venc, Factura_total, Factura_empresa, Factura_cliente, Factura_rendicion)
 VALUES (GETDATE(), DATEADD(DAY, 10, GETDATE()), 22500, 2, 43, NULL)
@@ -1026,11 +1089,10 @@ VALUES (GETDATE(), DATEADD(DAY, 10, GETDATE()), 13400, 3, 178, NULL)
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Factura( Factura_fecha, Factura_fecha_venc, Factura_total, Factura_empresa, Factura_cliente, Factura_rendicion)
 VALUES (GETDATE(), DATEADD(DAY, 10, GETDATE()), 6513400, 3, 975, NULL)
 
-
+GO
 
 -------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------
 -- PRUEBAS VARIAS
 -------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------
-

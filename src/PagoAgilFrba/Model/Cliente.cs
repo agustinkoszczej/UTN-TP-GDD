@@ -8,7 +8,7 @@ namespace PagoAgilFrba.Model
 {
     public class Cliente
     {
-        public int id { get; private set; }
+        public int id { get; set; }
         public string nombre { get; set; }
         public string apellido { get; set; }
         public UInt32 dni { get; set; }

@@ -41,17 +41,16 @@ namespace PagoAgilFrba.AbmCliente
                 if (selectedRow.Cells[9].Value.ToString() == "1") habil = true;
 
                 cargado = new Cliente(
-                    int.Parse(selectedRow.Cells[0].Value.ToString()),                                                                       //ID
-                    selectedRow.Cells[2].Value.ToString(),                                                                                  //NOMBRE        
-                    selectedRow.Cells[3].Value.ToString(),                                                                                  //APELLIDO
-                    uint.Parse(selectedRow.Cells[1].Value.ToString()),                                                                      //DNI
-                    DateTime.ParseExact(selectedRow.Cells[4].Value.ToString(), "dd/MM/yyyy 0:00:00", CultureInfo.InvariantCulture),         //FNAC
-                    selectedRow.Cells[6].Value.ToString(),                                                                                  //DIREACÇAO
-                    selectedRow.Cells[7].Value.ToString(),                                                                                  //CP
-                    selectedRow.Cells[5].Value.ToString(),                                                                                  //MAIL
-                    selectedRow.Cells[8].Value.ToString(),                                                                                  //TELEFONO
-                    habil);                                                                                                                 //HABILITADO
-
+                    int.Parse(selectedRow.Cells[0].Value.ToString()),          //ID
+                    selectedRow.Cells[2].Value.ToString(),                     //NOMBRE        
+                    selectedRow.Cells[3].Value.ToString(),                     //APELLIDO
+                    uint.Parse(selectedRow.Cells[1].Value.ToString()),         //DNI
+                    DateTime.Parse(selectedRow.Cells[4].Value.ToString()),     //FECHA NACIMIENTO
+                    selectedRow.Cells[6].Value.ToString(),                     //DIRECCION
+                    selectedRow.Cells[7].Value.ToString(),                     //CODIGO POSTAL
+                    selectedRow.Cells[5].Value.ToString(),                     //MAIL
+                    selectedRow.Cells[8].Value.ToString(),                     //TELEFONO
+                    habil);                                                    //HABILITADO
                 NuevoClienteForm frm = new NuevoClienteForm(cargado, this);
                 frm.Show();
             }
@@ -96,7 +95,7 @@ namespace PagoAgilFrba.AbmCliente
                     dni = int.Parse(txtFiltroDNI.Text.ToString());
                 }
                 catch(Exception){
-                    MessageBox.Show("Dni ingresado inválido");
+                    MessageBox.Show("DNI Ingresado inválido", "PagoAgilFrba | ABM Cliente", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 miFiltroDNI = " AND Cliente_dni = @dni";
@@ -139,45 +138,66 @@ namespace PagoAgilFrba.AbmCliente
 
         private void btnHabilitar_Click(object sender, EventArgs e)
         {
-            if (selectedRow.Cells[9].Value.ToString() == "False")   //SI NO ESTA HABILITADO
+            if (dataGridClientes.RowCount != 0)
             {
-                if (ClienteDAO.habilitarClienteConID(int.Parse(selectedRow.Cells[0].Value.ToString()), true) != 0)
+                if (selectedRow.Cells[9].Value.ToString() == "False")   //SI NO ESTA HABILITADO
                 {
-                    MessageBox.Show("Cliente Nº " + selectedRow.Cells[0].Value.ToString() + " habilitado");
-                    if (filtrando)
+                    if (MessageBox.Show("¿Está ud. seguro de querer habilitar el Cliente seleccionado?", "PagoAgilFrba | ABM Cliente", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                     {
-                        filtrar();
+                    if (ClienteDAO.habilitarClienteConID(int.Parse(selectedRow.Cells[0].Value.ToString()), true) != 0)
+                    {
+                        MessageBox.Show("Cliente Nº " + selectedRow.Cells[0].Value.ToString() + " habilitado correctamente!", "PagoAgilFrba | ABM Cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (filtrando)
+                        {
+                            filtrar();
+                        }
+                        else
+                        {
+                            cargarGridSinFiltros();
+                        }
                     }
                     else
                     {
-                        cargarGridSinFiltros();
+                        MessageBox.Show("Error al habilitar Cliente Nº " + selectedRow.Cells[0].Value.ToString());
                     }
+                }
                 }
                 else
                 {
-                    MessageBox.Show("Error al habilitar Cliente Nº " + selectedRow.Cells[0].Value.ToString());
+                    MessageBox.Show("El Cliente seleccionado ya se encuentra habilitado!", "PagoAgilFrba | ABM Cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
 
         private void btnInhabilitar_Click(object sender, EventArgs e)
         {
-            if (selectedRow.Cells[9].Value.ToString() == "True")   //SI  ESTA HABILITADO
+            if (dataGridClientes.RowCount != 0)
             {
-                if (ClienteDAO.habilitarClienteConID(int.Parse(selectedRow.Cells[0].Value.ToString()), false) != 0)
+                if (selectedRow.Cells[9].Value.ToString() == "True")   //SI  ESTA HABILITADO
                 {
-                    MessageBox.Show("Cliente Nº " + selectedRow.Cells[0].Value.ToString() + " inhabilitado");
-                    if (filtrando)
+                    if (MessageBox.Show("¿Está ud. seguro de querer deshabilitar el Cliente seleccionado?", "PagoAgilFrba | ABM Cliente", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                     {
-                        filtrar();
-                    }
-                    else{
-                        cargarGridSinFiltros();
+                        if (ClienteDAO.habilitarClienteConID(int.Parse(selectedRow.Cells[0].Value.ToString()), false) != 0)
+                        {
+                            MessageBox.Show("Cliente Nº " + selectedRow.Cells[0].Value.ToString() + " deshabilitado correctamente!", "PagoAgilFrba | ABM Cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            if (filtrando)
+                            {
+                                filtrar();
+                            }
+                            else
+                            {
+                                cargarGridSinFiltros();
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error al inhabilitar Cliente Nº " + selectedRow.Cells[0].Value.ToString());
+                        }
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Error al inhabilitar Cliente Nº " + selectedRow.Cells[0].Value.ToString());
+                    MessageBox.Show("El Cliente seleccionado ya se encuentra deshabilitado!", "PagoAgilFrba | ABM Cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
@@ -196,15 +216,6 @@ namespace PagoAgilFrba.AbmCliente
             frm.Show();
         }
 
-        private void txtFiltroNombre_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            Utils.solo_texto(e);
-        }
-
-        private void txtFiltroApellido_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            Utils.solo_texto(e);
-        }
         private void txtFiltroDNI_KeyPress(object sender, KeyPressEventArgs e)
         {
             Utils.solo_numeros(e);

@@ -66,7 +66,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(18, 359);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(121, 35);
-            this.btnCancelar.TabIndex = 13;
+            this.btnCancelar.TabIndex = 10;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -76,7 +76,7 @@
             this.datePickerFNAC.Location = new System.Drawing.Point(17, 323);
             this.datePickerFNAC.Name = "datePickerFNAC";
             this.datePickerFNAC.Size = new System.Drawing.Size(355, 20);
-            this.datePickerFNAC.TabIndex = 12;
+            this.datePickerFNAC.TabIndex = 8;
             // 
             // btnCrear
             // 
@@ -104,7 +104,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.DarkRed;
-            this.label2.Location = new System.Drawing.Point(271, 28);
+            this.label2.Location = new System.Drawing.Point(271, 17);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(103, 13);
             this.label2.TabIndex = 10;
@@ -138,7 +138,7 @@
             this.txtCP.MaxLength = 255;
             this.txtCP.Name = "txtCP";
             this.txtCP.Size = new System.Drawing.Size(355, 20);
-            this.txtCP.TabIndex = 13;
+            this.txtCP.TabIndex = 7;
             // 
             // lblCodigoPostal
             // 
@@ -156,7 +156,7 @@
             this.txtDireccion.MaxLength = 255;
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(354, 20);
-            this.txtDireccion.TabIndex = 3;
+            this.txtDireccion.TabIndex = 6;
             // 
             // lblDireccionCalle
             // 
@@ -204,7 +204,7 @@
             this.txtMail.MaxLength = 255;
             this.txtMail.Name = "txtMail";
             this.txtMail.Size = new System.Drawing.Size(354, 20);
-            this.txtMail.TabIndex = 3;
+            this.txtMail.TabIndex = 4;
             // 
             // lblMail
             // 
@@ -255,7 +255,7 @@
             this.txtDNI.MaxLength = 18;
             this.txtDNI.Name = "txtDNI";
             this.txtDNI.Size = new System.Drawing.Size(355, 20);
-            this.txtDNI.TabIndex = 5;
+            this.txtDNI.TabIndex = 3;
             this.txtDNI.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDNI_KeyPress);
             // 
             // lblDNI
@@ -275,7 +275,6 @@
             this.txtApellido.Name = "txtApellido";
             this.txtApellido.Size = new System.Drawing.Size(356, 20);
             this.txtApellido.TabIndex = 2;
-            this.txtApellido.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtApellido_KeyPress);
             // 
             // lblApellido
             // 
@@ -294,7 +293,6 @@
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(354, 20);
             this.txtNombre.TabIndex = 1;
-            this.txtNombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNombre_KeyPress);
             // 
             // lblNombre
             // 

@@ -50,23 +50,26 @@
             // lblUsername
             // 
             this.lblUsername.AutoSize = true;
-            this.lblUsername.Location = new System.Drawing.Point(98, 121);
+            this.lblUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsername.Location = new System.Drawing.Point(98, 132);
             this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(96, 13);
+            this.lblUsername.Size = new System.Drawing.Size(113, 13);
             this.lblUsername.TabIndex = 0;
             this.lblUsername.Text = "Nombre de usuario";
             // 
             // lblPassword
             // 
             this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(113, 180);
+            this.lblPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPassword.Location = new System.Drawing.Point(113, 186);
             this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(61, 13);
+            this.lblPassword.Size = new System.Drawing.Size(71, 13);
             this.lblPassword.TabIndex = 1;
             this.lblPassword.Text = "Contraseña";
             // 
             // txtUsername
             // 
+            this.txtUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUsername.Location = new System.Drawing.Point(28, 45);
             this.txtUsername.MaxLength = 50;
             this.txtUsername.Name = "txtUsername";
@@ -85,6 +88,7 @@
             // cmdIngresarButton
             // 
             this.cmdIngresarButton.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.cmdIngresarButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdIngresarButton.Location = new System.Drawing.Point(50, 245);
             this.cmdIngresarButton.Name = "cmdIngresarButton";
             this.cmdIngresarButton.Size = new System.Drawing.Size(75, 23);
@@ -96,6 +100,7 @@
             // cmdCancelarButton
             // 
             this.cmdCancelarButton.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.cmdCancelarButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdCancelarButton.Location = new System.Drawing.Point(159, 246);
             this.cmdCancelarButton.Name = "cmdCancelarButton";
             this.cmdCancelarButton.Size = new System.Drawing.Size(75, 23);
@@ -106,11 +111,11 @@
             // 
             // groupBoxLogin
             // 
-            this.groupBoxLogin.Controls.Add(this.lnlCerrarSesion);
             this.groupBoxLogin.Controls.Add(this.cmdSeleccionarRol);
             this.groupBoxLogin.Controls.Add(this.txtUsername);
             this.groupBoxLogin.Controls.Add(this.cboRoles);
-            this.groupBoxLogin.Location = new System.Drawing.Point(12, 99);
+            this.groupBoxLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxLogin.Location = new System.Drawing.Point(12, 110);
             this.groupBoxLogin.Name = "groupBoxLogin";
             this.groupBoxLogin.Size = new System.Drawing.Size(260, 185);
             this.groupBoxLogin.TabIndex = 6;
@@ -120,7 +125,8 @@
             // lnlCerrarSesion
             // 
             this.lnlCerrarSesion.AutoSize = true;
-            this.lnlCerrarSesion.Location = new System.Drawing.Point(187, 16);
+            this.lnlCerrarSesion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lnlCerrarSesion.Location = new System.Drawing.Point(205, 96);
             this.lnlCerrarSesion.Name = "lnlCerrarSesion";
             this.lnlCerrarSesion.Size = new System.Drawing.Size(67, 13);
             this.lnlCerrarSesion.TabIndex = 9;
@@ -132,9 +138,9 @@
             // cmdSeleccionarRol
             // 
             this.cmdSeleccionarRol.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.cmdSeleccionarRol.Location = new System.Drawing.Point(38, 71);
+            this.cmdSeleccionarRol.Location = new System.Drawing.Point(28, 71);
             this.cmdSeleccionarRol.Name = "cmdSeleccionarRol";
-            this.cmdSeleccionarRol.Size = new System.Drawing.Size(75, 23);
+            this.cmdSeleccionarRol.Size = new System.Drawing.Size(88, 23);
             this.cmdSeleccionarRol.TabIndex = 8;
             this.cmdSeleccionarRol.Text = "Seleccionar Rol";
             this.cmdSeleccionarRol.UseVisualStyleBackColor = false;
@@ -144,6 +150,7 @@
             // cboRoles
             // 
             this.cboRoles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboRoles.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboRoles.FormattingEnabled = true;
             this.cboRoles.Location = new System.Drawing.Point(76, 38);
             this.cboRoles.Name = "cboRoles";
@@ -170,7 +177,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 296);
+            this.ClientSize = new System.Drawing.Size(284, 304);
+            this.Controls.Add(this.lnlCerrarSesion);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.lblPassword);
