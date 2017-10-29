@@ -107,12 +107,18 @@ namespace PagoAgilFrba.AbmCliente
                         MessageBox.Show("Error al crear Cliente", "Error en el ABM Cliente", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                     case 1:
-                        MessageBox.Show("El mail ingresado ya existe", "Error mail existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        errorProvider.SetError(txtMail, "Mail existente");
+                        break;
+                    case 2:
+                        errorProvider.SetError(txtDNI, "DNI existente");
+                        break;
+                    case 3:
+                        errorProvider.SetError(txtMail, "Mail existente");
+                        errorProvider.SetError(txtDNI, "DNI existente");
                         break;
                     default:
                         limpiarCampos();
                         MessageBox.Show("Cliente agregado correctamente!", "Alta Cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        backForm.filtrar();
                         this.Close();
                         return;
                 }
@@ -150,11 +156,17 @@ namespace PagoAgilFrba.AbmCliente
                         MessageBox.Show("Error al modificar Cliente", "Error en el ABM Cliente", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                     case 1:
-                        MessageBox.Show("El mail ingresado ya existe", "Error mail existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        errorProvider.SetError(txtMail, "Mail existente");
+                        break;
+                    case 2:
+                        errorProvider.SetError(txtDNI, "DNI existente");
+                        break;
+                    case 3:
+                        errorProvider.SetError(txtMail, "Mail existente");
+                        errorProvider.SetError(txtDNI, "DNI existente");
                         break;
                     default:
                         MessageBox.Show("Cliente "+cargado.id+" modificado correctamente!", "Modificar Cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        backForm.filtrar();
                         limpiarCampos();
                         this.Close();
                         return;
@@ -170,26 +182,6 @@ namespace PagoAgilFrba.AbmCliente
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            Utils.solo_texto(e);
-        }
-
-        private void txtApellido_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            Utils.solo_texto(e);
-        }
-
-        private void txtFiltroNombre_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            Utils.solo_texto(e);
-        }
-
-        private void txtFiltroApellido_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            Utils.solo_texto(e);
         }
 
         private void txtDNI_KeyPress(object sender, KeyPressEventArgs e)

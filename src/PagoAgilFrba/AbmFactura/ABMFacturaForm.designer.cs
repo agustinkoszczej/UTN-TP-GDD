@@ -58,10 +58,12 @@
             this.lblCliente = new System.Windows.Forms.Label();
             this.tabBM = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.lblFacturas = new System.Windows.Forms.Label();
             this.dataGridFacturasBM = new System.Windows.Forms.DataGridView();
             this.btnFiltrarIdCliente = new System.Windows.Forms.Button();
             this.btnFiltrarIdFactura = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
             this.dataGridItems = new System.Windows.Forms.DataGridView();
             this.btnModificarItem = new System.Windows.Forms.Button();
             this.btnSinFiltros = new System.Windows.Forms.Button();
@@ -74,8 +76,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.lblFacturas = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.cmdCerrar = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabAlta.SuspendLayout();
@@ -430,6 +430,17 @@
             this.panel4.TabIndex = 0;
             this.panel4.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
             // 
+            // lblFacturas
+            // 
+            this.lblFacturas.AutoSize = true;
+            this.lblFacturas.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFacturas.Location = new System.Drawing.Point(2, 16);
+            this.lblFacturas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblFacturas.Name = "lblFacturas";
+            this.lblFacturas.Size = new System.Drawing.Size(90, 24);
+            this.lblFacturas.TabIndex = 22;
+            this.lblFacturas.Text = "Facturas";
+            // 
             // dataGridFacturasBM
             // 
             this.dataGridFacturasBM.AllowUserToAddRows = false;
@@ -484,6 +495,17 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(766, 166);
             this.panel5.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(2, 7);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(59, 24);
+            this.label2.TabIndex = 23;
+            this.label2.Text = "Items";
             // 
             // dataGridItems
             // 
@@ -610,28 +632,6 @@
             // errorProvider
             // 
             this.errorProvider.ContainerControl = this;
-            // 
-            // lblFacturas
-            // 
-            this.lblFacturas.AutoSize = true;
-            this.lblFacturas.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFacturas.Location = new System.Drawing.Point(2, 16);
-            this.lblFacturas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblFacturas.Name = "lblFacturas";
-            this.lblFacturas.Size = new System.Drawing.Size(90, 24);
-            this.lblFacturas.TabIndex = 22;
-            this.lblFacturas.Text = "Facturas";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(2, 7);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 24);
-            this.label2.TabIndex = 23;
-            this.label2.Text = "Items";
             // 
             // cmdCerrar
             // 

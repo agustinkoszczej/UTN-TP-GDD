@@ -12,7 +12,7 @@ using System.Configuration;
 using PagoAgilFrba.Model;
 using PagoAgilFrba.DAOs;
 
-namespace PagoAgilFrba.Rendicion
+namespace PagoAgilFrba.Rendiciones
 {
     public partial class RendicionForm : Form
     {
@@ -27,12 +27,11 @@ namespace PagoAgilFrba.Rendicion
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Form_Load(object sender, EventArgs e)
         {
             cargarEmpresas();
             dateTimeMesAnio.Format = DateTimePickerFormat.Custom;
             dateTimeMesAnio.CustomFormat = "MM/yyyy";
-
 
             porcentajeComision = obtenerPorcentajeComision();
         }
@@ -108,7 +107,7 @@ namespace PagoAgilFrba.Rendicion
                         anio = 0;
                         if (dateTimeMesAnio.Value > DateTime.Now)
                         {
-                            MessageBox.Show("La fecha Seleccionada es Superior a la actual", "Error en Rendicion de facturas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            MessageBox.Show("La fecha Seleccionada es superior a la actual", "Error en Rendicion de facturas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                             return;
                         }
 
@@ -193,18 +192,6 @@ namespace PagoAgilFrba.Rendicion
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-            //int index = e.RowIndex;
-            //this.selectedRow = dataGridClientes.Rows[index];
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void btnRendir_Click(object sender, EventArgs e)

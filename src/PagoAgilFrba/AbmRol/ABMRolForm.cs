@@ -106,11 +106,11 @@ namespace PagoAgilFrba.AbmRol
                 {
                     mensaje = "¿Está ud. seguro de querer habilitar el Rol " + rol.nombre + "?";
                 }
-            if (MessageBox.Show(mensaje, "PagoAgilFrba | ABM Rol", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show(mensaje, "PagoAgilFrba | ABM Rol", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 if (rol.id == rol_logueado.id) 
                 {
-                    if (MessageBox.Show("¿Está a punto de inhabilitar el Rol en el que se encuentra logueado, se cerrará la sesión al finalizar, desea continuar?", "PagoAgilFrba | ABM Rol", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    if (MessageBox.Show("¿Está a punto de inhabilitar el Rol en el que se encuentra logueado, se cerrará la sesión al finalizar, desea continuar?", "PagoAgilFrba | ABM Rol", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                     {
                         RolDAO.borrar_rol(rol);
                         Application.Exit();

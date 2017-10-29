@@ -29,123 +29,169 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.groupBoxIngresoRoles = new System.Windows.Forms.GroupBox();
             this.lblFuncionalidades = new System.Windows.Forms.Label();
-            this.cmdCancelar = new System.Windows.Forms.Button();
-            this.cmdAceptar = new System.Windows.Forms.Button();
             this.chkLstFuncionalidades = new System.Windows.Forms.CheckedListBox();
             this.txtNombreRol = new System.Windows.Forms.TextBox();
             this.lblNombreRol = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.groupBoxIngresoRoles.SuspendLayout();
+            this.lblRoles = new System.Windows.Forms.Label();
+            this.cmdAceptar = new System.Windows.Forms.Button();
+            this.cmdCancelar = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
-            // 
-            // groupBoxIngresoRoles
-            // 
-            this.groupBoxIngresoRoles.Controls.Add(this.lblFuncionalidades);
-            this.groupBoxIngresoRoles.Controls.Add(this.cmdCancelar);
-            this.groupBoxIngresoRoles.Controls.Add(this.cmdAceptar);
-            this.groupBoxIngresoRoles.Controls.Add(this.chkLstFuncionalidades);
-            this.groupBoxIngresoRoles.Controls.Add(this.txtNombreRol);
-            this.groupBoxIngresoRoles.Controls.Add(this.lblNombreRol);
-            this.groupBoxIngresoRoles.Location = new System.Drawing.Point(12, 9);
-            this.groupBoxIngresoRoles.Name = "groupBoxIngresoRoles";
-            this.groupBoxIngresoRoles.Size = new System.Drawing.Size(382, 286);
-            this.groupBoxIngresoRoles.TabIndex = 5;
-            this.groupBoxIngresoRoles.TabStop = false;
             // 
             // lblFuncionalidades
             // 
             this.lblFuncionalidades.AutoSize = true;
-            this.lblFuncionalidades.Location = new System.Drawing.Point(6, 63);
+            this.lblFuncionalidades.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFuncionalidades.Location = new System.Drawing.Point(12, 84);
             this.lblFuncionalidades.Name = "lblFuncionalidades";
-            this.lblFuncionalidades.Size = new System.Drawing.Size(84, 13);
+            this.lblFuncionalidades.Size = new System.Drawing.Size(99, 13);
             this.lblFuncionalidades.TabIndex = 21;
             this.lblFuncionalidades.Text = "Funcionalidades";
-            // 
-            // cmdCancelar
-            // 
-            this.cmdCancelar.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.cmdCancelar.Location = new System.Drawing.Point(249, 190);
-            this.cmdCancelar.Name = "cmdCancelar";
-            this.cmdCancelar.Size = new System.Drawing.Size(121, 34);
-            this.cmdCancelar.TabIndex = 4;
-            this.cmdCancelar.Text = "Cancelar";
-            this.cmdCancelar.UseVisualStyleBackColor = false;
-            this.cmdCancelar.Click += new System.EventHandler(this.cmdCancelar_Click);
-            // 
-            // cmdAceptar
-            // 
-            this.cmdAceptar.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.cmdAceptar.Location = new System.Drawing.Point(249, 134);
-            this.cmdAceptar.Name = "cmdAceptar";
-            this.cmdAceptar.Size = new System.Drawing.Size(121, 35);
-            this.cmdAceptar.TabIndex = 3;
-            this.cmdAceptar.Text = "Aceptar";
-            this.cmdAceptar.UseVisualStyleBackColor = false;
-            this.cmdAceptar.Click += new System.EventHandler(this.cmdAceptar_Click);
             // 
             // chkLstFuncionalidades
             // 
             this.chkLstFuncionalidades.CheckOnClick = true;
+            this.chkLstFuncionalidades.ColumnWidth = 200;
             this.chkLstFuncionalidades.FormattingEnabled = true;
-            this.chkLstFuncionalidades.Location = new System.Drawing.Point(6, 79);
+            this.chkLstFuncionalidades.Location = new System.Drawing.Point(15, 100);
             this.chkLstFuncionalidades.MultiColumn = true;
             this.chkLstFuncionalidades.Name = "chkLstFuncionalidades";
-            this.chkLstFuncionalidades.Size = new System.Drawing.Size(222, 199);
+            this.chkLstFuncionalidades.Size = new System.Drawing.Size(354, 199);
             this.chkLstFuncionalidades.TabIndex = 2;
             // 
             // txtNombreRol
             // 
-            this.txtNombreRol.Location = new System.Drawing.Point(6, 38);
+            this.txtNombreRol.Location = new System.Drawing.Point(15, 61);
             this.txtNombreRol.MaxLength = 50;
             this.txtNombreRol.Name = "txtNombreRol";
-            this.txtNombreRol.Size = new System.Drawing.Size(155, 20);
+            this.txtNombreRol.Size = new System.Drawing.Size(354, 20);
             this.txtNombreRol.TabIndex = 1;
             // 
             // lblNombreRol
             // 
             this.lblNombreRol.AutoSize = true;
-            this.lblNombreRol.Location = new System.Drawing.Point(6, 24);
+            this.lblNombreRol.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombreRol.Location = new System.Drawing.Point(12, 45);
             this.lblNombreRol.Name = "lblNombreRol";
-            this.lblNombreRol.Size = new System.Drawing.Size(78, 13);
+            this.lblNombreRol.Size = new System.Drawing.Size(50, 13);
             this.lblNombreRol.TabIndex = 1;
-            this.lblNombreRol.Text = "Nombre de Rol";
+            this.lblNombreRol.Text = "Nombre";
             // 
             // errorProvider
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // lblRoles
+            // 
+            this.lblRoles.AutoSize = true;
+            this.lblRoles.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRoles.Location = new System.Drawing.Point(11, 8);
+            this.lblRoles.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblRoles.Name = "lblRoles";
+            this.lblRoles.Size = new System.Drawing.Size(113, 24);
+            this.lblRoles.TabIndex = 26;
+            this.lblRoles.Text = "ABM Roles";
+            // 
+            // cmdAceptar
+            // 
+            this.cmdAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdAceptar.Location = new System.Drawing.Point(248, 314);
+            this.cmdAceptar.Name = "cmdAceptar";
+            this.cmdAceptar.Size = new System.Drawing.Size(121, 35);
+            this.cmdAceptar.TabIndex = 27;
+            this.cmdAceptar.Text = "Aceptar";
+            this.cmdAceptar.UseVisualStyleBackColor = true;
+            this.cmdAceptar.Click += new System.EventHandler(this.cmdAceptar_Click);
+            // 
+            // cmdCancelar
+            // 
+            this.cmdCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdCancelar.Location = new System.Drawing.Point(15, 314);
+            this.cmdCancelar.Name = "cmdCancelar";
+            this.cmdCancelar.Size = new System.Drawing.Size(121, 35);
+            this.cmdCancelar.TabIndex = 28;
+            this.cmdCancelar.Text = "Cancelar";
+            this.cmdCancelar.UseVisualStyleBackColor = true;
+            this.cmdCancelar.Click += new System.EventHandler(this.cmdCancelar_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.DarkRed;
+            this.label7.Location = new System.Drawing.Point(59, 45);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(27, 13);
+            this.label7.TabIndex = 30;
+            this.label7.Text = "(*)";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.DarkRed;
+            this.label2.Location = new System.Drawing.Point(266, 16);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(103, 13);
+            this.label2.TabIndex = 29;
+            this.label2.Text = "(*) Obligatorio";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.DarkRed;
+            this.label1.Location = new System.Drawing.Point(109, 84);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(27, 13);
+            this.label1.TabIndex = 31;
+            this.label1.Text = "(*)";
+            // 
             // IngresoRolForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(410, 307);
-            this.Controls.Add(this.groupBoxIngresoRoles);
+            this.ClientSize = new System.Drawing.Size(388, 361);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.cmdCancelar);
+            this.Controls.Add(this.cmdAceptar);
+            this.Controls.Add(this.lblFuncionalidades);
+            this.Controls.Add(this.lblRoles);
+            this.Controls.Add(this.txtNombreRol);
+            this.Controls.Add(this.chkLstFuncionalidades);
+            this.Controls.Add(this.lblNombreRol);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "IngresoRolForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PagoAgilFrba | Ingreso Rol";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.IngresoRolForm_FormClosing);
-            this.groupBoxIngresoRoles.ResumeLayout(false);
-            this.groupBoxIngresoRoles.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBoxIngresoRoles;
         private System.Windows.Forms.Label lblFuncionalidades;
-        private System.Windows.Forms.Button cmdCancelar;
         private System.Windows.Forms.CheckedListBox chkLstFuncionalidades;
         private System.Windows.Forms.TextBox txtNombreRol;
         private System.Windows.Forms.Label lblNombreRol;
-        private System.Windows.Forms.Button cmdAceptar;
         private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.Label lblRoles;
+        private System.Windows.Forms.Button cmdCancelar;
+        private System.Windows.Forms.Button cmdAceptar;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
 
     }
 }

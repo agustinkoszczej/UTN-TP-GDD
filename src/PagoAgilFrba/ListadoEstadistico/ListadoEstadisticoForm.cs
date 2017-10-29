@@ -30,7 +30,11 @@ namespace PagoAgilFrba.ListadoEstadistico
             cboListados.Items.Add("Clientes con más pagos");
             cboListados.Items.Add("Clientes con mayor porcentaje de facturas pagadas (Clientes cumplidores)");
 
-            this.campos_obligatorios = new List<Control>() { txtAño, cboListados, cboTrimestre };
+            dtpAnio.Format = DateTimePickerFormat.Custom;
+            dtpAnio.CustomFormat = "yyyy";
+            dtpAnio.ShowUpDown = true;
+
+            this.campos_obligatorios = new List<Control>() { dtpAnio, cboListados, cboTrimestre };
 
         }
 
@@ -41,8 +45,7 @@ namespace PagoAgilFrba.ListadoEstadistico
                 Utils.clearDataGrid(dtgListado);
                 Dictionary<string, int> dict = new Dictionary<string, int>();
                 dict.Add("@trimestre", cboTrimestre.SelectedIndex);
-                dict.Add("@año", Convert.ToInt32(txtAño.Text));
-
+                dict.Add("@año", Convert.ToInt32(dtpAnio.Text));
                 switch (cboListados.SelectedIndex)
                 {
                     case 0:
@@ -66,22 +69,28 @@ namespace PagoAgilFrba.ListadoEstadistico
                                                         "Error al generar el listado");
                         break;
                 }
-
-                if (chkArchivo.Checked)
-                {
-                    //Exportar archivo
-                }
             }
         }
 
         private void cmdQuitarFiltros_Click(object sender, EventArgs e)
         {
-            Utils.limpiar_controles((new List<Control>() { txtAño, cboTrimestre, cboListados, dtgListado, chkArchivo }));
+            Utils.limpiar_controles((new List<Control>() { dtpAnio, cboTrimestre, cboListados, dtgListado }));
+            dtpAnio.Value = DateTime.Now;
         }
 
         private void txtAño_KeyPress(object sender, KeyPressEventArgs e)
         {
             Utils.solo_numeros(e);
+        }
+
+        private void lnlCerrarSesion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Utils.cerrar_sesion();
+        }
+
+        private void cmdCerrar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -35,7 +35,6 @@
             this.cmdBorrarSucursal = new System.Windows.Forms.Button();
             this.groupBoxAcciones = new System.Windows.Forms.GroupBox();
             this.dgdSucursales = new System.Windows.Forms.DataGridView();
-            this.cmdCerrar = new System.Windows.Forms.Button();
             this.lblSucursales = new System.Windows.Forms.Label();
             this.lnlCerrarSesion = new System.Windows.Forms.LinkLabel();
             this.chkQuitarDeshabilitados = new System.Windows.Forms.CheckBox();
@@ -48,6 +47,7 @@
             this.lblNombreSucursal = new System.Windows.Forms.Label();
             this.txtNombreSucursal = new System.Windows.Forms.TextBox();
             this.cmdBuscar = new System.Windows.Forms.Button();
+            this.cmdCerrar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.groupBoxAcciones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgdSucursales)).BeginInit();
@@ -61,9 +61,9 @@
             // cmdAltaSucursal
             // 
             this.cmdAltaSucursal.BackColor = System.Drawing.Color.LimeGreen;
-            this.cmdAltaSucursal.Location = new System.Drawing.Point(16, 19);
+            this.cmdAltaSucursal.Location = new System.Drawing.Point(12, 19);
             this.cmdAltaSucursal.Name = "cmdAltaSucursal";
-            this.cmdAltaSucursal.Size = new System.Drawing.Size(121, 35);
+            this.cmdAltaSucursal.Size = new System.Drawing.Size(135, 35);
             this.cmdAltaSucursal.TabIndex = 9;
             this.cmdAltaSucursal.Text = "Nueva Sucursal";
             this.cmdAltaSucursal.UseVisualStyleBackColor = false;
@@ -72,9 +72,9 @@
             // cmdModificarSucursal
             // 
             this.cmdModificarSucursal.BackColor = System.Drawing.Color.Gold;
-            this.cmdModificarSucursal.Location = new System.Drawing.Point(16, 101);
+            this.cmdModificarSucursal.Location = new System.Drawing.Point(12, 101);
             this.cmdModificarSucursal.Name = "cmdModificarSucursal";
-            this.cmdModificarSucursal.Size = new System.Drawing.Size(121, 35);
+            this.cmdModificarSucursal.Size = new System.Drawing.Size(135, 35);
             this.cmdModificarSucursal.TabIndex = 10;
             this.cmdModificarSucursal.Text = "Modificar Sucursal";
             this.cmdModificarSucursal.UseVisualStyleBackColor = false;
@@ -83,9 +83,9 @@
             // cmdBorrarSucursal
             // 
             this.cmdBorrarSucursal.BackColor = System.Drawing.Color.Red;
-            this.cmdBorrarSucursal.Location = new System.Drawing.Point(16, 60);
+            this.cmdBorrarSucursal.Location = new System.Drawing.Point(12, 60);
             this.cmdBorrarSucursal.Name = "cmdBorrarSucursal";
-            this.cmdBorrarSucursal.Size = new System.Drawing.Size(121, 35);
+            this.cmdBorrarSucursal.Size = new System.Drawing.Size(135, 35);
             this.cmdBorrarSucursal.TabIndex = 11;
             this.cmdBorrarSucursal.Text = "Habilitar/Deshabilitar";
             this.cmdBorrarSucursal.UseVisualStyleBackColor = false;
@@ -96,9 +96,10 @@
             this.groupBoxAcciones.Controls.Add(this.cmdAltaSucursal);
             this.groupBoxAcciones.Controls.Add(this.cmdModificarSucursal);
             this.groupBoxAcciones.Controls.Add(this.cmdBorrarSucursal);
-            this.groupBoxAcciones.Location = new System.Drawing.Point(352, 345);
+            this.groupBoxAcciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxAcciones.Location = new System.Drawing.Point(352, 324);
             this.groupBoxAcciones.Name = "groupBoxAcciones";
-            this.groupBoxAcciones.Size = new System.Drawing.Size(153, 149);
+            this.groupBoxAcciones.Size = new System.Drawing.Size(161, 149);
             this.groupBoxAcciones.TabIndex = 12;
             this.groupBoxAcciones.TabStop = false;
             this.groupBoxAcciones.Text = "Acciones";
@@ -121,19 +122,8 @@
             this.dgdSucursales.Name = "dgdSucursales";
             this.dgdSucursales.ReadOnly = true;
             this.dgdSucursales.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgdSucursales.Size = new System.Drawing.Size(631, 282);
+            this.dgdSucursales.Size = new System.Drawing.Size(642, 282);
             this.dgdSucursales.TabIndex = 13;
-            // 
-            // cmdCerrar
-            // 
-            this.cmdCerrar.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.cmdCerrar.Location = new System.Drawing.Point(511, 405);
-            this.cmdCerrar.Name = "cmdCerrar";
-            this.cmdCerrar.Size = new System.Drawing.Size(121, 35);
-            this.cmdCerrar.TabIndex = 12;
-            this.cmdCerrar.Text = "Cerrar";
-            this.cmdCerrar.UseVisualStyleBackColor = false;
-            this.cmdCerrar.Click += new System.EventHandler(this.cmdCerrar_Click);
             // 
             // lblSucursales
             // 
@@ -149,7 +139,7 @@
             // lnlCerrarSesion
             // 
             this.lnlCerrarSesion.AutoSize = true;
-            this.lnlCerrarSesion.Location = new System.Drawing.Point(576, 9);
+            this.lnlCerrarSesion.Location = new System.Drawing.Point(587, 9);
             this.lnlCerrarSesion.Name = "lnlCerrarSesion";
             this.lnlCerrarSesion.Size = new System.Drawing.Size(67, 13);
             this.lnlCerrarSesion.TabIndex = 21;
@@ -161,7 +151,7 @@
             // 
             this.chkQuitarDeshabilitados.AutoSize = true;
             this.chkQuitarDeshabilitados.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkQuitarDeshabilitados.Location = new System.Drawing.Point(195, 76);
+            this.chkQuitarDeshabilitados.Location = new System.Drawing.Point(184, 21);
             this.chkQuitarDeshabilitados.Name = "chkQuitarDeshabilitados";
             this.chkQuitarDeshabilitados.Size = new System.Drawing.Size(133, 16);
             this.chkQuitarDeshabilitados.TabIndex = 22;
@@ -179,9 +169,10 @@
             this.groupBoxFiltrosBusqueda.Controls.Add(this.lblNombreSucursal);
             this.groupBoxFiltrosBusqueda.Controls.Add(this.txtNombreSucursal);
             this.groupBoxFiltrosBusqueda.Controls.Add(this.cmdBuscar);
+            this.groupBoxFiltrosBusqueda.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxFiltrosBusqueda.Location = new System.Drawing.Point(12, 324);
             this.groupBoxFiltrosBusqueda.Name = "groupBoxFiltrosBusqueda";
-            this.groupBoxFiltrosBusqueda.Size = new System.Drawing.Size(334, 196);
+            this.groupBoxFiltrosBusqueda.Size = new System.Drawing.Size(334, 149);
             this.groupBoxFiltrosBusqueda.TabIndex = 13;
             this.groupBoxFiltrosBusqueda.TabStop = false;
             this.groupBoxFiltrosBusqueda.Text = "Filtros de búsqueda";
@@ -197,7 +188,7 @@
             // cmdQuitarFiltros
             // 
             this.cmdQuitarFiltros.BackColor = System.Drawing.Color.RoyalBlue;
-            this.cmdQuitarFiltros.Location = new System.Drawing.Point(196, 149);
+            this.cmdQuitarFiltros.Location = new System.Drawing.Point(184, 104);
             this.cmdQuitarFiltros.Name = "cmdQuitarFiltros";
             this.cmdQuitarFiltros.Size = new System.Drawing.Size(121, 35);
             this.cmdQuitarFiltros.TabIndex = 28;
@@ -210,7 +201,7 @@
             this.lblCodPostal.AutoSize = true;
             this.lblCodPostal.Location = new System.Drawing.Point(10, 99);
             this.lblCodPostal.Name = "lblCodPostal";
-            this.lblCodPostal.Size = new System.Drawing.Size(72, 13);
+            this.lblCodPostal.Size = new System.Drawing.Size(85, 13);
             this.lblCodPostal.TabIndex = 27;
             this.lblCodPostal.Text = "Código Postal";
             // 
@@ -219,7 +210,7 @@
             this.lblDireccionSucursal.AutoSize = true;
             this.lblDireccionSucursal.Location = new System.Drawing.Point(10, 60);
             this.lblDireccionSucursal.Name = "lblDireccionSucursal";
-            this.lblDireccionSucursal.Size = new System.Drawing.Size(122, 13);
+            this.lblDireccionSucursal.Size = new System.Drawing.Size(146, 13);
             this.lblDireccionSucursal.TabIndex = 25;
             this.lblDireccionSucursal.Text = "Dirección de la Sucursal";
             // 
@@ -236,7 +227,7 @@
             this.lblNombreSucursal.AutoSize = true;
             this.lblNombreSucursal.Location = new System.Drawing.Point(10, 21);
             this.lblNombreSucursal.Name = "lblNombreSucursal";
-            this.lblNombreSucursal.Size = new System.Drawing.Size(114, 13);
+            this.lblNombreSucursal.Size = new System.Drawing.Size(135, 13);
             this.lblNombreSucursal.TabIndex = 13;
             this.lblNombreSucursal.Text = "Nombre de la Sucursal";
             // 
@@ -251,7 +242,7 @@
             // cmdBuscar
             // 
             this.cmdBuscar.BackColor = System.Drawing.Color.Orange;
-            this.cmdBuscar.Location = new System.Drawing.Point(22, 149);
+            this.cmdBuscar.Location = new System.Drawing.Point(184, 60);
             this.cmdBuscar.Name = "cmdBuscar";
             this.cmdBuscar.Size = new System.Drawing.Size(121, 35);
             this.cmdBuscar.TabIndex = 11;
@@ -259,15 +250,26 @@
             this.cmdBuscar.UseVisualStyleBackColor = false;
             this.cmdBuscar.Click += new System.EventHandler(this.cmdBuscar_Click);
             // 
+            // cmdCerrar
+            // 
+            this.cmdCerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdCerrar.Location = new System.Drawing.Point(519, 384);
+            this.cmdCerrar.Name = "cmdCerrar";
+            this.cmdCerrar.Size = new System.Drawing.Size(135, 35);
+            this.cmdCerrar.TabIndex = 32;
+            this.cmdCerrar.Text = "Cerrar";
+            this.cmdCerrar.UseVisualStyleBackColor = true;
+            this.cmdCerrar.Click += new System.EventHandler(this.cmdCerrar_Click);
+            // 
             // ABMSucursalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(658, 532);
+            this.ClientSize = new System.Drawing.Size(666, 481);
+            this.Controls.Add(this.cmdCerrar);
             this.Controls.Add(this.groupBoxFiltrosBusqueda);
             this.Controls.Add(this.lnlCerrarSesion);
             this.Controls.Add(this.lblSucursales);
-            this.Controls.Add(this.cmdCerrar);
             this.Controls.Add(this.dgdSucursales);
             this.Controls.Add(this.groupBoxAcciones);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -294,7 +296,6 @@
         private System.Windows.Forms.Button cmdModificarSucursal;
         private System.Windows.Forms.GroupBox groupBoxAcciones;
         private System.Windows.Forms.DataGridView dgdSucursales;
-        private System.Windows.Forms.Button cmdCerrar;
         private System.Windows.Forms.Label lblSucursales;
         private System.Windows.Forms.LinkLabel lnlCerrarSesion;
         private System.Windows.Forms.CheckBox chkQuitarDeshabilitados;
@@ -307,6 +308,7 @@
         private System.Windows.Forms.Label lblCodPostal;
         private System.Windows.Forms.Button cmdQuitarFiltros;
         private System.Windows.Forms.TextBox txtCodPostalSucursal;
+        private System.Windows.Forms.Button cmdCerrar;
 
     }
 }

@@ -85,7 +85,7 @@ namespace PagoAgilFrba.RegistroPago
 
             if (string.IsNullOrEmpty(txtDNICliente.Text) && string.IsNullOrEmpty(txtNroFactura.Text))
             {
-                dgdFacturas.DataSource = null; return;
+                //dgdFacturas.DataSource = null;return;
             }
            string query_nro_factura = null, query_dni = null, query_final = null;
            
@@ -262,7 +262,7 @@ namespace PagoAgilFrba.RegistroPago
                     {
                         pagos.Add(convert_to_pago(f));
                     }
-                    if (MessageBox.Show("¿Está ud. seguro de querer efectuar el pago de $" + lblTotalCalculado.Text + " en PagoAgilFrba?", "Confirmar pago", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    if (MessageBox.Show("¿Está ud. seguro de querer efectuar el pago de $" + lblTotalCalculado.Text + " en PagoAgilFrba?", "Confirmar pago", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                     {
                         if (PagoDAO.agregar_pagos(pagos))
                         {

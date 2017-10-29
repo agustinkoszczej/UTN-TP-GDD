@@ -105,7 +105,7 @@ namespace PagoAgilFrba.Utilidades
 
        public static void cerrar_sesion()
         {
-            if (MessageBox.Show("¿Está ud. seguro de querer cerrar sesión de PagoAgilFrba?", "Salir de PagoAgilFrba", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("¿Está ud. seguro de querer cerrar sesión de PagoAgilFrba?", "Salir de PagoAgilFrba", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 Application.Restart();
             }

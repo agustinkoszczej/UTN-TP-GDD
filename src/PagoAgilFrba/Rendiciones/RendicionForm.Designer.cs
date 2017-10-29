@@ -1,4 +1,4 @@
-﻿namespace PagoAgilFrba.Rendicion
+﻿namespace PagoAgilFrba.Rendiciones
 {
     partial class RendicionForm
     {
@@ -389,7 +389,6 @@
             this.label3.Size = new System.Drawing.Size(107, 13);
             this.label3.TabIndex = 3;
             this.label3.Text = "Facturas a rendir:";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label2
             // 
@@ -423,7 +422,7 @@
             this.Name = "RendicionForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PagoAgilFrba | Rendición de Facturas Pagas";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.Form_Load);
             this.panelEmpresas.ResumeLayout(false);
             this.panelEmpresas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).EndInit();

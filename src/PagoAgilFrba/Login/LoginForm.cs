@@ -65,14 +65,14 @@ namespace PagoAgilFrba.Login
 
         private void cargar_roles(Usuario usuario)
         {
-                MessageBox.Show("Bienvenido " + usuario.username, "Login correctamente", MessageBoxButtons.OK);
+                MessageBox.Show("Bienvenido " + usuario.username+"!", "Login satisfactorio", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 txtPassword.Visible = false;
                 txtUsername.Visible = false;
                 lblPassword.Visible = false;
                 cmdIngresarButton.Visible = false;
-                groupBoxLogin.Height = 108;
-                this.Height = 255;
-                cmdCancelarButton.Location = new System.Drawing.Point(159, 170);
+                groupBoxLogin.Height = 110;
+                this.Height = 265;
+                cmdCancelarButton.Location = new System.Drawing.Point(159, 182);
 
                 lnlCerrarSesion.Visible = true;
                 cboRoles.Visible = true;

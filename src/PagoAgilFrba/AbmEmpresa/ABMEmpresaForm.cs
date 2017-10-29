@@ -139,7 +139,7 @@ namespace PagoAgilFrba.AbmEmpresa
             {
                 mensaje = "¿Está ud. seguro de querer habilitar la Empresa " + empresa.nombre + "?";
             }
-            if (MessageBox.Show(mensaje, "PagoAgilFrba | ABM Empresa", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show(mensaje, "PagoAgilFrba | ABM Empresa", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 if (!EmpresaDAO.borrar_empresa(empresa))
                 {

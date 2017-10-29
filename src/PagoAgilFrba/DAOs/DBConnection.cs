@@ -81,7 +81,7 @@ namespace PagoAgilFrba.DAOs
 
                 if (dataTable.Rows.Count == 0)
                 {
-                    MessageBox.Show("No existen resultados para esta consulta", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("No existen resultados para esta consulta", "Sin resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {

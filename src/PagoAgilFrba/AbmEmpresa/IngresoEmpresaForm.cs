@@ -30,7 +30,7 @@ namespace PagoAgilFrba.AbmEmpresa
             this.empresa_modificar = _empresa_modificar;
             this.campos_obligatorios = new List<Control>() { txtNombreEmpresa, txtCuitEmpresa, txtDireccionEmpresa, chkLstRubros };
 
-            groupBoxIngresoEmpresas.Text = tipo_ingreso;
+            lblEmpresas.Text = tipo_ingreso;
             set_rubros_chkLst();
         }
 
@@ -141,7 +141,10 @@ namespace PagoAgilFrba.AbmEmpresa
         {
             if ((EmpresaDAO.validar_cuit(txtCuitEmpresa.Text)) || ((empresa_modificar != null) && (empresa_modificar.cuit.ToUpper() == txtCuitEmpresa.Text.ToUpper())))
             {
-                errorProvider.SetError(txtCuitEmpresa, null);
+                if (!Utils.esCampoVacio(txtCuitEmpresa, errorProvider))
+                {
+                    errorProvider.SetError(txtCuitEmpresa, null);
+                }
             }
             else
             {
