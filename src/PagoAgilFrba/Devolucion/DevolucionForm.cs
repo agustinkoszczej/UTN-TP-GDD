@@ -50,7 +50,7 @@ namespace PagoAgilFrba.Devolucion
                                            WHERE Factura_habilitada = 1 AND Cliente_habilitado = 1" + query_dni + query_nro_factura);
             PagoDAO.buscar_factura(dgdFacturas, query_final, txtNroFactura.Text, txtDNICliente.Text);
 
-            if (dgdFacturas.DataSource != null || dgdFacturas.RowCount != 0)
+            if (dgdFacturas.RowCount != 0)
             {
                 Factura factura = get_factura_seleccionada_grilla();
                   lblTotalDevolver.Text = "-"+factura.total;
