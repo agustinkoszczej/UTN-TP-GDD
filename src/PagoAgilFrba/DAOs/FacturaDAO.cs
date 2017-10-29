@@ -39,11 +39,11 @@ namespace PagoAgilFrba.DAOs
             string query;
             if (habilitadas == 1)
             {
-                query = string.Format(@"SELECT Empresa_codigo, Empresa_cuit, Empresa_nombre, Empresa_direccion FROM LORDS_OF_THE_STRINGS_V2.Empresa WHERE Empresa_habilitada = 1 ORDER BY Empresa_nombre");
+                query = string.Format(@"SELECT Empresa_codigo Codigo, Empresa_cuit CUIT, Empresa_nombre Nombre, Empresa_direccion Direccion FROM LORDS_OF_THE_STRINGS_V2.Empresa WHERE Empresa_habilitada = 1 ORDER BY Empresa_nombre");
             }
             else
             {
-                query = string.Format(@"SELECT Empresa_codigo, Empresa_cuit, Empresa_nombre, Empresa_direccion FROM LORDS_OF_THE_STRINGS_V2.Empresa ORDER BY Empresa_nombre");
+                query = string.Format(@"SELECT Empresa_codigo Codigo, Empresa_cuit CUIT, Empresa_nombre Nombre, Empresa_direccion Direccion FROM LORDS_OF_THE_STRINGS_V2.Empresa ORDER BY Empresa_nombre");
             }
 
 
@@ -283,7 +283,7 @@ namespace PagoAgilFrba.DAOs
 
         public static void cargarGridItemsFactura(DataGridView grid, Factura selec)
         {
-            string query = string.Format(@"SELECT ItemFactura_codigo, ItemFactura_cantidad, ItemFactura_monto 
+            string query = string.Format(@"SELECT ItemFactura_codigo Codigo, ItemFactura_cantidad Cantidad, ItemFactura_monto Monto
                                             FROM LORDS_OF_THE_STRINGS_V2.Item_Factura 
                                             WHERE ItemFactura_factura = @idFactura");
             SqlConnection conn = DBConnection.getConnection();

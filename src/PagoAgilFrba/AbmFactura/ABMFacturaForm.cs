@@ -332,7 +332,7 @@ namespace PagoAgilFrba.AbmFactura
 
             if (filtrando)
             {
-                string query = string.Format(@"SELECT Factura_codigo, Factura_fecha, Factura_total, Factura_fecha_venc, Factura_empresa, Factura_cliente, Factura_habilitada  
+                string query = string.Format(@"SELECT Factura_codigo Codigo, Factura_fecha Alta, Factura_total Total, Factura_fecha_venc Vencimiento, Factura_empresa Empresa, Factura_cliente Cliente, Factura_habilitada Habilitada
             FROM LORDS_OF_THE_STRINGS_V2.Factura F " + filtroJoin + 
             " WHERE F.Factura_codigo NOT IN (select Pago_factura from LORDS_OF_THE_STRINGS_V2.Pago)" + filtroWhere);
                 FacturaDAO.cargarFacturasFiltrada(dataGridFacturasBM, idFiltro, query, "@idFiltro");
@@ -349,6 +349,7 @@ namespace PagoAgilFrba.AbmFactura
             filtrando = false;
             idFiltro = 0;
             cargarListFacturasBM();
+            facturaSelectedBM = null;
         }
 
         private void btnFiltrarIdFactura_Click(object sender, EventArgs e)
