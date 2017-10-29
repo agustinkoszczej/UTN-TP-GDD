@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 using PagoAgilFrba.Model;
 using PagoAgilFrba.DAOs;
+using PagoAgilFrba.Utilidades;
 
 namespace PagoAgilFrba.AbmFactura
 {
@@ -197,6 +198,11 @@ namespace PagoAgilFrba.AbmFactura
                     MessageBox.Show("Error al modificar Factura " + factura.id);
                 }
             
+        }
+
+        private void txtFiltroCliente_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Utils.solo_numeros(e);
         }
 
     }

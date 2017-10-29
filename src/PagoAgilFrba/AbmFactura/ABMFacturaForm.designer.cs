@@ -141,6 +141,11 @@
             // 
             this.txtCantidad.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtCantidad.Location = new System.Drawing.Point(19, 129);
+            this.txtCantidad.Maximum = new decimal(new int[] {
+            3000,
+            0,
+            0,
+            0});
             this.txtCantidad.Minimum = new decimal(new int[] {
             1,
             0,
@@ -460,14 +465,14 @@
             this.dataGridFacturasBM.Name = "dataGridFacturasBM";
             this.dataGridFacturasBM.ReadOnly = true;
             this.dataGridFacturasBM.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridFacturasBM.Size = new System.Drawing.Size(670, 213);
+            this.dataGridFacturasBM.Size = new System.Drawing.Size(670, 251);
             this.dataGridFacturasBM.TabIndex = 21;
             this.dataGridFacturasBM.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridFacturasBM_CellClick_1);
             // 
             // btnFiltrarIdCliente
             // 
             this.btnFiltrarIdCliente.BackColor = System.Drawing.Color.DarkOrange;
-            this.btnFiltrarIdCliente.Location = new System.Drawing.Point(452, 262);
+            this.btnFiltrarIdCliente.Location = new System.Drawing.Point(196, 355);
             this.btnFiltrarIdCliente.Name = "btnFiltrarIdCliente";
             this.btnFiltrarIdCliente.Size = new System.Drawing.Size(82, 34);
             this.btnFiltrarIdCliente.TabIndex = 20;
@@ -478,7 +483,7 @@
             // btnFiltrarIdFactura
             // 
             this.btnFiltrarIdFactura.BackColor = System.Drawing.Color.DarkOrange;
-            this.btnFiltrarIdFactura.Location = new System.Drawing.Point(186, 262);
+            this.btnFiltrarIdFactura.Location = new System.Drawing.Point(199, 310);
             this.btnFiltrarIdFactura.Name = "btnFiltrarIdFactura";
             this.btnFiltrarIdFactura.Size = new System.Drawing.Size(79, 33);
             this.btnFiltrarIdFactura.TabIndex = 19;
@@ -491,9 +496,9 @@
             this.panel5.Controls.Add(this.label2);
             this.panel5.Controls.Add(this.dataGridItems);
             this.panel5.Controls.Add(this.btnModificarItem);
-            this.panel5.Location = new System.Drawing.Point(6, 300);
+            this.panel5.Location = new System.Drawing.Point(326, 300);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(766, 166);
+            this.panel5.Size = new System.Drawing.Size(443, 166);
             this.panel5.TabIndex = 1;
             // 
             // label2
@@ -526,7 +531,7 @@
             this.dataGridItems.Name = "dataGridItems";
             this.dataGridItems.ReadOnly = true;
             this.dataGridItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridItems.Size = new System.Drawing.Size(660, 152);
+            this.dataGridItems.Size = new System.Drawing.Size(322, 152);
             this.dataGridItems.TabIndex = 22;
             // 
             // btnModificarItem
@@ -544,7 +549,7 @@
             // 
             this.btnSinFiltros.BackColor = System.Drawing.Color.DarkRed;
             this.btnSinFiltros.ForeColor = System.Drawing.Color.White;
-            this.btnSinFiltros.Location = new System.Drawing.Point(643, 264);
+            this.btnSinFiltros.Location = new System.Drawing.Point(19, 399);
             this.btnSinFiltros.Name = "btnSinFiltros";
             this.btnSinFiltros.Size = new System.Drawing.Size(126, 28);
             this.btnSinFiltros.TabIndex = 18;
@@ -587,7 +592,7 @@
             // 
             // txtIdClienteFiltro
             // 
-            this.txtIdClienteFiltro.Location = new System.Drawing.Point(347, 270);
+            this.txtIdClienteFiltro.Location = new System.Drawing.Point(91, 363);
             this.txtIdClienteFiltro.MaxLength = 18;
             this.txtIdClienteFiltro.Name = "txtIdClienteFiltro";
             this.txtIdClienteFiltro.Size = new System.Drawing.Size(102, 20);
@@ -595,7 +600,7 @@
             // 
             // txtIdFacturaFiltro
             // 
-            this.txtIdFacturaFiltro.Location = new System.Drawing.Point(78, 269);
+            this.txtIdFacturaFiltro.Location = new System.Drawing.Point(91, 317);
             this.txtIdFacturaFiltro.MaxLength = 18;
             this.txtIdFacturaFiltro.Name = "txtIdFacturaFiltro";
             this.txtIdFacturaFiltro.Size = new System.Drawing.Size(102, 20);
@@ -604,7 +609,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 272);
+            this.label4.Location = new System.Drawing.Point(21, 320);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(68, 13);
             this.label4.TabIndex = 4;
@@ -613,7 +618,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(274, 273);
+            this.label3.Location = new System.Drawing.Point(18, 366);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(72, 13);
             this.label3.TabIndex = 3;
