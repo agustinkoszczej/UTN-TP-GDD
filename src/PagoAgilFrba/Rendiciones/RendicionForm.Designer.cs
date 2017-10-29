@@ -29,13 +29,11 @@
         private void InitializeComponent()
         {
             this.panelEmpresas = new System.Windows.Forms.Panel();
+            this.lblEmpresas = new System.Windows.Forms.Label();
             this.dataGridEmpresas = new System.Windows.Forms.DataGridView();
             this.panelMesARendir = new System.Windows.Forms.Panel();
+            this.dateTimeMesAnio = new System.Windows.Forms.DateTimePicker();
             this.label10 = new System.Windows.Forms.Label();
-            this.txtMes = new System.Windows.Forms.TextBox();
-            this.txtAnio = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.chkSoloMesActual = new System.Windows.Forms.CheckBox();
             this.lblMensaje = new System.Windows.Forms.Label();
             this.btnCancelar = new System.Windows.Forms.Button();
@@ -59,7 +57,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblEmpresaSelec = new System.Windows.Forms.Label();
-            this.lblEmpresas = new System.Windows.Forms.Label();
             this.panelEmpresas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).BeginInit();
             this.panelMesARendir.SuspendLayout();
@@ -76,11 +73,21 @@
             this.panelEmpresas.Controls.Add(this.lblMensaje);
             this.panelEmpresas.Controls.Add(this.btnCancelar);
             this.panelEmpresas.Controls.Add(this.btnSeleccionar);
-            this.panelEmpresas.Location = new System.Drawing.Point(10, 7);
+            this.panelEmpresas.Location = new System.Drawing.Point(9, 6);
             this.panelEmpresas.Name = "panelEmpresas";
             this.panelEmpresas.Size = new System.Drawing.Size(593, 411);
             this.panelEmpresas.TabIndex = 0;
-            this.panelEmpresas.Paint += new System.Windows.Forms.PaintEventHandler(this.panelEmpresas_Paint);
+            // 
+            // lblEmpresas
+            // 
+            this.lblEmpresas.AutoSize = true;
+            this.lblEmpresas.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEmpresas.Location = new System.Drawing.Point(2, 2);
+            this.lblEmpresas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblEmpresas.Name = "lblEmpresas";
+            this.lblEmpresas.Size = new System.Drawing.Size(302, 24);
+            this.lblEmpresas.TabIndex = 24;
+            this.lblEmpresas.Text = "Seleccione la empresa a rendir";
             // 
             // dataGridEmpresas
             // 
@@ -91,6 +98,7 @@
             this.dataGridEmpresas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridEmpresas.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridEmpresas.BackgroundColor = System.Drawing.Color.FloralWhite;
+            this.dataGridEmpresas.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.dataGridEmpresas.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dataGridEmpresas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridEmpresas.Cursor = System.Windows.Forms.Cursors.Arrow;
@@ -106,16 +114,21 @@
             // 
             // panelMesARendir
             // 
+            this.panelMesARendir.Controls.Add(this.dateTimeMesAnio);
             this.panelMesARendir.Controls.Add(this.label10);
-            this.panelMesARendir.Controls.Add(this.txtMes);
-            this.panelMesARendir.Controls.Add(this.txtAnio);
-            this.panelMesARendir.Controls.Add(this.label8);
-            this.panelMesARendir.Controls.Add(this.label9);
             this.panelMesARendir.Enabled = false;
             this.panelMesARendir.Location = new System.Drawing.Point(308, 294);
             this.panelMesARendir.Name = "panelMesARendir";
-            this.panelMesARendir.Size = new System.Drawing.Size(276, 85);
+            this.panelMesARendir.Size = new System.Drawing.Size(276, 55);
             this.panelMesARendir.TabIndex = 20;
+            // 
+            // dateTimeMesAnio
+            // 
+            this.dateTimeMesAnio.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimeMesAnio.Location = new System.Drawing.Point(16, 27);
+            this.dateTimeMesAnio.Name = "dateTimeMesAnio";
+            this.dateTimeMesAnio.Size = new System.Drawing.Size(242, 20);
+            this.dateTimeMesAnio.TabIndex = 25;
             // 
             // label10
             // 
@@ -127,44 +140,6 @@
             this.label10.TabIndex = 20;
             this.label10.Text = "Seleccione el mes a rendir";
             // 
-            // txtMes
-            // 
-            this.txtMes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMes.Location = new System.Drawing.Point(16, 51);
-            this.txtMes.MaxLength = 2;
-            this.txtMes.Name = "txtMes";
-            this.txtMes.Size = new System.Drawing.Size(100, 20);
-            this.txtMes.TabIndex = 18;
-            // 
-            // txtAnio
-            // 
-            this.txtAnio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAnio.Location = new System.Drawing.Point(157, 51);
-            this.txtAnio.MaxLength = 4;
-            this.txtAnio.Name = "txtAnio";
-            this.txtAnio.Size = new System.Drawing.Size(100, 20);
-            this.txtAnio.TabIndex = 19;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(13, 34);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(34, 13);
-            this.label8.TabIndex = 15;
-            this.label8.Text = "Mes:";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(154, 35);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(33, 13);
-            this.label9.TabIndex = 16;
-            this.label9.Text = "Año:";
-            // 
             // chkSoloMesActual
             // 
             this.chkSoloMesActual.AutoSize = true;
@@ -173,9 +148,9 @@
             this.chkSoloMesActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkSoloMesActual.Location = new System.Drawing.Point(23, 308);
             this.chkSoloMesActual.Name = "chkSoloMesActual";
-            this.chkSoloMesActual.Size = new System.Drawing.Size(155, 17);
+            this.chkSoloMesActual.Size = new System.Drawing.Size(128, 17);
             this.chkSoloMesActual.TabIndex = 17;
-            this.chkSoloMesActual.Text = "Rendir solo mes actual";
+            this.chkSoloMesActual.Text = "Rendir mes actual";
             this.chkSoloMesActual.UseVisualStyleBackColor = true;
             this.chkSoloMesActual.CheckedChanged += new System.EventHandler(this.chkSoloMesActual_CheckedChanged);
             // 
@@ -245,7 +220,7 @@
             this.lblNoHayFacturas.Name = "lblNoHayFacturas";
             this.lblNoHayFacturas.Size = new System.Drawing.Size(261, 39);
             this.lblNoHayFacturas.TabIndex = 18;
-            this.lblNoHayFacturas.Text = "No existen facturas que rendir en el mes seleccionado";
+            this.lblNoHayFacturas.Text = "No existen facturas pagadas en el mes seleccionado";
             this.lblNoHayFacturas.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblNoHayFacturas.Visible = false;
             // 
@@ -253,7 +228,7 @@
             // 
             this.lblMesAnio.AutoSize = true;
             this.lblMesAnio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMesAnio.Location = new System.Drawing.Point(481, 25);
+            this.lblMesAnio.Location = new System.Drawing.Point(490, 25);
             this.lblMesAnio.Name = "lblMesAnio";
             this.lblMesAnio.Size = new System.Drawing.Size(65, 13);
             this.lblMesAnio.TabIndex = 17;
@@ -339,7 +314,7 @@
             // 
             this.lblPorcentajeComision.AutoSize = true;
             this.lblPorcentajeComision.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPorcentajeComision.Location = new System.Drawing.Point(309, 74);
+            this.lblPorcentajeComision.Location = new System.Drawing.Point(321, 74);
             this.lblPorcentajeComision.Name = "lblPorcentajeComision";
             this.lblPorcentajeComision.Size = new System.Drawing.Size(16, 13);
             this.lblPorcentajeComision.TabIndex = 10;
@@ -399,7 +374,7 @@
             // 
             this.lblFacturasARendir.AutoSize = true;
             this.lblFacturasARendir.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFacturasARendir.Location = new System.Drawing.Point(96, 25);
+            this.lblFacturasARendir.Location = new System.Drawing.Point(108, 25);
             this.lblFacturasARendir.Name = "lblFacturasARendir";
             this.lblFacturasARendir.Size = new System.Drawing.Size(50, 13);
             this.lblFacturasARendir.TabIndex = 4;
@@ -436,22 +411,11 @@
             this.lblEmpresaSelec.TabIndex = 0;
             this.lblEmpresaSelec.Text = "Empresa Seleccionada: ____________";
             // 
-            // lblEmpresas
-            // 
-            this.lblEmpresas.AutoSize = true;
-            this.lblEmpresas.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEmpresas.Location = new System.Drawing.Point(2, 2);
-            this.lblEmpresas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblEmpresas.Name = "lblEmpresas";
-            this.lblEmpresas.Size = new System.Drawing.Size(302, 24);
-            this.lblEmpresas.TabIndex = 24;
-            this.lblEmpresas.Text = "Seleccione la empresa a rendir";
-            // 
             // RendicionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(612, 424);
+            this.ClientSize = new System.Drawing.Size(609, 425);
             this.Controls.Add(this.panelEmpresas);
             this.Controls.Add(this.panelFacturas);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -495,10 +459,6 @@
         private System.Windows.Forms.DataGridView dataGridFacturas;
         private System.Windows.Forms.Panel panelMesARendir;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox txtMes;
-        private System.Windows.Forms.TextBox txtAnio;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.CheckBox chkSoloMesActual;
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Label lblMesAnio;
@@ -506,5 +466,6 @@
         private System.Windows.Forms.Label lblNoHayFacturas;
         private System.Windows.Forms.DataGridView dataGridEmpresas;
         private System.Windows.Forms.Label lblEmpresas;
+        private System.Windows.Forms.DateTimePicker dateTimeMesAnio;
     }
 }

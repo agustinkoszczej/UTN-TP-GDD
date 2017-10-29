@@ -30,7 +30,8 @@ namespace PagoAgilFrba.Rendicion
         private void Form1_Load(object sender, EventArgs e)
         {
             cargarEmpresas();
-
+            dateTimeMesAnio.Format = DateTimePickerFormat.Custom;
+            dateTimeMesAnio.CustomFormat = "MM/yyyy";
 
 
             porcentajeComision = obtenerPorcentajeComision();
@@ -93,7 +94,7 @@ namespace PagoAgilFrba.Rendicion
                     {
                         if (fueRendidaEsteMes(seleccionada.id))
                         {
-                            MessageBox.Show("La empresa seleccionada ya fue rendida este mes");
+                            MessageBox.Show("La empresa seleccionada ya fue rendida este mes", "Error en Rendicion de facturas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                             return;
                         }
                         else
@@ -103,69 +104,30 @@ namespace PagoAgilFrba.Rendicion
                     }
                     else
                     {
-                        bool error = false;
                         mes= 0;
                         anio = 0;
-                        try
+                        if (dateTimeMesAnio.Value > DateTime.Now)
                         {
-                            mes = int.Parse(txtMes.Text.ToString());
-                        }
-                        catch (Exception)
-                        {
-                            error = true;
-                        }
-                        if (mes < 1 || mes > 12) error = true;
-
-                        if (error == true)
-                        {
-                            string mensaje = "";
-                            if (txtMes.Text.ToString() == "")
-                            {
-                                mensaje = "Ingrese un mes válido";
-                            }
-                            else
-                            {
-                                mensaje = "'" + txtMes.Text.ToString() + "' no es un mes válido";
-                            }
-                            MessageBox.Show(mensaje);
+                            MessageBox.Show("La fecha Seleccionada es Superior a la actual", "Error en Rendicion de facturas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                             return;
                         }
 
-                        try
-                        {
-                            anio = int.Parse(txtAnio.Text.ToString());
-                        }
-                        catch (Exception)
-                        {
-                            error = true;
-                        }
-                        if (mes < 1) error = true;
+                        mes = dateTimeMesAnio.Value.Month;
+                        anio = dateTimeMesAnio.Value.Year;
 
-                        if (error == true)
-                        {
-                            string mensaje = "";
-                            if (txtAnio.Text.ToString() == "")
-                            {
-                                mensaje = "Ingrese un año válido";
-                            }
-                            else
-                            {
-                                mensaje = "'" + txtAnio.Text.ToString() + "' no es un año válido";
-                            }
-                            MessageBox.Show(mensaje);
-                            return;
-                        }
+
+
                         if (fueRendidaMesEspecifico(seleccionada.id,mes, anio))
                         {
-                            MessageBox.Show("La empresa seleccionada ya fue rendida en el mes ingresado");
+                            MessageBox.Show("La empresa seleccionada ya fue rendida en el mes ingresado", "Error en Rendicion de facturas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
                         }
                         else
                         {
                             RendicionDAO.cargarGridFacturasPagadasMesEspecificado(dataGridFacturas, seleccionada, mes, anio);
                         }
                     }
-                    txtMes.Text = "";
-                    txtAnio.Text = "";
+                    dateTimeMesAnio.Value = DateTime.Now;
                     lblMesAnio.Text = mes.ToString() + "/" + anio.ToString(); 
                     panelEmpresas.Visible = false;
                     panelFacturas.Visible = true;
@@ -228,11 +190,6 @@ namespace PagoAgilFrba.Rendicion
             }
         }
 
-        private void dataGridEmpresas_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            
-        }
-
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -252,8 +209,6 @@ namespace PagoAgilFrba.Rendicion
 
         private void btnRendir_Click(object sender, EventArgs e)
         {
-            //HACER ESTO EN UNA TRANSACTION?
-
             if (dataGridFacturas.Rows.Count == 0)
             {
                 exito(0);
@@ -294,11 +249,6 @@ namespace PagoAgilFrba.Rendicion
                     exito(idR);
                 }
             }
-        }
-
-        private void panelEmpresas_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void chkSoloMesActual_CheckedChanged(object sender, EventArgs e)
