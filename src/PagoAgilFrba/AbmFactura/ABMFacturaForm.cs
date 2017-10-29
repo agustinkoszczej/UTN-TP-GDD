@@ -373,6 +373,7 @@ namespace PagoAgilFrba.AbmFactura
             filtroWhere = " AND Factura_codigo = @idFiltro";
             filtrando = true;
             cargarListFacturasBM();
+            txtIdClienteFiltro.Text = "";
         }
 
         private void btnFiltrarIdCliente_Click(object sender, EventArgs e)
@@ -396,6 +397,7 @@ namespace PagoAgilFrba.AbmFactura
             filtroWhere = " AND C.Cliente_dni = @idFiltro";
             filtrando = true;
             cargarListFacturasBM();
+            txtIdFacturaFiltro.Text = "";
         }
 
 

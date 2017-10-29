@@ -6,6 +6,7 @@ using System.Windows.Forms;
 
 using PagoAgilFrba.Login;
 using PagoAgilFrba.Rendiciones;
+using PagoAgilFrba.AbmFactura;
 
 namespace PagoAgilFrba
 {

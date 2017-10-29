@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 using PagoAgilFrba.Model;
 using PagoAgilFrba.DAOs;
+using PagoAgilFrba.Utilidades;
 
 namespace PagoAgilFrba.AbmFactura
 {
@@ -19,6 +20,7 @@ namespace PagoAgilFrba.AbmFactura
         private double total;
         private List<Item_Factura> borrados;
         ABMFacturaForm backForm;
+        bool cambio = false;
         
         public ModificarItems(Factura f, ABMFacturaForm back)
         {
@@ -33,7 +35,7 @@ namespace PagoAgilFrba.AbmFactura
         private void camposModifEnBlanco(){
             txtItemNro.Text = "";
             txtItemMonto.Text = "";
-            txtItemCantidad.Text = "";
+            txtItemCantidad.Value = 0;
         }
 
         private void ModificarItems_Load(object sender, EventArgs e)
@@ -108,15 +110,19 @@ namespace PagoAgilFrba.AbmFactura
         private void cargarCamposConItem(Item_Factura it)
         {
             txtItemNro.Text = it.id.ToString();
-            txtItemCantidad.Text = it.cantidad.ToString();
+            txtItemCantidad.Value = it.cantidad;
             txtItemMonto.Text = it.monto.ToString();
 
         }
 
         private void btnGuardarItem_Click(object sender, EventArgs e)
         {
-            if (txtFacturaNumero.Text != "" && txtItemNro.Text != "" && txtItemCantidad.Text != "" && txtItemMonto.Text != "")
+            if (txtFacturaNumero.Text != "" && txtItemNro.Text != "" && txtItemCantidad.Value != 0 && txtItemMonto.Text != "")
             {
+                if (txtItemCantidad.Value == 0)
+                {
+                    MessageBox.Show("No se puede almacenar items con cantidad nula", "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
                 Item_Factura modificado = new Item_Factura(
                     int.Parse(txtItemNro.Text.ToString()),
                     double.Parse(txtItemMonto.Text.ToString()),
@@ -124,6 +130,7 @@ namespace PagoAgilFrba.AbmFactura
                     factura);
                 modificarItemLocal(modificado);
                 actualizarListItems();
+                cambio = true;
             }
         }
 
@@ -141,18 +148,19 @@ namespace PagoAgilFrba.AbmFactura
 
         private void btnGenerarItem_Click(object sender, EventArgs e)
         {
-            if (txtNuevoCantidad.Text != "" && txtNuevoMonto.Text != "")
+            if (txtNuevoCantidad.Value != 0 && txtNuevoMonto.Text != "")
             {
                 Item_Factura nuevo = new Item_Factura(
                     obtenerIDNuevo(),
                     double.Parse(txtNuevoMonto.Text.ToString()),
-                    int.Parse(txtNuevoCantidad.Text.ToString()),
+                    int.Parse(txtNuevoCantidad.Value.ToString()),
                     factura);
                 nuevo.nuevo = true;
                 factura.items.Add(nuevo);
                 actualizarListItems();
                 txtNuevoMonto.Text = "";
-                txtNuevoCantidad.Text = "";
+                txtNuevoCantidad.Value = 0;
+                cambio = true;
             }
         }
 
@@ -180,6 +188,7 @@ namespace PagoAgilFrba.AbmFactura
                 int itemID = int.Parse(listItems.SelectedItems[0].SubItems[0].Text.ToString());
                 borrarItemSegunID(itemID);
                 camposModifEnBlanco();
+                cambio = true;
             }
             
         }
@@ -204,16 +213,24 @@ namespace PagoAgilFrba.AbmFactura
 
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            if (FacturaDAO.modificarItems(factura.id, factura.items, borrados, total) != 0)
+            if (cambio)
             {
-                backForm.actualizarTabBM();
-                this.Close();
-                MessageBox.Show("Factura Nº " + factura.id + " actualizada");
+                if (FacturaDAO.modificarItems(factura.id, factura.items, borrados, total) != 0)
+                {
+                    backForm.actualizarTabBM();
+                    this.Close();
+                    MessageBox.Show("Factura Nº " + factura.id + " actualizada", "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    MessageBox.Show("Error al actualizar Factura Nº " + factura.id, "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
-            else
-            {
-                MessageBox.Show("Error al actualizar Factura Nº " + factura.id);
-            }
+        }
+
+        private void txtItemCantidad_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Utils.solo_numeros(e);
         }
     }
 }
