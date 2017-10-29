@@ -79,7 +79,10 @@ namespace PagoAgilFrba.AbmCliente
             string miFiltroDNI = "";
             string miFiltroHabil = "";
 
-
+            if ((string.IsNullOrEmpty(txtFiltroApellido.Text)) && (string.IsNullOrEmpty(txtFiltroDNI.Text)) && (string.IsNullOrEmpty(txtFiltroNombre.Text)))
+            {
+                return;
+            }
             //miFiltroNomb = " WHERE Cliente_nombre LIKE '%" + this.filtroNombre + "%'";
             miFiltroNomb = " WHERE UPPER(Cliente_nombre) LIKE UPPER('%' + @nombre + '%')";
 
