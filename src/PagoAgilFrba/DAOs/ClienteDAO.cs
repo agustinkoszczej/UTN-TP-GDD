@@ -14,30 +14,22 @@ namespace PagoAgilFrba.DAOs
 {
     class ClienteDAO
     {
-        public static bool validar_dni(Cliente cli, int _dni)
+        public static bool validar_dni(int _dni)
         {
-            if (cli == null || cli.dni != _dni)
-            {
                 string query = string.Format(@"SELECT * FROM LORDS_OF_THE_STRINGS_V2.Cliente WHERE Cliente_dni=@dni");
                 SqlConnection conn = DBConnection.getConnection();
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@dni", _dni);
                 return (cmd.ExecuteScalar() == null);
-            }
-            return true;
         }
 
-        public static bool validar_mail(Cliente cli, string _mail)
+        public static bool validar_mail(string _mail)
         {
-            if (cli == null || cli.mail.Trim().ToUpper() != _mail.Trim().ToUpper() )
-            {
                 string query = string.Format(@"SELECT * FROM LORDS_OF_THE_STRINGS_V2.Cliente WHERE UPPER(Cliente_mail) LIKE UPPER(@mail)");
                 SqlConnection conn = DBConnection.getConnection();
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@mail", _mail.Trim());
                 return (cmd.ExecuteScalar() == null);
-            }
-            return true;
         }
 
 
@@ -63,17 +55,17 @@ namespace PagoAgilFrba.DAOs
             //1 mail repetido
             //2 OK
 
-            if (!validar_dni(null, Convert.ToInt32(cli.dni)))
+            if (!validar_dni(Convert.ToInt32(cli.dni)))
             {
                 MessageBox.Show("El DNI ingresado ya existe", "Error DNI existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                if (!validar_mail(null, cli.mail))
+                if (!validar_mail(cli.mail))
                 {
                     MessageBox.Show("El mail ingresado ya existe", "Error mail existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return 3;
                 }
                 return 2;
             }
-            if (!validar_mail(null, cli.mail))
+            if (!validar_mail(cli.mail))
             {
                 MessageBox.Show("El mail ingresado ya existe", "Error mail existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return 1;
@@ -113,26 +105,34 @@ namespace PagoAgilFrba.DAOs
             }
         }
 
-        public static int modificarCliente(Cliente cli)
+        public static int modificarCliente(Cliente cli, UInt32 old_dni, string old_mail)
         {
             //0 error bd
             //1 mail repetido
             //2 OK
-
-            if (!validar_dni(cli, Convert.ToInt32(cli.dni)))
+            if (old_dni != cli.dni)
             {
-                MessageBox.Show("El DNI ingresado ya existe", "Error DNI existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                if (!validar_mail(cli, cli.mail))
+                if (!validar_dni(Convert.ToInt32(cli.dni)))
+                {
+                    MessageBox.Show("El DNI ingresado ya existe", "Error DNI existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                     if (old_mail.Trim().ToUpper() != cli.mail.Trim().ToUpper())
+                     {
+                    if (!validar_mail(cli.mail))
+                    {
+                        MessageBox.Show("El mail ingresado ya existe", "Error mail existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return 3;
+                    }
+                     }
+                    return 2;
+                }
+            }
+            if (old_mail.Trim().ToUpper() != cli.mail.Trim().ToUpper())
+            {
+                if (!validar_mail(cli.mail))
                 {
                     MessageBox.Show("El mail ingresado ya existe", "Error mail existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return 3;
+                    return 1;
                 }
-                return 2;
-            }
-            if (!validar_mail(cli, cli.mail))
-            {
-                MessageBox.Show("El mail ingresado ya existe", "Error mail existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return 1;
             }
 
             try

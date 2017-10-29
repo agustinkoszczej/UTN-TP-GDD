@@ -19,7 +19,10 @@ namespace PagoAgilFrba.AbmCliente
 
         List<Control> camposObligatorios;
         Cliente cargado = null;
-        ABMClienteForm backForm; 
+        ABMClienteForm backForm;
+
+        private UInt32 dni_viejo;
+        private string mail_viejo;
 
         public NuevoClienteForm(ABMClienteForm back)
         {
@@ -38,6 +41,8 @@ namespace PagoAgilFrba.AbmCliente
             btnCrear.Text = "Guardar Cliente";
             backForm = back;
             lblClientes.Text = "Modificar Cliente";
+            this.dni_viejo = aModificar.dni;
+            this.mail_viejo = aModificar.mail;
         }
 
         private void cargarCliente(Cliente cli)
@@ -119,7 +124,10 @@ namespace PagoAgilFrba.AbmCliente
                     default:
                         limpiarCampos();
                         MessageBox.Show("Cliente agregado correctamente!", "Alta Cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        backForm.Enabled = true;
+                        backForm.filtrar();
                         this.Close();
+                        backForm.Focus();
                         return;
                 }
             }
@@ -128,6 +136,10 @@ namespace PagoAgilFrba.AbmCliente
             {
                 MessageBox.Show("Fecha inválida", "Error en el ABM Cliente", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 errorProvider.SetError(datePickerFNAC, "Fecha inválida");
+            }
+            else
+            {
+                errorProvider.SetError(datePickerFNAC, null);
             }
         }
 
@@ -146,42 +158,51 @@ namespace PagoAgilFrba.AbmCliente
                     MessageBox.Show("DNI Invalido", "Error en el ABM Cliente", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-
+                
                 Cliente cli = new Cliente(cargado.id, txtNombre.Text, txtApellido.Text, uint.Parse(txtDNI.Text), datePickerFNAC.Value, txtDireccion.Text, txtCP.Text, txtMail.Text, txtTelefono.Text, cargado.habilitado);
-                int ex = ClienteDAO.modificarCliente(cli);
+                    int ex = ClienteDAO.modificarCliente(cli, dni_viejo, mail_viejo);
 
-                switch (ex)
-                {
-                    case 0:
-                        MessageBox.Show("Error al modificar Cliente", "Error en el ABM Cliente", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
-                    case 1:
-                        errorProvider.SetError(txtMail, "Mail existente");
-                        break;
-                    case 2:
-                        errorProvider.SetError(txtDNI, "DNI existente");
-                        break;
-                    case 3:
-                        errorProvider.SetError(txtMail, "Mail existente");
-                        errorProvider.SetError(txtDNI, "DNI existente");
-                        break;
-                    default:
-                        MessageBox.Show("Cliente "+cargado.id+" modificado correctamente!", "Modificar Cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        limpiarCampos();
-                        this.Close();
-                        return;
+                    switch (ex)
+                    {
+                        case 0:
+                            MessageBox.Show("Error al modificar Cliente", "Error en el ABM Cliente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                        case 1:
+                            errorProvider.SetError(txtMail, "Mail existente");
+                            break;
+                        case 2:
+                            errorProvider.SetError(txtDNI, "DNI existente");
+                            break;
+                        case 3:
+                            errorProvider.SetError(txtMail, "Mail existente");
+                            errorProvider.SetError(txtDNI, "DNI existente");
+                            break;
+                        default:
+                            MessageBox.Show("Cliente " + cargado.id + " modificado correctamente!", "Modificar Cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            limpiarCampos();
+                            backForm.Enabled = true;
+                            backForm.filtrar();
+                            this.Close();
+                            backForm.Focus();
+                            return;
+                    }
                 }
-            }
             if (datePickerFNAC.Value > DateTime.Now)
             {
                 MessageBox.Show("Fecha inválida", "Error en el ABM Cliente", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 errorProvider.SetError(datePickerFNAC, "Fecha inválida");
+            }
+            else
+            {
+                errorProvider.SetError(datePickerFNAC, null);
             }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
+            backForm.Enabled = true;
+            backForm.Focus();
         }
 
         private void txtDNI_KeyPress(object sender, KeyPressEventArgs e)
@@ -195,6 +216,11 @@ namespace PagoAgilFrba.AbmCliente
             {
                 e.Handled = true;
             }
+        }
+        private void IngresoEmpresaForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            backForm.Enabled = true;
+            backForm.Focus();
         }
 
     }

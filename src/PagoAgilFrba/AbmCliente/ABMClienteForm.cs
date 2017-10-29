@@ -51,6 +51,7 @@ namespace PagoAgilFrba.AbmCliente
                     selectedRow.Cells[5].Value.ToString(),                     //MAIL
                     selectedRow.Cells[8].Value.ToString(),                     //TELEFONO
                     habil);                                                    //HABILITADO
+                this.Enabled = false;
                 NuevoClienteForm frm = new NuevoClienteForm(cargado, this);
                 frm.Show();
             }
@@ -67,8 +68,7 @@ namespace PagoAgilFrba.AbmCliente
             filtroNombre = txtFiltroNombre.Text.ToString();
             filtroApellido = txtFiltroApellido.Text.ToString();
             filtroDNI = txtFiltroDNI.Text.ToString();
-            filtrar();
-            
+            filtrar();     
         }
 
 
@@ -212,6 +212,7 @@ namespace PagoAgilFrba.AbmCliente
 
         private void button1_Click(object sender, EventArgs e)
         {
+            this.Enabled = false;
             NuevoClienteForm frm = new NuevoClienteForm(this);
             frm.Show();
         }
