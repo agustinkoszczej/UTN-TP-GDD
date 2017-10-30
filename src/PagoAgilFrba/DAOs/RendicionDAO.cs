@@ -131,8 +131,11 @@ namespace PagoAgilFrba.DAOs
         {
             string query = string.Format(@"SELECT DISTINCT MONTH(P.Pago_fecha) MES, YEAR(P.Pago_fecha) AÑO FROM LORDS_OF_THE_STRINGS_V2.Pago P
                                         JOIN LORDS_OF_THE_STRINGS_V2.Factura F on Pago_factura = Factura_codigo
-                                        WHERE Factura_rendicion IS NULL AND F.Factura_empresa = @idEmpresa 
-                                        AND NOT EXISTS (SELECT 1 FROM LORDS_OF_THE_STRINGS_V2.Rendicion WHERE MONTH(Rendicion_fecha) = MONTH(P.Pago_fecha) AND YEAR(Rendicion_fecha) = YEAR(P.Pago_fecha))");
+                                        WHERE Factura_rendicion IS NULL 
+                                        AND F.Factura_empresa = @idEmpresa 
+                                        AND NOT EXISTS (SELECT 1 FROM LORDS_OF_THE_STRINGS_V2.Rendicion WHERE MONTH(Rendicion_fecha) = MONTH(P.Pago_fecha) AND YEAR(Rendicion_fecha) = YEAR(P.Pago_fecha))
+                                        AND (SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Pago JOIN LORDS_OF_THE_STRINGS_V2.Factura ON (Pago_factura = Factura_codigo)
+		                                WHERE Pago_factura = F.Factura_codigo) > (SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Devolucion WHERE Devolucion_factura = F.Factura_codigo)");
             SqlConnection conn = DBConnection.getConnection();
             SqlCommand command = new SqlCommand(query, conn);
 

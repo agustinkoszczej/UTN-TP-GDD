@@ -80,7 +80,7 @@
             this.panelEmpresas.Controls.Add(this.btnSeleccionar);
             this.panelEmpresas.Location = new System.Drawing.Point(9, 6);
             this.panelEmpresas.Name = "panelEmpresas";
-            this.panelEmpresas.Size = new System.Drawing.Size(593, 411);
+            this.panelEmpresas.Size = new System.Drawing.Size(593, 412);
             this.panelEmpresas.TabIndex = 0;
             // 
             // label1
@@ -151,6 +151,7 @@
             this.dataGridEmpresas.Size = new System.Drawing.Size(403, 261);
             this.dataGridEmpresas.TabIndex = 23;
             this.dataGridEmpresas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridEmpresas_CellClick);
+            this.dataGridEmpresas.Sorted += new System.EventHandler(this.dataGridEmpresas_Sorted);
             // 
             // panelMesARendir
             // 
