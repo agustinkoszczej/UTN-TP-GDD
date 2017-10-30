@@ -454,7 +454,7 @@ GO
 ------------- EL USUARIO ADMIN_Y_COBRADOR (1) TIENE SOLO LA SUCURSAL Nº2000
 -------------------------------------------------------------------------------------------------
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Usuario_Sucursal(UsuarioSucur_usuario, UsuarioSucur_sucursal)
-VALUES(5,1)
+VALUES(3,1)
 GO
 
 -------------------------------------------------------------------------------------------------
