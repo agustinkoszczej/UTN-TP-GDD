@@ -129,13 +129,15 @@ namespace PagoAgilFrba.DAOs
 
         public static void llenarGridMesesRendibles(DataGridView grid, int idEmpresa)
         {
-            string query = string.Format(@"SELECT DISTINCT MONTH(P.Pago_fecha) MES, YEAR(P.Pago_fecha) AÑO FROM LORDS_OF_THE_STRINGS_V2.Pago P
-                                        JOIN LORDS_OF_THE_STRINGS_V2.Factura F on Pago_factura = Factura_codigo
-                                        WHERE Factura_rendicion IS NULL 
-                                        AND F.Factura_empresa = @idEmpresa 
-                                        AND NOT EXISTS (SELECT 1 FROM LORDS_OF_THE_STRINGS_V2.Rendicion WHERE MONTH(Rendicion_fecha) = MONTH(P.Pago_fecha) AND YEAR(Rendicion_fecha) = YEAR(P.Pago_fecha))
-                                        AND (SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Pago JOIN LORDS_OF_THE_STRINGS_V2.Factura ON (Pago_factura = Factura_codigo)
-		                                WHERE Pago_factura = F.Factura_codigo) > (SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Devolucion WHERE Devolucion_factura = F.Factura_codigo)");
+            string query = string.Format(@"SELECT DISTINCT MONTH(P1.Pago_fecha) Mes, YEAR(P1.Pago_fecha) Año FROM LORDS_OF_THE_STRINGS_V2.Pago P1
+                                            JOIN LORDS_OF_THE_STRINGS_V2.Factura F ON Pago_factura = Factura_codigo
+                                            WHERE Factura_rendicion IS NULL 
+                                            AND F.Factura_empresa = @idEmpresa 
+                                            AND (SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Pago P2 WHERE P2.Pago_factura = F.Factura_codigo) > 
+                                            (SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Devolucion D WHERE D.Devolucion_factura = F.Factura_codigo)
+                                            AND NOT EXISTS 
+                                            (SELECT 1 FROM LORDS_OF_THE_STRINGS_V2.Rendicion R WHERE MONTH(R.Rendicion_fecha) = MONTH(P1.Pago_fecha) 
+                                            AND YEAR(R.Rendicion_fecha) = YEAR(P1.Pago_fecha) AND R.Rendicion_codigo = F.Factura_rendicion)");
             SqlConnection conn = DBConnection.getConnection();
             SqlCommand command = new SqlCommand(query, conn);
 
