@@ -52,11 +52,7 @@ namespace PagoAgilFrba.Rendiciones
 
         private void cargarEmpresas()
         {
-
-            string query = string.Format(@"SELECT Empresa_codigo, Empresa_nombre, Empresa_cuit, Empresa_direccion, Empresa_habilitada 
-                                            FROM LORDS_OF_THE_STRINGS_V2.Empresa");
-            DBConnection.llenar_grilla(dataGridEmpresas, query);
-            //RendicionDAO.llenarDataGrid(dataGridEmpresas, query);
+            EmpresaDAO.llenarGridConEmpresas(dataGridEmpresas, 1);
         }
 
         private void exito(int idRendicion)
@@ -84,7 +80,7 @@ namespace PagoAgilFrba.Rendiciones
             seleccionada = getEmpresaSelec();
             if (seleccionada == null)
             {
-                MessageBox.Show("Seleccione una empresa");
+                MessageBox.Show("Seleccione una empresa", "Error en Rendicion de facturas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
             else
             {
@@ -176,12 +172,11 @@ namespace PagoAgilFrba.Rendiciones
             try
             {
                 int empresa_id = int.Parse(dataGridEmpresas.SelectedCells[0].Value.ToString());
-                string empresa_nombre = dataGridEmpresas.SelectedCells[1].Value.ToString();
-                string empresa_cuit = dataGridEmpresas.SelectedCells[2].Value.ToString();
+                string empresa_cuit = dataGridEmpresas.SelectedCells[1].Value.ToString();
+                string empresa_nombre = dataGridEmpresas.SelectedCells[2].Value.ToString();
                 string empresa_direccion = dataGridEmpresas.SelectedCells[3].Value.ToString();
-                bool empresa_habilitada = bool.Parse(dataGridEmpresas.SelectedCells[4].Value.ToString());
 
-                return new Empresa(empresa_id, empresa_cuit, empresa_nombre, empresa_direccion, empresa_habilitada);
+                return new Empresa(empresa_id, empresa_cuit, empresa_nombre, empresa_direccion, true);
             }
             catch (Exception)
             {
@@ -207,7 +202,7 @@ namespace PagoAgilFrba.Rendiciones
                 int idR = RendicionDAO.nuevaRendicion(rend);
                 if (idR == 0)
                 {
-                    MessageBox.Show("Error al generar la rendicion");
+                    MessageBox.Show("Error al generar la rendicion", "Error en Rendicion de facturas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
@@ -229,7 +224,7 @@ namespace PagoAgilFrba.Rendiciones
                         }
                         catch (Exception)
                         {
-                            MessageBox.Show("Error al actualizar la factura Nº " + idFactura);
+                            MessageBox.Show("Error al actualizar la factura Nº " + idFactura, "Error en Rendicion de facturas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
                     }

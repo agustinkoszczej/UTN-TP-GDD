@@ -50,7 +50,7 @@ namespace PagoAgilFrba.AbmFactura
             {
                 Utilidades.Utils.clearDataGrid(dataGridEmpresas);
                 dataGridEmpresas.Enabled = true;
-                FacturaDAO.llenarGridConEmpresas(dataGridEmpresas,1);
+                EmpresaDAO.llenarGridConEmpresas(dataGridEmpresas,1);
                 btnSeleccionarEmpresa.Text = "Seleccionar";
             }
             else

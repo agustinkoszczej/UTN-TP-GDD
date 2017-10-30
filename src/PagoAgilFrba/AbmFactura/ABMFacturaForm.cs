@@ -45,7 +45,7 @@ namespace PagoAgilFrba.AbmFactura
             this.campos_obligatorios_ALTA = new List<Control>() {dataGridCliente, dataGridEmpresas, vencimientoDateTimePicker };
             this.campos_obligatorios_ITEM = new List<Control>() {txtCantidad, txtMonto};
 
-            FacturaDAO.llenarGridConEmpresas(dataGridEmpresas,1);
+            EmpresaDAO.llenarGridConEmpresas(dataGridEmpresas,1);
 
             totalSS = 0;
 
