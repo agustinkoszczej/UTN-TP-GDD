@@ -1068,25 +1068,5 @@ INSERT INTO [LORDS_OF_THE_STRINGS_V2].Sucursal( Sucursal_nombre, Sucursal_direcc
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Sucursal( Sucursal_nombre, Sucursal_direccion, Sucursal_codigo_postal ) VALUES ('Sucursal 3', 'Albert 900', 'C2546');
 GO
 
-INSERT INTO [LORDS_OF_THE_STRINGS_V2].Usuario_Sucursal( UsuarioSucur_usuario, UsuarioSucur_sucursal ) VALUES (2,1) --cobrador con Sucursal N°2000
-GO
-
-INSERT INTO [LORDS_OF_THE_STRINGS_V2].Factura( Factura_fecha, Factura_fecha_venc, Factura_total, Factura_empresa, Factura_cliente, Factura_rendicion)
-VALUES (GETDATE(), DATEADD(DAY, 10, GETDATE()), 500, 2, 60, NULL)
-
-INSERT INTO [LORDS_OF_THE_STRINGS_V2].Factura( Factura_fecha, Factura_fecha_venc, Factura_total, Factura_empresa, Factura_cliente, Factura_rendicion)
-VALUES (GETDATE(), DATEADD(DAY, 10, GETDATE()), 22500, 2, 43, NULL)
-
-INSERT INTO [LORDS_OF_THE_STRINGS_V2].Factura( Factura_fecha, Factura_fecha_venc, Factura_total, Factura_empresa, Factura_cliente, Factura_rendicion)
-VALUES (GETDATE(), DATEADD(DAY, 10, GETDATE()), 8500, 2, 10, NULL)
-
-INSERT INTO [LORDS_OF_THE_STRINGS_V2].Factura( Factura_fecha, Factura_fecha_venc, Factura_total, Factura_empresa, Factura_cliente, Factura_rendicion)
-VALUES (GETDATE(), DATEADD(DAY, 10, GETDATE()), 37800, 2, 721, NULL)
-
-INSERT INTO [LORDS_OF_THE_STRINGS_V2].Factura( Factura_fecha, Factura_fecha_venc, Factura_total, Factura_empresa, Factura_cliente, Factura_rendicion)
-VALUES (GETDATE(), DATEADD(DAY, 10, GETDATE()), 13400, 3, 178, NULL)
-
-INSERT INTO [LORDS_OF_THE_STRINGS_V2].Factura( Factura_fecha, Factura_fecha_venc, Factura_total, Factura_empresa, Factura_cliente, Factura_rendicion)
-VALUES (GETDATE(), DATEADD(DAY, 10, GETDATE()), 6513400, 3, 975, NULL)
-
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Usuario_Sucursal( UsuarioSucur_usuario, UsuarioSucur_sucursal ) VALUES (2,1) --Cobrador con Sucursal N°2000
 GO
