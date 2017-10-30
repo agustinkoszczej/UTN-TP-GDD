@@ -92,7 +92,7 @@ namespace PagoAgilFrba.DAOs
 
                 comando.Parameters.AddWithValue("@cp", cli.cod_postal);
 
-                comando.Parameters.AddWithValue("@tel", cli.cod_postal);
+                comando.Parameters.AddWithValue("@tel", cli.telefono);
 
                 comando.ExecuteNonQuery();
 
