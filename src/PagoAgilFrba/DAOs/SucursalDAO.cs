@@ -70,8 +70,8 @@ namespace PagoAgilFrba.DAOs
                 cmd.ExecuteNonQuery();
                 conn.Close();
             }
-            catch (Exception ex)
-            { MessageBox.Show(ex.Message); }
+            catch (Exception)
+            {  }
         }
 
         #region ABM Sucursal
