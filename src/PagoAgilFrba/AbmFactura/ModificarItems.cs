@@ -47,8 +47,8 @@ namespace PagoAgilFrba.AbmFactura
         {
             if (listItems.SelectedItems.Count > 0)
             {
-                int itemId = int.Parse(listItems.SelectedItems[0].SubItems[0].Text.ToString());
-                cargarCamposConItem(obtenerItemSegunID(itemId));
+                    int itemId = int.Parse(listItems.SelectedItems[0].SubItems[1].Text.ToString());
+                    cargarCamposConItem(obtenerItemSegunID(itemId));
             }
         }
 
@@ -75,18 +75,18 @@ namespace PagoAgilFrba.AbmFactura
                     total = total + (it.monto * it.cantidad);
 
                     string identif;
-                    if (it.nuevo) identif = "Nuevo";
-                    else identif = it.id.ToString();
+                    if (it.nuevo) identif = "Si";
+                    else identif = "No";
 
-                    populateListItems(identif, it.monto.ToString(), it.cantidad.ToString(), factura.id.ToString());
+                    populateListItems(it.id.ToString(), it.monto.ToString(), it.cantidad.ToString(), factura.id.ToString(), identif);
                 }
             }
             lblTotal.Text = "$" + total.ToString();
         }
 
-        private void populateListItems(string id, string monto, string cantidad, string facturaID)
+        private void populateListItems(string id, string monto, string cantidad, string facturaID, string nuevo)
         {
-            String[] row = { id, monto, cantidad, facturaID };
+            String[] row = {nuevo, id, monto, cantidad, facturaID };
             listItems.Items.Add(new ListViewItem(row));
         }
 
@@ -95,6 +95,7 @@ namespace PagoAgilFrba.AbmFactura
             listItems.Items.Clear();
             listItems.Columns.Clear();
 
+            listItems.Columns.Add("Nuevo?", 60);
             listItems.Columns.Add("Item Nº", 60);
             listItems.Columns.Add("Monto", 100);
             listItems.Columns.Add("Cantidad", 100);
@@ -109,6 +110,7 @@ namespace PagoAgilFrba.AbmFactura
 
         private void cargarCamposConItem(Item_Factura it)
         {
+
             txtItemNro.Text = it.id.ToString();
             txtItemCantidad.Value = it.cantidad;
             txtItemMonto.Text = it.monto.ToString();
@@ -185,7 +187,7 @@ namespace PagoAgilFrba.AbmFactura
         {
             if (listItems.SelectedItems.Count > 0)
             {
-                int itemID = int.Parse(listItems.SelectedItems[0].SubItems[0].Text.ToString());
+                int itemID = int.Parse(listItems.SelectedItems[0].SubItems[1].Text.ToString());
                 borrarItemSegunID(itemID);
                 camposModifEnBlanco();
                 cambio = true;
