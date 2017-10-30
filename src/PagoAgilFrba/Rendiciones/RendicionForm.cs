@@ -219,7 +219,8 @@ namespace PagoAgilFrba.Rendiciones
                                     DateTime.Parse(fila.Cells[3].Value.ToString()),
                                     seleccionada,
                                     new Cliente(int.Parse(fila.Cells[4].Value.ToString()), "", "", 0, DateTime.Now, "", "", "", "", true),  //genero cualquier cliente, total solo importa el id en este update
-                                    rend);
+                                    rend,
+                                    true); //Se supone que ya busca las habilitadas
                             FacturaDAO.modificarFactura(f);
                         }
                         catch (Exception)
