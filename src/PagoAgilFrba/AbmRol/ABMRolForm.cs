@@ -105,7 +105,7 @@ namespace PagoAgilFrba.AbmRol
                 Rol rol = get_rol_seleccionado_grilla();
                 if (rol.habilitado)
                 {
-                    mensaje = "¿Está ud. seguro de querer deshabilitar el Rol " + rol.nombre + "? (Se perderán todas las funcionalidades y usuarios asociados)";
+                    mensaje = "¿Está ud. seguro de querer deshabilitar el Rol " + rol.nombre + "? (Se perderán todos los usuarios asociados)";
                 }
                 else
                 {
