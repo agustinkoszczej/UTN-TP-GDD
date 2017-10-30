@@ -92,7 +92,7 @@ namespace PagoAgilFrba.AbmFactura
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("'" + txtMonto.Text + "' no es un monto válido");
+                    MessageBox.Show("'" + txtMonto.Text + "' no es un monto válido", "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtMonto.Text = "";
                     return;
                 }
@@ -103,15 +103,14 @@ namespace PagoAgilFrba.AbmFactura
                 }
                 catch (Exception)
                 {
-
-                    MessageBox.Show("'" + txtCantidad.Text + "' no es una cantidad válida");
+                    MessageBox.Show("'" + txtCantidad.Text + "' no es una cantidad válida", "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtCantidad.Text = "";
                     return;
                 }
 
                 if (monto <= 0 || cantidad <= 0)
                 {
-                    MessageBox.Show("Ni las cantidades ni los montos pueden ser nulos o negativos");
+                    MessageBox.Show("Ni las cantidades ni los montos pueden ser nulos o negativos", "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
@@ -147,7 +146,7 @@ namespace PagoAgilFrba.AbmFactura
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error");
+                    MessageBox.Show(ex.Message, "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
         }
@@ -182,7 +181,7 @@ namespace PagoAgilFrba.AbmFactura
 
                     if (empresaSelectedAlta == null)
                     {
-                        MessageBox.Show("Error al seleccionar empresa");
+                        MessageBox.Show("Error al seleccionar empresa", "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
                     else
@@ -209,7 +208,7 @@ namespace PagoAgilFrba.AbmFactura
                         }
                         else
                         {
-                            MessageBox.Show("Error al seleccionar cliente");
+                            MessageBox.Show("Error al seleccionar cliente", "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
 
@@ -318,8 +317,14 @@ namespace PagoAgilFrba.AbmFactura
             FROM LORDS_OF_THE_STRINGS_V2.Factura F " + filtroJoin + 
             " WHERE F.Factura_codigo NOT IN (select Pago_factura from LORDS_OF_THE_STRINGS_V2.Pago)" + filtroWhere);
                 FacturaDAO.cargarFacturasFiltrada(dataGridFacturasBM, idFiltro, query, "@idFiltro");
-                //loadFacturaSeleccionada();
-                cargarItemsFacturaSeleccionada();
+                if (dataGridFacturasBM.Rows.Count < 1)
+                {
+                    MessageBox.Show("No se encontró ninguna factura habilitada paga con esos datos", "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    cargarItemsFacturaSeleccionada();
+                }
             }
         }
 
@@ -393,12 +398,12 @@ namespace PagoAgilFrba.AbmFactura
                     facturaSelectedBM.habilitada = false;
                     if (FacturaDAO.modificarFactura(facturaSelectedBM) != 0)
                     {
-                        MessageBox.Show("Factura Nº " + facturaSelectedBM.id + " inhabilitada");
+                        MessageBox.Show("Factura Nº " + facturaSelectedBM.id + " inhabilitada", "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         cargarListFacturasBM();
                     }
                     else
                     {
-                        MessageBox.Show("Error al inhabilitar factura Nº " + facturaSelectedBM.id);
+                        MessageBox.Show("Error al inhabilitar factura Nº " + facturaSelectedBM.id, "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
             }
@@ -414,12 +419,12 @@ namespace PagoAgilFrba.AbmFactura
                     facturaSelectedBM.habilitada = true;
                     if (FacturaDAO.modificarFactura(facturaSelectedBM) != 0)
                     {
-                        MessageBox.Show("Factura Nº " + facturaSelectedBM.id + " habilitada");
+                        MessageBox.Show("Factura Nº " + facturaSelectedBM.id + " habilitada", "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         cargarListFacturasBM();
                     }
                     else
                     {
-                        MessageBox.Show("Error al inhabilitar factura Nº " + facturaSelectedBM.id);
+                        MessageBox.Show("Error al habilitar factura Nº " + facturaSelectedBM.id, "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
             }

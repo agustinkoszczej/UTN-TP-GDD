@@ -70,7 +70,7 @@ namespace PagoAgilFrba.DAOs
                     comando = new SqlCommand(query, conn);
                     comando.Parameters.AddWithValue("@idFactura", idFactura);
                     comando.Parameters.AddWithValue("@cantidad", fi.cantidad);
-                    comando.Parameters.AddWithValue("@monto", fi.monto * fi.cantidad);      //AGREGO EL * CANTIDAD PORQUE LA TABLA MAESTRA ESTÁ ASI
+                    comando.Parameters.AddWithValue("@monto", fi.monto);
                     comando.ExecuteNonQuery();
                 }
 
