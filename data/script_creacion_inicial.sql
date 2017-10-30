@@ -34,7 +34,7 @@ IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].Usuario', 'U') IS NOT NULL DROP TABLE [L
 
 CREATE TABLE [LORDS_OF_THE_STRINGS_V2].[Rol](
 	[Rol_codigo] [numeric](18, 0) IDENTITY PRIMARY KEY,
-	[Rol_nombre] [nvarchar](50) NOT NULL UNIQUE,
+	[Rol_nombre] [nvarchar](255) NOT NULL UNIQUE,
 	[Rol_habilitado] [bit] NOT NULL DEFAULT 1)
 GO
 
@@ -44,7 +44,7 @@ GO
 
 CREATE TABLE [LORDS_OF_THE_STRINGS_V2].[Funcionalidad](
 	[Func_codigo] [numeric](18, 0) IDENTITY PRIMARY KEY,
-	[Func_nombre] [nvarchar](50) NOT NULL UNIQUE)
+	[Func_nombre] [nvarchar](255) NOT NULL UNIQUE)
 GO
 
 -------------------------------------------------------------------------------------------------
@@ -63,9 +63,9 @@ GO
 
 CREATE TABLE [LORDS_OF_THE_STRINGS_V2].[Usuario](
 	[Usuario_codigo] [numeric](18, 0) IDENTITY PRIMARY KEY,
-	[Usuario_username] [nvarchar](50) UNIQUE NOT NULL,
+	[Usuario_username] [nvarchar](255) UNIQUE NOT NULL,
 	[Usuario_password] [nvarchar](255) NOT NULL,
-	[Usuario_cant_intentos] [numeric](18, 0) NOT NULL DEFAULT 0)
+	[Usuario_cant_intentos] [tinyint] NOT NULL DEFAULT 0)
 GO
 
 -------------------------------------------------------------------------------------------------
@@ -91,7 +91,7 @@ CREATE TABLE [LORDS_OF_THE_STRINGS_V2].[Cliente](
 	[Cliente_mail] [nvarchar](255) NULL UNIQUE,
 	[Cliente_direccion] [nvarchar](255) NOT NULL,
 	[Cliente_codigo_postal] [nvarchar](255) NOT NULL,
-	[Cliente_telefono] [nvarchar](50) NULL,
+	[Cliente_telefono] [nvarchar](255) NULL,
 	[Cliente_habilitado] [bit] NOT NULL DEFAULT 1)
 GO
 
@@ -101,7 +101,7 @@ GO
 
 CREATE TABLE [LORDS_OF_THE_STRINGS_V2].[Rubro](
 	[Rubro_codigo] [numeric](18, 0) IDENTITY PRIMARY KEY,
-	[Rubro_descripcion] [nvarchar](50) NOT NULL UNIQUE)
+	[Rubro_descripcion] [nvarchar](255) NOT NULL UNIQUE)
 GO
 
 -------------------------------------------------------------------------------------------------
@@ -132,7 +132,7 @@ GO
 
 CREATE TABLE [LORDS_OF_THE_STRINGS_V2].[Sucursal](
 	[Sucursal_codigo] [numeric](18, 0) IDENTITY PRIMARY KEY,
-	[Sucursal_nombre] [nvarchar](50) NOT NULL,
+	[Sucursal_nombre] [nvarchar](255) NOT NULL,
 	[Sucursal_direccion] [nvarchar](255) NOT NULL,
 	[Sucursal_codigo_postal] [nvarchar](255) NOT NULL UNIQUE,
 	[Sucursal_habilitada] [bit] NOT NULL DEFAULT 1)
@@ -201,7 +201,7 @@ GO
 
 CREATE TABLE [LORDS_OF_THE_STRINGS_V2].[Forma_Pago](
 	[FormaPago_codigo] [numeric](18, 0) IDENTITY PRIMARY KEY,
-	[FormaPago_descripcion] [nvarchar](50) NOT NULL)
+	[FormaPago_descripcion] [nvarchar](255) NOT NULL)
 GO
 
 -------------------------------------------------------------------------------------------------
@@ -1090,9 +1090,3 @@ INSERT INTO [LORDS_OF_THE_STRINGS_V2].Factura( Factura_fecha, Factura_fecha_venc
 VALUES (GETDATE(), DATEADD(DAY, 10, GETDATE()), 6513400, 3, 975, NULL)
 
 GO
-
--------------------------------------------------------------------------------------------------
--------------------------------------------------------------------------------------------------
--- PRUEBAS VARIAS
--------------------------------------------------------------------------------------------------
--------------------------------------------------------------------------------------------------

@@ -85,7 +85,7 @@
             // txtNombreSucursal
             // 
             this.txtNombreSucursal.Location = new System.Drawing.Point(12, 59);
-            this.txtNombreSucursal.MaxLength = 50;
+            this.txtNombreSucursal.MaxLength = 255;
             this.txtNombreSucursal.Name = "txtNombreSucursal";
             this.txtNombreSucursal.Size = new System.Drawing.Size(354, 20);
             this.txtNombreSucursal.TabIndex = 1;

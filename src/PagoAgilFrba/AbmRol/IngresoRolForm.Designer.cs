@@ -67,7 +67,7 @@
             // txtNombreRol
             // 
             this.txtNombreRol.Location = new System.Drawing.Point(15, 61);
-            this.txtNombreRol.MaxLength = 50;
+            this.txtNombreRol.MaxLength = 255;
             this.txtNombreRol.Name = "txtNombreRol";
             this.txtNombreRol.Size = new System.Drawing.Size(354, 20);
             this.txtNombreRol.TabIndex = 1;

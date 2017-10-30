@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using PagoAgilFrba.Login;
-using PagoAgilFrba.Rendiciones;
-using PagoAgilFrba.AbmFactura;
 
 namespace PagoAgilFrba
 {
@@ -20,7 +18,7 @@ namespace PagoAgilFrba
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ABMFacturaForm());
+            Application.Run(new LoginForm());
             
         }
     }

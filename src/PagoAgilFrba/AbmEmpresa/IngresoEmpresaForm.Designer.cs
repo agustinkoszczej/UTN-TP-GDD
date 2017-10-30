@@ -52,6 +52,7 @@
             // txtDireccionEmpresa
             // 
             this.txtDireccionEmpresa.Location = new System.Drawing.Point(18, 134);
+            this.txtDireccionEmpresa.MaxLength = 255;
             this.txtDireccionEmpresa.Name = "txtDireccionEmpresa";
             this.txtDireccionEmpresa.Size = new System.Drawing.Size(354, 20);
             this.txtDireccionEmpresa.TabIndex = 3;
@@ -79,6 +80,7 @@
             // txtCuitEmpresa
             // 
             this.txtCuitEmpresa.Location = new System.Drawing.Point(18, 96);
+            this.txtCuitEmpresa.MaxLength = 255;
             this.txtCuitEmpresa.Name = "txtCuitEmpresa";
             this.txtCuitEmpresa.Size = new System.Drawing.Size(354, 20);
             this.txtCuitEmpresa.TabIndex = 2;
@@ -108,6 +110,7 @@
             // txtNombreEmpresa
             // 
             this.txtNombreEmpresa.Location = new System.Drawing.Point(18, 59);
+            this.txtNombreEmpresa.MaxLength = 255;
             this.txtNombreEmpresa.Name = "txtNombreEmpresa";
             this.txtNombreEmpresa.Size = new System.Drawing.Size(354, 20);
             this.txtNombreEmpresa.TabIndex = 1;

@@ -37,9 +37,9 @@
             this.cmdIngresarButton = new System.Windows.Forms.Button();
             this.cmdCancelarButton = new System.Windows.Forms.Button();
             this.groupBoxLogin = new System.Windows.Forms.GroupBox();
-            this.lnlCerrarSesion = new System.Windows.Forms.LinkLabel();
             this.cmdSeleccionarRol = new System.Windows.Forms.Button();
             this.cboRoles = new System.Windows.Forms.ComboBox();
+            this.lnlCerrarSesion = new System.Windows.Forms.LinkLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBoxLogin.SuspendLayout();
@@ -71,7 +71,7 @@
             // 
             this.txtUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUsername.Location = new System.Drawing.Point(28, 45);
-            this.txtUsername.MaxLength = 50;
+            this.txtUsername.MaxLength = 255;
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(206, 20);
             this.txtUsername.TabIndex = 2;
@@ -122,19 +122,6 @@
             this.groupBoxLogin.TabStop = false;
             this.groupBoxLogin.Text = "Login PagoAgilFrba";
             // 
-            // lnlCerrarSesion
-            // 
-            this.lnlCerrarSesion.AutoSize = true;
-            this.lnlCerrarSesion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lnlCerrarSesion.Location = new System.Drawing.Point(205, 96);
-            this.lnlCerrarSesion.Name = "lnlCerrarSesion";
-            this.lnlCerrarSesion.Size = new System.Drawing.Size(67, 13);
-            this.lnlCerrarSesion.TabIndex = 9;
-            this.lnlCerrarSesion.TabStop = true;
-            this.lnlCerrarSesion.Text = "cerrar sesión";
-            this.lnlCerrarSesion.Visible = false;
-            this.lnlCerrarSesion.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnlCerrarSesion_LinkClicked);
-            // 
             // cmdSeleccionarRol
             // 
             this.cmdSeleccionarRol.BackColor = System.Drawing.SystemColors.ButtonFace;
@@ -157,6 +144,19 @@
             this.cboRoles.Size = new System.Drawing.Size(121, 21);
             this.cboRoles.TabIndex = 0;
             this.cboRoles.Visible = false;
+            // 
+            // lnlCerrarSesion
+            // 
+            this.lnlCerrarSesion.AutoSize = true;
+            this.lnlCerrarSesion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lnlCerrarSesion.Location = new System.Drawing.Point(205, 96);
+            this.lnlCerrarSesion.Name = "lnlCerrarSesion";
+            this.lnlCerrarSesion.Size = new System.Drawing.Size(67, 13);
+            this.lnlCerrarSesion.TabIndex = 9;
+            this.lnlCerrarSesion.TabStop = true;
+            this.lnlCerrarSesion.Text = "cerrar sesión";
+            this.lnlCerrarSesion.Visible = false;
+            this.lnlCerrarSesion.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnlCerrarSesion_LinkClicked);
             // 
             // pictureBox1
             // 

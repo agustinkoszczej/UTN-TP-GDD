@@ -85,6 +85,7 @@
             this.txtFiltroDNI.Name = "txtFiltroDNI";
             this.txtFiltroDNI.Size = new System.Drawing.Size(155, 20);
             this.txtFiltroDNI.TabIndex = 29;
+            this.txtFiltroDNI.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFiltroDNI_KeyPress);
             // 
             // cmdQuitarFiltros
             // 
