@@ -842,7 +842,7 @@ GO
 -------------------------------------------------------------------------------------------------
 -- TRIGGER TR_AGREGAR_SUCURSAL_A_ADMIN
 -------------------------------------------------------------------------------------------------
-CREATE TRIGGER [LORDS_OF_THE_STRINGS_V2].tr_agregar_sucursal_a_admin ON [LORDS_OF_THE_STRINGS_V2].Sucursal AFTER INSERT, UPDATE
+CREATE TRIGGER [LORDS_OF_THE_STRINGS_V2].tr_agregar_sucursal_a_admin ON [LORDS_OF_THE_STRINGS_V2].Sucursal AFTER INSERT
 AS
 BEGIN
 
@@ -1068,5 +1068,5 @@ INSERT INTO [LORDS_OF_THE_STRINGS_V2].Sucursal( Sucursal_nombre, Sucursal_direcc
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Sucursal( Sucursal_nombre, Sucursal_direccion, Sucursal_codigo_postal ) VALUES ('Sucursal 3', 'Albert 900', 'C2546');
 GO
 
-INSERT INTO [LORDS_OF_THE_STRINGS_V2].Usuario_Sucursal( UsuarioSucur_usuario, UsuarioSucur_sucursal ) VALUES (2,1) --Cobrador con Sucursal N°2000
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Usuario_Sucursal( UsuarioSucur_usuario, UsuarioSucur_sucursal ) VALUES (2,1) --cobrador con Sucursal N°2000
 GO

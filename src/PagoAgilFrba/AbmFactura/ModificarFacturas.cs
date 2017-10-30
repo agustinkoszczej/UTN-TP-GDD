@@ -184,8 +184,12 @@ namespace PagoAgilFrba.AbmFactura
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-
-                Factura modificada = new Factura(factura.id, altaDateTimePicker.Value, factura.total, vencimientoDateTimePicker.Value, factura.empresa, clienteSelected, null);
+            if (altaDateTimePicker.Value > vencimientoDateTimePicker.Value)
+            {
+                MessageBox.Show("La fecha de emisión no puede ser mayor a la de vencimiento!", "Error en las fechas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+                Factura modificada = new Factura(factura.id, altaDateTimePicker.Value, factura.total, vencimientoDateTimePicker.Value, factura.empresa, clienteSelected, null, factura.habilitada);
 
                 if (FacturaDAO.modificarFactura(modificada) != 0)
                 {

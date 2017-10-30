@@ -255,6 +255,7 @@
             this.txtMonto.Name = "txtMonto";
             this.txtMonto.Size = new System.Drawing.Size(321, 20);
             this.txtMonto.TabIndex = 4;
+            this.txtMonto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNumerosCoNComa_KeyPress);
             // 
             // lblMonto
             // 
@@ -392,6 +393,7 @@
             this.txtCliente.Name = "txtCliente";
             this.txtCliente.Size = new System.Drawing.Size(270, 20);
             this.txtCliente.TabIndex = 1;
+            this.txtCliente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNumeros_KeyPress);
             // 
             // lblCliente
             // 
@@ -433,7 +435,6 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(775, 469);
             this.panel4.TabIndex = 0;
-            this.panel4.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
             // 
             // lblFacturas
             // 
@@ -597,6 +598,7 @@
             this.txtIdClienteFiltro.Name = "txtIdClienteFiltro";
             this.txtIdClienteFiltro.Size = new System.Drawing.Size(102, 20);
             this.txtIdClienteFiltro.TabIndex = 6;
+            this.txtIdClienteFiltro.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNumeros_KeyPress);
             // 
             // txtIdFacturaFiltro
             // 
@@ -605,6 +607,7 @@
             this.txtIdFacturaFiltro.Name = "txtIdFacturaFiltro";
             this.txtIdFacturaFiltro.Size = new System.Drawing.Size(102, 20);
             this.txtIdFacturaFiltro.TabIndex = 5;
+            this.txtIdFacturaFiltro.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNumeros_KeyPress);
             // 
             // label4
             // 

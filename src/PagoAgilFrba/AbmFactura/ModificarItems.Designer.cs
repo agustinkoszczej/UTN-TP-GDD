@@ -121,6 +121,7 @@
             this.txtItemMonto.Name = "txtItemMonto";
             this.txtItemMonto.Size = new System.Drawing.Size(232, 20);
             this.txtItemMonto.TabIndex = 4;
+            this.txtItemMonto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtItemMonto_KeyPress);
             // 
             // label7
             // 
@@ -271,6 +272,7 @@
             this.txtNuevoMonto.Name = "txtNuevoMonto";
             this.txtNuevoMonto.Size = new System.Drawing.Size(232, 20);
             this.txtNuevoMonto.TabIndex = 8;
+            this.txtNuevoMonto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtItemMonto_KeyPress);
             // 
             // label4
             // 

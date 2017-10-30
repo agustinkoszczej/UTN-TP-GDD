@@ -125,9 +125,9 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(390, 46);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(86, 13);
+            this.label10.Size = new System.Drawing.Size(107, 13);
             this.label10.TabIndex = 3;
-            this.label10.Text = "Fecha de Alta";
+            this.label10.Text = "Fecha de Emisión";
             // 
             // txtFacturaNro
             // 
@@ -137,6 +137,7 @@
             this.txtFacturaNro.Name = "txtFacturaNro";
             this.txtFacturaNro.Size = new System.Drawing.Size(351, 20);
             this.txtFacturaNro.TabIndex = 2;
+            this.txtFacturaNro.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFiltroCliente_KeyPress);
             // 
             // label11
             // 
