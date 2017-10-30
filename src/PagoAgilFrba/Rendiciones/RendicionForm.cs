@@ -250,5 +250,19 @@ namespace PagoAgilFrba.Rendiciones
             panelFacturas.Visible = false;
             panelEmpresas.Visible = true;
         }
+
+        private void dataGridEmpresas_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Utilidades.Utils.clearDataGrid(dataGridMeses);
+
+            Empresa clic = getEmpresaSelec();
+
+            if (clic != null)
+            {
+                RendicionDAO.llenarGridMesesRendibles(dataGridMeses, clic.id);
+                //dataGridMeses.SelectedRows = dataGridMeses.Rows[0];
+            }
+        }
+
     }
 }

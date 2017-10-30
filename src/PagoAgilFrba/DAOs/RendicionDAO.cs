@@ -126,5 +126,21 @@ namespace PagoAgilFrba.DAOs
             }
         }
 
+        public static void llenarGridMesesRendibles(DataGridView grid, int idEmpresa)
+        {
+            string query = string.Format(@"SELECT DISTINCT MONTH(P.Pago_fecha) MES, YEAR(P.Pago_fecha) AÑO FROM LORDS_OF_THE_STRINGS_V2.Pago P
+                                        JOIN LORDS_OF_THE_STRINGS_V2.Factura F on Pago_factura = Factura_codigo
+                                        WHERE Factura_rendicion IS NULL AND F.Factura_empresa = @idEmpresa 
+                                        AND NOT EXISTS (SELECT 1 FROM LORDS_OF_THE_STRINGS_V2.Rendicion WHERE MONTH(Rendicion_fecha) = MONTH(P.Pago_fecha) AND YEAR(Rendicion_fecha) = YEAR(P.Pago_fecha))");
+            SqlConnection conn = DBConnection.getConnection();
+            SqlCommand command = new SqlCommand(query, conn);
+
+            command.Parameters.Add("@idEmpresa", SqlDbType.Int);
+            command.Parameters["@idEmpresa"].Value = idEmpresa;
+
+            DBConnection.llenar_grilla_command(grid, command);
+            conn.Close();
+        }
+
     }
 }

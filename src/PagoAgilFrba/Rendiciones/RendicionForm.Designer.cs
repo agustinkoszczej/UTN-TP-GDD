@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.panelEmpresas = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.dataGridMeses = new System.Windows.Forms.DataGridView();
             this.lblEmpresas = new System.Windows.Forms.Label();
             this.dataGridEmpresas = new System.Windows.Forms.DataGridView();
             this.panelMesARendir = new System.Windows.Forms.Panel();
@@ -58,6 +60,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lblEmpresaSelec = new System.Windows.Forms.Label();
             this.panelEmpresas.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridMeses)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).BeginInit();
             this.panelMesARendir.SuspendLayout();
             this.panelFacturas.SuspendLayout();
@@ -66,6 +69,8 @@
             // 
             // panelEmpresas
             // 
+            this.panelEmpresas.Controls.Add(this.label1);
+            this.panelEmpresas.Controls.Add(this.dataGridMeses);
             this.panelEmpresas.Controls.Add(this.lblEmpresas);
             this.panelEmpresas.Controls.Add(this.dataGridEmpresas);
             this.panelEmpresas.Controls.Add(this.panelMesARendir);
@@ -77,6 +82,40 @@
             this.panelEmpresas.Name = "panelEmpresas";
             this.panelEmpresas.Size = new System.Drawing.Size(593, 411);
             this.panelEmpresas.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(412, 29);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(177, 24);
+            this.label1.TabIndex = 26;
+            this.label1.Text = "Meses Rendibles:";
+            // 
+            // dataGridMeses
+            // 
+            this.dataGridMeses.AllowUserToAddRows = false;
+            this.dataGridMeses.AllowUserToDeleteRows = false;
+            this.dataGridMeses.AllowUserToResizeColumns = false;
+            this.dataGridMeses.AllowUserToResizeRows = false;
+            this.dataGridMeses.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridMeses.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.dataGridMeses.BackgroundColor = System.Drawing.Color.FloralWhite;
+            this.dataGridMeses.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
+            this.dataGridMeses.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dataGridMeses.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridMeses.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.dataGridMeses.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dataGridMeses.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dataGridMeses.Location = new System.Drawing.Point(413, 56);
+            this.dataGridMeses.MultiSelect = false;
+            this.dataGridMeses.Name = "dataGridMeses";
+            this.dataGridMeses.ReadOnly = true;
+            this.dataGridMeses.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridMeses.Size = new System.Drawing.Size(172, 234);
+            this.dataGridMeses.TabIndex = 25;
             // 
             // lblEmpresas
             // 
@@ -109,17 +148,18 @@
             this.dataGridEmpresas.Name = "dataGridEmpresas";
             this.dataGridEmpresas.ReadOnly = true;
             this.dataGridEmpresas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridEmpresas.Size = new System.Drawing.Size(581, 261);
+            this.dataGridEmpresas.Size = new System.Drawing.Size(403, 261);
             this.dataGridEmpresas.TabIndex = 23;
+            this.dataGridEmpresas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridEmpresas_CellClick);
             // 
             // panelMesARendir
             // 
             this.panelMesARendir.Controls.Add(this.dateTimeMesAnio);
             this.panelMesARendir.Controls.Add(this.label10);
             this.panelMesARendir.Enabled = false;
-            this.panelMesARendir.Location = new System.Drawing.Point(308, 294);
+            this.panelMesARendir.Location = new System.Drawing.Point(399, 296);
             this.panelMesARendir.Name = "panelMesARendir";
-            this.panelMesARendir.Size = new System.Drawing.Size(276, 55);
+            this.panelMesARendir.Size = new System.Drawing.Size(189, 55);
             this.panelMesARendir.TabIndex = 20;
             // 
             // dateTimeMesAnio
@@ -127,7 +167,7 @@
             this.dateTimeMesAnio.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimeMesAnio.Location = new System.Drawing.Point(16, 27);
             this.dateTimeMesAnio.Name = "dateTimeMesAnio";
-            this.dateTimeMesAnio.Size = new System.Drawing.Size(242, 20);
+            this.dateTimeMesAnio.Size = new System.Drawing.Size(133, 20);
             this.dateTimeMesAnio.TabIndex = 25;
             // 
             // label10
@@ -136,9 +176,9 @@
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(13, 11);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(157, 13);
+            this.label10.Size = new System.Drawing.Size(136, 13);
             this.label10.TabIndex = 20;
-            this.label10.Text = "Seleccione el mes a rendir";
+            this.label10.Text = "Ingrese el mes a rendir";
             // 
             // chkSoloMesActual
             // 
@@ -425,6 +465,7 @@
             this.Load += new System.EventHandler(this.Form_Load);
             this.panelEmpresas.ResumeLayout(false);
             this.panelEmpresas.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridMeses)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).EndInit();
             this.panelMesARendir.ResumeLayout(false);
             this.panelMesARendir.PerformLayout();
@@ -466,5 +507,7 @@
         private System.Windows.Forms.DataGridView dataGridEmpresas;
         private System.Windows.Forms.Label lblEmpresas;
         private System.Windows.Forms.DateTimePicker dateTimeMesAnio;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView dataGridMeses;
     }
 }
