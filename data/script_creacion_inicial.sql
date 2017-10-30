@@ -337,25 +337,6 @@ GO
 -----------------------------------------------------------------------------------
 --INSERTA EN LA TABLA USUARIO MANUALMENTE USUARIOS DE PRUEBA
 -----------------------------------------------------------------------------------
-
-DECLARE @pass [nvarchar](255)
-SET @pass = '12345'
-
-INSERT INTO [LORDS_OF_THE_STRINGS_V2].Usuario(Usuario_username, Usuario_password)
-VALUES ('cobrador_sin_sucursal', HASHBYTES('SHA2_256', @pass))
-GO
--- Rol Cobrador (2)
-INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rol_Usuario(RolUsua_usuario, RolUsua_rol)
-VALUES (3,2)
-GO
------------------------------------------------------------------------------------
-DECLARE @pass [nvarchar](255)
-SET @pass = '12345'
-
-INSERT INTO [LORDS_OF_THE_STRINGS_V2].Usuario(Usuario_username, Usuario_password)
-VALUES ('usuario_sin_rol', HASHBYTES('SHA2_256', @pass))
-GO
------------------------------------------------------------------------------------
 DECLARE @pass [nvarchar](255)
 SET @pass = '12345'
 
