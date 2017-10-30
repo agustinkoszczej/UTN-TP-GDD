@@ -62,6 +62,7 @@ namespace PagoAgilFrba.DAOs
                 reader.Read();
                 int idFactura = int.Parse(reader.GetValue(0).ToString());
                 reader.Close();
+                reader.Dispose();
 
                 foreach (Item_Factura fi in items)
                 {
@@ -106,6 +107,8 @@ namespace PagoAgilFrba.DAOs
                 Item_Factura it = new Item_Factura(id,monto, cantidad, factura);
                 items.Add(it);
             }
+            reader.Close();
+            reader.Dispose();
             conn.Close();
             return items;
         }
@@ -130,21 +133,20 @@ namespace PagoAgilFrba.DAOs
             SqlCommand comando;
             try
             {
+                conn = DBConnection.getConnection();
                 foreach (Item_Factura it in factura.items)
                 {
-                    conn = DBConnection.getConnection();
                     comando = new SqlCommand("DELETE FROM LORDS_OF_THE_STRINGS_V2.Item_Factura WHERE ItemFactura_factura = @IDF", conn);
                     comando.Parameters.Add("@IDF", SqlDbType.Int);
                     comando.Parameters["@IDF"].Value = factura.id;
                     comando.ExecuteNonQuery();
                 }
 
-                conn = DBConnection.getConnection();
                 comando = new SqlCommand("DELETE FROM LORDS_OF_THE_STRINGS_V2.Factura WHERE Factura_codigo = @IDF", conn);
                 comando.Parameters.Add("@IDF", SqlDbType.Int);
                 comando.Parameters["@IDF"].Value = factura.id;
                 comando.ExecuteNonQuery();
-
+                conn.Close();
                 return 1;
             }
             catch (Exception)
@@ -277,8 +279,7 @@ namespace PagoAgilFrba.DAOs
 
             DBConnection.llenar_grilla_command(grid, command);
 
-
-
+            conn.Close();
         }
 
         public static void cargarFacturasFiltrada(DataGridView grid, int idFiltro, string query, string nombreParam)
@@ -290,6 +291,8 @@ namespace PagoAgilFrba.DAOs
             command.Parameters[nombreParam].Value = idFiltro;
 
             DBConnection.llenar_grilla_command(grid, command);
+
+            conn.Close();
         }
 
     }

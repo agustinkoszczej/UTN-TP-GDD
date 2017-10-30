@@ -39,6 +39,7 @@ namespace PagoAgilFrba.DAOs
                 MessageBox.Show("No se pudo realizar la consulta:\n" + e.Message);
 
             }
+            conn.Close();
         }
 
         public static bool agregar_pagos(List<Pago> _pagos)

@@ -40,6 +40,7 @@ namespace PagoAgilFrba.DAOs
                 MessageBox.Show("No se pudo realizar la consulta:\n" + e.Message);
 
             }
+            conn.Close();
         }
 
         public static void cargar_grilla_sucursales(DataGridView grillaSucursales)
@@ -54,7 +55,23 @@ namespace PagoAgilFrba.DAOs
             SqlConnection conn = DBConnection.getConnection();
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@cod_postal", _cod_postal);
-            return cmd.ExecuteScalar() == null;
+            bool rta = cmd.ExecuteScalar() == null;
+            conn.Close();
+            return rta;
+        }
+        public static void agregar_sucursal_a_admin(Sucursal sucursal)
+        {
+            try
+            {
+                string query = string.Format(@"INSERT INTO LORDS_OF_THE_STRINGS_V2.Usuario_Sucursal(UsuarioSucur_usuario, UsuarioSucur_sucursal) VALUES (1, @id_suc)");
+                SqlConnection conn = DBConnection.getConnection();
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id_suc", sucursal.id);
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            { MessageBox.Show(ex.Message); }
         }
 
         #region ABM Sucursal

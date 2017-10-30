@@ -106,11 +106,14 @@ namespace PagoAgilFrba.AbmEmpresa
 
         private void cmdModificarRol_Click(object sender, EventArgs e)
         {
-            this.Enabled = false;
-            Empresa empresa_modif = get_empresa_seleccionada_grilla();
-            empresa_modif.rubros = get_rubros_from_grid();
-            IngresoEmpresaForm frm = new IngresoEmpresaForm(this, "Modificar Empresa", empresa_modif);
-            frm.Show();
+            if (dgdEmpresas.RowCount != 0)
+            {
+                this.Enabled = false;
+                Empresa empresa_modif = get_empresa_seleccionada_grilla();
+                empresa_modif.rubros = get_rubros_from_grid();
+                IngresoEmpresaForm frm = new IngresoEmpresaForm(this, "Modificar Empresa", empresa_modif);
+                frm.Show();
+            }
         }
 
         private List<Rubro> get_rubros_from_grid()
@@ -129,23 +132,26 @@ namespace PagoAgilFrba.AbmEmpresa
 
         private void cmdBorrarRol_Click(object sender, EventArgs e)
         {
-            string mensaje;
-            Empresa empresa = get_empresa_seleccionada_grilla();
-            if (empresa.habilitada)
+            if (dgdEmpresas.RowCount != 0)
             {
-                mensaje = "¿Está ud. seguro de querer deshabilitar la Empresa " + empresa.nombre + "?";
-            }
-            else
-            {
-                mensaje = "¿Está ud. seguro de querer habilitar la Empresa " + empresa.nombre + "?";
-            }
-            if (MessageBox.Show(mensaje, "PagoAgilFrba | ABM Empresa", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-            {
-                if (!EmpresaDAO.borrar_empresa(empresa))
+                string mensaje;
+                Empresa empresa = get_empresa_seleccionada_grilla();
+                if (empresa.habilitada)
                 {
-                    MessageBox.Show("Existen facturas pendientes para la empresa " +empresa.nombre+", no se puede deshabilitar", "Error en el ABM Empresa", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    mensaje = "¿Está ud. seguro de querer deshabilitar la Empresa " + empresa.nombre + "?";
                 }
-                iniciar_formulario();
+                else
+                {
+                    mensaje = "¿Está ud. seguro de querer habilitar la Empresa " + empresa.nombre + "?";
+                }
+                if (MessageBox.Show(mensaje, "PagoAgilFrba | ABM Empresa", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    if (!EmpresaDAO.borrar_empresa(empresa))
+                    {
+                        MessageBox.Show("Existen facturas pendientes para la empresa " + empresa.nombre + ", no se puede deshabilitar", "Error en el ABM Empresa", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    iniciar_formulario();
+                }
             }
         }
 

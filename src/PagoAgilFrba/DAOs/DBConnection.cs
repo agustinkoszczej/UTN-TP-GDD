@@ -43,6 +43,7 @@ namespace PagoAgilFrba.DAOs
                 MessageBox.Show("No se pudo realizar la consulta:\n" + e.Message);
 
             }
+            conn.Close();
         }
 
         public static void llenar_grilla_command(DataGridView dataGrid, SqlCommand command)

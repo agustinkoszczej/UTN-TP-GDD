@@ -79,6 +79,7 @@ namespace PagoAgilFrba.DAOs
             {
                 MessageBox.Show("No se pudo realizar la consulta:\n" + e.Message);
             }
+            conn.Close();
         }
 
         public static bool validar_cuit(string _cuit)
@@ -87,7 +88,9 @@ namespace PagoAgilFrba.DAOs
             SqlConnection conn = DBConnection.getConnection();
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@cuit", _cuit);
-            return cmd.ExecuteScalar() == null;
+            bool rta = cmd.ExecuteScalar() == null;
+            conn.Close();
+            return rta;
         }
 
         public static void cargar_grilla_empresas(DataGridView grillaEmpresas)

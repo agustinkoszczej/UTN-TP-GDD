@@ -22,7 +22,9 @@ namespace PagoAgilFrba.DAOs
             SqlConnection conn = DBConnection.getConnection();
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@nombre", _nombre);
-            return (cmd.ExecuteScalar() == null);
+            bool rta = cmd.ExecuteScalar() == null;
+            conn.Close();
+            return rta;
         }
 
         public static void cargar_grilla_roles(DataGridView grillaRoles, bool habilitado)
@@ -79,19 +81,18 @@ namespace PagoAgilFrba.DAOs
                 cmd.Parameters.AddWithValue("@rol_id", rol.id);
 
                 cmd.ExecuteNonQuery();
-                //TODO ver
+                
                 if (rol.habilitado)
                 {
                     cmd = new SqlCommand("DELETE FROM LORDS_OF_THE_STRINGS_V2.Rol_Usuario WHERE RolUsua_rol=@rol_id", conn);
                     cmd.Parameters.AddWithValue("@rol_id", rol.id);
                     
                     cmd.ExecuteNonQuery();
-                    cmd = new SqlCommand("DELETE FROM LORDS_OF_THE_STRINGS_V2.Funcionalidad_Rol WHERE FuncRol_rol=@rol_id", conn);
+                    /*cmd = new SqlCommand("DELETE FROM LORDS_OF_THE_STRINGS_V2.Funcionalidad_Rol WHERE FuncRol_rol=@rol_id", conn);
                     cmd.Parameters.AddWithValue("@rol_id", rol.id);
                     
-                    cmd.ExecuteNonQuery();
-                }
-                //TODO ver
+                    cmd.ExecuteNonQuery();*/
+                }    
                 conn.Close();
                 return true;
             }

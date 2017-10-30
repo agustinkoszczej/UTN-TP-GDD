@@ -74,11 +74,14 @@ namespace PagoAgilFrba.AbmRol
 
         private void cmdModificarRol_Click(object sender, EventArgs e)
         {
-            this.Enabled = false;
-            Rol rol_modif = get_rol_seleccionado_grilla();
-            rol_modif.funcionalidades = get_funcionalidades_from_grid();
-            IngresoRolForm frm = new IngresoRolForm(this, "Modificar Rol", rol_modif);
-            frm.Show();
+            if (dgdRoles.RowCount != 0)
+            {
+                this.Enabled = false;
+                Rol rol_modif = get_rol_seleccionado_grilla();
+                rol_modif.funcionalidades = get_funcionalidades_from_grid();
+                IngresoRolForm frm = new IngresoRolForm(this, "Modificar Rol", rol_modif);
+                frm.Show();
+            }
         }
 
         private List<Funcionalidad> get_funcionalidades_from_grid()
@@ -96,8 +99,10 @@ namespace PagoAgilFrba.AbmRol
 
         private void cmdBorrarRol_Click(object sender, EventArgs e)
         {
-            string mensaje;
-            Rol rol = get_rol_seleccionado_grilla();
+            if (dgdRoles.RowCount != 0)
+            {
+                string mensaje;
+                Rol rol = get_rol_seleccionado_grilla();
                 if (rol.habilitado)
                 {
                     mensaje = "¿Está ud. seguro de querer deshabilitar el Rol " + rol.nombre + "? (Se perderán todas las funcionalidades y usuarios asociados)";
@@ -107,23 +112,24 @@ namespace PagoAgilFrba.AbmRol
                     mensaje = "¿Está ud. seguro de querer habilitar el Rol " + rol.nombre + "?";
                 }
                 if (MessageBox.Show(mensaje, "PagoAgilFrba | ABM Rol", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-            {
-                if (rol.id == rol_logueado.id) 
                 {
-                    if (MessageBox.Show("¿Está a punto de inhabilitar el Rol en el que se encuentra logueado, se cerrará la sesión al finalizar, desea continuar?", "PagoAgilFrba | ABM Rol", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                    if (rol.id == rol_logueado.id)
                     {
-                        RolDAO.borrar_rol(rol);
-                        Application.Exit();
-                        Application.Restart();
-                        return;
+                        if (MessageBox.Show("¿Está a punto de inhabilitar el Rol en el que se encuentra logueado, se cerrará la sesión al finalizar, desea continuar?", "PagoAgilFrba | ABM Rol", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                        {
+                            RolDAO.borrar_rol(rol);
+                            Application.Exit();
+                            Application.Restart();
+                            return;
+                        }
+                        else
+                        {
+                            return;
+                        }
                     }
-                    else
-                    {
-                        return;
-                    }
+                    RolDAO.borrar_rol(rol);
+                    iniciar_formulario();
                 }
-                RolDAO.borrar_rol(rol);
-                iniciar_formulario();
             }
         }
 

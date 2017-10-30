@@ -20,7 +20,9 @@ namespace PagoAgilFrba.DAOs
                 SqlConnection conn = DBConnection.getConnection();
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@dni", _dni);
-                return (cmd.ExecuteScalar() == null);
+                bool rta = cmd.ExecuteScalar() == null;
+                conn.Close();
+                return rta;
         }
 
         public static bool validar_mail(string _mail)
@@ -29,14 +31,14 @@ namespace PagoAgilFrba.DAOs
                 SqlConnection conn = DBConnection.getConnection();
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@mail", _mail.Trim());
-                return (cmd.ExecuteScalar() == null);
+                bool rta = cmd.ExecuteScalar() == null;
+                conn.Close();
+                return rta;
         }
 
 
         public static void llenarDataGrid(DataGridView grid, string queryParam, string filtroNombre, string filtroApellido, int filtroDNI)
         {
-
-
             SqlConnection conn = DBConnection.getConnection();
             SqlCommand command = new SqlCommand(queryParam, conn);
 
@@ -47,6 +49,7 @@ namespace PagoAgilFrba.DAOs
             command.Parameters["@dni"].Value = filtroDNI;
 
             DBConnection.llenar_grilla_command(grid, command);
+            conn.Close();
         }
 
         public static int nuevoCliente(Cliente cli)
@@ -208,6 +211,7 @@ namespace PagoAgilFrba.DAOs
             SqlCommand comando = new SqlCommand(query, conn);
             comando.Parameters.AddWithValue("@dni", dniCliente);
             DBConnection.llenar_grilla_command(grid, comando);
+            conn.Close();
         }
 
 
@@ -243,6 +247,8 @@ namespace PagoAgilFrba.DAOs
             {
                 return null;
             }
+            reader.Close();
+            reader.Dispose();
             conn.Close();
             return cli;
         }

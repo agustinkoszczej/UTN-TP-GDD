@@ -68,6 +68,7 @@ namespace PagoAgilFrba.DAOs
             command.Parameters["@idEmpresa"].Value = selec.id;
 
             DBConnection.llenar_grilla_command(grid, command);
+            conn.Close();
         }
 
         public static void cargarGridFacturasPagadasMesEspecificado(DataGridView grid, Empresa selec, int mes, int anio)
@@ -90,6 +91,7 @@ namespace PagoAgilFrba.DAOs
             command.Parameters["@anio"].Value = anio;
 
             DBConnection.llenar_grilla_command(grid, command);
+            conn.Close();
         }
 
 
@@ -113,7 +115,7 @@ namespace PagoAgilFrba.DAOs
 
                 comando.Parameters.Add("@porcentaje", SqlDbType.Float);
                 comando.Parameters["@porcentaje"].Value = rend.porcentajeComision;
-
+                conn.Close();
                 return Convert.ToInt32( comando.ExecuteScalar() );
  
             }

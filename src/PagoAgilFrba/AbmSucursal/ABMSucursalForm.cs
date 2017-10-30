@@ -57,42 +57,51 @@ namespace PagoAgilFrba.AbmSucursal
 
         private void cmdModificarSucursal_Click(object sender, EventArgs e)
         {
-            this.Enabled = false;
-            Sucursal sucursal_modif = get_sucursal_seleccionada_grilla();
-            IngresoSucursalForm frm = new IngresoSucursalForm(this, "Modificar Sucursal", sucursal_modif);
-            frm.Show();
+            if (dgdSucursales.RowCount != 0)
+            {
+                this.Enabled = false;
+                Sucursal sucursal_modif = get_sucursal_seleccionada_grilla();
+                IngresoSucursalForm frm = new IngresoSucursalForm(this, "Modificar Sucursal", sucursal_modif);
+                frm.Show();
+            }
         }
 
         private void cmdBorrarSucursal_Click(object sender, EventArgs e)
         {
-            string mensaje;
-            Sucursal sucursal = get_sucursal_seleccionada_grilla();
-            if (sucursal.habilitada)
+            if (dgdSucursales.RowCount != 0)
             {
-                mensaje = "¿Está ud. seguro de querer deshabilitar la Sucursal " + sucursal.nombre + "? (Se perderán todos los usuarios asociados)";
-            }
-            else
-            {
-                mensaje = "¿Está ud. seguro de querer habilitar la Sucursal " + sucursal.nombre + "?";
-            }
-            if (MessageBox.Show(mensaje, "PagoAgilFrba | ABM Sucursal", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-            {
-                if (sucursal.id == sucursal_logueada.id)
+                bool add_admin = false;
+                string mensaje;
+                Sucursal sucursal = get_sucursal_seleccionada_grilla();
+                if (sucursal.habilitada)
                 {
-                    if (MessageBox.Show("¿Está a punto de inhabilitar la Sucursal en la que se encuentra logueado, se cerrará la sesión al finalizar, desea continuar?", "PagoAgilFrba | ABM Sucursal", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-                    {
-                        SucursalDAO.borrar_sucursal(sucursal);
-                        Application.Exit();
-                        Application.Restart();
-                        return;
-                    }
-                    else
-                    {
-                        return;
-                    }
+                    mensaje = "¿Está ud. seguro de querer deshabilitar la Sucursal " + sucursal.nombre + "? (Se perderán todos los usuarios asociados)";
                 }
-                SucursalDAO.borrar_sucursal(sucursal);
-                iniciar_formulario();
+                else
+                {
+                    mensaje = "¿Está ud. seguro de querer habilitar la Sucursal " + sucursal.nombre + "?";
+                    add_admin = true;
+                }
+                if (MessageBox.Show(mensaje, "PagoAgilFrba | ABM Sucursal", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    if (sucursal.id == sucursal_logueada.id)
+                    {
+                        if (MessageBox.Show("¿Está a punto de inhabilitar la Sucursal en la que se encuentra logueado, se cerrará la sesión al finalizar, desea continuar?", "PagoAgilFrba | ABM Sucursal", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                        {
+                            SucursalDAO.borrar_sucursal(sucursal);
+                            Application.Exit();
+                            Application.Restart();
+                            return;
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                    if (add_admin) SucursalDAO.agregar_sucursal_a_admin(sucursal);
+                    SucursalDAO.borrar_sucursal(sucursal);
+                    iniciar_formulario();
+                }
             }
         }
 
