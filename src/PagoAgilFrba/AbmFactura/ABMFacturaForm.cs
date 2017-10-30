@@ -119,7 +119,8 @@ namespace PagoAgilFrba.AbmFactura
                     populateListDetalle(nombreItem.ToString(), monto.ToString(), cantidad.ToString());
                     txtItem.Text = "";
                     txtMonto.Text = "";
-                    txtCantidad.Text = "";
+                    //txtCantidad.Text = "";
+                    txtCantidad.Value = 1;
                     itemsIngresados++;
                 }
             }       

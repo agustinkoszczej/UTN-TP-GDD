@@ -115,8 +115,9 @@ namespace PagoAgilFrba.DAOs
 
                 comando.Parameters.Add("@porcentaje", SqlDbType.Float);
                 comando.Parameters["@porcentaje"].Value = rend.porcentajeComision;
+                int rta = Convert.ToInt32(comando.ExecuteScalar());
                 conn.Close();
-                return Convert.ToInt32( comando.ExecuteScalar() );
+                return rta;
  
             }
             catch (SqlException ex)

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panelModificarItem = new System.Windows.Forms.Panel();
+            this.txtItemCantidad = new System.Windows.Forms.NumericUpDown();
             this.txtFacturaNumero = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnGuardarItem = new System.Windows.Forms.Button();
@@ -44,6 +45,7 @@
             this.btnBorrar = new System.Windows.Forms.Button();
             this.listItems = new System.Windows.Forms.ListView();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.txtNuevoCantidad = new System.Windows.Forms.NumericUpDown();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.btnGenerarItem = new System.Windows.Forms.Button();
@@ -51,12 +53,10 @@
             this.txtNuevoMonto = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtItemCantidad = new System.Windows.Forms.NumericUpDown();
-            this.txtNuevoCantidad = new System.Windows.Forms.NumericUpDown();
             this.panelModificarItem.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtItemCantidad)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtItemCantidad)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtNuevoCantidad)).BeginInit();
             this.SuspendLayout();
             // 
@@ -77,6 +77,23 @@
             this.panelModificarItem.Name = "panelModificarItem";
             this.panelModificarItem.Size = new System.Drawing.Size(258, 252);
             this.panelModificarItem.TabIndex = 13;
+            // 
+            // txtItemCantidad
+            // 
+            this.txtItemCantidad.Location = new System.Drawing.Point(12, 183);
+            this.txtItemCantidad.Maximum = new decimal(new int[] {
+            3000,
+            0,
+            0,
+            0});
+            this.txtItemCantidad.Name = "txtItemCantidad";
+            this.txtItemCantidad.Size = new System.Drawing.Size(232, 20);
+            this.txtItemCantidad.TabIndex = 12;
+            this.txtItemCantidad.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // txtFacturaNumero
             // 
@@ -224,6 +241,23 @@
             this.panel2.Size = new System.Drawing.Size(612, 120);
             this.panel2.TabIndex = 11;
             // 
+            // txtNuevoCantidad
+            // 
+            this.txtNuevoCantidad.Location = new System.Drawing.Point(15, 90);
+            this.txtNuevoCantidad.Maximum = new decimal(new int[] {
+            3000,
+            0,
+            0,
+            0});
+            this.txtNuevoCantidad.Name = "txtNuevoCantidad";
+            this.txtNuevoCantidad.Size = new System.Drawing.Size(232, 20);
+            this.txtNuevoCantidad.TabIndex = 13;
+            this.txtNuevoCantidad.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // btnCancelar
             // 
             this.btnCancelar.BackColor = System.Drawing.Color.DarkOrange;
@@ -292,30 +326,6 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Generar Item";
             // 
-            // txtItemCantidad
-            // 
-            this.txtItemCantidad.Location = new System.Drawing.Point(12, 183);
-            this.txtItemCantidad.Maximum = new decimal(new int[] {
-            3000,
-            0,
-            0,
-            0});
-            this.txtItemCantidad.Name = "txtItemCantidad";
-            this.txtItemCantidad.Size = new System.Drawing.Size(232, 20);
-            this.txtItemCantidad.TabIndex = 12;
-            // 
-            // txtNuevoCantidad
-            // 
-            this.txtNuevoCantidad.Location = new System.Drawing.Point(15, 90);
-            this.txtNuevoCantidad.Maximum = new decimal(new int[] {
-            3000,
-            0,
-            0,
-            0});
-            this.txtNuevoCantidad.Name = "txtNuevoCantidad";
-            this.txtNuevoCantidad.Size = new System.Drawing.Size(232, 20);
-            this.txtNuevoCantidad.TabIndex = 13;
-            // 
             // ModificarItems
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -332,11 +342,11 @@
             this.Load += new System.EventHandler(this.ModificarItems_Load);
             this.panelModificarItem.ResumeLayout(false);
             this.panelModificarItem.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtItemCantidad)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtItemCantidad)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtNuevoCantidad)).EndInit();
             this.ResumeLayout(false);
 

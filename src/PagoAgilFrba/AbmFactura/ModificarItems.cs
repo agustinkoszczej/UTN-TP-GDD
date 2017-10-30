@@ -161,7 +161,7 @@ namespace PagoAgilFrba.AbmFactura
                 factura.items.Add(nuevo);
                 actualizarListItems();
                 txtNuevoMonto.Text = "";
-                txtNuevoCantidad.Value = 0;
+                txtNuevoCantidad.Value = 1;
                 cambio = true;
             }
         }
@@ -221,11 +221,11 @@ namespace PagoAgilFrba.AbmFactura
                 {
                     backForm.actualizarTabBM();
                     this.Close();
-                    MessageBox.Show("Factura Nº " + factura.id + " actualizada", "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Factura Nº " + factura.id + " actualizada", "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MessageBox.Show("Error al actualizar Factura Nº " + factura.id, "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Error al actualizar Factura Nº " + factura.id, "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
