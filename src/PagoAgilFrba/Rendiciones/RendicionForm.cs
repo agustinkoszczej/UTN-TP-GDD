@@ -34,6 +34,11 @@ namespace PagoAgilFrba.Rendiciones
             dateTimeMesAnio.CustomFormat = "MM/yyyy";
 
             porcentajeComision = obtenerPorcentajeComision();
+            seleccionada = getEmpresaSelec();
+            if (seleccionada != null)
+            {
+                RendicionDAO.llenarGridMesesRendibles(dataGridMeses, seleccionada.id);
+            }
         }
 
         private double obtenerPorcentajeComision()
@@ -71,6 +76,11 @@ namespace PagoAgilFrba.Rendiciones
             panelEmpresas.Visible = true;
             lblMensaje.Text = msj;
             cargarEmpresas();
+            seleccionada = getEmpresaSelec();
+            if (seleccionada != null)
+            {
+                RendicionDAO.llenarGridMesesRendibles(dataGridMeses, seleccionada.id);
+            }
         }
 
         private void btnSeleccionar_Click(object sender, EventArgs e)
@@ -261,6 +271,15 @@ namespace PagoAgilFrba.Rendiciones
             {
                 RendicionDAO.llenarGridMesesRendibles(dataGridMeses, clic.id);
                 //dataGridMeses.SelectedRows = dataGridMeses.Rows[0];
+            }
+        }
+
+        private void dataGridEmpresas_Sorted(object sender, EventArgs e)
+        {
+            seleccionada = getEmpresaSelec();
+            if (seleccionada != null)
+            {
+                RendicionDAO.llenarGridMesesRendibles(dataGridMeses, seleccionada.id);
             }
         }
 
