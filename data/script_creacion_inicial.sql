@@ -345,10 +345,10 @@ VALUES ('admin_y_cobrador', HASHBYTES('SHA2_256', @pass))
 GO
 
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rol_Usuario(RolUsua_usuario, RolUsua_rol)
-VALUES (5,1) --Rol Administrador
+VALUES (3,1) --Rol Administrador
 GO
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rol_Usuario(RolUsua_usuario, RolUsua_rol)
-VALUES (5,2) --Rol Cobrador
+VALUES (3,2) --Rol Cobrador
 GO
 -------------------------------------------------------------------------------------------------
 -- INSERTA EN LA TABLA CLIENTE
