@@ -83,9 +83,9 @@ namespace PagoAgilFrba.RegistroPago
                                                         AND F.Factura_fecha_venc > GETDATE() AND E.Empresa_habilitada = 1 AND F.Factura_rendicion IS NULL");
             }
 
-            if (string.IsNullOrEmpty(txtDNICliente.Text) && string.IsNullOrEmpty(txtNroFactura.Text))
+            if (string.IsNullOrEmpty(txtDNICliente.Text) && string.IsNullOrEmpty(txtNroFactura.Text) && !chkSoloPosibles.Checked)
             {
-                //dgdFacturas.DataSource = null;return;
+                dgdFacturas.DataSource = null;return;
             }
            string query_nro_factura = null, query_dni = null, query_final = null;
            
