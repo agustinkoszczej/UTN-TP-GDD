@@ -37,6 +37,25 @@ namespace PagoAgilFrba.DAOs
             return empresa;
         }
 
+        public static void llenarGridConEmpresas(DataGridView grid, int habilitadas)
+        {
+            //0 = TODAS
+            //1 = SOLO HABILITADAS
+            List<Empresa> empresas = new List<Empresa>();
+            string query;
+            if (habilitadas == 1)
+            {
+                query = string.Format(@"SELECT Empresa_codigo Codigo, Empresa_cuit CUIT, Empresa_nombre Nombre, Empresa_direccion Direccion FROM LORDS_OF_THE_STRINGS_V2.Empresa WHERE Empresa_habilitada = 1 ORDER BY Empresa_nombre");
+            }
+            else
+            {
+                query = string.Format(@"SELECT Empresa_codigo Codigo, Empresa_cuit CUIT, Empresa_nombre Nombre, Empresa_direccion Direccion FROM LORDS_OF_THE_STRINGS_V2.Empresa ORDER BY Empresa_nombre");
+            }
+
+
+            DBConnection.llenar_grilla(grid, query);
+        }
+
         public static void buscar_empresa(DataGridView _grillaEmpresas, string _query, string _nombre, string _cuit)
         {
             SqlConnection conn = DBConnection.getConnection();
