@@ -103,7 +103,7 @@ namespace PagoAgilFrba.AbmRol
                 rol_nuevo.id = rol_modificar.id;
                 if ((this.rol_form.rol_logueado.id == rol_modificar.id) && (!rol_nuevo.funcionalidades.Any(f => f.nombre == "ABM_ROL")))
                 {
-                    if (MessageBox.Show("¿Está a punto de quitar sus permisos para el ABM de Rol en el usuario que se encuentra logueado, se cerrará la sesión al finalizar, desea continuar?", "PagoAgilFrba | ABM Rol", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    if (MessageBox.Show("¿Está a punto de quitar sus permisos para el ABM de Rol en el usuario que se encuentra logueado, se cerrará la sesión al finalizar, desea continuar?", "PagoAgilFrba | ABM Rol", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                     {
                         if (RolDAO.modificar_rol(rol_nuevo, rol_modificar.funcionalidades))
                         {
