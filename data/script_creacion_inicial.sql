@@ -1103,14 +1103,14 @@ GO
 -------------------------------------------------------------------------------------------------
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rubro( Rubro_descripcion ) VALUES	('Rubro 2');
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rubro( Rubro_descripcion ) VALUES	('Rubro 3');
-INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rubro( Rubro_descripcion ) VALUES	('Servcio de agua corriente');
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rubro( Rubro_descripcion ) VALUES	('Servicio de agua corriente');
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rubro( Rubro_descripcion ) VALUES	('Servicio eléctrico');
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rubro( Rubro_descripcion ) VALUES	('Servicio telefónico');
 GO
 
-INSERT INTO [LORDS_OF_THE_STRINGS_V2].Empresa( Empresa_cuit, Empresa_nombre, Empresa_direccion) VALUES ('9-99999999-9', 'Aguas Argentinas', 'Av. Rivadavia 2000');
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Empresa( Empresa_cuit, Empresa_nombre, Empresa_direccion) VALUES ('7-77777777-7', 'Aguas Argentinas', 'Av. Rivadavia 2000');
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Empresa( Empresa_cuit, Empresa_nombre, Empresa_direccion) VALUES ('8-88888888-8', 'Edesur', 'Riobamba 300');
-INSERT INTO [LORDS_OF_THE_STRINGS_V2].Empresa( Empresa_cuit, Empresa_nombre, Empresa_direccion) VALUES ('7-77777777-7', 'Movistar', 'Av. Gaona 3250');
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Empresa( Empresa_cuit, Empresa_nombre, Empresa_direccion) VALUES ('9-99999999-9', 'Movistar', 'Av. Gaona 3250');
 GO
 
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Rubro_Empresa( RubroEmpr_empresa, RubroEmpr_rubro ) VALUES (2, 4) --Aguas Argentinas con Servicio de agua corriente
