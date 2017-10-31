@@ -361,11 +361,11 @@ SELECT DISTINCT [Cliente_Mail], [Cliente-Dni], [Cliente-Nombre],[Cliente-Apellid
 FROM GD2C2017.gd_esquema.Maestra
 WHERE [Cliente-Dni] IN (31294365, 54053910, 2592862, 3703799)
 */
-
-UPDATE GD2C2017.gd_esquema.Maestra Set Cliente_Mail = 'ALBANAÁlvarez2@gmail.com' WHERE [Cliente-Dni] = 54053910
+/*
+UPDATE GD2C2017.gd_esquema.Maestra Set Cliente_Mail = 'ALBANAÁlvarez@gmail.com' WHERE [Cliente-Dni] = 54053910
 GO
-UPDATE GD2C2017.gd_esquema.Maestra Set Cliente_Mail = 'DAILAMoreno2@gmail.com' WHERE [Cliente-Dni] = 3703799
-GO
+UPDATE GD2C2017.gd_esquema.Maestra Set Cliente_Mail = 'DAILAMoreno@gmail.com' WHERE [Cliente-Dni] = 3703799
+GO*/
 
 INSERT INTO [LORDS_OF_THE_STRINGS_V2].Cliente(
 				Cliente_dni,
@@ -382,11 +382,62 @@ SELECT DISTINCT
 				m.[Cliente-Nombre], 
 				m.[Cliente-Apellido], 
 				m.[Cliente-Fecha_Nac],
-				m.Cliente_Mail,
-				m.Cliente_Direccion,
-				m.Cliente_Codigo_Postal
+				m.[Cliente_Mail],
+				m.[Cliente_Direccion],
+				m.[Cliente_Codigo_Postal]
 FROM GD2C2017.gd_esquema.Maestra m
-WHERE m.[Cliente-Dni] IS NOT NULL
+WHERE m.[Cliente-Dni] IS NOT NULL AND m.[Cliente-Dni] <> 54053910 AND m.[Cliente-Dni] <> 3703799 --No selecciono clientes con mails repetidos
+GO
+----------------------------------------------------------------
+--Los ingreso con un un mail diferente y en estado deshabilitado
+----------------------------------------------------------------
+--1º Mail repetido 'ALBANAÁlvarez@gmail.com' con DNI 54053910
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Cliente(
+				Cliente_dni,
+				Cliente_nombre, 
+				Cliente_apellido, 
+				Cliente_fecha_nac, 
+				Cliente_mail,
+				Cliente_direccion,
+				Cliente_codigo_postal,
+				Cliente_habilitado
+			 )
+
+SELECT DISTINCT
+				m.[Cliente-Dni],
+				m.[Cliente-Nombre], 
+				m.[Cliente-Apellido], 
+				m.[Cliente-Fecha_Nac],
+				'ALBANAÁlvarez2@gmail.com',
+				m.[Cliente_Direccion],
+				m.[Cliente_Codigo_Postal],
+				0
+FROM GD2C2017.gd_esquema.Maestra m
+WHERE m.[Cliente-Dni] IS NOT NULL AND m.[Cliente-Dni] = 54053910
+GO
+--2º Mail repetido 'DAILAMoreno@gmail.com' con DNI 3703799
+INSERT INTO [LORDS_OF_THE_STRINGS_V2].Cliente(
+				Cliente_dni,
+				Cliente_nombre, 
+				Cliente_apellido, 
+				Cliente_fecha_nac, 
+				Cliente_mail,
+				Cliente_direccion,
+				Cliente_codigo_postal,
+				Cliente_habilitado
+			 )
+
+SELECT DISTINCT
+				m.[Cliente-Dni],
+				m.[Cliente-Nombre], 
+				m.[Cliente-Apellido], 
+				m.[Cliente-Fecha_Nac],
+				'DAILAMoreno2@gmail.com',
+				m.[Cliente_Direccion],
+				m.[Cliente_Codigo_Postal],
+				0
+FROM GD2C2017.gd_esquema.Maestra m
+WHERE m.[Cliente-Dni] IS NOT NULL AND m.[Cliente-Dni] = 3703799
 GO
 
 -------------------------------------------------------------------------------------------------
@@ -658,6 +709,8 @@ IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_es_empresa_rendida_este_mes') IS NOT 
 GO
 IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_es_empresa_rendida_mes_especifico') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_es_empresa_rendida_mes_especifico]; 
 GO
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_get_meses_disponibles_rendicion') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_get_meses_disponibles_rendicion]; 
+GO
 -- REGISTRO DE PAGOS
 IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_puede_pagar_factura') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_puede_pagar_factura];
 GO
@@ -786,6 +839,26 @@ IF EXISTS (SELECT * FROM LORDS_OF_THE_STRINGS_V2.Factura
 
 RETURN 0
 END
+GO
+-------------------------------------------------------------------------------------------------
+-- RENDICIÓN
+-------------------------------------------------------------------------------------------------
+-- FUNCTION FN_GET_MESES_DISPONIBLES_RENDICION
+-------------------------------------------------------------------------------------------------
+CREATE FUNCTION [LORDS_OF_THE_STRINGS_V2].fn_get_meses_disponibles_rendicion(@idEmpresa numeric(18,0))
+RETURNS table
+AS
+RETURN (SELECT DISTINCT MONTH(P1.Pago_fecha) Mes, YEAR(P1.Pago_fecha) Año FROM LORDS_OF_THE_STRINGS_V2.Pago P1
+JOIN LORDS_OF_THE_STRINGS_V2.Factura F ON (P1.Pago_factura = F.Factura_codigo)
+WHERE (F.Factura_rendicion IS NULL) 
+AND (F.Factura_empresa = @idEmpresa) 
+AND ((SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Pago P2 WHERE (P2.Pago_factura = F.Factura_codigo)) > 
+(SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Devolucion D WHERE (D.Devolucion_factura = F.Factura_codigo)))
+AND NOT EXISTS 
+(SELECT * FROM LORDS_OF_THE_STRINGS_V2.Rendicion R JOIN LORDS_OF_THE_STRINGS_V2.Factura F2 ON (R.Rendicion_codigo = F2.Factura_rendicion)
+WHERE (F2.Factura_empresa = @idEmpresa)
+AND MONTH(R.Rendicion_fecha) = MONTH(P1.Pago_fecha) 
+AND YEAR(R.Rendicion_fecha) = YEAR(P1.Pago_fecha)))
 GO
 -------------------------------------------------------------------------------------------------
 -- REGISTRO DE PAGOS

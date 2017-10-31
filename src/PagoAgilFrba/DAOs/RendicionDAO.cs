@@ -129,20 +129,11 @@ namespace PagoAgilFrba.DAOs
 
         public static void llenarGridMesesRendibles(DataGridView grid, int idEmpresa)
         {
-            string query = string.Format(@"SELECT DISTINCT MONTH(P1.Pago_fecha) Mes, YEAR(P1.Pago_fecha) Año FROM LORDS_OF_THE_STRINGS_V2.Pago P1
-                                            JOIN LORDS_OF_THE_STRINGS_V2.Factura F ON Pago_factura = Factura_codigo
-                                            WHERE Factura_rendicion IS NULL 
-                                            AND F.Factura_empresa = @idEmpresa 
-                                            AND (SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Pago P2 WHERE P2.Pago_factura = F.Factura_codigo) > 
-                                            (SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Devolucion D WHERE D.Devolucion_factura = F.Factura_codigo)
-                                            AND NOT EXISTS 
-                                            (SELECT 1 FROM LORDS_OF_THE_STRINGS_V2.Rendicion R WHERE MONTH(R.Rendicion_fecha) = MONTH(P1.Pago_fecha) 
-                                            AND YEAR(R.Rendicion_fecha) = YEAR(P1.Pago_fecha) AND R.Rendicion_codigo = F.Factura_rendicion)");
+            string query = string.Format(@"SELECT * FROM LORDS_OF_THE_STRINGS_V2.fn_get_meses_disponibles_rendicion(@idEmpresa)");
             SqlConnection conn = DBConnection.getConnection();
             SqlCommand command = new SqlCommand(query, conn);
 
-            command.Parameters.Add("@idEmpresa", SqlDbType.Int);
-            command.Parameters["@idEmpresa"].Value = idEmpresa;
+            command.Parameters.AddWithValue("@idEmpresa", idEmpresa);
 
             DBConnection.llenar_grilla_command(grid, command);
             conn.Close();
