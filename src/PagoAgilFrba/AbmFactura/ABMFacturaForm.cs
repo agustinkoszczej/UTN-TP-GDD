@@ -67,7 +67,7 @@ namespace PagoAgilFrba.AbmFactura
             listDetalle.Items.Clear();
 
             listDetalle.Columns.Add("Item", 125);
-            listDetalle.Columns.Add("Monto", 100);
+            listDetalle.Columns.Add("Total", 100);
             listDetalle.Columns.Add("Cantidad", 100);
 
             listDetalle.View = View.Details;
@@ -116,7 +116,7 @@ namespace PagoAgilFrba.AbmFactura
                 {
                     totalSS = totalSS + monto * cantidad;
                     lblTotal.Text = "$" + totalSS.ToString();
-                    populateListDetalle(nombreItem.ToString(), monto.ToString(), cantidad.ToString());
+                    populateListDetalle(nombreItem.ToString(), monto, cantidad);
                     txtItem.Text = "";
                     txtMonto.Text = "";
                     //txtCantidad.Text = "";
@@ -126,9 +126,9 @@ namespace PagoAgilFrba.AbmFactura
             }       
         }
 
-        private void populateListDetalle(string item, string monto, string cantidad)
+        private void populateListDetalle(string item, double monto, int cantidad)
         {
-            String[] row = { item, monto, cantidad };
+            String[] row = { item, (monto*cantidad).ToString(), cantidad.ToString() };
             listDetalle.Items.Add(new ListViewItem(row));
         }
 
@@ -320,7 +320,7 @@ namespace PagoAgilFrba.AbmFactura
                 FacturaDAO.cargarFacturasFiltrada(dataGridFacturasBM, idFiltro, query, "@idFiltro");
                 if (dataGridFacturasBM.Rows.Count < 1)
                 {
-                    MessageBox.Show("No se encontró ninguna factura habilitada paga con esos datos", "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("No se encontró ninguna factura habilitada no paga con esos datos", "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {

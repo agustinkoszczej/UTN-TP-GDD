@@ -268,7 +268,7 @@ namespace PagoAgilFrba.DAOs
 
         public static void cargarGridItemsFactura(DataGridView grid, Factura selec)
         {
-            string query = string.Format(@"SELECT ItemFactura_codigo Codigo, ItemFactura_cantidad Cantidad, ItemFactura_monto Monto
+            string query = string.Format(@"SELECT ItemFactura_codigo Codigo, ItemFactura_cantidad Cantidad, ItemFactura_monto Total
                                             FROM LORDS_OF_THE_STRINGS_V2.Item_Factura 
                                             WHERE ItemFactura_factura = @idFactura");
             SqlConnection conn = DBConnection.getConnection();

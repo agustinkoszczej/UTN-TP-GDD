@@ -72,7 +72,7 @@ namespace PagoAgilFrba.AbmFactura
             {
                 foreach (Item_Factura it in factura.items)
                 {
-                    total = total + (it.monto * it.cantidad);
+                    total = total + it.monto;
 
                     string identif;
                     if (it.nuevo) identif = "Si";
@@ -97,7 +97,7 @@ namespace PagoAgilFrba.AbmFactura
 
             listItems.Columns.Add("Nuevo?", 60);
             listItems.Columns.Add("Item Nº", 60);
-            listItems.Columns.Add("Monto", 100);
+            listItems.Columns.Add("Total", 100);
             listItems.Columns.Add("Cantidad", 100);
             listItems.Columns.Add("Factura Nº", 100);
 
@@ -113,7 +113,7 @@ namespace PagoAgilFrba.AbmFactura
 
             txtItemNro.Text = it.id.ToString();
             txtItemCantidad.Value = it.cantidad;
-            txtItemMonto.Text = it.monto.ToString();
+            txtItemMonto.Text = (it.monto/it.cantidad).ToString();
 
         }
 
@@ -125,10 +125,12 @@ namespace PagoAgilFrba.AbmFactura
                 {
                     MessageBox.Show("No se puede almacenar items con cantidad nula", "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
+                double monto = double.Parse(txtItemMonto.Text.ToString());
+                int cantidad = int.Parse(txtItemCantidad.Text.ToString());
                 Item_Factura modificado = new Item_Factura(
                     int.Parse(txtItemNro.Text.ToString()),
-                    double.Parse(txtItemMonto.Text.ToString()),
-                    int.Parse(txtItemCantidad.Text.ToString()),
+                    monto*cantidad,
+                    cantidad,
                     factura);
                 modificarItemLocal(modificado);
                 actualizarListItems();
@@ -152,10 +154,12 @@ namespace PagoAgilFrba.AbmFactura
         {
             if (txtNuevoCantidad.Value != 0 && txtNuevoMonto.Text != "")
             {
+                double monto = double.Parse(txtNuevoMonto.Text.ToString());
+                int cantidad = int.Parse(txtNuevoCantidad.Value.ToString());
                 Item_Factura nuevo = new Item_Factura(
                     obtenerIDNuevo(),
-                    double.Parse(txtNuevoMonto.Text.ToString()),
-                    int.Parse(txtNuevoCantidad.Value.ToString()),
+                    monto*cantidad,
+                    cantidad,
                     factura);
                 nuevo.nuevo = true;
                 factura.items.Add(nuevo);
