@@ -27,7 +27,9 @@ namespace PagoAgilFrba.DAOs
             SqlDataReader reader = cmd.ExecuteReader();
             reader.Read();
             int estado = int.Parse(reader.GetValue(0).ToString());
+            cmd.Dispose();
             conn.Close();
+            conn.Dispose();
             return estado;
         }
 
@@ -74,7 +76,9 @@ namespace PagoAgilFrba.DAOs
                     comando.ExecuteNonQuery();
                 }
 
+                comando.Dispose();
                 conn.Close();
+                conn.Dispose();
                 return idFactura;
             }
             catch (Exception)
@@ -109,7 +113,9 @@ namespace PagoAgilFrba.DAOs
             }
             reader.Close();
             reader.Dispose();
+            command.Dispose();
             conn.Close();
+            conn.Dispose();
             return items;
         }
 
@@ -146,7 +152,9 @@ namespace PagoAgilFrba.DAOs
                 comando.Parameters.Add("@IDF", SqlDbType.Int);
                 comando.Parameters["@IDF"].Value = factura.id;
                 comando.ExecuteNonQuery();
+                comando.Dispose();
                 conn.Close();
+                conn.Dispose();
                 return 1;
             }
             catch (Exception)
@@ -194,7 +202,9 @@ namespace PagoAgilFrba.DAOs
                 comando.Parameters.Add("@IDF", SqlDbType.Int);
                 comando.Parameters["@IDF"].Value = modificada.id;
                 comando.ExecuteNonQuery();
+                comando.Dispose();
                 conn.Close();
+                conn.Dispose();
                 return 1;
             }
             catch (Exception)
@@ -256,7 +266,9 @@ namespace PagoAgilFrba.DAOs
                 comando.Parameters.Add("@IDF", SqlDbType.Int);
                 comando.Parameters["@IDF"].Value = idFactura;
                 comando.ExecuteNonQuery();
+                comando.Dispose();
                 conn.Close();
+                conn.Dispose();
                 return 1;
             }
             catch (Exception)
@@ -279,7 +291,9 @@ namespace PagoAgilFrba.DAOs
 
             DBConnection.llenar_grilla_command(grid, command);
 
+            command.Dispose();
             conn.Close();
+            conn.Dispose();
         }
 
         public static void cargarFacturasFiltrada(DataGridView grid, int idFiltro, string query, string nombreParam)
@@ -292,7 +306,9 @@ namespace PagoAgilFrba.DAOs
 
             DBConnection.llenar_grilla_command(grid, command);
 
+            command.Dispose();
             conn.Close();
+            conn.Dispose();
         }
 
     }

@@ -28,7 +28,9 @@ namespace PagoAgilFrba.DAOs
                 cmd.Parameters.AddWithValue("@factura", factura.id);
 
                 cmd.ExecuteNonQuery();
+                cmd.Dispose();
                 conn.Close();
+                conn.Dispose();
                 return true;
             }
             catch (Exception ex)

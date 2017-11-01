@@ -32,7 +32,9 @@ namespace PagoAgilFrba.DAOs
                 }
                 reader.Close();
                 reader.Dispose();
+                cmd.Dispose();
                 conn.Close();
+                conn.Dispose();
             return funcionalidades;         
         }
         public static void cargar_funcionalidades_asignadas(Rol rol)
@@ -55,7 +57,9 @@ namespace PagoAgilFrba.DAOs
             }
             reader.Close();
             reader.Dispose();
+            cmd.Dispose();
             conn.Close();
+            conn.Dispose();
         }
 
         public static void cargar_grilla_funcionalidades(DataGridView grillaFuncionalidades, Rol rol)

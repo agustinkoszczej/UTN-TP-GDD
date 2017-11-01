@@ -21,7 +21,9 @@ namespace PagoAgilFrba.DAOs
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@dni", _dni);
                 bool rta = cmd.ExecuteScalar() == null;
+                cmd.Dispose();
                 conn.Close();
+                conn.Dispose();
                 return rta;
         }
 
@@ -32,7 +34,9 @@ namespace PagoAgilFrba.DAOs
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@mail", _mail.Trim());
                 bool rta = cmd.ExecuteScalar() == null;
+                cmd.Dispose();
                 conn.Close();
+                conn.Dispose();
                 return rta;
         }
 
@@ -49,7 +53,9 @@ namespace PagoAgilFrba.DAOs
             command.Parameters["@dni"].Value = filtroDNI;
 
             DBConnection.llenar_grilla_command(grid, command);
+            command.Dispose();
             conn.Close();
+            conn.Dispose();
         }
 
         public static int nuevoCliente(Cliente cli)
@@ -99,7 +105,9 @@ namespace PagoAgilFrba.DAOs
 
                 comando.ExecuteNonQuery();
 
+                comando.Dispose();
                 conn.Close();
+                conn.Dispose();
                 return 4;
             }
             catch (SqlException)
@@ -166,7 +174,9 @@ namespace PagoAgilFrba.DAOs
 
                 comando.ExecuteNonQuery();
 
+                comando.Dispose();
                 conn.Close();
+                conn.Dispose();
                 return 4;
             }
             catch (SqlException)
@@ -192,7 +202,9 @@ namespace PagoAgilFrba.DAOs
                 comando.Parameters["@habil"].Value = habilitado;
                 comando.ExecuteNonQuery();
 
+                comando.Dispose();
                 conn.Close();
+                conn.Dispose();
                 return 1;
             }
             catch (SqlException)
@@ -211,7 +223,10 @@ namespace PagoAgilFrba.DAOs
             SqlCommand comando = new SqlCommand(query, conn);
             comando.Parameters.AddWithValue("@dni", dniCliente);
             DBConnection.llenar_grilla_command(grid, comando);
+
+            comando.Dispose();
             conn.Close();
+            conn.Dispose();
         }
 
 
@@ -249,7 +264,9 @@ namespace PagoAgilFrba.DAOs
             }
             reader.Close();
             reader.Dispose();
+            command.Dispose();
             conn.Close();
+            conn.Dispose();
             return cli;
         }
     }

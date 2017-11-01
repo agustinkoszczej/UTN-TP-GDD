@@ -32,7 +32,9 @@ namespace PagoAgilFrba.DAOs
                 }
                 reader.Close();
                 reader.Dispose();
+                cmd.Dispose();
                 conn.Close();
+                conn.Dispose();
                 return rubros;         
         }
  

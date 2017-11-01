@@ -23,7 +23,9 @@ namespace PagoAgilFrba.DAOs
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@nombre", _nombre);
             bool rta = cmd.ExecuteScalar() == null;
+            cmd.Dispose();
             conn.Close();
+            conn.Dispose();
             return rta;
         }
 
@@ -59,7 +61,9 @@ namespace PagoAgilFrba.DAOs
 
                     cmd.ExecuteNonQuery();
                 }
+                cmd.Dispose();
                 conn.Close();
+                conn.Dispose();
                 return true;
             }
             catch (Exception ex)
@@ -92,8 +96,10 @@ namespace PagoAgilFrba.DAOs
                     cmd.Parameters.AddWithValue("@rol_id", rol.id);
                     
                     cmd.ExecuteNonQuery();*/
-                }    
+                }
+                cmd.Dispose();
                 conn.Close();
+                conn.Dispose();
                 return true;
             }
             catch (Exception ex)
@@ -134,7 +140,9 @@ namespace PagoAgilFrba.DAOs
                     cmd.ExecuteNonQuery();
                 }
 
+                cmd.Dispose();
                 conn.Close();
+                conn.Dispose();
                 return true;
             }
             catch (Exception ex)

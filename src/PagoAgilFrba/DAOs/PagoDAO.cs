@@ -33,13 +33,16 @@ namespace PagoAgilFrba.DAOs
 
                 _grillaFacturas.DataSource = dataTable;
                 dataAdapter.Fill(dataTable);
+                dataAdapter.Dispose();
             }
             catch (Exception e)
             {
                 MessageBox.Show("No se pudo realizar la consulta:\n" + e.Message);
 
             }
+            cmd.Dispose();
             conn.Close();
+            conn.Dispose();
         }
 
         public static bool agregar_pagos(List<Pago> _pagos)
@@ -60,8 +63,10 @@ namespace PagoAgilFrba.DAOs
                     cmd.Parameters.AddWithValue("@factura", pago.factura);
 
                     cmd.ExecuteNonQuery();
+                    cmd.Dispose();
                 }
                 conn.Close();
+                conn.Dispose();
                 return true;
             }
             catch (Exception ex)

@@ -37,12 +37,14 @@ namespace PagoAgilFrba.DAOs
 
                 dataGridView.DataSource = dataTable;
                 dataAdapter.Fill(dataTable);
+                dataAdapter.Dispose();
             }
             catch (Exception e)
             {
                 MessageBox.Show("No se pudo realizar la consulta:\n" + e.Message);
 
             }
+            conn.Dispose();
             conn.Close();
         }
 
@@ -57,6 +59,9 @@ namespace PagoAgilFrba.DAOs
             source.DataSource = table;
             dataGrid.DataSource = source;
             adapter.Update(table);
+
+            command.Dispose();
+            adapter.Dispose();
         }
 
         public static void llenar_grilla_ejecutando_SP(string sp, DataGridView grilla, Dictionary<String, int> parametros, string mensaje)
@@ -79,7 +84,7 @@ namespace PagoAgilFrba.DAOs
 
                 dataAdapter.SelectCommand = cmd;
                 dataAdapter.Fill(dataTable);
-
+                dataAdapter.Dispose();
                 if (dataTable.Rows.Count == 0)
                 {
                     MessageBox.Show("No existen resultados para esta consulta", "Sin resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -89,7 +94,9 @@ namespace PagoAgilFrba.DAOs
                     grilla.DataSource = dataTable;
                 }
 
+                cmd.Dispose();
                 conn.Close();
+                conn.Dispose();
             }
             catch (Exception ex)
             {

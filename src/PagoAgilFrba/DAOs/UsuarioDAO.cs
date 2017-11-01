@@ -27,7 +27,9 @@ namespace PagoAgilFrba.DAOs
             ret.Direction = ParameterDirection.ReturnValue;
             cmd.Parameters.Add(ret);
             cmd.ExecuteReader();
+            cmd.Dispose();
             conn.Close();
+            conn.Dispose();
             return (int) ret.Value;
         }
 
@@ -51,7 +53,9 @@ namespace PagoAgilFrba.DAOs
             }
             reader.Close();
             reader.Dispose();
+            cmd.Dispose();
             conn.Close();
+            conn.Dispose();
         }
 
         public static void cargar_sucursales_asignadas(Usuario usuario)
@@ -76,7 +80,9 @@ namespace PagoAgilFrba.DAOs
             }
             reader.Close();
             reader.Dispose();
+            cmd.Dispose();
             conn.Close();
+            conn.Dispose();
         }
     }
 }

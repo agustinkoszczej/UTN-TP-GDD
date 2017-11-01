@@ -34,13 +34,16 @@ namespace PagoAgilFrba.DAOs
 
                 _grillaSucursales.DataSource = dataTable;
                 dataAdapter.Fill(dataTable);
+                dataAdapter.Dispose();
             }
             catch (Exception e)
             {
                 MessageBox.Show("No se pudo realizar la consulta:\n" + e.Message);
 
             }
+            cmd.Dispose();
             conn.Close();
+            conn.Dispose();
         }
 
         public static void cargar_grilla_sucursales(DataGridView grillaSucursales)
@@ -56,7 +59,9 @@ namespace PagoAgilFrba.DAOs
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@cod_postal", _cod_postal);
             bool rta = cmd.ExecuteScalar() == null;
+            cmd.Dispose();
             conn.Close();
+            conn.Dispose();
             return rta;
         }
         public static void agregar_sucursal_a_admin(Sucursal sucursal)
@@ -68,7 +73,9 @@ namespace PagoAgilFrba.DAOs
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id_suc", sucursal.id);
                 cmd.ExecuteNonQuery();
+                cmd.Dispose();
                 conn.Close();
+                conn.Dispose();
             }
             catch (Exception)
             {  }
@@ -90,7 +97,9 @@ namespace PagoAgilFrba.DAOs
 
                 cmd.ExecuteNonQuery();
 
+                cmd.Dispose();
                 conn.Close();
+                conn.Dispose();
                 return true;
             }
             catch (Exception ex)
@@ -112,7 +121,9 @@ namespace PagoAgilFrba.DAOs
                 ret.Direction = ParameterDirection.ReturnValue;
                 cmd.Parameters.Add(ret);
                 cmd.ExecuteReader();
+                cmd.Dispose();
                 conn.Close();
+                conn.Dispose();
                 return Convert.ToBoolean(ret.Value);
             }
             catch (Exception ex)
@@ -136,7 +147,9 @@ namespace PagoAgilFrba.DAOs
                 cmd.Parameters.AddWithValue("@sucursal_id", sucursal.id);
 
                 cmd.ExecuteNonQuery();
+                cmd.Dispose();
                 conn.Close();
+                conn.Dispose();
                 return true;
             }
             catch (Exception ex)

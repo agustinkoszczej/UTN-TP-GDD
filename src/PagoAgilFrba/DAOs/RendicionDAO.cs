@@ -29,8 +29,9 @@ namespace PagoAgilFrba.DAOs
             
             reader.Close();
             reader.Dispose();
+            cmd.Dispose();
             conn.Close();
-
+            conn.Dispose();
             return ret;
         }
 
@@ -49,7 +50,9 @@ namespace PagoAgilFrba.DAOs
 
             reader.Close();
             reader.Dispose();
+            cmd.Dispose();
             conn.Close();
+            conn.Dispose();
 
             return ret;
         }
@@ -68,7 +71,9 @@ namespace PagoAgilFrba.DAOs
             command.Parameters["@idEmpresa"].Value = selec.id;
 
             DBConnection.llenar_grilla_command(grid, command);
+            command.Dispose();
             conn.Close();
+            conn.Dispose();
         }
 
         public static void cargarGridFacturasPagadasMesEspecificado(DataGridView grid, Empresa selec, int mes, int anio)
@@ -91,7 +96,9 @@ namespace PagoAgilFrba.DAOs
             command.Parameters["@anio"].Value = anio;
 
             DBConnection.llenar_grilla_command(grid, command);
+            command.Dispose();
             conn.Close();
+            conn.Dispose();
         }
 
         public static void cargarGridFacturasPagadasTotal(DataGridView grid, Empresa selec)
@@ -107,7 +114,9 @@ namespace PagoAgilFrba.DAOs
             command.Parameters["@idEmpresa"].Value = selec.id;
 
             DBConnection.llenar_grilla_command(grid, command);
+            command.Dispose();
             conn.Close();
+            conn.Dispose();
         }
 
 
@@ -132,7 +141,9 @@ namespace PagoAgilFrba.DAOs
                 comando.Parameters.Add("@porcentaje", SqlDbType.Float);
                 comando.Parameters["@porcentaje"].Value = rend.porcentajeComision;
                 int rta = Convert.ToInt32(comando.ExecuteScalar());
+                comando.Dispose();
                 conn.Close();
+                conn.Dispose();
                 return rta;
  
             }
@@ -167,7 +178,9 @@ namespace PagoAgilFrba.DAOs
                 MessageBox.Show("No se pudo realizar la consulta:\n" + e.Message);
 
             }
+            cmd.Dispose();
             conn.Close();
+            conn.Dispose();
         }
 
     }

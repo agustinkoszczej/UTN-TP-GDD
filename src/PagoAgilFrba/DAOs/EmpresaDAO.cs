@@ -33,7 +33,9 @@ namespace PagoAgilFrba.DAOs
 
             reader.Close();
             reader.Dispose();
+            cmd.Dispose();
             conn.Close();
+            conn.Dispose();
             return empresa;
         }
 
@@ -74,12 +76,15 @@ namespace PagoAgilFrba.DAOs
 
                 _grillaEmpresas.DataSource = dataTable;
                 dataAdapter.Fill(dataTable);
+                dataAdapter.Dispose();
             }
             catch (Exception e)
             {
                 MessageBox.Show("No se pudo realizar la consulta:\n" + e.Message);
             }
+            cmd.Dispose();
             conn.Close();
+            conn.Dispose();
         }
 
         public static bool validar_cuit(string _cuit)
@@ -89,7 +94,9 @@ namespace PagoAgilFrba.DAOs
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@cuit", _cuit);
             bool rta = cmd.ExecuteScalar() == null;
+            cmd.Dispose();
             conn.Close();
+            conn.Dispose();
             return rta;
         }
 
@@ -123,7 +130,9 @@ namespace PagoAgilFrba.DAOs
 
                     cmd.ExecuteNonQuery();
                 }
+                cmd.Dispose();
                 conn.Close();
+                conn.Dispose();
                 return true;
             }
             catch (Exception ex)
@@ -145,7 +154,9 @@ namespace PagoAgilFrba.DAOs
                 ret.Direction = ParameterDirection.ReturnValue;
                 cmd.Parameters.Add(ret);
                 cmd.ExecuteReader();
+                cmd.Dispose();
                 conn.Close();
+                conn.Dispose();
                 return Convert.ToBoolean(ret.Value);
             }
             catch (Exception ex)
@@ -189,7 +200,9 @@ namespace PagoAgilFrba.DAOs
                     cmd.ExecuteNonQuery();
                 }
 
+                cmd.Dispose();
                 conn.Close();
+                conn.Dispose();
                 return true;
             }
             catch (Exception ex)
