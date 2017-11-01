@@ -94,6 +94,22 @@ namespace PagoAgilFrba.DAOs
             conn.Close();
         }
 
+        public static void cargarGridFacturasPagadasTotal(DataGridView grid, Empresa selec)
+        {
+            string query = string.Format(@"SELECT DISTINCT Factura_codigo, Factura_fecha, Factura_total, Factura_fecha_venc, Factura_cliente 
+                                            FROM LORDS_OF_THE_STRINGS_V2.Factura F
+                                            JOIN LORDS_OF_THE_STRINGS_V2.Pago P ON F.Factura_codigo = P.Pago_factura
+                                            WHERE Factura_empresa = @idEmpresa AND F.Factura_rendicion IS NULL AND F.Factura_habilitada = 1");
+            SqlConnection conn = DBConnection.getConnection();
+            SqlCommand command = new SqlCommand(query, conn);
+
+            command.Parameters.Add("@idEmpresa", SqlDbType.Int);
+            command.Parameters["@idEmpresa"].Value = selec.id;
+
+            DBConnection.llenar_grilla_command(grid, command);
+            conn.Close();
+        }
+
 
         public static int nuevaRendicion(Model.Rendicion rend)
         {
@@ -127,15 +143,30 @@ namespace PagoAgilFrba.DAOs
             }
         }
 
-        public static void llenarGridMesesRendibles(DataGridView grid, int idEmpresa)
+        public static void llenarGridMesesPosibles(DataGridView grid, int idEmpresa)
         {
             string query = string.Format(@"SELECT * FROM LORDS_OF_THE_STRINGS_V2.fn_get_meses_disponibles_rendicion(@idEmpresa)");
             SqlConnection conn = DBConnection.getConnection();
-            SqlCommand command = new SqlCommand(query, conn);
+            SqlCommand cmd = new SqlCommand(query, conn);
 
-            command.Parameters.AddWithValue("@idEmpresa", idEmpresa);
+            cmd.Parameters.AddWithValue("@idEmpresa", idEmpresa);
 
-            DBConnection.llenar_grilla_command(grid, command);
+            DataTable dataTable;
+            SqlDataAdapter dataAdapter;
+
+            try
+            {
+                dataAdapter = new SqlDataAdapter(cmd);
+                dataTable = new DataTable();
+
+                grid.DataSource = dataTable;
+                dataAdapter.Fill(dataTable);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("No se pudo realizar la consulta:\n" + e.Message);
+
+            }
             conn.Close();
         }
 

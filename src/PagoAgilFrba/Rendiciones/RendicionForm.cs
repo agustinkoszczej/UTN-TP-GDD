@@ -37,7 +37,7 @@ namespace PagoAgilFrba.Rendiciones
             seleccionada = getEmpresaSelec();
             if (seleccionada != null)
             {
-                RendicionDAO.llenarGridMesesRendibles(dataGridMeses, seleccionada.id);
+                RendicionDAO.llenarGridMesesPosibles(dataGridMeses, seleccionada.id);
             }
         }
 
@@ -79,83 +79,61 @@ namespace PagoAgilFrba.Rendiciones
             seleccionada = getEmpresaSelec();
             if (seleccionada != null)
             {
-                RendicionDAO.llenarGridMesesRendibles(dataGridMeses, seleccionada.id);
+                RendicionDAO.llenarGridMesesPosibles(dataGridMeses, seleccionada.id);
             }
         }
 
-        private void btnSeleccionar_Click(object sender, EventArgs e)
+     
+        private void setPanelRendicion(int mes, int anio)
         {
-            int mes = DateTime.Now.Month;
-            int anio = DateTime.Now.Year;
-            seleccionada = getEmpresaSelec();
-            if (seleccionada == null)
+            dateTimeMesAnio.Value = DateTime.Now;
+            lblMesAnio.Text = mes.ToString() + "/" + anio.ToString();
+            panelEmpresas.Visible = false;
+            panelFacturas.Visible = true;
+            lblEmpresaSelec.Text = "Empresa Seleccionada: " + seleccionada.nombre;
+            lblFacturasARendir.Text = dataGridFacturas.Rows.Count.ToString();
+            if (dataGridFacturas.Rows.Count <= 0)
             {
-                MessageBox.Show("Seleccione una empresa", "Error en Rendicion de facturas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                lblNoHayFacturas.Visible = true;
             }
             else
             {
-
-                    if (chkSoloMesActual.Checked)
-                    {
-                        if (fueRendidaEsteMes(seleccionada.id))
-                        {
-                            MessageBox.Show("La empresa seleccionada ya fue rendida este mes", "Error en Rendicion de facturas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                            return;
-                        }
-                        else
-                        {
-                            RendicionDAO.cargarGridFacturasPagadasEsteMes(dataGridFacturas, seleccionada);
-                        }
-                    }
-                    else
-                    {
-                        mes= 0;
-                        anio = 0;
-                        if (dateTimeMesAnio.Value > DateTime.Now)
-                        {
-                            MessageBox.Show("La fecha Seleccionada es superior a la actual", "Error en Rendicion de facturas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                            return;
-                        }
-
-                        mes = dateTimeMesAnio.Value.Month;
-                        anio = dateTimeMesAnio.Value.Year;
-
-
-
-                        if (fueRendidaMesEspecifico(seleccionada.id,mes, anio))
-                        {
-                            MessageBox.Show("La empresa seleccionada ya fue rendida en el mes ingresado", "Error en Rendicion de facturas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                            return;
-                        }
-                        else
-                        {
-                            RendicionDAO.cargarGridFacturasPagadasMesEspecificado(dataGridFacturas, seleccionada, mes, anio);
-                        }
-                    }
-                    dateTimeMesAnio.Value = DateTime.Now;
-                    lblMesAnio.Text = mes.ToString() + "/" + anio.ToString(); 
-                    panelEmpresas.Visible = false;
-                    panelFacturas.Visible = true;
-                    lblEmpresaSelec.Text = "Empresa Seleccionada: " + seleccionada.nombre;
-                    lblFacturasARendir.Text = dataGridFacturas.Rows.Count.ToString();
-                    if (dataGridFacturas.Rows.Count <= 0)
-                    {
-                        lblNoHayFacturas.Visible = true;
-                    }
-                    else
-                    {
-                        lblNoHayFacturas.Visible = false;
-                    }
-                    sumaCobrada = obtenerSumaFacturas();
-                    lblSumaCobrada.Text = "$" + sumaCobrada.ToString();
-                    lblPorcentajeComision.Text = (100*porcentajeComision).ToString() + "%";
-                    valorComision = porcentajeComision * sumaCobrada;
-                    lblValorComision.Text = "$" + valorComision.ToString();
-                    totalRendido = sumaCobrada - valorComision;
-                    lblTotalRendido.Text = "$" + totalRendido.ToString();
-                }
-            
+                lblNoHayFacturas.Visible = false;
+            }
+            sumaCobrada = obtenerSumaFacturas();
+            lblSumaCobrada.Text = "$" + sumaCobrada.ToString();
+            lblPorcentajeComision.Text = (100 * porcentajeComision).ToString() + "%";
+            valorComision = porcentajeComision * sumaCobrada;
+            lblValorComision.Text = "$" + valorComision.ToString();
+            totalRendido = sumaCobrada - valorComision;
+            lblTotalRendido.Text = "$" + totalRendido.ToString();
         }
+
+        private void setPanelRendicion()
+        {
+            dateTimeMesAnio.Value = DateTime.Now;
+            lblMesAnio.Text = "Todo hasta la fecha";
+            panelEmpresas.Visible = false;
+            panelFacturas.Visible = true;
+            lblEmpresaSelec.Text = "Empresa Seleccionada: " + seleccionada.nombre;
+            lblFacturasARendir.Text = dataGridFacturas.Rows.Count.ToString();
+            if (dataGridFacturas.Rows.Count <= 0)
+            {
+                lblNoHayFacturas.Visible = true;
+            }
+            else
+            {
+                lblNoHayFacturas.Visible = false;
+            }
+            sumaCobrada = obtenerSumaFacturas();
+            lblSumaCobrada.Text = "$" + sumaCobrada.ToString();
+            lblPorcentajeComision.Text = (100 * porcentajeComision).ToString() + "%";
+            valorComision = porcentajeComision * sumaCobrada;
+            lblValorComision.Text = "$" + valorComision.ToString();
+            totalRendido = sumaCobrada - valorComision;
+            lblTotalRendido.Text = "$" + totalRendido.ToString();
+        }
+
 
         private bool fueRendidaEsteMes(int idEmpresa)
         {
@@ -244,18 +222,6 @@ namespace PagoAgilFrba.Rendiciones
             }
         }
 
-        private void chkSoloMesActual_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkSoloMesActual.Checked)
-            {
-                panelMesARendir.Enabled = false;
-            }
-            else
-            {
-                panelMesARendir.Enabled = true;
-            }
-        }
-
         private void btnVolver_Click(object sender, EventArgs e)
         {
             panelFacturas.Visible = false;
@@ -270,7 +236,7 @@ namespace PagoAgilFrba.Rendiciones
 
             if (clic != null)
             {
-                RendicionDAO.llenarGridMesesRendibles(dataGridMeses, clic.id);
+                RendicionDAO.llenarGridMesesPosibles(dataGridMeses, clic.id);
                 //dataGridMeses.SelectedRows = dataGridMeses.Rows[0];
             }
         }
@@ -280,7 +246,83 @@ namespace PagoAgilFrba.Rendiciones
             seleccionada = getEmpresaSelec();
             if (seleccionada != null)
             {
-                RendicionDAO.llenarGridMesesRendibles(dataGridMeses, seleccionada.id);
+                RendicionDAO.llenarGridMesesPosibles(dataGridMeses, seleccionada.id);
+            }
+        }
+
+        private void btnRendirMesActual_Click(object sender, EventArgs e)
+        {
+            seleccionada = getEmpresaSelec();
+            if (seleccionada == null)
+            {
+                MessageBox.Show("Seleccione una empresa", "Error en Rendicion de facturas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
+            if (fueRendidaEsteMes(seleccionada.id))
+            {
+                MessageBox.Show("La empresa seleccionada ya fue rendida este mes, solo se permite una rendicion mensual por empresa", "Error en Rendicion de facturas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+            else
+            {
+                RendicionDAO.cargarGridFacturasPagadasEsteMes(dataGridFacturas, seleccionada);
+                setPanelRendicion(DateTime.Now.Month, DateTime.Now.Year);
+            }
+        }
+
+        private void btnRendirMesSeleccionado_Click(object sender, EventArgs e)
+        {
+            seleccionada = getEmpresaSelec();
+            if (seleccionada == null)
+            {
+                MessageBox.Show("Seleccione una empresa", "Error en Rendicion de facturas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
+            int mes = 0;
+            int anio = 0;
+            if (dateTimeMesAnio.Value > DateTime.Now)
+            {
+                MessageBox.Show("La fecha Seleccionada es superior a la actual", "Error en Rendicion de facturas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
+            mes = dateTimeMesAnio.Value.Month;
+            anio = dateTimeMesAnio.Value.Year;
+
+
+
+            if (fueRendidaEsteMes(seleccionada.id))
+            {
+                MessageBox.Show("La empresa seleccionada ya fue rendida este mes, solo se permite una rendicion mensual por empresa", "Error en Rendicion de facturas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+            else
+            {
+                RendicionDAO.cargarGridFacturasPagadasMesEspecificado(dataGridFacturas, seleccionada, mes, anio);
+                setPanelRendicion(mes, anio);
+            }
+        }
+
+        private void btnRendirTodo_Click(object sender, EventArgs e)
+        {
+            seleccionada = getEmpresaSelec();
+            if (seleccionada == null)
+            {
+                MessageBox.Show("Seleccione una empresa", "Error en Rendicion de facturas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
+            if (fueRendidaEsteMes(seleccionada.id))
+            {
+                MessageBox.Show("La empresa seleccionada ya fue rendida este mes, solo se permite una rendicion mensual por empresa", "Error en Rendicion de facturas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+            else
+            {
+                RendicionDAO.cargarGridFacturasPagadasTotal(dataGridFacturas, seleccionada);
+                setPanelRendicion();
             }
         }
 

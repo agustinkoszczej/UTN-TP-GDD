@@ -853,12 +853,7 @@ JOIN LORDS_OF_THE_STRINGS_V2.Factura F ON (P1.Pago_factura = F.Factura_codigo)
 WHERE (F.Factura_rendicion IS NULL) 
 AND (F.Factura_empresa = @idEmpresa) 
 AND ((SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Pago P2 WHERE (P2.Pago_factura = F.Factura_codigo)) > 
-(SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Devolucion D WHERE (D.Devolucion_factura = F.Factura_codigo)))
-AND NOT EXISTS 
-(SELECT * FROM LORDS_OF_THE_STRINGS_V2.Rendicion R JOIN LORDS_OF_THE_STRINGS_V2.Factura F2 ON (R.Rendicion_codigo = F2.Factura_rendicion)
-WHERE (F2.Factura_empresa = @idEmpresa)
-AND MONTH(R.Rendicion_fecha) = MONTH(P1.Pago_fecha) 
-AND YEAR(R.Rendicion_fecha) = YEAR(P1.Pago_fecha)))
+(SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Devolucion D WHERE (D.Devolucion_factura = F.Factura_codigo))))
 GO
 -------------------------------------------------------------------------------------------------
 -- REGISTRO DE PAGOS
