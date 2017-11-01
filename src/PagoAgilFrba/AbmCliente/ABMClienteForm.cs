@@ -112,7 +112,7 @@ namespace PagoAgilFrba.AbmCliente
             string busqueda = string.Format(@"SELECT Cliente_codigo Código, Cliente_dni DNI, Cliente_nombre Nombre, Cliente_apellido Apellido, Cliente_fecha_nac Fecha_Nacimiento, Cliente_mail Mail, Cliente_direccion Dirección, Cliente_codigo_postal Código_Postal, Cliente_telefono Teléfono, Cliente_habilitado Habilitado FROM LORDS_OF_THE_STRINGS_V2.Cliente" + miFiltroNomb + miFiltroApell + miFiltroDNI + miFiltroHabil);
 
             ClienteDAO.llenarDataGrid(dataGridClientes, busqueda, this.filtroNombre, this.filtroApellido, dni);
-
+            dataGridClientes.Columns[4].DefaultCellStyle.Format = "dd/MM/yyyy HH:mm:ss";
             filtrando = true;
             if (dataGridClientes.Rows.Count > 0)
             {
@@ -123,6 +123,7 @@ namespace PagoAgilFrba.AbmCliente
         private void cargarGridSinFiltros()
         {
             DBConnection.llenar_grilla(dataGridClientes, "SELECT Cliente_codigo Código, Cliente_dni DNI, Cliente_nombre Nombre, Cliente_apellido Apellido, Cliente_fecha_nac Fecha_Nacimiento, Cliente_mail Mail, Cliente_direccion Dirección, Cliente_codigo_postal Código_Postal, Cliente_telefono Teléfono, Cliente_habilitado Habilitado FROM LORDS_OF_THE_STRINGS_V2.Cliente WHERE Cliente_habilitado = 1");
+            dataGridClientes.Columns[4].DefaultCellStyle.Format = "dd/MM/yyyy HH:mm:ss";
             if (this.selectedRow != null) this.selectedRow = dataGridClientes.Rows[0];
         }
 

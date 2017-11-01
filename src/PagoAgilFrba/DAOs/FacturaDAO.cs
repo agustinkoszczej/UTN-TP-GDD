@@ -45,16 +45,18 @@ namespace PagoAgilFrba.DAOs
                 var conn = DBConnection.getConnection();
                               
                 string query = string.Format(@"INSERT INTO LORDS_OF_THE_STRINGS_V2.Factura(Factura_fecha, Factura_total, Factura_fecha_venc, Factura_empresa, Factura_cliente, Factura_rendicion) values(" +
-                            "CAST(GETDATE() AS DATE),@total,@fvenc,@idEmpresa,@idCliente,NULL);SELECT SCOPE_IDENTITY()");
+                            "GETDATE(),@total,CONVERT(datetime, @fvenc, 121),@idEmpresa,@idCliente,NULL);SELECT SCOPE_IDENTITY()");
                 
                 SqlCommand comando = new SqlCommand(query, conn);
 
                 comando.Parameters.Add("@total", SqlDbType.Float);
                 comando.Parameters["@total"].Value = factura.total;
-                comando.Parameters.Add("@fvenc", SqlDbType.Date);
-                comando.Parameters["@fvenc"].Value = factura.fecha_venc;
+
+                comando.Parameters.AddWithValue("@fvenc", factura.fecha_venc);
+
                 comando.Parameters.Add("@idEmpresa", SqlDbType.Int);
                 comando.Parameters["@idEmpresa"].Value = factura.empresa.id;
+
                 comando.Parameters.Add("@idCliente", SqlDbType.Int);
                 comando.Parameters["@idCliente"].Value = factura.cliente.id;
 
@@ -168,16 +170,14 @@ namespace PagoAgilFrba.DAOs
             try
             {
                 SqlConnection conn = DBConnection.getConnection();
-                SqlCommand comando = new SqlCommand("UPDATE LORDS_OF_THE_STRINGS_V2.Factura SET Factura_fecha = @nvaFecha, Factura_total = @nvoTotal, Factura_fecha_venc = @nvoVenc, Factura_empresa = @nvaEmpresa, Factura_cliente = @nvoCliente, Factura_rendicion = @nvaRendicion, Factura_habilitada = @habil WHERE Factura_codigo = @IDF", conn);
+                SqlCommand comando = new SqlCommand("UPDATE LORDS_OF_THE_STRINGS_V2.Factura SET Factura_fecha = CONVERT(datetime, @nvaFecha, 121), Factura_total = @nvoTotal, Factura_fecha_venc = CONVERT(datetime, @nvoVenc, 121), Factura_empresa = @nvaEmpresa, Factura_cliente = @nvoCliente, Factura_rendicion = @nvaRendicion, Factura_habilitada = @habil WHERE Factura_codigo = @IDF", conn);
 
-                comando.Parameters.Add("@nvaFecha", SqlDbType.Date);
-                comando.Parameters["@nvaFecha"].Value = modificada.fecha;
+                comando.Parameters.AddWithValue("@nvaFecha", modificada.fecha); 
 
                 comando.Parameters.Add("@nvoTotal", SqlDbType.Float);
                 comando.Parameters["@nvoTotal"].Value = modificada.total;
 
-                comando.Parameters.Add("@nvoVenc", SqlDbType.Date);
-                comando.Parameters["@nvoVenc"].Value = modificada.fecha_venc;
+                comando.Parameters.AddWithValue("@nvoVenc", modificada.fecha_venc); 
 
                 comando.Parameters.Add("@nvaEmpresa", SqlDbType.Int);
                 comando.Parameters["@nvaEmpresa"].Value = modificada.empresa.id;

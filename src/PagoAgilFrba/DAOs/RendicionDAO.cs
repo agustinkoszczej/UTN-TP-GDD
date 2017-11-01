@@ -106,7 +106,8 @@ namespace PagoAgilFrba.DAOs
             string query = string.Format(@"SELECT DISTINCT Factura_codigo, Factura_fecha, Factura_total, Factura_fecha_venc, Factura_cliente 
                                             FROM LORDS_OF_THE_STRINGS_V2.Factura F
                                             JOIN LORDS_OF_THE_STRINGS_V2.Pago P ON F.Factura_codigo = P.Pago_factura
-                                            WHERE Factura_empresa = @idEmpresa AND F.Factura_rendicion IS NULL AND F.Factura_habilitada = 1");
+                                            WHERE Factura_empresa = @idEmpresa AND F.Factura_rendicion IS NULL AND F.Factura_habilitada = 1
+                                            AND P.Pago_fecha < GETDATE()");
             SqlConnection conn = DBConnection.getConnection();
             SqlCommand command = new SqlCommand(query, conn);
 
@@ -128,12 +129,11 @@ namespace PagoAgilFrba.DAOs
             try
             {
                 var conn = DBConnection.getConnection();
-                string query = string.Format(@"INSERT INTO LORDS_OF_THE_STRINGS_V2.Rendicion(Rendicion_fecha, Rendicion_importe, Rendicion_porcentaje) VALUES (@fecha, @importe, @porcentaje); SELECT SCOPE_IDENTITY();");
+                string query = string.Format(@"INSERT INTO LORDS_OF_THE_STRINGS_V2.Rendicion(Rendicion_fecha, Rendicion_importe, Rendicion_porcentaje) VALUES (CONVERT(datetime, @fecha, 121), @importe, @porcentaje); SELECT SCOPE_IDENTITY();");
 
                 SqlCommand comando = new SqlCommand(query, conn);
 
-                comando.Parameters.Add("@fecha", SqlDbType.Date);
-                comando.Parameters["@fecha"].Value = rend.fecha;
+                comando.Parameters.AddWithValue("fecha", rend.fecha);
 
                 comando.Parameters.Add("@importe", SqlDbType.Float);
                 comando.Parameters["@importe"].Value = rend.importe;

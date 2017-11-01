@@ -73,6 +73,8 @@
             // 
             // datePickerFNAC
             // 
+            this.datePickerFNAC.CustomFormat = "dd/MM/yyyy hh:mm:ss";
+            this.datePickerFNAC.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.datePickerFNAC.Location = new System.Drawing.Point(17, 323);
             this.datePickerFNAC.Name = "datePickerFNAC";
             this.datePickerFNAC.Size = new System.Drawing.Size(355, 20);

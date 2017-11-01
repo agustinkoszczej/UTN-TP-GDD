@@ -83,7 +83,7 @@ namespace PagoAgilFrba.DAOs
             try
             {
                 var conn = DBConnection.getConnection();
-                SqlCommand comando = new SqlCommand("INSERT INTO LORDS_OF_THE_STRINGS_V2.Cliente(Cliente_dni, Cliente_nombre, Cliente_apellido, Cliente_fecha_nac, Cliente_mail, Cliente_direccion, Cliente_codigo_postal, Cliente_telefono) values(@DNI, @nombre, @apell, @fnac, @mail, @direc, @cp, @tel)", conn);
+                SqlCommand comando = new SqlCommand("INSERT INTO LORDS_OF_THE_STRINGS_V2.Cliente(Cliente_dni, Cliente_nombre, Cliente_apellido, Cliente_fecha_nac, Cliente_mail, Cliente_direccion, Cliente_codigo_postal, Cliente_telefono) values(@DNI, @nombre, @apell, CONVERT(datetime, @fnac, 121), @mail, @direc, @cp, @tel)", conn);
 
                 comando.Parameters.Add("@DNI", SqlDbType.Int);
                 comando.Parameters["@DNI"].Value = cli.dni;
@@ -92,8 +92,7 @@ namespace PagoAgilFrba.DAOs
 
                 comando.Parameters.AddWithValue("@apell", cli.apellido);
 
-                comando.Parameters.Add("@fnac", SqlDbType.Date);
-                comando.Parameters["@fnac"].Value = cli.fecha_nacimiento;
+                comando.Parameters.AddWithValue("@fnac", cli.fecha_nacimiento);
 
                 comando.Parameters.AddWithValue("@mail", cli.mail);
 
@@ -149,7 +148,7 @@ namespace PagoAgilFrba.DAOs
             try
             {
                 var conn = DBConnection.getConnection();
-                SqlCommand comando = new SqlCommand("UPDATE LORDS_OF_THE_STRINGS_V2.Cliente SET Cliente_dni = @DNI, Cliente_nombre = @nombre, Cliente_apellido = @apell, Cliente_fecha_nac = @fnac, Cliente_mail = @mail, Cliente_direccion = @direc, Cliente_codigo_postal = @cp, Cliente_telefono = @tel WHERE Cliente_codigo = @ID", conn);
+                SqlCommand comando = new SqlCommand("UPDATE LORDS_OF_THE_STRINGS_V2.Cliente SET Cliente_dni = @DNI, Cliente_nombre = @nombre, Cliente_apellido = @apell, Cliente_fecha_nac = CONVERT(datetime, @fnac, 121), Cliente_mail = @mail, Cliente_direccion = @direc, Cliente_codigo_postal = @cp, Cliente_telefono = @tel WHERE Cliente_codigo = @ID", conn);
 
                 comando.Parameters.Add("@ID", SqlDbType.Int);
                 comando.Parameters["@ID"].Value = cli.id;
@@ -161,8 +160,7 @@ namespace PagoAgilFrba.DAOs
 
                 comando.Parameters.AddWithValue("@apell", cli.apellido);
 
-                comando.Parameters.Add("@fnac", SqlDbType.Date);
-                comando.Parameters["@fnac"].Value = cli.fecha_nacimiento;
+                comando.Parameters.AddWithValue("@fnac", cli.fecha_nacimiento);
 
                 comando.Parameters.AddWithValue("@mail", cli.mail);
 

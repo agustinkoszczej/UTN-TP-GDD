@@ -29,11 +29,14 @@
         private void InitializeComponent()
         {
             this.panelEmpresas = new System.Windows.Forms.Panel();
+            this.btnRendirTodo = new System.Windows.Forms.Button();
+            this.btnRendirMesActual = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridMeses = new System.Windows.Forms.DataGridView();
             this.lblEmpresas = new System.Windows.Forms.Label();
             this.dataGridEmpresas = new System.Windows.Forms.DataGridView();
             this.panelMesARendir = new System.Windows.Forms.Panel();
+            this.btnRendirMesSeleccionado = new System.Windows.Forms.Button();
             this.dateTimeMesAnio = new System.Windows.Forms.DateTimePicker();
             this.label10 = new System.Windows.Forms.Label();
             this.lblMensaje = new System.Windows.Forms.Label();
@@ -57,9 +60,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblEmpresaSelec = new System.Windows.Forms.Label();
-            this.btnRendirMesActual = new System.Windows.Forms.Button();
-            this.btnRendirTodo = new System.Windows.Forms.Button();
-            this.btnRendirMesSeleccionado = new System.Windows.Forms.Button();
             this.panelEmpresas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridMeses)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).BeginInit();
@@ -81,8 +81,32 @@
             this.panelEmpresas.Controls.Add(this.btnCancelar);
             this.panelEmpresas.Location = new System.Drawing.Point(7, 9);
             this.panelEmpresas.Name = "panelEmpresas";
-            this.panelEmpresas.Size = new System.Drawing.Size(593, 412);
+            this.panelEmpresas.Size = new System.Drawing.Size(593, 414);
             this.panelEmpresas.TabIndex = 0;
+            // 
+            // btnRendirTodo
+            // 
+            this.btnRendirTodo.BackColor = System.Drawing.Color.Green;
+            this.btnRendirTodo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRendirTodo.Location = new System.Drawing.Point(476, 358);
+            this.btnRendirTodo.Name = "btnRendirTodo";
+            this.btnRendirTodo.Size = new System.Drawing.Size(109, 47);
+            this.btnRendirTodo.TabIndex = 28;
+            this.btnRendirTodo.Text = "Rendir Todo";
+            this.btnRendirTodo.UseVisualStyleBackColor = false;
+            this.btnRendirTodo.Click += new System.EventHandler(this.btnRendirTodo_Click);
+            // 
+            // btnRendirMesActual
+            // 
+            this.btnRendirMesActual.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnRendirMesActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRendirMesActual.Location = new System.Drawing.Point(344, 358);
+            this.btnRendirMesActual.Name = "btnRendirMesActual";
+            this.btnRendirMesActual.Size = new System.Drawing.Size(109, 47);
+            this.btnRendirMesActual.TabIndex = 27;
+            this.btnRendirMesActual.Text = "Rendir mes actual";
+            this.btnRendirMesActual.UseVisualStyleBackColor = false;
+            this.btnRendirMesActual.Click += new System.EventHandler(this.btnRendirMesActual_Click);
             // 
             // label1
             // 
@@ -163,6 +187,18 @@
             this.panelMesARendir.Name = "panelMesARendir";
             this.panelMesARendir.Size = new System.Drawing.Size(149, 94);
             this.panelMesARendir.TabIndex = 20;
+            // 
+            // btnRendirMesSeleccionado
+            // 
+            this.btnRendirMesSeleccionado.BackColor = System.Drawing.Color.Lime;
+            this.btnRendirMesSeleccionado.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRendirMesSeleccionado.Location = new System.Drawing.Point(21, 42);
+            this.btnRendirMesSeleccionado.Name = "btnRendirMesSeleccionado";
+            this.btnRendirMesSeleccionado.Size = new System.Drawing.Size(109, 47);
+            this.btnRendirMesSeleccionado.TabIndex = 29;
+            this.btnRendirMesSeleccionado.Text = "Rendir Mes seleccionado";
+            this.btnRendirMesSeleccionado.UseVisualStyleBackColor = false;
+            this.btnRendirMesSeleccionado.Click += new System.EventHandler(this.btnRendirMesSeleccionado_Click);
             // 
             // dateTimeMesAnio
             // 
@@ -425,42 +461,6 @@
             this.lblEmpresaSelec.Size = new System.Drawing.Size(299, 18);
             this.lblEmpresaSelec.TabIndex = 0;
             this.lblEmpresaSelec.Text = "Empresa Seleccionada: ____________";
-            // 
-            // btnRendirMesActual
-            // 
-            this.btnRendirMesActual.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.btnRendirMesActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRendirMesActual.Location = new System.Drawing.Point(344, 358);
-            this.btnRendirMesActual.Name = "btnRendirMesActual";
-            this.btnRendirMesActual.Size = new System.Drawing.Size(109, 47);
-            this.btnRendirMesActual.TabIndex = 27;
-            this.btnRendirMesActual.Text = "Rendir mes actual";
-            this.btnRendirMesActual.UseVisualStyleBackColor = false;
-            this.btnRendirMesActual.Click += new System.EventHandler(this.btnRendirMesActual_Click);
-            // 
-            // btnRendirTodo
-            // 
-            this.btnRendirTodo.BackColor = System.Drawing.Color.Green;
-            this.btnRendirTodo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRendirTodo.Location = new System.Drawing.Point(476, 358);
-            this.btnRendirTodo.Name = "btnRendirTodo";
-            this.btnRendirTodo.Size = new System.Drawing.Size(109, 47);
-            this.btnRendirTodo.TabIndex = 28;
-            this.btnRendirTodo.Text = "Rendir Todo";
-            this.btnRendirTodo.UseVisualStyleBackColor = false;
-            this.btnRendirTodo.Click += new System.EventHandler(this.btnRendirTodo_Click);
-            // 
-            // btnRendirMesSeleccionado
-            // 
-            this.btnRendirMesSeleccionado.BackColor = System.Drawing.Color.Lime;
-            this.btnRendirMesSeleccionado.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRendirMesSeleccionado.Location = new System.Drawing.Point(21, 42);
-            this.btnRendirMesSeleccionado.Name = "btnRendirMesSeleccionado";
-            this.btnRendirMesSeleccionado.Size = new System.Drawing.Size(109, 47);
-            this.btnRendirMesSeleccionado.TabIndex = 29;
-            this.btnRendirMesSeleccionado.Text = "Rendir Mes seleccionado";
-            this.btnRendirMesSeleccionado.UseVisualStyleBackColor = false;
-            this.btnRendirMesSeleccionado.Click += new System.EventHandler(this.btnRendirMesSeleccionado_Click);
             // 
             // RendicionForm
             // 

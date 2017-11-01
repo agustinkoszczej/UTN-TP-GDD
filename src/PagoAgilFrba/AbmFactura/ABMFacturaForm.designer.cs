@@ -372,6 +372,8 @@
             // 
             // vencimientoDateTimePicker
             // 
+            this.vencimientoDateTimePicker.CustomFormat = "dd/MM/yyyy hh:mm:ss";
+            this.vencimientoDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.vencimientoDateTimePicker.Location = new System.Drawing.Point(9, 24);
             this.vencimientoDateTimePicker.Name = "vencimientoDateTimePicker";
             this.vencimientoDateTimePicker.Size = new System.Drawing.Size(276, 20);

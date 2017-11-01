@@ -81,6 +81,8 @@
             // 
             // vencimientoDateTimePicker
             // 
+            this.vencimientoDateTimePicker.CustomFormat = "dd/MM/yyyy hh:mm:ss";
+            this.vencimientoDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.vencimientoDateTimePicker.Location = new System.Drawing.Point(388, 101);
             this.vencimientoDateTimePicker.Name = "vencimientoDateTimePicker";
             this.vencimientoDateTimePicker.Size = new System.Drawing.Size(360, 20);
@@ -88,6 +90,8 @@
             // 
             // altaDateTimePicker
             // 
+            this.altaDateTimePicker.CustomFormat = "dd/MM/yyyy hh:mm:ss";
+            this.altaDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.altaDateTimePicker.Location = new System.Drawing.Point(389, 62);
             this.altaDateTimePicker.Name = "altaDateTimePicker";
             this.altaDateTimePicker.Size = new System.Drawing.Size(359, 20);
