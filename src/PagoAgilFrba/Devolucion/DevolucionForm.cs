@@ -33,7 +33,7 @@ namespace PagoAgilFrba.Devolucion
         {
             if (string.IsNullOrEmpty(txtDNICliente.Text) && string.IsNullOrEmpty(txtNroFactura.Text))
             {
-                dgdFacturas.DataSource = null; return;
+                dgdFacturas.DataSource = null; lblTotalDevolver.Text = "";return ;
             }
             string query_nro_factura = null, query_dni = null, query_final = null;
 
@@ -53,7 +53,11 @@ namespace PagoAgilFrba.Devolucion
             if (dgdFacturas.RowCount != 0)
             {
                 Factura factura = get_factura_seleccionada_grilla();
-                  lblTotalDevolver.Text = "-"+factura.total;
+                lblTotalDevolver.Text = "-" + factura.total;
+            }
+            else
+            {
+                lblTotalDevolver.Text = "";
             }
         }
         private Factura get_factura_seleccionada_grilla()
