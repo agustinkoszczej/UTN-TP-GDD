@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data;
+using System.Configuration;
 
 
 namespace PagoAgilFrba.Utilidades
@@ -48,6 +49,7 @@ namespace PagoAgilFrba.Utilidades
             var combo = c as ComboBox;
             var numUpDown = c as NumericUpDown;
             var lBox = c as ListBox;
+            var dataGrid = c as DataGridView;
 
             if (tbox != null)
                 cumple = !esCampoVacio(tbox, e);
@@ -83,6 +85,20 @@ namespace PagoAgilFrba.Utilidades
                 else
                 {
                     e.SetError(numUpDown, null);
+                }
+            }
+
+            if (dataGrid != null)
+            {
+                cumple = dataGrid.RowCount != 0;
+                if (!cumple)
+                {
+                    dataGrid.Focus();
+                    e.SetError(dataGrid, "Seleccione algún registro");
+                }
+                else
+                {
+                    e.SetError(dataGrid, null);
                 }
             }
 
@@ -212,6 +228,20 @@ namespace PagoAgilFrba.Utilidades
        {
            dataGrid.DataSource = null;
            dataGrid.Rows.Clear();
+       }
+       public static DateTime obtenerFecha()
+       {
+           DateTime fecha = DateTime.Now; //retorna la actual si no la pudo obtener
+           try
+           {
+               var appSettings = ConfigurationManager.AppSettings;
+               fecha =  DateTime.Parse(appSettings["fecha"].ToString());
+           }
+           catch (Exception)
+           {
+               MessageBox.Show("Error al leer App.config, se tomará la fecha actual del sistema");
+           }
+           return fecha;
        }
     }
 }

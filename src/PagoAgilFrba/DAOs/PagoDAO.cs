@@ -10,18 +10,20 @@ using System.Data;
 
 using PagoAgilFrba.Model;
 using PagoAgilFrba.DAOs;
+using PagoAgilFrba.Utilidades;
 
 namespace PagoAgilFrba.DAOs
 {
     public static class PagoDAO
     {
-        public static void buscar_factura(DataGridView _grillaFacturas, string _query, string _nro_factura, string _dni)
+        public static void buscar_factura(DataGridView _grillaFacturas, string _query, string _nro_factura, string _dni, string _fecha_act)
         {          
             SqlConnection conn = DBConnection.getConnection();
             SqlCommand cmd = new SqlCommand(_query, conn);
 
             cmd.Parameters.AddWithValue("@nro_factura", _nro_factura);
             cmd.Parameters.AddWithValue("@dni", _dni);
+            cmd.Parameters.AddWithValue("@fecha_act", _fecha_act);
 
             DataTable dataTable;
             SqlDataAdapter dataAdapter;
@@ -50,7 +52,7 @@ namespace PagoAgilFrba.DAOs
             try
             {
                 SqlConnection conn = DBConnection.getConnection();
-                string fecha_act = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                string fecha_act = Utils.obtenerFecha().ToString("yyyy-MM-dd HH:mm:ss");
                 foreach (Pago pago in _pagos)
                 {
                     string query = string.Format(@"INSERT INTO LORDS_OF_THE_STRINGS_V2.Pago(Pago_fecha, Pago_importe, Pago_sucursal, Pago_forma_pago, Pago_factura) VALUES (CONVERT(datetime, @fecha_act, 121), @importe, @sucursal, @forma_pago, @factura)");

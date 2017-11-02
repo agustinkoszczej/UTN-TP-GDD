@@ -811,13 +811,13 @@ GO
 -------------------------------------------------------------------------------------------------
 -- FUNCTION FN_ES_EMPRESA_RENDIDA_ESTE_MES
 -------------------------------------------------------------------------------------------------
-CREATE FUNCTION [LORDS_OF_THE_STRINGS_V2].fn_es_empresa_rendida_este_mes(@id_empresa numeric(18,0))
+CREATE FUNCTION [LORDS_OF_THE_STRINGS_V2].fn_es_empresa_rendida_este_mes(@id_empresa numeric(18,0), @fecha datetime)
 RETURNS bit
 AS
 BEGIN
 IF EXISTS (SELECT * FROM LORDS_OF_THE_STRINGS_V2.Factura 
 			JOIN LORDS_OF_THE_STRINGS_V2.Rendicion R ON Factura_rendicion = Rendicion_codigo 
-			WHERE Factura_empresa = @id_empresa AND MONTH(R.Rendicion_fecha) = MONTH(GETDATE()) AND YEAR(R.Rendicion_fecha) = YEAR(GETDATE()))
+			WHERE Factura_empresa = @id_empresa AND MONTH(R.Rendicion_fecha) = MONTH(@fecha) AND YEAR(R.Rendicion_fecha) = YEAR(@fecha))
 			RETURN 1
 
 RETURN 0
@@ -860,13 +860,13 @@ GO
 -------------------------------------------------------------------------------------------------
 -- FUNCTION FN_PUEDE_PAGAR_FACTURA
 -------------------------------------------------------------------------------------------------
-CREATE FUNCTION [LORDS_OF_THE_STRINGS_V2].fn_puede_pagar_factura(@idFactura numeric(18,0)) 	
+CREATE FUNCTION [LORDS_OF_THE_STRINGS_V2].fn_puede_pagar_factura(@idFactura numeric(18,0), @fecha datetime) 	
 RETURNS bit 
 AS 
 BEGIN
 IF NOT EXISTS (SELECT * FROM LORDS_OF_THE_STRINGS_V2.Factura 
 			   JOIN LORDS_OF_THE_STRINGS_V2.Empresa ON (Factura_empresa = Empresa_codigo) 
-			   WHERE Factura_codigo = @idFactura AND Factura_fecha_venc > GETDATE() AND Empresa_habilitada = 1 AND Factura_rendicion IS NULL)
+			   WHERE Factura_codigo = @idFactura AND Factura_fecha_venc >= @fecha AND Empresa_habilitada = 1 AND Factura_rendicion IS NULL)
 	RETURN 0 -- 0 Fecha vencimiento no es mayor a la actual y/o la empresa no está habilitada y/o fue rendida
 
 IF ((SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Pago JOIN LORDS_OF_THE_STRINGS_V2.Factura ON (Pago_factura = Factura_codigo) 

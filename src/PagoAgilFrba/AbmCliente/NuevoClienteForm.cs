@@ -31,6 +31,7 @@ namespace PagoAgilFrba.AbmCliente
             btnCrear.Text = "Crear Cliente";
             backForm = back;
             lblClientes.Text = "Alta Cliente";
+            datePickerFNAC.Value = Utils.obtenerFecha();
         }
 
         public NuevoClienteForm(Cliente aModificar, ABMClienteForm back)
@@ -84,14 +85,15 @@ namespace PagoAgilFrba.AbmCliente
             txtTelefono.Text = "";
             txtDireccion.Text = "";
             txtCP.Text = "";
-            datePickerFNAC.Value = DateTime.Now;
+            datePickerFNAC.Value = Utils.obtenerFecha();
             cargado = null;
         }
 
         private void nuevoCliente()
         {
-            if (Utils.cumple_campos_obligatorios(camposObligatorios, errorProvider) && datePickerFNAC.Value < DateTime.Now)
+            if (Utils.cumple_campos_obligatorios(camposObligatorios, errorProvider) && datePickerFNAC.Value < Utils.obtenerFecha())
             {
+                errorProvider.SetError(datePickerFNAC, null);
                 uint dni;
                 try
                 {
@@ -103,7 +105,7 @@ namespace PagoAgilFrba.AbmCliente
                     return;
                 }
 
-                Cliente cli = new Cliente(0, txtNombre.Text, txtApellido.Text, dni, datePickerFNAC.Value, txtDireccion.Text, txtCP.Text, txtMail.Text, txtTelefono.Text, true);
+                Cliente cli = new Cliente(0, txtNombre.Text, txtApellido.Text, dni, datePickerFNAC.Value, txtDireccion.Text, txtCP.Text.Trim(), txtMail.Text, txtTelefono.Text, true);
                 int ex = ClienteDAO.nuevoCliente(cli);
 
                 switch (ex)
@@ -128,11 +130,12 @@ namespace PagoAgilFrba.AbmCliente
                         backForm.filtrar();
                         this.Close();
                         backForm.Focus();
-                        return;
+                        break;
                 }
+                return;
             }
 
-            if (datePickerFNAC.Value > DateTime.Now)
+            if (datePickerFNAC.Value >= Utils.obtenerFecha())
             {
                 MessageBox.Show("Fecha inválida", "Error en el ABM Cliente", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 errorProvider.SetError(datePickerFNAC, "Fecha inválida");
@@ -141,12 +144,30 @@ namespace PagoAgilFrba.AbmCliente
             {
                 errorProvider.SetError(datePickerFNAC, null);
             }
+            if (!ClienteDAO.validar_dni(int.Parse(txtDNI.Text.Trim().ToUpper())))
+            {
+                MessageBox.Show("El DNI ingresado ya existe", "Error DNI existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                errorProvider.SetError(txtDNI, "DNI existente");
+            }
+            else
+            {
+                errorProvider.SetError(txtDNI, null);
+            }
+            if (!ClienteDAO.validar_mail(txtMail.Text.Trim()))
+            {
+                 MessageBox.Show("El mail ingresado ya existe", "Error mail existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                errorProvider.SetError(txtMail, "Mail existente");
+            }
+            else
+            {
+                errorProvider.SetError(txtMail, null);
+            }
         }
 
 
         private void modificarCliente()
         {
-            if (Utils.cumple_campos_obligatorios(camposObligatorios, errorProvider) && datePickerFNAC.Value < DateTime.Now)
+            if (Utils.cumple_campos_obligatorios(camposObligatorios, errorProvider) && datePickerFNAC.Value < Utils.obtenerFecha())
             {
                 uint dni;
                 try
@@ -161,7 +182,7 @@ namespace PagoAgilFrba.AbmCliente
                 
                 Cliente cli = new Cliente(cargado.id, txtNombre.Text, txtApellido.Text, uint.Parse(txtDNI.Text), datePickerFNAC.Value, txtDireccion.Text, txtCP.Text, txtMail.Text, txtTelefono.Text, cargado.habilitado);
                     int ex = ClienteDAO.modificarCliente(cli, dni_viejo, mail_viejo);
-
+                    errorProvider.SetError(datePickerFNAC, null);
                     switch (ex)
                     {
                         case 0:
@@ -184,10 +205,11 @@ namespace PagoAgilFrba.AbmCliente
                             backForm.filtrar();
                             this.Close();
                             backForm.Focus();
-                            return;
+                            break;
                     }
+                    return;
                 }
-            if (datePickerFNAC.Value > DateTime.Now)
+            if (datePickerFNAC.Value >= Utils.obtenerFecha())
             {
                 MessageBox.Show("Fecha inválida", "Error en el ABM Cliente", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 errorProvider.SetError(datePickerFNAC, "Fecha inválida");
@@ -195,6 +217,24 @@ namespace PagoAgilFrba.AbmCliente
             else
             {
                 errorProvider.SetError(datePickerFNAC, null);
+            }
+            if (!ClienteDAO.validar_dni(int.Parse(txtDNI.Text.Trim().ToUpper())) && dni_viejo != int.Parse(txtDNI.Text.Trim().ToUpper()))
+            {
+                MessageBox.Show("El DNI ingresado ya existe", "Error DNI existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                errorProvider.SetError(txtDNI, "DNI existente");
+            }
+            else
+            {
+                errorProvider.SetError(txtDNI, null);
+            }
+            if (!ClienteDAO.validar_mail(txtMail.Text.Trim()) && mail_viejo.Trim().ToUpper() != txtMail.Text.Trim().ToUpper())
+            {
+                MessageBox.Show("El mail ingresado ya existe", "Error mail existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                errorProvider.SetError(txtMail, "Mail existente");
+            }
+            else
+            {
+                errorProvider.SetError(txtMail, null);
             }
         }
 

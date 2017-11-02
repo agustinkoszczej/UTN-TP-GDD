@@ -11,6 +11,7 @@ using System.Configuration;
 
 using PagoAgilFrba.Model;
 using PagoAgilFrba.DAOs;
+using PagoAgilFrba.Utilidades;
 
 namespace PagoAgilFrba.Rendiciones
 {
@@ -86,7 +87,7 @@ namespace PagoAgilFrba.Rendiciones
      
         private void setPanelRendicion(int mes, int anio)
         {
-            dateTimeMesAnio.Value = DateTime.Now;
+            dateTimeMesAnio.Value = Utils.obtenerFecha();
             lblMesAnio.Text = mes.ToString() + "/" + anio.ToString();
             panelEmpresas.Visible = false;
             panelFacturas.Visible = true;
@@ -111,7 +112,7 @@ namespace PagoAgilFrba.Rendiciones
 
         private void setPanelRendicion()
         {
-            dateTimeMesAnio.Value = DateTime.Now;
+            dateTimeMesAnio.Value = Utils.obtenerFecha();
             lblMesAnio.Text = "Todo hasta la fecha";
             panelEmpresas.Visible = false;
             panelFacturas.Visible = true;
@@ -186,7 +187,7 @@ namespace PagoAgilFrba.Rendiciones
             else
             {
 
-                Model.Rendicion rend = new Model.Rendicion(0, DateTime.Now, totalRendido, porcentajeComision);
+                Model.Rendicion rend = new Model.Rendicion(0, Utils.obtenerFecha(), totalRendido, porcentajeComision);
                 int idR = RendicionDAO.nuevaRendicion(rend);
                 if (idR == 0)
                 {
@@ -206,7 +207,7 @@ namespace PagoAgilFrba.Rendiciones
                                     double.Parse(fila.Cells[2].Value.ToString()),
                                     DateTime.Parse(fila.Cells[3].Value.ToString()),
                                     seleccionada,
-                                    new Cliente(int.Parse(fila.Cells[4].Value.ToString()), "", "", 0, DateTime.Now, "", "", "", "", true),  //genero cualquier cliente, total solo importa el id en este update
+                                    new Cliente(int.Parse(fila.Cells[4].Value.ToString()), "", "", 0, Utils.obtenerFecha(), "", "", "", "", true),  //genero cualquier cliente, total solo importa el id en este update
                                     rend,
                                     true); //Se supone que ya busca las habilitadas
                             FacturaDAO.modificarFactura(f);
@@ -267,7 +268,7 @@ namespace PagoAgilFrba.Rendiciones
             else
             {
                 RendicionDAO.cargarGridFacturasPagadasEsteMes(dataGridFacturas, seleccionada);
-                setPanelRendicion(DateTime.Now.Month, DateTime.Now.Year);
+                setPanelRendicion(Utils.obtenerFecha().Month, Utils.obtenerFecha().Year);
             }
         }
 
@@ -282,7 +283,7 @@ namespace PagoAgilFrba.Rendiciones
 
             int mes = 0;
             int anio = 0;
-            if (dateTimeMesAnio.Value > DateTime.Now)
+            if (dateTimeMesAnio.Value > Utils.obtenerFecha())
             {
                 MessageBox.Show("La fecha Seleccionada es superior a la actual", "Error en Rendicion de facturas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return;

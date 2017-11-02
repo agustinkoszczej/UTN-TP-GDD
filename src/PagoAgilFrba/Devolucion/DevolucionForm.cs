@@ -31,6 +31,8 @@ namespace PagoAgilFrba.Devolucion
         }
         private void filtrar()
         {
+            string fecha_act = Utils.obtenerFecha().ToString("yyyy-MM-dd HH:mm:ss");
+
             if (string.IsNullOrEmpty(txtDNICliente.Text) && string.IsNullOrEmpty(txtNroFactura.Text))
             {
                 dgdFacturas.DataSource = null; lblTotalDevolver.Text = "";return ;
@@ -48,7 +50,7 @@ namespace PagoAgilFrba.Devolucion
             query_final = string.Format(@"SELECT Factura_codigo Código, Factura_fecha Fecha, Factura_total Total, Factura_fecha_venc Fecha_Vencimiento, Factura_cliente Codigo_Cliente, Cliente_dni DNI_Cliente, Factura_empresa Empresa FROM LORDS_OF_THE_STRINGS_V2.Factura 
                                            JOIN LORDS_OF_THE_STRINGS_V2.Cliente ON (Factura_cliente = Cliente_codigo)
                                            WHERE Factura_habilitada = 1 AND Cliente_habilitado = 1" + query_dni + query_nro_factura);
-            PagoDAO.buscar_factura(dgdFacturas, query_final, txtNroFactura.Text, txtDNICliente.Text);
+            PagoDAO.buscar_factura(dgdFacturas, query_final, txtNroFactura.Text, txtDNICliente.Text, fecha_act);
 
             if (dgdFacturas.RowCount != 0)
             {
@@ -141,7 +143,7 @@ namespace PagoAgilFrba.Devolucion
                 MessageBox.Show("Lo sentimos la Empresa de esta Factura se encuentra inactiva!", "Error devolver Factura", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (factura.fecha_venc < DateTime.Now)
+            if (factura.fecha_venc < Utils.obtenerFecha())
             {
                 MessageBox.Show("Lo sentimos esa factura está vencida!", "Error devolver Factura", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;

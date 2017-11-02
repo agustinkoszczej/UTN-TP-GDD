@@ -17,8 +17,6 @@ namespace PagoAgilFrba.Model
 
         public Pago(double _importe, int _id_sucursal, int _id_forma_pago, int _id_factura)
         {
-            //this.id = _id;
-            //this.fecha = _fecha; -- La obtengo directo de la BD (GETDATE())
             this.importe = _importe;
             this.sucursal = _id_sucursal;
             this.forma_pago = _id_forma_pago;

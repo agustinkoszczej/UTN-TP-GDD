@@ -73,6 +73,7 @@ namespace PagoAgilFrba.RegistroPago
         private void filtrar()
         {
             string query_pagos_disponibles = null, join_empresas = null;
+            string fecha_act = Utils.obtenerFecha().ToString("yyyy-MM-dd HH:mm:ss");
 
             if (chkSoloPosibles.Checked)
             {
@@ -80,7 +81,7 @@ namespace PagoAgilFrba.RegistroPago
                 query_pagos_disponibles = string.Format(@" AND (SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Pago
 		                                                WHERE Pago_factura = F.Factura_codigo) <=
 		                                                (SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Devolucion WHERE Devolucion_factura = F.Factura_codigo)
-                                                        AND F.Factura_fecha_venc > GETDATE() AND E.Empresa_habilitada = 1 AND F.Factura_rendicion IS NULL");
+                                                        AND F.Factura_fecha_venc > CONVERT(datetime, @fecha_act, 121) AND E.Empresa_habilitada = 1 AND F.Factura_rendicion IS NULL");
             }
 
             if (string.IsNullOrEmpty(txtDNICliente.Text) && string.IsNullOrEmpty(txtNroFactura.Text) && !chkSoloPosibles.Checked)
@@ -101,7 +102,7 @@ namespace PagoAgilFrba.RegistroPago
                                            FROM LORDS_OF_THE_STRINGS_V2.Factura F
                                            JOIN LORDS_OF_THE_STRINGS_V2.Cliente C ON (F.Factura_cliente = C.Cliente_codigo)"+join_empresas+
                                            "WHERE Factura_habilitada = 1 AND Cliente_habilitado = 1" + query_pagos_disponibles + query_dni + query_nro_factura);
-            PagoDAO.buscar_factura(dgdFacturas, query_final, txtNroFactura.Text, txtDNICliente.Text);
+            PagoDAO.buscar_factura(dgdFacturas, query_final, txtNroFactura.Text, txtDNICliente.Text, fecha_act);
         }
 
         private Factura get_factura_seleccionada_grilla()
@@ -173,7 +174,7 @@ namespace PagoAgilFrba.RegistroPago
                 MessageBox.Show("Esa Factura ya se encuentra en las Facturas a pagar!", "Error agregar Factura para pagar", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (factura.fecha_venc < DateTime.Now)
+            if (factura.fecha_venc < Utils.obtenerFecha())
             {
                 MessageBox.Show("Lo sentimos esa factura está vencida!", "Error pagar Factura", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;

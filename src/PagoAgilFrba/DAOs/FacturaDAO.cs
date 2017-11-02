@@ -11,6 +11,7 @@ using System.Globalization;
 
 using PagoAgilFrba.Model;
 using PagoAgilFrba.DAOs;
+using PagoAgilFrba.Utilidades;
 
 namespace PagoAgilFrba.DAOs
 {
@@ -43,9 +44,10 @@ namespace PagoAgilFrba.DAOs
             {
 
                 var conn = DBConnection.getConnection();
-                              
-                string query = string.Format(@"INSERT INTO LORDS_OF_THE_STRINGS_V2.Factura(Factura_fecha, Factura_total, Factura_fecha_venc, Factura_empresa, Factura_cliente, Factura_rendicion) values(" +
-                            "GETDATE(),@total,CONVERT(datetime, @fvenc, 121),@idEmpresa,@idCliente,NULL);SELECT SCOPE_IDENTITY()");
+                string fecha_act = Utils.obtenerFecha().ToString("yyyy-MM-dd HH:mm:ss");   
+        
+                string query = string.Format(@"INSERT INTO LORDS_OF_THE_STRINGS_V2.Factura(Factura_fecha, Factura_total, Factura_fecha_venc, Factura_empresa, Factura_cliente, Factura_rendicion) values(
+                            CONVERT(datetime, @fecha_act, 121),@total,CONVERT(datetime, @fvenc, 121),@idEmpresa,@idCliente,NULL);SELECT SCOPE_IDENTITY()");
                 
                 SqlCommand comando = new SqlCommand(query, conn);
 
@@ -59,6 +61,8 @@ namespace PagoAgilFrba.DAOs
 
                 comando.Parameters.Add("@idCliente", SqlDbType.Int);
                 comando.Parameters["@idCliente"].Value = factura.cliente.id;
+
+                comando.Parameters.AddWithValue("@fecha_act", fecha_act); 
 
                           
                 comando.CommandType = System.Data.CommandType.Text;

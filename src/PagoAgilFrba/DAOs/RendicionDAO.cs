@@ -10,6 +10,7 @@ using System.Globalization;
 
 using PagoAgilFrba.Model;
 using PagoAgilFrba.DAOs;
+using PagoAgilFrba.Utilidades;
 
 namespace PagoAgilFrba.DAOs
 {
@@ -18,10 +19,13 @@ namespace PagoAgilFrba.DAOs
 
         public static bool fn_empresa_rendida_este_mes(int idEmpresa)
         {
-            string query = string.Format(@"SELECT LORDS_OF_THE_STRINGS_V2.fn_es_empresa_rendida_este_mes(@idEmpresa)");
+            string fecha_act = Utils.obtenerFecha().ToString("yyyy-MM-dd HH:mm:ss");
+
+            string query = string.Format(@"SELECT LORDS_OF_THE_STRINGS_V2.fn_es_empresa_rendida_este_mes(@idEmpresa, CONVERT(datetime, @fecha_act, 121))");
             SqlConnection conn = DBConnection.getConnection();
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@idEmpresa", idEmpresa);
+            cmd.Parameters.AddWithValue("@fecha_act", fecha_act);
 
             SqlDataReader reader = cmd.ExecuteReader();
             reader.Read();
@@ -59,11 +63,12 @@ namespace PagoAgilFrba.DAOs
 
         public static void cargarGridFacturasPagadasEsteMes(DataGridView grid, Empresa selec)
         {
+            string fecha_act = Utils.obtenerFecha().ToString("yyyy-MM-dd HH:mm:ss");
             string query = string.Format(@"SELECT DISTINCT Factura_codigo, Factura_fecha, Factura_total, Factura_fecha_venc, Factura_cliente 
                                             FROM LORDS_OF_THE_STRINGS_V2.Factura F
                                             JOIN LORDS_OF_THE_STRINGS_V2.Pago P ON F.Factura_codigo = P.Pago_factura
                                             WHERE Factura_empresa = @idEmpresa AND F.Factura_rendicion IS NULL AND F.Factura_habilitada = 1 
-                                            AND MONTH(P.Pago_fecha) = MONTH(GETDATE()) AND YEAR(P.Pago_fecha) = YEAR(GETDATE())
+                                            AND MONTH(P.Pago_fecha) = MONTH(CONVERT(datetime, @fecha_act, 121)) AND YEAR(P.Pago_fecha) = YEAR(CONVERT(datetime, @fecha_act, 121))
                                             AND (SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Pago P2 WHERE P2.Pago_factura = F.Factura_codigo) >
 											 (SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Devolucion D WHERE D.Devolucion_factura = F.Factura_codigo)");
             SqlConnection conn = DBConnection.getConnection();
@@ -71,6 +76,7 @@ namespace PagoAgilFrba.DAOs
 
             command.Parameters.Add("@idEmpresa", SqlDbType.Int);
             command.Parameters["@idEmpresa"].Value = selec.id;
+            command.Parameters.AddWithValue("@fecha_act", fecha_act);
 
             DBConnection.llenar_grilla_command(grid, command);
             command.Dispose();
@@ -107,11 +113,13 @@ namespace PagoAgilFrba.DAOs
 
         public static void cargarGridFacturasPagadasTotal(DataGridView grid, Empresa selec)
         {
+            string fecha_act = Utils.obtenerFecha().ToString("yyyy-MM-dd HH:mm:ss");
+
             string query = string.Format(@"SELECT DISTINCT Factura_codigo, Factura_fecha, Factura_total, Factura_fecha_venc, Factura_cliente 
                                             FROM LORDS_OF_THE_STRINGS_V2.Factura F
                                             JOIN LORDS_OF_THE_STRINGS_V2.Pago P ON F.Factura_codigo = P.Pago_factura
                                             WHERE Factura_empresa = @idEmpresa AND F.Factura_rendicion IS NULL AND F.Factura_habilitada = 1
-                                            AND P.Pago_fecha < GETDATE()
+                                            AND P.Pago_fecha <= CONVERT(datetime, @fecha_act, 121)
                                             AND (SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Pago P2 WHERE P2.Pago_factura = F.Factura_codigo) >
 											 (SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Devolucion D WHERE D.Devolucion_factura = F.Factura_codigo)");
             SqlConnection conn = DBConnection.getConnection();
@@ -120,6 +128,8 @@ namespace PagoAgilFrba.DAOs
             command.Parameters.Add("@idEmpresa", SqlDbType.Int);
             command.Parameters["@idEmpresa"].Value = selec.id;
 
+            command.Parameters.AddWithValue("@fecha_act", fecha_act); 
+
             DBConnection.llenar_grilla_command(grid, command);
             command.Dispose();
             conn.Close();
@@ -127,7 +137,7 @@ namespace PagoAgilFrba.DAOs
         }
 
 
-        public static int nuevaRendicion(Model.Rendicion rend)
+        public static int nuevaRendicion(Rendicion rend)
         {
             //0 error bd
             //ID OK                 
@@ -139,7 +149,7 @@ namespace PagoAgilFrba.DAOs
 
                 SqlCommand comando = new SqlCommand(query, conn);
 
-                comando.Parameters.AddWithValue("fecha", rend.fecha);
+                comando.Parameters.AddWithValue("@fecha", rend.fecha);
 
                 comando.Parameters.Add("@importe", SqlDbType.Float);
                 comando.Parameters["@importe"].Value = rend.importe;

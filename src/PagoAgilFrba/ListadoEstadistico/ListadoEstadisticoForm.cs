@@ -34,6 +34,8 @@ namespace PagoAgilFrba.ListadoEstadistico
             dtpAnio.CustomFormat = "yyyy";
             dtpAnio.ShowUpDown = true;
 
+            dtpAnio.Value = Utils.obtenerFecha();
+
             this.campos_obligatorios = new List<Control>() { dtpAnio, cboListados, cboTrimestre };
 
         }
@@ -75,7 +77,7 @@ namespace PagoAgilFrba.ListadoEstadistico
         private void cmdQuitarFiltros_Click(object sender, EventArgs e)
         {
             Utils.limpiar_controles((new List<Control>() { dtpAnio, cboTrimestre, cboListados, dtgListado }));
-            dtpAnio.Value = DateTime.Now;
+            dtpAnio.Value = Utils.obtenerFecha();
         }
 
         private void txtAño_KeyPress(object sender, KeyPressEventArgs e)
