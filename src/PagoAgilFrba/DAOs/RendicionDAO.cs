@@ -63,7 +63,9 @@ namespace PagoAgilFrba.DAOs
                                             FROM LORDS_OF_THE_STRINGS_V2.Factura F
                                             JOIN LORDS_OF_THE_STRINGS_V2.Pago P ON F.Factura_codigo = P.Pago_factura
                                             WHERE Factura_empresa = @idEmpresa AND F.Factura_rendicion IS NULL AND F.Factura_habilitada = 1 
-                                            AND MONTH(P.Pago_fecha) = MONTH(GETDATE()) AND YEAR(P.Pago_fecha) = YEAR(GETDATE())");
+                                            AND MONTH(P.Pago_fecha) = MONTH(GETDATE()) AND YEAR(P.Pago_fecha) = YEAR(GETDATE())
+                                            AND (SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Pago P2 WHERE P2.Pago_factura = F.Factura_codigo) >
+											 (SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Devolucion D WHERE D.Devolucion_factura = F.Factura_codigo)");
             SqlConnection conn = DBConnection.getConnection();
             SqlCommand command = new SqlCommand(query, conn);
 
@@ -82,7 +84,9 @@ namespace PagoAgilFrba.DAOs
                                             FROM LORDS_OF_THE_STRINGS_V2.Factura F
                                             JOIN LORDS_OF_THE_STRINGS_V2.Pago P ON F.Factura_codigo = P.Pago_factura
                                             WHERE Factura_empresa = @idEmpresa AND F.Factura_rendicion IS NULL AND F.Factura_habilitada = 1 
-                                            AND MONTH(P.Pago_fecha) = @mes AND YEAR(P.Pago_fecha) = @anio");
+                                            AND MONTH(P.Pago_fecha) = @mes AND YEAR(P.Pago_fecha) = @anio
+                                            AND (SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Pago P2 WHERE P2.Pago_factura = F.Factura_codigo) >
+											 (SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Devolucion D WHERE D.Devolucion_factura = F.Factura_codigo)");
             SqlConnection conn = DBConnection.getConnection();
             SqlCommand command = new SqlCommand(query, conn);
 
@@ -107,7 +111,9 @@ namespace PagoAgilFrba.DAOs
                                             FROM LORDS_OF_THE_STRINGS_V2.Factura F
                                             JOIN LORDS_OF_THE_STRINGS_V2.Pago P ON F.Factura_codigo = P.Pago_factura
                                             WHERE Factura_empresa = @idEmpresa AND F.Factura_rendicion IS NULL AND F.Factura_habilitada = 1
-                                            AND P.Pago_fecha < GETDATE()");
+                                            AND P.Pago_fecha < GETDATE()
+                                            AND (SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Pago P2 WHERE P2.Pago_factura = F.Factura_codigo) >
+											 (SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Devolucion D WHERE D.Devolucion_factura = F.Factura_codigo)");
             SqlConnection conn = DBConnection.getConnection();
             SqlCommand command = new SqlCommand(query, conn);
 
