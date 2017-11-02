@@ -188,6 +188,7 @@
             this.dgdFacturas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgdFacturas.Size = new System.Drawing.Size(458, 246);
             this.dgdFacturas.TabIndex = 32;
+            this.dgdFacturas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgdFacturas_CellContentClick);
             // 
             // cmdDevolver
             // 

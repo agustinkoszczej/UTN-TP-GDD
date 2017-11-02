@@ -58,15 +58,19 @@ namespace PagoAgilFrba.Devolucion
         }
         private Factura get_factura_seleccionada_grilla()
         {
-            int id = int.Parse(dgdFacturas.SelectedCells[0].Value.ToString());
-            string fecha = dgdFacturas.SelectedCells[1].Value.ToString();
-            double total = Convert.ToDouble(dgdFacturas.SelectedCells[2].Value.ToString());
-            string fecha_venc = dgdFacturas.SelectedCells[3].Value.ToString();
-            int cliente = int.Parse(dgdFacturas.SelectedCells[4].Value.ToString());
-            int empresa = int.Parse(dgdFacturas.SelectedCells[6].Value.ToString());
+            if (dgdFacturas.RowCount != 0)
+            {
+                int id = int.Parse(dgdFacturas.SelectedCells[0].Value.ToString());
+                string fecha = dgdFacturas.SelectedCells[1].Value.ToString();
+                double total = Convert.ToDouble(dgdFacturas.SelectedCells[2].Value.ToString());
+                string fecha_venc = dgdFacturas.SelectedCells[3].Value.ToString();
+                int cliente = int.Parse(dgdFacturas.SelectedCells[4].Value.ToString());
+                int empresa = int.Parse(dgdFacturas.SelectedCells[6].Value.ToString());
 
-            return new Factura(id, DateTime.Parse(fecha), total, DateTime.Parse(fecha_venc), EmpresaDAO.obtener_empresa_con_ID(empresa), ClienteDAO.obtener_cliente_con_ID(cliente));
-        }
+                return new Factura(id, DateTime.Parse(fecha), total, DateTime.Parse(fecha_venc), EmpresaDAO.obtener_empresa_con_ID(empresa), ClienteDAO.obtener_cliente_con_ID(cliente));
+            }
+            return null;
+            }
 
         private void cmdQuitarFiltros_Click(object sender, EventArgs e)
         {
@@ -185,7 +189,13 @@ namespace PagoAgilFrba.Devolucion
         {
             Utils.solo_numeros(e);
         }
-
-
+        private void dgdFacturas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Factura factura = get_factura_seleccionada_grilla();
+            if (factura != null)
+                lblTotalDevolver.Text = "-" + factura.total;
+            else
+                lblTotalDevolver.Text = "";
+        }
     }
 }
