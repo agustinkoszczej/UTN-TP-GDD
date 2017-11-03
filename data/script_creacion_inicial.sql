@@ -1023,7 +1023,7 @@ GO
 CREATE PROCEDURE [LORDS_OF_THE_STRINGS_V2].sp_porcentaje_de_facturas(@trimestre numeric(1,0), @año numeric(4,0))
 AS
  BEGIN
-	SELECT TOP 5 e.Empresa_nombre, COUNT(p.Pago_codigo)*100/COUNT(*) AS Porcentaje FROM [GD2C2017].[LORDS_OF_THE_STRINGS_V2].[Factura] f 
+	SELECT TOP 5 e.Empresa_nombre Empresa, COUNT(p.Pago_codigo)*100/COUNT(*) AS Porcentaje FROM [GD2C2017].[LORDS_OF_THE_STRINGS_V2].[Factura] f 
 	                                LEFT JOIN [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Pago p ON
 		                                p.Pago_factura = f.Factura_codigo
 	                                JOIN [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Empresa e ON
@@ -1041,7 +1041,7 @@ GO
 CREATE PROCEDURE [LORDS_OF_THE_STRINGS_V2].sp_empresas_mayor_monto(@trimestre numeric(1,0), @año numeric(4,0))
 AS
  BEGIN
-	SELECT TOP 5 Empresa_nombre, SUM(rendicion_importe) AS Monto_Rendido FROM LORDS_OF_THE_STRINGS_V2.Factura f
+	SELECT TOP 5 Empresa_nombre Empresa, SUM(rendicion_importe) AS Monto_Rendido FROM LORDS_OF_THE_STRINGS_V2.Factura f
 			INNER JOIN [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Empresa e ON
 				e.Empresa_codigo = f.Factura_empresa
 	        INNER JOIN [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Rendicion r ON
@@ -1059,7 +1059,7 @@ GO
 CREATE PROCEDURE [LORDS_OF_THE_STRINGS_V2].sp_clientes_cumplidores(@trimestre numeric(1,0), @año numeric(4,0))
 AS
  BEGIN
-	SELECT TOP 5 c.Cliente_codigo, c.Cliente_nombre, c.Cliente_apellido, c.Cliente_dni, COUNT(p.Pago_codigo)*100/COUNT(*) AS Porcentaje FROM [GD2C2017].[LORDS_OF_THE_STRINGS_V2].[Factura] f 
+	SELECT TOP 5 c.Cliente_codigo Codigo, c.Cliente_nombre Nombre, c.Cliente_apellido Apellido, c.Cliente_dni DNI, COUNT(p.Pago_codigo)*100/COUNT(*) AS Porcentaje FROM [GD2C2017].[LORDS_OF_THE_STRINGS_V2].[Factura] f 
 			LEFT JOIN [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Pago p ON
 				p.Pago_factura = f.Factura_codigo
 			JOIN [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Cliente c ON
@@ -1077,7 +1077,7 @@ GO
 CREATE PROCEDURE [LORDS_OF_THE_STRINGS_V2].sp_clientes_mas_pagos(@trimestre numeric(1,0), @año numeric(4,0))
 AS
  BEGIN
-	SELECT TOP 5 c.Cliente_codigo, c.Cliente_nombre, c.Cliente_apellido, c.Cliente_dni, COUNT(p.Pago_codigo) AS Cantidad_de_pagos
+	SELECT TOP 5 c.Cliente_codigo Codigo, c.Cliente_nombre Nombre, c.Cliente_apellido Apellido, c.Cliente_dni DNI, COUNT(p.Pago_codigo) AS Cantidad_de_pagos
 		FROM [GD2C2017].[LORDS_OF_THE_STRINGS_V2].[Factura] f 
 			LEFT JOIN [GD2C2017].[LORDS_OF_THE_STRINGS_V2].Pago p ON
 				p.Pago_factura = f.Factura_codigo

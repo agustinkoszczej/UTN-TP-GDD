@@ -60,6 +60,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblEmpresaSelec = new System.Windows.Forms.Label();
+            this.lblEspere = new System.Windows.Forms.Label();
             this.panelEmpresas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridMeses)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).BeginInit();
@@ -70,6 +71,7 @@
             // 
             // panelEmpresas
             // 
+            this.panelEmpresas.Controls.Add(this.lblEspere);
             this.panelEmpresas.Controls.Add(this.btnRendirTodo);
             this.panelEmpresas.Controls.Add(this.btnRendirMesActual);
             this.panelEmpresas.Controls.Add(this.label1);
@@ -462,6 +464,17 @@
             this.lblEmpresaSelec.TabIndex = 0;
             this.lblEmpresaSelec.Text = "Empresa Seleccionada: ____________";
             // 
+            // lblEspere
+            // 
+            this.lblEspere.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEspere.Location = new System.Drawing.Point(373, 333);
+            this.lblEspere.Name = "lblEspere";
+            this.lblEspere.Size = new System.Drawing.Size(190, 20);
+            this.lblEspere.TabIndex = 29;
+            this.lblEspere.Text = "Espere por favor...";
+            this.lblEspere.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblEspere.Visible = false;
+            // 
             // RendicionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -522,5 +535,6 @@
         private System.Windows.Forms.Button btnRendirTodo;
         private System.Windows.Forms.Button btnRendirMesActual;
         private System.Windows.Forms.Button btnRendirMesSeleccionado;
+        private System.Windows.Forms.Label lblEspere;
     }
 }

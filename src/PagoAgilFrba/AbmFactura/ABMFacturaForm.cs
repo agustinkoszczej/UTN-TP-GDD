@@ -139,8 +139,8 @@ namespace PagoAgilFrba.AbmFactura
                 try
                 {
                     double monto = Convert.ToDouble(listDetalle.SelectedItems[0].SubItems[1].Text.ToString());
-                    int cantidad = Convert.ToInt32(listDetalle.SelectedItems[0].SubItems[2].Text.ToString());
-                    totalSS = totalSS - (monto * cantidad);
+                    //int cantidad = Convert.ToInt32(listDetalle.SelectedItems[0].SubItems[2].Text.ToString());
+                    totalSS = totalSS - monto;
                     lblTotal.Text = "$" + totalSS.ToString();
                     listDetalle.SelectedItems[0].Remove();
                     itemsIngresados--;
@@ -166,7 +166,8 @@ namespace PagoAgilFrba.AbmFactura
                 {
                     lblMensaje.ForeColor = Color.DarkRed;
                     lblMensaje.Visible = true;
-                    lblMensaje.Text = "La fecha ingresada es inválida";
+                    lblMensaje.Text = "Fecha ingresada es inválida";
+                    MessageBox.Show("La fecha ingresada es inválida, no se pueden generar facturas vencidas", "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -174,7 +175,8 @@ namespace PagoAgilFrba.AbmFactura
                 {
                     lblMensaje.ForeColor = Color.DarkRed;
                     lblMensaje.Visible = true;
-                    lblMensaje.Text = "No se pueden generar facturas vacias";
+                    lblMensaje.Text = "Agregue al menos un item";
+                    MessageBox.Show("No ha agregado ningun item, no se puede generar facturas vacias", "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -182,6 +184,9 @@ namespace PagoAgilFrba.AbmFactura
 
                     if (empresaSelectedAlta == null)
                     {
+                        lblMensaje.ForeColor = Color.DarkRed;
+                        lblMensaje.Visible = true;
+                        lblMensaje.Text = "Empresa no seleccionada";
                         MessageBox.Show("Error al seleccionar empresa", "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
@@ -209,6 +214,9 @@ namespace PagoAgilFrba.AbmFactura
                         }
                         else
                         {
+                            lblMensaje.ForeColor = Color.DarkRed;
+                            lblMensaje.Visible = true;
+                            lblMensaje.Text = "Cliente no seleccionado";
                             MessageBox.Show("Error al seleccionar cliente", "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }

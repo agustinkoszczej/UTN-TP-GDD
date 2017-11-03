@@ -225,6 +225,7 @@ namespace PagoAgilFrba.Rendiciones
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
+            lblEspere.Visible = false;
             panelFacturas.Visible = false;
             panelEmpresas.Visible = true;
         }
@@ -267,6 +268,7 @@ namespace PagoAgilFrba.Rendiciones
             }
             else
             {
+                lblEspere.Visible = true;
                 RendicionDAO.cargarGridFacturasPagadasEsteMes(dataGridFacturas, seleccionada);
                 setPanelRendicion(Utils.obtenerFecha().Month, Utils.obtenerFecha().Year);
             }
@@ -301,6 +303,7 @@ namespace PagoAgilFrba.Rendiciones
             }
             else
             {
+                lblEspere.Visible = true;
                 RendicionDAO.cargarGridFacturasPagadasMesEspecificado(dataGridFacturas, seleccionada, mes, anio);
                 setPanelRendicion(mes, anio);
             }
@@ -322,6 +325,7 @@ namespace PagoAgilFrba.Rendiciones
             }
             else
             {
+                lblEspere.Visible = true;
                 RendicionDAO.cargarGridFacturasPagadasTotal(dataGridFacturas, seleccionada);
                 setPanelRendicion();
             }

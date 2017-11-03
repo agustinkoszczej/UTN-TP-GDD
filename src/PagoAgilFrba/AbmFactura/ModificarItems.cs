@@ -154,7 +154,13 @@ namespace PagoAgilFrba.AbmFactura
         {
             if (txtNuevoCantidad.Value != 0 && txtNuevoMonto.Text != "")
             {
+
                 double monto = double.Parse(txtNuevoMonto.Text.ToString());
+                if (monto <= 0)
+                {
+                    MessageBox.Show("No es posible generar items con montos nulos", "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
                 int cantidad = int.Parse(txtNuevoCantidad.Value.ToString());
                 Item_Factura nuevo = new Item_Factura(
                     obtenerIDNuevo(),
@@ -221,15 +227,22 @@ namespace PagoAgilFrba.AbmFactura
         {
             if (cambio)
             {
-                if (FacturaDAO.modificarItems(factura.id, factura.items, borrados, total) != 0)
+                if (factura.items.Count > 0)
                 {
-                    backForm.actualizarTabBM();
-                    this.Close();
-                    MessageBox.Show("Factura Nº " + factura.id + " actualizada", "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (FacturaDAO.modificarItems(factura.id, factura.items, borrados, total) != 0)
+                    {
+                        backForm.actualizarTabBM();
+                        this.Close();
+                        MessageBox.Show("Factura Nº " + factura.id + " actualizada", "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al actualizar Factura Nº " + factura.id, "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Error al actualizar Factura Nº " + factura.id, "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("No se permite almacenar una factura vacia", "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
         }
