@@ -709,8 +709,6 @@ IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_es_empresa_rendida_este_mes') IS NOT 
 GO
 IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_es_empresa_rendida_mes_especifico') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_es_empresa_rendida_mes_especifico]; 
 GO
-IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_get_meses_disponibles_rendicion') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_get_meses_disponibles_rendicion]; 
-GO
 -- REGISTRO DE PAGOS
 IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_puede_pagar_factura') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_puede_pagar_factura];
 GO
@@ -839,21 +837,6 @@ IF EXISTS (SELECT * FROM LORDS_OF_THE_STRINGS_V2.Factura
 
 RETURN 0
 END
-GO
--------------------------------------------------------------------------------------------------
--- RENDICIÓN
--------------------------------------------------------------------------------------------------
--- FUNCTION FN_GET_MESES_DISPONIBLES_RENDICION
--------------------------------------------------------------------------------------------------
-CREATE FUNCTION [LORDS_OF_THE_STRINGS_V2].fn_get_meses_disponibles_rendicion(@idEmpresa numeric(18,0))
-RETURNS table
-AS
-RETURN (SELECT DISTINCT MONTH(P1.Pago_fecha) Mes, YEAR(P1.Pago_fecha) Año FROM LORDS_OF_THE_STRINGS_V2.Pago P1
-JOIN LORDS_OF_THE_STRINGS_V2.Factura F ON (P1.Pago_factura = F.Factura_codigo)
-WHERE (F.Factura_rendicion IS NULL) 
-AND (F.Factura_empresa = @idEmpresa) 
-AND ((SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Pago P2 WHERE (P2.Pago_factura = F.Factura_codigo)) > 
-(SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Devolucion D WHERE (D.Devolucion_factura = F.Factura_codigo))))
 GO
 -------------------------------------------------------------------------------------------------
 -- REGISTRO DE PAGOS

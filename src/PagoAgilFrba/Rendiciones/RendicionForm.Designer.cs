@@ -29,10 +29,9 @@
         private void InitializeComponent()
         {
             this.panelEmpresas = new System.Windows.Forms.Panel();
+            this.lblEspere = new System.Windows.Forms.Label();
             this.btnRendirTodo = new System.Windows.Forms.Button();
             this.btnRendirMesActual = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.dataGridMeses = new System.Windows.Forms.DataGridView();
             this.lblEmpresas = new System.Windows.Forms.Label();
             this.dataGridEmpresas = new System.Windows.Forms.DataGridView();
             this.panelMesARendir = new System.Windows.Forms.Panel();
@@ -60,9 +59,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblEmpresaSelec = new System.Windows.Forms.Label();
-            this.lblEspere = new System.Windows.Forms.Label();
             this.panelEmpresas.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridMeses)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).BeginInit();
             this.panelMesARendir.SuspendLayout();
             this.panelFacturas.SuspendLayout();
@@ -71,13 +68,11 @@
             // 
             // panelEmpresas
             // 
+            this.panelEmpresas.Controls.Add(this.dataGridEmpresas);
             this.panelEmpresas.Controls.Add(this.lblEspere);
             this.panelEmpresas.Controls.Add(this.btnRendirTodo);
             this.panelEmpresas.Controls.Add(this.btnRendirMesActual);
-            this.panelEmpresas.Controls.Add(this.label1);
-            this.panelEmpresas.Controls.Add(this.dataGridMeses);
             this.panelEmpresas.Controls.Add(this.lblEmpresas);
-            this.panelEmpresas.Controls.Add(this.dataGridEmpresas);
             this.panelEmpresas.Controls.Add(this.panelMesARendir);
             this.panelEmpresas.Controls.Add(this.lblMensaje);
             this.panelEmpresas.Controls.Add(this.btnCancelar);
@@ -86,11 +81,22 @@
             this.panelEmpresas.Size = new System.Drawing.Size(593, 414);
             this.panelEmpresas.TabIndex = 0;
             // 
+            // lblEspere
+            // 
+            this.lblEspere.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEspere.Location = new System.Drawing.Point(406, 349);
+            this.lblEspere.Name = "lblEspere";
+            this.lblEspere.Size = new System.Drawing.Size(190, 20);
+            this.lblEspere.TabIndex = 29;
+            this.lblEspere.Text = "Espere por favor...";
+            this.lblEspere.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblEspere.Visible = false;
+            // 
             // btnRendirTodo
             // 
             this.btnRendirTodo.BackColor = System.Drawing.Color.Green;
             this.btnRendirTodo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRendirTodo.Location = new System.Drawing.Point(476, 358);
+            this.btnRendirTodo.Location = new System.Drawing.Point(454, 28);
             this.btnRendirTodo.Name = "btnRendirTodo";
             this.btnRendirTodo.Size = new System.Drawing.Size(109, 47);
             this.btnRendirTodo.TabIndex = 28;
@@ -102,7 +108,7 @@
             // 
             this.btnRendirMesActual.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.btnRendirMesActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRendirMesActual.Location = new System.Drawing.Point(344, 358);
+            this.btnRendirMesActual.Location = new System.Drawing.Point(454, 83);
             this.btnRendirMesActual.Name = "btnRendirMesActual";
             this.btnRendirMesActual.Size = new System.Drawing.Size(109, 47);
             this.btnRendirMesActual.TabIndex = 27;
@@ -110,50 +116,17 @@
             this.btnRendirMesActual.UseVisualStyleBackColor = false;
             this.btnRendirMesActual.Click += new System.EventHandler(this.btnRendirMesActual_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(412, 29);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(177, 24);
-            this.label1.TabIndex = 26;
-            this.label1.Text = "Meses Rendibles:";
-            // 
-            // dataGridMeses
-            // 
-            this.dataGridMeses.AllowUserToAddRows = false;
-            this.dataGridMeses.AllowUserToDeleteRows = false;
-            this.dataGridMeses.AllowUserToResizeColumns = false;
-            this.dataGridMeses.AllowUserToResizeRows = false;
-            this.dataGridMeses.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridMeses.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            this.dataGridMeses.BackgroundColor = System.Drawing.Color.FloralWhite;
-            this.dataGridMeses.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
-            this.dataGridMeses.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            this.dataGridMeses.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridMeses.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.dataGridMeses.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dataGridMeses.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dataGridMeses.Location = new System.Drawing.Point(413, 56);
-            this.dataGridMeses.MultiSelect = false;
-            this.dataGridMeses.Name = "dataGridMeses";
-            this.dataGridMeses.ReadOnly = true;
-            this.dataGridMeses.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridMeses.Size = new System.Drawing.Size(172, 234);
-            this.dataGridMeses.TabIndex = 25;
-            // 
             // lblEmpresas
             // 
             this.lblEmpresas.AutoSize = true;
             this.lblEmpresas.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEmpresas.Location = new System.Drawing.Point(2, 2);
+            this.lblEmpresas.Location = new System.Drawing.Point(75, 4);
             this.lblEmpresas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblEmpresas.Name = "lblEmpresas";
             this.lblEmpresas.Size = new System.Drawing.Size(302, 24);
             this.lblEmpresas.TabIndex = 24;
             this.lblEmpresas.Text = "Seleccione la empresa a rendir";
+            this.lblEmpresas.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // dataGridEmpresas
             // 
@@ -170,31 +143,29 @@
             this.dataGridEmpresas.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.dataGridEmpresas.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dataGridEmpresas.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dataGridEmpresas.Location = new System.Drawing.Point(4, 29);
+            this.dataGridEmpresas.Location = new System.Drawing.Point(10, 29);
             this.dataGridEmpresas.MultiSelect = false;
             this.dataGridEmpresas.Name = "dataGridEmpresas";
             this.dataGridEmpresas.ReadOnly = true;
             this.dataGridEmpresas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridEmpresas.Size = new System.Drawing.Size(403, 261);
+            this.dataGridEmpresas.Size = new System.Drawing.Size(415, 375);
             this.dataGridEmpresas.TabIndex = 23;
-            this.dataGridEmpresas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridEmpresas_CellClick);
-            this.dataGridEmpresas.Sorted += new System.EventHandler(this.dataGridEmpresas_Sorted);
             // 
             // panelMesARendir
             // 
             this.panelMesARendir.Controls.Add(this.btnRendirMesSeleccionado);
             this.panelMesARendir.Controls.Add(this.dateTimeMesAnio);
             this.panelMesARendir.Controls.Add(this.label10);
-            this.panelMesARendir.Location = new System.Drawing.Point(184, 314);
+            this.panelMesARendir.Location = new System.Drawing.Point(431, 136);
             this.panelMesARendir.Name = "panelMesARendir";
-            this.panelMesARendir.Size = new System.Drawing.Size(149, 94);
+            this.panelMesARendir.Size = new System.Drawing.Size(149, 113);
             this.panelMesARendir.TabIndex = 20;
             // 
             // btnRendirMesSeleccionado
             // 
             this.btnRendirMesSeleccionado.BackColor = System.Drawing.Color.Lime;
             this.btnRendirMesSeleccionado.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRendirMesSeleccionado.Location = new System.Drawing.Point(21, 42);
+            this.btnRendirMesSeleccionado.Location = new System.Drawing.Point(23, 14);
             this.btnRendirMesSeleccionado.Name = "btnRendirMesSeleccionado";
             this.btnRendirMesSeleccionado.Size = new System.Drawing.Size(109, 47);
             this.btnRendirMesSeleccionado.TabIndex = 29;
@@ -205,7 +176,7 @@
             // dateTimeMesAnio
             // 
             this.dateTimeMesAnio.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimeMesAnio.Location = new System.Drawing.Point(8, 19);
+            this.dateTimeMesAnio.Location = new System.Drawing.Point(11, 81);
             this.dateTimeMesAnio.Name = "dateTimeMesAnio";
             this.dateTimeMesAnio.Size = new System.Drawing.Size(133, 20);
             this.dateTimeMesAnio.TabIndex = 25;
@@ -214,7 +185,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(5, 3);
+            this.label10.Location = new System.Drawing.Point(8, 65);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(136, 13);
             this.label10.TabIndex = 20;
@@ -223,9 +194,9 @@
             // lblMensaje
             // 
             this.lblMensaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMensaje.Location = new System.Drawing.Point(3, 293);
+            this.lblMensaje.Location = new System.Drawing.Point(449, 261);
             this.lblMensaje.Name = "lblMensaje";
-            this.lblMensaje.Size = new System.Drawing.Size(365, 20);
+            this.lblMensaje.Size = new System.Drawing.Size(126, 86);
             this.lblMensaje.TabIndex = 5;
             this.lblMensaje.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -233,7 +204,7 @@
             // 
             this.btnCancelar.BackColor = System.Drawing.Color.RoyalBlue;
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.Location = new System.Drawing.Point(15, 380);
+            this.btnCancelar.Location = new System.Drawing.Point(484, 374);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(104, 29);
             this.btnCancelar.TabIndex = 4;
@@ -464,17 +435,6 @@
             this.lblEmpresaSelec.TabIndex = 0;
             this.lblEmpresaSelec.Text = "Empresa Seleccionada: ____________";
             // 
-            // lblEspere
-            // 
-            this.lblEspere.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEspere.Location = new System.Drawing.Point(373, 333);
-            this.lblEspere.Name = "lblEspere";
-            this.lblEspere.Size = new System.Drawing.Size(190, 20);
-            this.lblEspere.TabIndex = 29;
-            this.lblEspere.Text = "Espere por favor...";
-            this.lblEspere.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblEspere.Visible = false;
-            // 
             // RendicionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -490,7 +450,6 @@
             this.Load += new System.EventHandler(this.Form_Load);
             this.panelEmpresas.ResumeLayout(false);
             this.panelEmpresas.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridMeses)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridEmpresas)).EndInit();
             this.panelMesARendir.ResumeLayout(false);
             this.panelMesARendir.PerformLayout();
@@ -530,8 +489,6 @@
         private System.Windows.Forms.DataGridView dataGridEmpresas;
         private System.Windows.Forms.Label lblEmpresas;
         private System.Windows.Forms.DateTimePicker dateTimeMesAnio;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridMeses;
         private System.Windows.Forms.Button btnRendirTodo;
         private System.Windows.Forms.Button btnRendirMesActual;
         private System.Windows.Forms.Button btnRendirMesSeleccionado;

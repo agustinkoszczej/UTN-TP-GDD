@@ -36,10 +36,6 @@ namespace PagoAgilFrba.Rendiciones
 
             porcentajeComision = obtenerPorcentajeComision();
             seleccionada = getEmpresaSelec();
-            if (seleccionada != null)
-            {
-                RendicionDAO.llenarGridMesesPosibles(dataGridMeses, seleccionada.id);
-            }
         }
 
         private double obtenerPorcentajeComision()
@@ -75,13 +71,10 @@ namespace PagoAgilFrba.Rendiciones
 
             panelFacturas.Visible = false;
             panelEmpresas.Visible = true;
+            lblEspere.Visible = false;
             lblMensaje.Text = msj;
             cargarEmpresas();
             seleccionada = getEmpresaSelec();
-            if (seleccionada != null)
-            {
-                RendicionDAO.llenarGridMesesPosibles(dataGridMeses, seleccionada.id);
-            }
         }
 
      
@@ -104,7 +97,7 @@ namespace PagoAgilFrba.Rendiciones
             sumaCobrada = obtenerSumaFacturas();
             lblSumaCobrada.Text = "$" + sumaCobrada.ToString();
             lblPorcentajeComision.Text = (100 * porcentajeComision).ToString() + "%";
-            valorComision = porcentajeComision * sumaCobrada;
+            valorComision = Math.Round(porcentajeComision * sumaCobrada,2);
             lblValorComision.Text = "$" + valorComision.ToString();
             totalRendido = sumaCobrada - valorComision;
             lblTotalRendido.Text = "$" + totalRendido.ToString();
@@ -230,27 +223,6 @@ namespace PagoAgilFrba.Rendiciones
             panelEmpresas.Visible = true;
         }
 
-        private void dataGridEmpresas_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            Utilidades.Utils.clearDataGrid(dataGridMeses);
-
-            Empresa clic = getEmpresaSelec();
-
-            if (clic != null)
-            {
-                RendicionDAO.llenarGridMesesPosibles(dataGridMeses, clic.id);
-                //dataGridMeses.SelectedRows = dataGridMeses.Rows[0];
-            }
-        }
-
-        private void dataGridEmpresas_Sorted(object sender, EventArgs e)
-        {
-            seleccionada = getEmpresaSelec();
-            if (seleccionada != null)
-            {
-                RendicionDAO.llenarGridMesesPosibles(dataGridMeses, seleccionada.id);
-            }
-        }
 
         private void btnRendirMesActual_Click(object sender, EventArgs e)
         {
