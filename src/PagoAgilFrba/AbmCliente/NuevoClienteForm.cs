@@ -156,7 +156,7 @@ namespace PagoAgilFrba.AbmCliente
                     errorProvider.SetError(txtDNI, null);
                 }
             }
-            if (txtDNI.Text != "")
+            if (txtMail.Text != "")
             {
                 if (!ClienteDAO.validar_mail(txtMail.Text.Trim()))
                 {
@@ -222,25 +222,32 @@ namespace PagoAgilFrba.AbmCliente
             }
             else
             {
+              
                 errorProvider.SetError(datePickerFNAC, null);
             }
-            if (!ClienteDAO.validar_dni(int.Parse(txtDNI.Text.Trim().ToUpper())) && dni_viejo != int.Parse(txtDNI.Text.Trim().ToUpper()))
+            if (txtDNI.Text != "")
             {
-                MessageBox.Show("El DNI ingresado ya existe", "Error DNI existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                errorProvider.SetError(txtDNI, "DNI existente");
+                if (!ClienteDAO.validar_dni(int.Parse(txtDNI.Text.Trim().ToUpper())) && dni_viejo != int.Parse(txtDNI.Text.Trim().ToUpper()))
+                {
+                    MessageBox.Show("El DNI ingresado ya existe", "Error DNI existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    errorProvider.SetError(txtDNI, "DNI existente");
+                }
+                else
+                {
+                    errorProvider.SetError(txtDNI, null);
+                }
             }
-            else
+            if (txtMail.Text != "")
             {
-                errorProvider.SetError(txtDNI, null);
-            }
-            if (!ClienteDAO.validar_mail(txtMail.Text.Trim()) && mail_viejo.Trim().ToUpper() != txtMail.Text.Trim().ToUpper())
-            {
-                MessageBox.Show("El mail ingresado ya existe", "Error mail existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                errorProvider.SetError(txtMail, "Mail existente");
-            }
-            else
-            {
-                errorProvider.SetError(txtMail, null);
+                if (!ClienteDAO.validar_mail(txtMail.Text.Trim()) && mail_viejo.Trim().ToUpper() != txtMail.Text.Trim().ToUpper())
+                {
+                    MessageBox.Show("El mail ingresado ya existe", "Error mail existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    errorProvider.SetError(txtMail, "Mail existente");
+                }
+                else
+                {
+                    errorProvider.SetError(txtMail, null);
+                }
             }
         }
 
