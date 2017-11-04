@@ -614,7 +614,7 @@ SELECT DISTINCT
 				m.Rendicion_Nro,
 				m.Rendicion_Fecha,
 				m.ItemRendicion_Importe,
-				ROUND((m.ItemRendicion_Importe/m.Factura_Total*100), 2)
+				ROUND((m.ItemRendicion_Importe/m.Factura_Total), 2)
 FROM GD2C2017.gd_esquema.Maestra m
 WHERE m.Rendicion_Nro IS NOT NULL
 
