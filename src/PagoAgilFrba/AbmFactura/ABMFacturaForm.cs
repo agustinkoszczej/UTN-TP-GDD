@@ -324,7 +324,7 @@ namespace PagoAgilFrba.AbmFactura
             {
                 string query = string.Format(@"SELECT Factura_codigo Codigo, Factura_fecha Alta, Factura_total Total, Factura_fecha_venc Vencimiento, Factura_empresa Empresa, Factura_cliente Cliente, Factura_habilitada Habilitada
             FROM LORDS_OF_THE_STRINGS_V2.Factura F " + filtroJoin + 
-            " WHERE F.Factura_codigo NOT IN (select Pago_factura from LORDS_OF_THE_STRINGS_V2.Pago)" + filtroWhere);
+            " WHERE (SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Pago P2 WHERE P2.Pago_factura = F.Factura_codigo) <= (SELECT COUNT(*) FROM LORDS_OF_THE_STRINGS_V2.Devolucion D WHERE D.Devolucion_factura = F.Factura_codigo) " + filtroWhere);
                 FacturaDAO.cargarFacturasFiltrada(dataGridFacturasBM, idFiltro, query, "@idFiltro");
                 if (dataGridFacturasBM.Rows.Count < 1)
                 {
