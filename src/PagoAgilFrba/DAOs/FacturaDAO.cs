@@ -300,12 +300,12 @@ namespace PagoAgilFrba.DAOs
             conn.Dispose();
         }
 
-        public static void cargarFacturasFiltrada(DataGridView grid, int idFiltro, string query, string nombreParam)
+        public static void cargarFacturasFiltrada(DataGridView grid, long idFiltro, string query, string nombreParam)
         {
             SqlConnection conn = DBConnection.getConnection();
             SqlCommand command = new SqlCommand(query, conn);
 
-            command.Parameters.Add(nombreParam, SqlDbType.Int);
+            command.Parameters.Add(nombreParam, SqlDbType.BigInt);
             command.Parameters[nombreParam].Value = idFiltro;
 
             DBConnection.llenar_grilla_command(grid, command);
