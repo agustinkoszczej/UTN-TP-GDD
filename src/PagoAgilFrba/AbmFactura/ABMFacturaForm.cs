@@ -31,7 +31,7 @@ namespace PagoAgilFrba.AbmFactura
         private bool filtrando = false;
         private string filtroWhere = "";
         private string filtroJoin = "";
-        int idFiltro = 0;
+        long idFiltro = 0;
 
         int itemsIngresados = 0;
 
@@ -280,7 +280,7 @@ namespace PagoAgilFrba.AbmFactura
             try
             {
                 int cliente_id = int.Parse(dataGridCliente.SelectedCells[0].Value.ToString());
-                int dni = int.Parse(dataGridCliente.SelectedCells[1].Value.ToString());
+                long dni = long.Parse(dataGridCliente.SelectedCells[1].Value.ToString());
                 string nombre = dataGridCliente.SelectedCells[2].Value.ToString();
                 string apellido = dataGridCliente.SelectedCells[3].Value.ToString();
                 DateTime fnac = DateTime.Parse(dataGridCliente.SelectedCells[4].Value.ToString());
@@ -376,7 +376,7 @@ namespace PagoAgilFrba.AbmFactura
         {
             try
             {
-                idFiltro = int.Parse(txtIdClienteFiltro.Text.ToString());
+                idFiltro = long.Parse(txtIdClienteFiltro.Text.ToString());
             }
             catch (Exception)
             {
