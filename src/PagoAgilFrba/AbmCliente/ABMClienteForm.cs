@@ -60,7 +60,10 @@ namespace PagoAgilFrba.AbmCliente
         private void dataGridClientes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             int index = e.RowIndex;
-            this.selectedRow = dataGridClientes.Rows[index];
+            if (index >= 0)
+            {
+                this.selectedRow = dataGridClientes.Rows[index];
+            }
         }
 
         private void btnFiltrar_Click(object sender, EventArgs e)
