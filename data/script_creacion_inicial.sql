@@ -1,13 +1,7 @@
 USE [GD2C2017]
 GO
-/*IF EXISTS (SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'LORDS_OF_THE_STRINGS_V2')
-    DROP SCHEMA LORDS_OF_THE_STRINGS_V2
-GO*/
---CREATE SCHEMA [LORDS_OF_THE_STRINGS_V2] AUTHORIZATION [gd]
-GO
-
 -------------------------------------------------------------------------------------------------
------------------------------------CREACIÓN DE TABLES--------------------------------------------
+-----------------------------------DROP DE TABLES--------------------------------------------
 
 -------------------------------------------------------------------------------------------------
 IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].Rol_Usuario', 'U') IS NOT NULL DROP TABLE [LORDS_OF_THE_STRINGS_V2].[Rol_Usuario];
@@ -27,6 +21,81 @@ IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].Rendicion', 'U') IS NOT NULL DROP TABLE 
 IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].Empresa', 'U') IS NOT NULL DROP TABLE [LORDS_OF_THE_STRINGS_V2].[Empresa];
 IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].Cliente', 'U') IS NOT NULL DROP TABLE [LORDS_OF_THE_STRINGS_V2].[Cliente];
 IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].Usuario', 'U') IS NOT NULL DROP TABLE [LORDS_OF_THE_STRINGS_V2].[Usuario];
+
+----------------------------------------------------------------------------------------------------
+-----------------------------------DROP DE FUNCTIONS--------------------------------------------
+
+----------------------------------------------------------------------------------------------------
+-- LOGIN
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_is_blocked_user ') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_is_blocked_user];
+GO
+-- ROL
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_get_roles_usuario') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_get_roles_usuario]; 
+GO
+-- FUNCIONALIDAD
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_get_funcionalidades_rol') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_get_funcionalidades_rol]; 
+GO
+-- SUCURSAL
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_get_sucursales_usuario') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_get_sucursales_usuario]; 
+GO
+-- FACTURA
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_estado_factura') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_estado_factura]; 
+GO
+-- RENDICIÓN
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_es_empresa_rendida_este_mes') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_es_empresa_rendida_este_mes];
+GO
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_es_empresa_rendida_mes_especifico') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_es_empresa_rendida_mes_especifico]; 
+GO
+-- REGISTRO DE PAGOS
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_puede_pagar_factura') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_puede_pagar_factura];
+GO
+
+------------------------------------------------------------------------------------------------------------
+----------------------------------------DROP DE TRIGGERS------------------------------------------------
+
+------------------------------------------------------------------------------------------------------------
+-- SUCURSAL
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].tr_agregar_sucursal_a_admin') IS NOT NULL DROP TRIGGER [LORDS_OF_THE_STRINGS_V2].[tr_agregar_sucursal_a_admin]; 
+GO
+
+------------------------------------------------------------------------------------------------------------
+-----------------------------------DROP DE STORED PROCEDURES--------------------------------------------
+
+------------------------------------------------------------------------------------------------------------
+-- LOGIN
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].sp_login_validate') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[sp_login_validate]; 
+GO
+-- ROL
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].sp_baja_rol') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[sp_baja_rol]; 
+GO
+-- EMPRESA
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].sp_baja_empresa') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[sp_baja_empresa]; 
+GO
+-- SUCURSAL
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].sp_baja_sucursal') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[sp_baja_sucursal]; 
+GO
+-- LISTADO PORCENTAJE DE FACTURAS
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].sp_porcentaje_de_facturas') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[sp_porcentaje_de_facturas]; 
+GO
+-- LISTADO EMPRESAS CON MAYOR MONTO
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].sp_empresas_mayor_monto') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[sp_empresas_mayor_monto]; 
+GO
+-- LISTADO CLIENTES CUMPLIDORES
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].sp_clientes_cumplidores') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[sp_clientes_cumplidores]; 
+GO
+-- LISTADO CLIENTES CON MÁS PAGOS 
+IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].sp_clientes_mas_pagos') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[sp_clientes_mas_pagos]; 
+GO
+
+------------------------------------------------------------------------------------------------------------
+-----------------------------------CREACIÓN DE SCHEMA------------------------------------------------
+
+------------------------------------------------------------------------------------------------------------
+IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'LORDS_OF_THE_STRINGS_V2')
+BEGIN
+	EXEC ('CREATE SCHEMA [LORDS_OF_THE_STRINGS_V2] AUTHORIZATION gd')
+END
+GO
 
 -------------------------------------------------------------------------------------------------
 -- TABLE ROL
@@ -689,29 +758,7 @@ GO
 -----------------------------------CREACIÓN DE FUNCTIONS--------------------------------------------
 
 ----------------------------------------------------------------------------------------------------
--- LOGIN
-IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_is_blocked_user ') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_is_blocked_user];
-GO
--- ROL
-IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_get_roles_usuario') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_get_roles_usuario]; 
-GO
--- FUNCIONALIDAD
-IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_get_funcionalidades_rol') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_get_funcionalidades_rol]; 
-GO
--- SUCURSAL
-IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_get_sucursales_usuario') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_get_sucursales_usuario]; 
-GO
--- FACTURA
-IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_estado_factura') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_estado_factura]; 
-GO
--- RENDICIÓN
-IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_es_empresa_rendida_este_mes') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_es_empresa_rendida_este_mes];
-GO
-IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_es_empresa_rendida_mes_especifico') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_es_empresa_rendida_mes_especifico]; 
-GO
--- REGISTRO DE PAGOS
-IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].fn_puede_pagar_factura') IS NOT NULL DROP FUNCTION [LORDS_OF_THE_STRINGS_V2].[fn_puede_pagar_factura];
-GO
+
 -------------------------------------------------------------------------------------------------
 -- LOGIN
 -------------------------------------------------------------------------------------------------
@@ -865,9 +912,6 @@ GO
 ----------------------------------------CREACIÓN DE TRIGGERS------------------------------------------------
 
 ------------------------------------------------------------------------------------------------------------
--- SUCURSAL
-IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].tr_agregar_sucursal_a_admin') IS NOT NULL DROP TRIGGER [LORDS_OF_THE_STRINGS_V2].[tr_agregar_sucursal_a_admin]; 
-GO
 
 -------------------------------------------------------------------------------------------------
 -- SUCURSAL
@@ -900,30 +944,6 @@ GO
 -----------------------------------CREACIÓN DE STORED PROCEDURES--------------------------------------------
 
 ------------------------------------------------------------------------------------------------------------
--- LOGIN
-IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].sp_login_validate') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[sp_login_validate]; 
-GO
--- ROL
-IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].sp_baja_rol') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[sp_baja_rol]; 
-GO
--- EMPRESA
-IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].sp_baja_empresa') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[sp_baja_empresa]; 
-GO
--- SUCURSAL
-IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].sp_baja_sucursal') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[sp_baja_sucursal]; 
-GO
--- LISTADO PORCENTAJE DE FACTURAS
-IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].sp_porcentaje_de_facturas') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[sp_porcentaje_de_facturas]; 
-GO
--- LISTADO EMPRESAS CON MAYOR MONTO
-IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].sp_empresas_mayor_monto') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[sp_empresas_mayor_monto]; 
-GO
--- LISTADO CLIENTES CUMPLIDORES
-IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].sp_clientes_cumplidores') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[sp_clientes_cumplidores]; 
-GO
--- LISTADO CLIENTES CON MÁS PAGOS 
-IF OBJECT_ID('[LORDS_OF_THE_STRINGS_V2].sp_clientes_mas_pagos') IS NOT NULL DROP PROCEDURE [LORDS_OF_THE_STRINGS_V2].[sp_clientes_mas_pagos]; 
-GO
 
 -------------------------------------------------------------------------------------------------
 -- LOGIN

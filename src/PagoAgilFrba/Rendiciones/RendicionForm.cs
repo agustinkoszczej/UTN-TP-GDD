@@ -36,6 +36,7 @@ namespace PagoAgilFrba.Rendiciones
 
             porcentajeComision = obtenerPorcentajeComision();
             seleccionada = getEmpresaSelec();
+            dateTimeMesAnio.Value = Utils.obtenerFecha();
         }
 
         private double obtenerPorcentajeComision()

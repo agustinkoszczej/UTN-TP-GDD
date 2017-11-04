@@ -146,6 +146,11 @@ namespace PagoAgilFrba.AbmRol
         private void cmdCerrar_Click(object sender, EventArgs e)
         {
             this.Close();
+            menu.validar_permisos();
+        }
+        private void ABMRolForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            menu.validar_permisos();
         }
     }
 }

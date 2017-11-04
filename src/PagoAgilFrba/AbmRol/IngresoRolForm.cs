@@ -73,6 +73,7 @@ namespace PagoAgilFrba.AbmRol
             {
                 modificar_rol();
             }
+            rol_form.menu.validar_permisos();
         }
         private void alta_rol(){
             if (Utils.cumple_campos_obligatorios(campos_obligatorios, errorProvider) && validar_nombre())

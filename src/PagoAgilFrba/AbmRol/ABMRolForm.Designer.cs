@@ -212,6 +212,7 @@
             this.Name = "ABMRolForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PagoAgilFrba | ABM Rol";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ABMRolForm_FormClosing);
             this.Load += new System.EventHandler(this.ABMRolForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgdFuncionalidades)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
