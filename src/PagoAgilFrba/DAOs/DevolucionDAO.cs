@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using PagoAgilFrba.Model;
+using PagoAgilFrba.Utilidades;
 
 namespace PagoAgilFrba.DAOs
 {
@@ -18,11 +19,14 @@ namespace PagoAgilFrba.DAOs
         {
             try
             {
-                string query = string.Format(@"INSERT INTO LORDS_OF_THE_STRINGS_V2.Devolucion(Devolucion_motivo, Devolucion_monto,Devolucion_factura )
-                                           VALUES (@motivo, @monto, @factura)");
+                string fecha_act = Utils.obtenerFecha().ToString("yyyy-MM-dd HH:mm:ss");
+
+                string query = string.Format(@"INSERT INTO LORDS_OF_THE_STRINGS_V2.Devolucion(Devolucion_motivo, Devolucion_monto, Devolucion_factura, Devolucion_fecha)
+                                           VALUES (@motivo, @monto, @factura, CONVERT(datetime, @fecha_act, 121))");
                 SqlConnection conn = DBConnection.getConnection();
                 SqlCommand cmd = new SqlCommand(query, conn);
 
+                cmd.Parameters.AddWithValue("@fecha_act", fecha_act); 
                 cmd.Parameters.AddWithValue("@motivo", motivo);
                 cmd.Parameters.AddWithValue("@monto", factura.total);
                 cmd.Parameters.AddWithValue("@factura", factura.id);

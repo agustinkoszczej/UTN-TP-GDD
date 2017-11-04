@@ -262,6 +262,7 @@ CREATE TABLE [LORDS_OF_THE_STRINGS_V2].[Devolucion](
 	[Devolucion_codigo] [numeric](18, 0) IDENTITY PRIMARY KEY,
 	[Devolucion_motivo] [nvarchar](255) NULL,
 	[Devolucion_monto] [numeric](18, 2) NOT NULL,
+	[Devolucion_fecha] [datetime] NOT NULL,
 	[Devolucion_factura] [numeric](18, 0) NOT NULL FOREIGN KEY REFERENCES [LORDS_OF_THE_STRINGS_V2].Factura(Factura_codigo))
 GO
 -------------------------------------------------------------------------------------------------

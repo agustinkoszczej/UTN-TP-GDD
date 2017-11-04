@@ -124,8 +124,15 @@ namespace PagoAgilFrba.AbmFactura
                 if (txtItemCantidad.Value == 0)
                 {
                     MessageBox.Show("No se puede almacenar items con cantidad nula", "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
+                
                 double monto = double.Parse(txtItemMonto.Text.ToString());
+                if (monto == 0)
+                {
+                    MessageBox.Show("No se puede almacenar items con monto nulo", "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
                 int cantidad = int.Parse(txtItemCantidad.Text.ToString());
                 Item_Factura modificado = new Item_Factura(
                     int.Parse(txtItemNro.Text.ToString()),
