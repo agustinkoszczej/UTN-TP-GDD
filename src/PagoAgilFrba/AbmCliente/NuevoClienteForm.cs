@@ -276,5 +276,10 @@ namespace PagoAgilFrba.AbmCliente
             backForm.Focus();
         }
 
+        private void NuevoClienteForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.backForm.Enabled = true;
+        }
+
     }
 }
