@@ -47,11 +47,11 @@ namespace PagoAgilFrba.DAOs
             string query;
             if (habilitadas == 1)
             {
-                query = string.Format(@"SELECT Empresa_codigo Codigo, Empresa_cuit CUIT, Empresa_nombre Nombre, Empresa_direccion Direccion FROM LORDS_OF_THE_STRINGS_V2.Empresa WHERE Empresa_habilitada = 1 ORDER BY Empresa_nombre");
+                query = string.Format(@"SELECT Empresa_codigo Codigo, Empresa_cuit CUIT, Empresa_nombre Nombre, Empresa_direccion Direccion FROM LORDS_OF_THE_STRINGS_V2.Empresa WHERE Empresa_habilitada = 1");
             }
             else
             {
-                query = string.Format(@"SELECT Empresa_codigo Codigo, Empresa_cuit CUIT, Empresa_nombre Nombre, Empresa_direccion Direccion FROM LORDS_OF_THE_STRINGS_V2.Empresa ORDER BY Empresa_nombre");
+                query = string.Format(@"SELECT Empresa_codigo Codigo, Empresa_cuit CUIT, Empresa_nombre Nombre, Empresa_direccion Direccion FROM LORDS_OF_THE_STRINGS_V2.Empresa");
             }
 
 

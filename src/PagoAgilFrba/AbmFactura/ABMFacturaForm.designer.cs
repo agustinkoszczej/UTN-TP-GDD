@@ -646,9 +646,10 @@
             // cmdCerrar
             // 
             this.cmdCerrar.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.cmdCerrar.Location = new System.Drawing.Point(752, 7);
+            this.cmdCerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdCerrar.Location = new System.Drawing.Point(692, 3);
             this.cmdCerrar.Name = "cmdCerrar";
-            this.cmdCerrar.Size = new System.Drawing.Size(52, 21);
+            this.cmdCerrar.Size = new System.Drawing.Size(108, 27);
             this.cmdCerrar.TabIndex = 23;
             this.cmdCerrar.Text = "Cerrar";
             this.cmdCerrar.UseVisualStyleBackColor = false;
