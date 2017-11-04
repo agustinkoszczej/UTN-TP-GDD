@@ -169,35 +169,5 @@ namespace PagoAgilFrba.DAOs
                 return 0;
             }
         }
-
-        public static void llenarGridMesesPosibles(DataGridView grid, int idEmpresa)
-        {
-            string query = string.Format(@"SELECT * FROM LORDS_OF_THE_STRINGS_V2.fn_get_meses_disponibles_rendicion(@idEmpresa)");
-            SqlConnection conn = DBConnection.getConnection();
-            SqlCommand cmd = new SqlCommand(query, conn);
-
-            cmd.Parameters.AddWithValue("@idEmpresa", idEmpresa);
-
-            DataTable dataTable;
-            SqlDataAdapter dataAdapter;
-
-            try
-            {
-                dataAdapter = new SqlDataAdapter(cmd);
-                dataTable = new DataTable();
-
-                grid.DataSource = dataTable;
-                dataAdapter.Fill(dataTable);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("No se pudo realizar la consulta:\n" + e.Message);
-
-            }
-            cmd.Dispose();
-            conn.Close();
-            conn.Dispose();
-        }
-
     }
 }
