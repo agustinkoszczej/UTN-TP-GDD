@@ -44,7 +44,7 @@ namespace PagoAgilFrba.AbmCliente
                     int.Parse(selectedRow.Cells[0].Value.ToString()),          //ID
                     selectedRow.Cells[2].Value.ToString(),                     //NOMBRE        
                     selectedRow.Cells[3].Value.ToString(),                     //APELLIDO
-                    uint.Parse(selectedRow.Cells[1].Value.ToString()),         //DNI
+                    long.Parse(selectedRow.Cells[1].Value.ToString()),         //DNI
                     DateTime.Parse(selectedRow.Cells[4].Value.ToString()),     //FECHA NACIMIENTO
                     selectedRow.Cells[6].Value.ToString(),                     //DIRECCION
                     selectedRow.Cells[7].Value.ToString(),                     //CODIGO POSTAL
@@ -93,12 +93,12 @@ namespace PagoAgilFrba.AbmCliente
             miFiltroApell = " AND UPPER(Cliente_apellido) LIKE UPPER('%' + @apell + '%')";
             //SI EL CAMPO ESTA VACIO, QUEDA LIKE '%%', Y ES LO MISMO QUE NO PODER EL WHERE
 
-            int dni = -1;
+            long dni = -1;
 
             if (txtFiltroDNI.Text != "")
             {
                 try{
-                    dni = int.Parse(txtFiltroDNI.Text.ToString());
+                    dni = long.Parse(txtFiltroDNI.Text.ToString());
                 }
                 catch(Exception){
                     MessageBox.Show("DNI Ingresado inválido", "PagoAgilFrba | ABM Cliente", MessageBoxButtons.OK, MessageBoxIcon.Warning);

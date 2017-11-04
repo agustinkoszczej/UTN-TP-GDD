@@ -280,7 +280,7 @@ namespace PagoAgilFrba.AbmFactura
             try
             {
                 int cliente_id = int.Parse(dataGridCliente.SelectedCells[0].Value.ToString());
-                uint dni = uint.Parse(dataGridCliente.SelectedCells[1].Value.ToString());
+                int dni = int.Parse(dataGridCliente.SelectedCells[1].Value.ToString());
                 string nombre = dataGridCliente.SelectedCells[2].Value.ToString();
                 string apellido = dataGridCliente.SelectedCells[3].Value.ToString();
                 DateTime fnac = DateTime.Parse(dataGridCliente.SelectedCells[4].Value.ToString());

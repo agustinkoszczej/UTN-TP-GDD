@@ -14,7 +14,7 @@ namespace PagoAgilFrba.DAOs
 {
     class ClienteDAO
     {
-        public static bool validar_dni(int _dni)
+        public static bool validar_dni(long _dni)
         {
                 string query = string.Format(@"SELECT * FROM LORDS_OF_THE_STRINGS_V2.Cliente WHERE Cliente_dni=@dni");
                 SqlConnection conn = DBConnection.getConnection();
@@ -41,7 +41,7 @@ namespace PagoAgilFrba.DAOs
         }
 
 
-        public static void llenarDataGrid(DataGridView grid, string queryParam, string filtroNombre, string filtroApellido, int filtroDNI)
+        public static void llenarDataGrid(DataGridView grid, string queryParam, string filtroNombre, string filtroApellido, long filtroDNI)
         {
             SqlConnection conn = DBConnection.getConnection();
             SqlCommand command = new SqlCommand(queryParam, conn);
@@ -49,7 +49,7 @@ namespace PagoAgilFrba.DAOs
             command.Parameters.AddWithValue("@nombre", filtroNombre);
             command.Parameters.AddWithValue("@apell", filtroApellido);
 
-            command.Parameters.Add("@dni", SqlDbType.Int);
+            command.Parameters.Add("@dni", SqlDbType.BigInt);
             command.Parameters["@dni"].Value = filtroDNI;
 
             DBConnection.llenar_grilla_command(grid, command);
@@ -64,7 +64,7 @@ namespace PagoAgilFrba.DAOs
             //1 mail repetido
             //2 OK
 
-            if (!validar_dni(Convert.ToInt32(cli.dni)))
+            if (!validar_dni(Convert.ToInt64(cli.dni)))
             {
                 MessageBox.Show("El DNI ingresado ya existe", "Error DNI existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 if (!validar_mail(cli.mail))
@@ -85,7 +85,7 @@ namespace PagoAgilFrba.DAOs
                 var conn = DBConnection.getConnection();
                 SqlCommand comando = new SqlCommand("INSERT INTO LORDS_OF_THE_STRINGS_V2.Cliente(Cliente_dni, Cliente_nombre, Cliente_apellido, Cliente_fecha_nac, Cliente_mail, Cliente_direccion, Cliente_codigo_postal, Cliente_telefono) values(@DNI, @nombre, @apell, CONVERT(datetime, @fnac, 121), @mail, @direc, @cp, @tel)", conn);
 
-                comando.Parameters.Add("@DNI", SqlDbType.Int);
+                comando.Parameters.Add("@DNI", SqlDbType.BigInt);
                 comando.Parameters["@DNI"].Value = cli.dni;
 
                 comando.Parameters.AddWithValue("@nombre", cli.nombre);
@@ -115,14 +115,14 @@ namespace PagoAgilFrba.DAOs
             }
         }
 
-        public static int modificarCliente(Cliente cli, UInt32 old_dni, string old_mail)
+        public static int modificarCliente(Cliente cli, long old_dni, string old_mail)
         {
             //0 error bd
             //1 mail repetido
             //2 OK
             if (old_dni != cli.dni)
             {
-                if (!validar_dni(Convert.ToInt32(cli.dni)))
+                if (!validar_dni(Convert.ToInt64(cli.dni)))
                 {
                     MessageBox.Show("El DNI ingresado ya existe", "Error DNI existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
                      if (old_mail.Trim().ToUpper() != cli.mail.Trim().ToUpper())
@@ -153,7 +153,7 @@ namespace PagoAgilFrba.DAOs
                 comando.Parameters.Add("@ID", SqlDbType.Int);
                 comando.Parameters["@ID"].Value = cli.id;
 
-                comando.Parameters.Add("@DNI", SqlDbType.Int);
+                comando.Parameters.Add("@DNI", SqlDbType.BigInt);
                 comando.Parameters["@DNI"].Value = cli.dni;
 
                 comando.Parameters.AddWithValue("@nombre", cli.nombre);
@@ -247,7 +247,7 @@ namespace PagoAgilFrba.DAOs
                 int idCli = int.Parse(reader.GetValue(0).ToString());
                 string nombreCli = reader.GetValue(1).ToString();
                 string apellCli = reader.GetValue(2).ToString();
-                uint dniCli = uint.Parse(reader.GetValue(3).ToString());
+                long dniCli = long.Parse(reader.GetValue(3).ToString());
                 DateTime fnacCli = DateTime.Parse(reader.GetValue(4).ToString());
                 string direcCli = reader.GetValue(6).ToString();
                 string cpCli = reader.GetValue(7).ToString();

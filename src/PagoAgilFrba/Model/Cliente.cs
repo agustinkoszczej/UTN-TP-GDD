@@ -11,7 +11,7 @@ namespace PagoAgilFrba.Model
         public int id { get; set; }
         public string nombre { get; set; }
         public string apellido { get; set; }
-        public UInt32 dni { get; set; }
+        public long dni { get; set; }
         public string mail { get; set; }
         public string telefono { get; set; }
         public string direccion { get; set; }
@@ -19,7 +19,7 @@ namespace PagoAgilFrba.Model
         public string cod_postal { get; set; }
         public bool habilitado { get; set; }
 
-        public Cliente(int _id, string _nombre, string _apellido, UInt32 _dni, DateTime _fechaNac, string _direccion, string _cod_postal, string _mail, string _telefono, bool _habilitado)
+        public Cliente(int _id, string _nombre, string _apellido, long _dni, DateTime _fechaNac, string _direccion, string _cod_postal, string _mail, string _telefono, bool _habilitado)
         {
             this.id = _id;
             this.nombre = _nombre;

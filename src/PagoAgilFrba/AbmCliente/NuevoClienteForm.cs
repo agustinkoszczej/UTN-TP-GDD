@@ -21,7 +21,7 @@ namespace PagoAgilFrba.AbmCliente
         Cliente cargado = null;
         ABMClienteForm backForm;
 
-        private UInt32 dni_viejo;
+        private long dni_viejo;
         private string mail_viejo;
 
         public NuevoClienteForm(ABMClienteForm back)
@@ -94,10 +94,10 @@ namespace PagoAgilFrba.AbmCliente
             if (Utils.cumple_campos_obligatorios(camposObligatorios, errorProvider) && datePickerFNAC.Value < Utils.obtenerFecha())
             {
                 errorProvider.SetError(datePickerFNAC, null);
-                uint dni;
+                long dni;
                 try
                 {
-                    dni = uint.Parse(txtDNI.Text);
+                    dni = long.Parse(txtDNI.Text);
                 }
                 catch (Exception)
                 {
@@ -146,7 +146,7 @@ namespace PagoAgilFrba.AbmCliente
             }
             if(txtDNI.Text != "")
             {
-                if (!ClienteDAO.validar_dni(int.Parse(txtDNI.Text.Trim().ToUpper())))
+                if (!ClienteDAO.validar_dni(long.Parse(txtDNI.Text.Trim().ToUpper())))
                 {
                     MessageBox.Show("El DNI ingresado ya existe", "Error DNI existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     errorProvider.SetError(txtDNI, "DNI existente");
@@ -175,10 +175,10 @@ namespace PagoAgilFrba.AbmCliente
         {
             if (Utils.cumple_campos_obligatorios(camposObligatorios, errorProvider) && datePickerFNAC.Value < Utils.obtenerFecha())
             {
-                uint dni;
+                long dni;
                 try
                 {
-                    dni = uint.Parse(txtDNI.Text);
+                    dni = long.Parse(txtDNI.Text);
                 }
                 catch (Exception)
                 {
@@ -186,7 +186,7 @@ namespace PagoAgilFrba.AbmCliente
                     return;
                 }
                 
-                Cliente cli = new Cliente(cargado.id, txtNombre.Text, txtApellido.Text, uint.Parse(txtDNI.Text), datePickerFNAC.Value, txtDireccion.Text, txtCP.Text, txtMail.Text, txtTelefono.Text, cargado.habilitado);
+                Cliente cli = new Cliente(cargado.id, txtNombre.Text, txtApellido.Text, long.Parse(txtDNI.Text), datePickerFNAC.Value, txtDireccion.Text, txtCP.Text, txtMail.Text, txtTelefono.Text, cargado.habilitado);
                     int ex = ClienteDAO.modificarCliente(cli, dni_viejo, mail_viejo);
                     errorProvider.SetError(datePickerFNAC, null);
                     switch (ex)
@@ -227,7 +227,7 @@ namespace PagoAgilFrba.AbmCliente
             }
             if (txtDNI.Text != "")
             {
-                if (!ClienteDAO.validar_dni(int.Parse(txtDNI.Text.Trim().ToUpper())) && dni_viejo != int.Parse(txtDNI.Text.Trim().ToUpper()))
+                if (!ClienteDAO.validar_dni(long.Parse(txtDNI.Text.Trim().ToUpper())) && dni_viejo != long.Parse(txtDNI.Text.Trim().ToUpper()))
                 {
                     MessageBox.Show("El DNI ingresado ya existe", "Error DNI existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     errorProvider.SetError(txtDNI, "DNI existente");
