@@ -77,6 +77,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.cmdCerrar = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabAlta.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -293,6 +294,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.dataGridEmpresas);
             this.panel1.Controls.Add(this.dataGridCliente);
             this.panel1.Controls.Add(this.lblEmpresa);
@@ -655,6 +657,15 @@
             this.cmdCerrar.UseVisualStyleBackColor = false;
             this.cmdCerrar.Click += new System.EventHandler(this.cmdCerrar_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(539, 8);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(222, 13);
+            this.label5.TabIndex = 32;
+            this.label5.Text = "*Se muestran sólo clientes habilitados";
+            // 
             // ABMFacturaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -739,5 +750,6 @@
         private System.Windows.Forms.Label lblFacturas;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button cmdCerrar;
+        private System.Windows.Forms.Label label5;
     }
 }

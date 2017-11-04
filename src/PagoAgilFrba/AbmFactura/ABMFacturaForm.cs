@@ -515,11 +515,21 @@ namespace PagoAgilFrba.AbmFactura
         private void btnModificarFactura_Click(object sender, EventArgs e)
         {
             loadFacturaSeleccionada();
-            if (facturaSelectedBM != null)
+
+            if (facturaSelectedBM == null)
             {
-                ModificarFacturas form = new ModificarFacturas(facturaSelectedBM, this);
-                form.Show();
+                return;
             }
+
+            if (facturaSelectedBM.cliente == null)
+            {
+                MessageBox.Show("Se produjo un error al buscar el cliente dueño de la factura Nº" + facturaSelectedBM.id, "PagoAgilFrba | ABM Factura", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            ModificarFacturas form = new ModificarFacturas(facturaSelectedBM, this);
+            form.Show();
+
         }
 
         private void btnModificarItem_Click(object sender, EventArgs e)

@@ -144,23 +144,29 @@ namespace PagoAgilFrba.AbmCliente
             {
                 errorProvider.SetError(datePickerFNAC, null);
             }
-            if (!ClienteDAO.validar_dni(int.Parse(txtDNI.Text.Trim().ToUpper())))
+            if(txtDNI.Text != "")
             {
-                MessageBox.Show("El DNI ingresado ya existe", "Error DNI existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                errorProvider.SetError(txtDNI, "DNI existente");
+                if (!ClienteDAO.validar_dni(int.Parse(txtDNI.Text.Trim().ToUpper())))
+                {
+                    MessageBox.Show("El DNI ingresado ya existe", "Error DNI existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    errorProvider.SetError(txtDNI, "DNI existente");
+                }
+                else
+                {
+                    errorProvider.SetError(txtDNI, null);
+                }
             }
-            else
+            if (txtDNI.Text != "")
             {
-                errorProvider.SetError(txtDNI, null);
-            }
-            if (!ClienteDAO.validar_mail(txtMail.Text.Trim()))
-            {
-                 MessageBox.Show("El mail ingresado ya existe", "Error mail existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                errorProvider.SetError(txtMail, "Mail existente");
-            }
-            else
-            {
-                errorProvider.SetError(txtMail, null);
+                if (!ClienteDAO.validar_mail(txtMail.Text.Trim()))
+                {
+                    MessageBox.Show("El mail ingresado ya existe", "Error mail existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    errorProvider.SetError(txtMail, "Mail existente");
+                }
+                else
+                {
+                    errorProvider.SetError(txtMail, null);
+                }
             }
         }
 

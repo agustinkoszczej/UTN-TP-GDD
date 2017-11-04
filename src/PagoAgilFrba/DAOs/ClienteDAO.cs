@@ -231,7 +231,7 @@ namespace PagoAgilFrba.DAOs
         public static Cliente obtener_cliente_con_ID(int id_cliente)
         {
             List<Empresa> empresas = new List<Empresa>();
-            string query = string.Format(@"SELECT Cliente_codigo, Cliente_nombre, Cliente_apellido, Cliente_dni, Cliente_fecha_nac, Cliente_mail, Cliente_direccion, Cliente_codigo_postal, Cliente_telefono FROM LORDS_OF_THE_STRINGS_V2.Cliente WHERE Cliente_habilitado = 1 AND Cliente_codigo = @idCliente");
+            string query = string.Format(@"SELECT Cliente_codigo, Cliente_nombre, Cliente_apellido, Cliente_dni, Cliente_fecha_nac, Cliente_mail, Cliente_direccion, Cliente_codigo_postal, Cliente_telefono, Cliente_habilitado FROM LORDS_OF_THE_STRINGS_V2.Cliente WHERE Cliente_codigo = @idCliente");
             SqlConnection conn = DBConnection.getConnection();
             SqlCommand command = new SqlCommand(query, conn);
 
@@ -244,17 +244,27 @@ namespace PagoAgilFrba.DAOs
             try
             {
                 reader.Read();
+                int idCli = int.Parse(reader.GetValue(0).ToString());
+                string nombreCli = reader.GetValue(1).ToString();
+                string apellCli = reader.GetValue(2).ToString();
+                uint dniCli = uint.Parse(reader.GetValue(3).ToString());
+                DateTime fnacCli = DateTime.Parse(reader.GetValue(4).ToString());
+                string direcCli = reader.GetValue(6).ToString();
+                string cpCli = reader.GetValue(7).ToString();
+                string mailCli = reader.GetValue(5).ToString();
+                string telCli = reader.GetValue(8).ToString();
+                bool habilCli = bool.Parse(reader.GetValue(9).ToString());
                 cli = new Cliente(
-                    int.Parse(reader.GetValue(0).ToString()),                   //id
-                    reader.GetValue(1).ToString(),                              //nombre
-                    reader.GetValue(2).ToString(),                              //apellido
-                    uint.Parse(reader.GetValue(3).ToString()),                  //dni
-                    DateTime.Parse(reader.GetValue(4).ToString()),              //fnac
-                    reader.GetValue(6).ToString(),                              //direccion
-                    reader.GetValue(7).ToString(),                              //cp
-                    reader.GetValue(5).ToString(),                              //mail
-                    reader.GetValue(8).ToString(),                              //tel
-                    true);
+                    idCli,                                                      //id
+                    nombreCli,                                                  //nombre
+                    apellCli,                                                   //apellido
+                    dniCli,                                                     //dni
+                    fnacCli,                                                    //fnac
+                    direcCli,                                                   //direccion
+                    cpCli,                                                      //cp
+                    mailCli,                                                    //mail
+                    telCli,                                                     //tel
+                    habilCli);                                                  //habilitado
             }
             catch (Exception)
             {
