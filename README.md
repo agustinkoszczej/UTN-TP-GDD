@@ -40,10 +40,10 @@ de dicha situación.
   * ~~Fecha: 05/10/2017~~
 
 * Entrega del Sistemas Completo
-  * Fecha: 05/11/2017
-    * Fecha de primer recuperatorio: ?
+  * ~~Fecha: 05/11/2017~~
+    * ~~Fecha de primer recuperatorio: ?~~
     
-    * Fecha de segundo recuperatorio: 07/12/2017
+    * ~~Fecha de segundo recuperatorio: 07/12/2017~~
 
   
 ## **Github:**
