@@ -29,7 +29,7 @@ siguientes campos:
 * Apellido (texto libre)
 * DNI (texto libre exacto)
 
-## Algunas imagenes
+## Algunas imágenes
 
 ### Menú Principal
 ![GitHub AbmCliente](/images/AbmCliente/AbmCliente.png)
