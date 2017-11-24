@@ -29,7 +29,7 @@ siguientes campos:
 * Cuit
 * Rubro (selección acotada)
 
-## Algunas imagenes
+## Algunas imágenes
 
 ### Menú Principal
 ![GitHub AbmEmpresa](/images/AbmEmpresa/AbmEmpresa.png)
