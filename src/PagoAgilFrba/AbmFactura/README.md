@@ -17,7 +17,7 @@ facturas y sus items:
 Todo los datos mencionados anteriormente son obligatorios. Las facturas no se
 podrán dar de baja ni modificarlas si estas fueron pagadas, y/o rendidas.
 
-## Algunas imagenes
+## Algunas imágenes
 
 ### Menú Principal / Alta
 ![GitHub AbmFactura](/images/AbmFactura/AbmFactura.png)
