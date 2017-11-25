@@ -44,8 +44,8 @@ dicha solución.
 Por cuestiones de practicidad a la hora de probar el TP, se recomienda que el
 username y el password sean iguales, a excepción del admin.
 
-# Usuarios
-| Usuario | Contraseña | Rol | Sucursales |
+## Usuarios
+| Usuario | Contraseña | Roles | Sucursales |
 | -------- | -------- | -------- | -------- | 
 | admin | w23e | Administrador | Cualquiera que se ingrese (trigger), excepto deshabilitadas |
 | cobrador | 12345 | Cobrador | Sucursal N°2000 |
