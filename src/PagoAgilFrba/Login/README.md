@@ -44,10 +44,23 @@ dicha solución.
 Por cuestiones de practicidad a la hora de probar el TP, se recomienda que el
 username y el password sean iguales, a excepción del admin.
 
+# Usuarios
+| Usuario | Contraseña | Rol | Sucursales |
+| -------- | -------- | -------- | -------- | 
+| admin | w23e | Administrador | Cualquiera que se ingrese (trigger), excepto deshabilitadas |
+| cobrador | 12345 | Cobrador | Sucursal N°2000 |
+| admin_y_cobrador | 12345 | Administrador y Cobrador | Sucursal N°2000 |
+
 ## Algunas imágenes
 
 ### Login
 ![GitHub Login](/images/Login/Login.png)
+
+### Selección de Rol
+![GitHub SeleccionRol](/images/Login/SeleccionRol.png)
+
+### Selección de Sucursal
+![GitHub SeleccionSucursal](/images/Login/SeleccionSucursal.png)
 
 ### Menú Principal
 ![GitHub MenuPrincipal](/images/Login/MenuPrincipal.png)
